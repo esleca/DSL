@@ -1,0 +1,36 @@
+[
+    {
+        "function": "sumar",
+		"testName": "test1",
+        "parameters": [
+            {
+                "name": "num1",
+                "type": "int",
+                "value": 2
+            },
+            {
+                "name": "num2",
+                "type": "int",
+                "value": 5
+            }
+        ],
+        "expected": "7"
+    },
+    {
+        "function": "sumar2",
+		"testName": "test2",
+        "parameters": [
+            {
+                "name": "num1",
+                "type": "int",
+                "value": -5
+            },
+            {
+                "name": "num2",
+                "type": "int",
+                "value": 7
+            }
+        ],
+        "expected": "2"
+    }
+]

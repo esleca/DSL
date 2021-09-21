@@ -1,0 +1,9 @@
+[
+    {
+        "inputDirectory": "C:\\TestMapper\\JAVA\\Input",
+        "outputDirectory": "C:\\TestMapper\\JAVA\\Output",
+        "sourceLanguage": "JAVA",
+        "validateMap": false,
+        "semantic": false
+    }
+]
