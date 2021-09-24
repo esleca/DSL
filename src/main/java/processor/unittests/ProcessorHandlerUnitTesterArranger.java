@@ -1,12 +1,13 @@
-package processor;
+package processor.unittests;
 
 import factories.UnitTestFactory;
 import models.entities.parameters.ParameterScenario;
 import models.entities.unittests.*;
+import processor.unittests.IProcessorHandlerUnitTesterArranger;
 
 import java.util.ArrayList;
 
-public class ProcessorHandlerUnitTesterArranger implements IProcessorHandlerUnitTesterArranger{
+public class ProcessorHandlerUnitTesterArranger implements IProcessorHandlerUnitTesterArranger {
 
     private UnitTestFactory unitTestFactory;
 

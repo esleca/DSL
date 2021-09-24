@@ -1,4 +1,4 @@
-package gastgateway;
+package processor.gastgateway.visitors;
 
 import factories.AggregatesFactory;
 import factories.ModifiersFactory;

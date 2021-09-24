@@ -1,4 +1,4 @@
-package processor;
+package processor.gastgateway;
 
 import ASTMCore.ASTMSource.CompilationUnit;
 import gastmappers.exceptions.UnsupportedLanguageException;

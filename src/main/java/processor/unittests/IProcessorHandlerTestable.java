@@ -1,4 +1,4 @@
-package processor;
+package processor.unittests;
 
 import models.entities.aggregates.Function;
 import models.entities.unittests.TestableUnit;

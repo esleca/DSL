@@ -1,7 +1,6 @@
-package gastgateway.visitors;
+package processor.gastgateway.visitors;
 
 import ASTMCore.visitor.GASTVisitor;
-import gastgateway.IFrameDSL;
 
 public abstract class VisitorBase implements GASTVisitor {
 

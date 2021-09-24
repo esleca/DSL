@@ -1,10 +1,11 @@
-package processor;
+package processor.unittests;
 
 import factories.UnitTestFactory;
 import models.entities.unittests.*;
+
 import java.util.ArrayList;
 
-public class ProcessorHandlerUnitTester implements IProcessorHandlerUnitTester{
+public class ProcessorHandlerUnitTester implements IProcessorHandlerUnitTester {
 
     private UnitTestFactory unitTestFactory;
     private IProcessorHandlerUnitTesterArranger handlerArranger;

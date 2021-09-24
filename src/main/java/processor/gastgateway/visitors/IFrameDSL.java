@@ -1,4 +1,4 @@
-package gastgateway;
+package processor.gastgateway.visitors;
 
 import models.entities.aggregates.Function;
 

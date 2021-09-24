@@ -1,4 +1,4 @@
-package processor;
+package processor.testscenarios;
 
 import factories.ExpectedResultsFactory;
 import factories.ParametersFactory;

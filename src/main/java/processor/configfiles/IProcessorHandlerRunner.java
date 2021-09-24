@@ -1,4 +1,4 @@
-package processor;
+package processor.configfiles;
 
 import gastmappers.exceptions.UnsupportedLanguageException;
 import testrun.config.ConfigurationTestRun;

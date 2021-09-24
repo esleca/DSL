@@ -1,4 +1,4 @@
-package gastgateway.visitors;
+package processor.gastgateway.visitors;
 
 import ASTMCore.ASTMSemantics.AggregateScope;
 import ASTMCore.ASTMSemantics.ProgramScope;
@@ -7,8 +7,6 @@ import ASTMCore.ASTMSyntax.DeclarationAndDefinition.*;
 import ASTMCore.ASTMSyntax.Expression.*;
 import ASTMCore.ASTMSyntax.Statement.*;
 import ASTMCore.ASTMSyntax.Types.*;
-
-import gastgateway.FrameDSL;
 
 import java.util.List;
 import java.util.ArrayList;

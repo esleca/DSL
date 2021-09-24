@@ -1,4 +1,4 @@
-package processor;
+package processor.gastgateway;
 
 public interface IProcessorHandlerWritable {
 

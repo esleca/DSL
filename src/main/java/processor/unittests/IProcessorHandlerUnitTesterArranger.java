@@ -1,4 +1,4 @@
-package processor;
+package processor.unittests;
 
 import models.entities.unittests.Arrange;
 import models.entities.unittests.TestScenario;

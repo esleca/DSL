@@ -1,4 +1,4 @@
-package processor;
+package processor.testscenarios;
 
 import models.entities.unittests.TestScenario;
 import models.entities.unittests.TestableUnit;

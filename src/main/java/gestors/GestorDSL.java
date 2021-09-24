@@ -5,10 +5,19 @@ import gastmappers.Mapper;
 import gastmappers.MapperFactory;
 import gastmappers.exceptions.UnsupportedLanguageException;
 
-import gastgateway.visitors.VisitorBase;
-import gastgateway.visitors.VisitorDSL;
+import processor.configfiles.IProcessorHandlerRunner;
+import processor.configfiles.ProcessorHandlerRunner;
+import processor.gastgateway.visitors.VisitorBase;
+import processor.gastgateway.visitors.VisitorDSL;
+import processor.gastgateway.IProcessorHandlerReadable;
+import processor.gastgateway.ProcessorHandlerReadable;
+import processor.testscenarios.IProcessorHandlerTestScenario;
+import processor.testscenarios.ProcessorHandlerTestScenario;
+import processor.unittests.IProcessorHandlerTestable;
+import processor.unittests.IProcessorHandlerUnitTester;
+import processor.unittests.ProcessorHandlerTestable;
+import processor.unittests.ProcessorHandlerUnitTester;
 import utils.*;
-import processor.*;
 import testrun.config.ConfigurationTestRun;
 
 import java.awt.*;

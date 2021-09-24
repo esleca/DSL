@@ -1,4 +1,4 @@
-package processor;
+package processor.configfiles;
 
 import gastmappers.Language;
 import gastmappers.exceptions.UnsupportedLanguageException;
