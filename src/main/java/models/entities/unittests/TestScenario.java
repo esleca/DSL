@@ -6,17 +6,26 @@ import java.util.ArrayList;
 
 public class TestScenario {
 
+    private String testName;
     private TestableUnit testableUnit;
     private ArrayList<ParameterScenario> parameters;
     private ExpectedResult expectedResult;
-
     private UnitTest testUnit;
 
 
-    public TestScenario(TestableUnit testableUnit, ArrayList<ParameterScenario> parameters, ExpectedResult expectedResult) {
+    public TestScenario(String testName, TestableUnit testableUnit, ArrayList<ParameterScenario> parameters, ExpectedResult expectedResult) {
+        this.testName = testName;
         this.testableUnit = testableUnit;
         this.parameters = parameters;
         this.expectedResult = expectedResult;
+    }
+
+    public String getTestName() {
+        return testName;
+    }
+
+    public void setTestName(String testName) {
+        this.testName = testName;
     }
 
     public TestableUnit getTestableUnit() {

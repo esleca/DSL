@@ -25,10 +25,15 @@ import java.util.ArrayList;
 public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenario {
 
     /**
+     * Receive the path where the test scenarios are stored
+     * Return the objects representation of the test scenarios
+     * TODO: web UI should send complete json scenarios instead
+     * TODO: of the handler reading the file from disk.
      *
      * @param scenariosPath
      * @return
      */
+    @Override
     public ArrayList<TestScenarioRun> readTestScenariosRun(String scenariosPath){
         ArrayList<TestScenarioRun> testScenarios = new ArrayList<>();
         JSONParser jsonParser = new JSONParser();
@@ -52,7 +57,6 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
 
 
     /**
-     *
      * Create an instance of the TestScenarioRun object being loaded from file
      *
      * @param configurationObject
@@ -64,7 +68,7 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
         String function = (String) configurationObject.get("function");
 
         // Test name
-        String test = (String) configurationObject.get("testName");
+        String testName = (String) configurationObject.get("testName");
 
         // Function Parameters
         ArrayList<ParameterScenario> parameterScenarios = new ArrayList<>();
@@ -92,17 +96,20 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
         // Expected result
         String expected = (String) configurationObject.get("expected");
 
-        return new TestScenarioRun(function, test, parameterScenarios, expected);
+        return new TestScenarioRun(function, testName, parameterScenarios, expected);
     }
 
 
     /**
-     *
+     * Receive two lists, test scenarios and testable units
+     * Process the parameters lists and return a list of
+     * Test scenarios.
      *
      * @param testScenarioRuns
      * @param testableUnits
-     * @return
+     * @return Test scenarios list
      */
+    @Override
     public ArrayList<TestScenario> getTestScenarios(ArrayList<TestScenarioRun> testScenarioRuns,
                                                     ArrayList<TestableUnit> testableUnits){
         ArrayList<TestScenario> testScenarios = new ArrayList<>();
@@ -111,6 +118,8 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
         ExpectedResultsFactory expectedResultsFactory = new ExpectedResultsFactory();
 
         for (TestScenarioRun testScenarioRun : testScenarioRuns){
+            // test name
+            String testName = testScenarioRun.getTestName();
 
             // testable unit
             TestableUnit testableUnit = getTestableUnit(testScenarioRun.getFunction(), testableUnits);
@@ -123,7 +132,7 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
                 ExpectedResult expectedResult = expectedResultsFactory.createExpectedResult(valueType);
 
                 // test scenario
-                TestScenario testScenario = testsFactory.createTestScenario(testableUnit, testScenarioRun.getParameters(), expectedResult);
+                TestScenario testScenario = testsFactory.createTestScenario(testName, testableUnit, testScenarioRun.getParameters(), expectedResult);
                 testScenarios.add(testScenario);
             }
         }
@@ -132,13 +141,14 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
     }
 
     /**
+     * Receive a function name with the testable units and
+     * search for the testable unit in the list
      *
      * @param functionName
      * @param testableUnits
-     * @return
+     * @return a testable unit
      */
     private TestableUnit getTestableUnit(String functionName, ArrayList<TestableUnit> testableUnits) {
-
         for (TestableUnit testableUnit : testableUnits) {
             if (testableUnit.getFunction().getName().equals((functionName))){
                 return testableUnit;

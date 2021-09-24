@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class UnitTestFactory {
 
-
     public Declaration createArrangeStatementDeclaration(String type, String name){
         Declaration declaration = new Declaration(type, name);
         return declaration;

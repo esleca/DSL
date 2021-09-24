@@ -25,6 +25,7 @@ public class FrameDSL implements IFrameDSL {
     private AggregatesFactory aggregatesFactory;
 
     public FrameDSL(){
+
         parameter = new ParameterFunction();
         functions = new ArrayList<>();
         modifiersFactory = new ModifiersFactory();

@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package testrun;
 
 import gastmappers.exceptions.UnsupportedLanguageException;
 import gestors.GestorDSL;
+import gestors.IGestorDSL;
 import org.json.simple.parser.ParseException;
 
 import java.awt.*;
@@ -14,29 +10,29 @@ import java.io.IOException;
 
 public class Main {
 
-    private final static GestorDSL gestor = new GestorDSL();
+    private final static IGestorDSL dsl = new GestorDSL();
 
     public static void main(String[] args) throws HeadlessException, IllegalArgumentException, SecurityException, IOException, UnsupportedLanguageException, ParseException {
         // read source code files
-        gestor.readConfigurationFile();
+        dsl.readConfigurationFile();
 
         // transform files to GAST
-        gestor.beginTransformation();
+        dsl.beginTransformation();
 
         // Visit GAST functions
-        gestor.processGastFunctions();
+        dsl.processGastFunctions();
 
         // Create testable units
-        gestor.processTestableUnits();
+        dsl.processTestableUnits();
 
         // Read user test scenarios
-        gestor.readTestScenarios();
+        dsl.readTestScenarios();
 
         // Create functions unit tests
-        gestor.processUnitTests();
+        dsl.processUnitTests();
 
         // Write unit tests to GAST
-        gestor.writeGastUnitTests();
+        dsl.writeGastUnitTests();
     }
 
 }

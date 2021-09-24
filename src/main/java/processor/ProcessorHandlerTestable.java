@@ -34,18 +34,17 @@ public class ProcessorHandlerTestable implements IProcessorHandlerTestable {
      * @param functions
      * @return
      */
+    @Override
     public ArrayList<TestableUnit> getTestableUnits(ArrayList<Function> functions){
         ArrayList<TestableUnit> testableUnits = new ArrayList<>();
         TestableFactory factory = new TestableFactory();
 
         for (Function function: functions){
-
             if (isTestableUnit(function)){
                 TestableUnit testableUnit = factory.createTestableUnit(function);
                 testableUnits.add(testableUnit);
             }
         }
-
         return testableUnits;
     }
 
@@ -56,7 +55,6 @@ public class ProcessorHandlerTestable implements IProcessorHandlerTestable {
      * @return
      */
     private boolean isTestableUnit(Function function){
-
         if (function != null){
             String modifier = function.getModifier().getName();
             if (modifiers.contains(modifier)){

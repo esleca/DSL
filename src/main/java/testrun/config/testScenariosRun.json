@@ -6,7 +6,7 @@
             {
                 "name": "num1",
                 "type": "int",
-                "value": 2
+                "value": 3
             },
             {
                 "name": "num2",
@@ -14,7 +14,7 @@
                 "value": 5
             }
         ],
-        "expected": "7"
+        "expected": "8"
     },
     {
         "function": "sumar2",

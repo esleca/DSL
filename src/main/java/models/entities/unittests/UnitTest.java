@@ -4,7 +4,6 @@ public class UnitTest {
 
     private TestScenario testScenario;
 
-    private String name; // TODO
     private Arrange arrange;
     private Act act;
     private Assert assertion;

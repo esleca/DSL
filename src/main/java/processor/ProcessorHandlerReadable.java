@@ -7,7 +7,6 @@ import gastmappers.Mapper;
 import gastmappers.exceptions.UnsupportedLanguageException;
 import org.apache.commons.io.FilenameUtils;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import static gastmappers.misc.Misc.writeInFile;
 
 
-public class ProcessorHandlerInMemory implements IProcessorHandlerInMemory {
+public class ProcessorHandlerReadable implements IProcessorHandlerReadable {
 
     private final String inputPath;
     private final String translationFilePath;
@@ -27,17 +26,15 @@ public class ProcessorHandlerInMemory implements IProcessorHandlerInMemory {
 
 
     /**
-     * Builder method with all of the instance variables.
+     * Builder method with all the instance variables.
      *
      * @param inputPath  Input directory to take the files to transform.
      * @param outputPath Output directory to store the JSON representation of the GAST.
      * @param language   The language to be mapped.
      * @param mapper     The corresponding mapper for the language.
      * @param validate   True if is necessary to validate the map process (run the Validator).
-     * @throws IOException Error manipulating a file.
      */
-    public ProcessorHandlerInMemory(String inputPath, String outputPath, Language language, Mapper mapper, boolean validate, boolean semantic)
-            throws IOException {
+    public ProcessorHandlerReadable(String inputPath, String outputPath, Language language, Mapper mapper, boolean validate) {
         this.inputPath = inputPath;
         this.translationFilePath = outputPath + "\\result.json";
         this.differencesFilePath = outputPath + "\\summaryDifferences.txt";
@@ -61,9 +58,8 @@ public class ProcessorHandlerInMemory implements IProcessorHandlerInMemory {
      * @see gastmappers.MapperFactory
      * @see Mapper
      */
-    public ArrayList<CompilationUnit> processFilesInDir(boolean writeInDisk)
-            throws IOException, IllegalArgumentException, SecurityException, UnsupportedLanguageException {
-
+    @Override
+    public ArrayList<CompilationUnit> processFilesInDir(boolean writeInDisk) throws IOException, UnsupportedLanguageException {
         ArrayList<CompilationUnit> compilationUnits = new ArrayList<>();
         File dirs = new File(this.inputPath);
         File root = new File(dirs.getCanonicalPath() + File.separator);
@@ -77,15 +73,12 @@ public class ProcessorHandlerInMemory implements IProcessorHandlerInMemory {
                     if (FilenameUtils.getExtension(filePath).equals(Language.getFileExtension(this.language))) {
 
                         compilationUnits = mapper.getGastCompilationUnit(filePath);
-
                         for (CompilationUnit compilationUnit : compilationUnits) {
-
                             Gson gson = new Gson();
                             String jsonRepresentation = gson.toJson(compilationUnit);
                             jsonRepresentation = jsonRepresentation.replaceAll("null", "");
                             parsedFileList.add(jsonRepresentation);
                         }
-
                     }
                 } else if (f.isDirectory()) {
                     processFilesInDir(writeInDisk);
@@ -106,9 +99,8 @@ public class ProcessorHandlerInMemory implements IProcessorHandlerInMemory {
      * representations into a String, to be written in a file.
      *
      * @throws IOException       Error manipulating a file.
-     * @throws HeadlessException Errors on graphic ambient.
      */
-    protected void WriteTranslation() throws IOException, HeadlessException {
+    protected void WriteTranslation() throws IOException {
         String translation = parsedFileList.toString();
         writeInFile(translation, this.translationFilePath, false);
     }

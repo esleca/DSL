@@ -18,8 +18,8 @@ public class TestableFactory {
      * @param expectedResult
      * @return
      */
-    public TestScenario createTestScenario(TestableUnit testableUnit, ArrayList<ParameterScenario> parameters, ExpectedResult expectedResult){
-        TestScenario testScenario = new TestScenario(testableUnit, parameters, expectedResult);
+    public TestScenario createTestScenario(String testName, TestableUnit testableUnit, ArrayList<ParameterScenario> parameters, ExpectedResult expectedResult){
+        TestScenario testScenario = new TestScenario(testName, testableUnit, parameters, expectedResult);
         return testScenario;
     }
 

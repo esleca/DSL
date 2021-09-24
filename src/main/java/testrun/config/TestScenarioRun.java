@@ -18,14 +18,18 @@ public class TestScenarioRun {
     }
 
     public String getFunction() {
-        return function;
+        return this.function;
+    }
+
+    public String getTestName(){
+        return this.name;
     }
 
     public ArrayList<ParameterScenario> getParameters() {
-        return parameters;
+        return this.parameters;
     }
 
     public String getExpected() {
-        return expected;
+        return this.expected;
     }
 }
