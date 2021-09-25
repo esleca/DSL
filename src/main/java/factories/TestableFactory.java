@@ -5,6 +5,7 @@ import models.entities.parameters.ParameterScenario;
 import models.entities.unittests.ExpectedResult;
 import models.entities.unittests.TestScenario;
 import models.entities.unittests.TestableUnit;
+import models.entities.unittests.asserts.AssertType;
 
 import java.util.ArrayList;
 
@@ -18,8 +19,8 @@ public class TestableFactory {
      * @param expectedResult
      * @return
      */
-    public TestScenario createTestScenario(String testName, TestableUnit testableUnit, ArrayList<ParameterScenario> parameters, ExpectedResult expectedResult){
-        TestScenario testScenario = new TestScenario(testName, testableUnit, parameters, expectedResult);
+    public TestScenario createTestScenario(String testName, TestableUnit testableUnit, ArrayList<ParameterScenario> parameters, ExpectedResult expectedResult, AssertType assertion){
+        TestScenario testScenario = new TestScenario(testName, testableUnit, parameters, expectedResult, assertion);
         return testScenario;
     }
 

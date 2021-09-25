@@ -9,12 +9,14 @@ public class TestScenarioRun {
     private final String name;
     private final ArrayList<ParameterScenario> parameters;
     private final String expected;
+    private final String assertion;
 
-    public TestScenarioRun(String function, String name, ArrayList<ParameterScenario> parameters, String expected) {
+    public TestScenarioRun(String function, String name, ArrayList<ParameterScenario> parameters, String expected, String assertion) {
         this.function = function;
         this.name = name;
         this.parameters = parameters;
         this.expected = expected;
+        this.assertion = assertion;
     }
 
     public String getFunction() {
@@ -31,5 +33,9 @@ public class TestScenarioRun {
 
     public String getExpected() {
         return this.expected;
+    }
+
+    public String getAssertion() {
+        return this.assertion;
     }
 }

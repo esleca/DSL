@@ -2,6 +2,9 @@ package processor.unittests;
 
 import factories.UnitTestFactory;
 import models.entities.unittests.*;
+import models.entities.unittests.acts.Act;
+import models.entities.unittests.arranges.Arrange;
+import models.entities.unittests.asserts.Assert;
 
 import java.util.ArrayList;
 

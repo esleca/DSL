@@ -3,7 +3,10 @@ package processor.unittests;
 import factories.UnitTestFactory;
 import models.entities.parameters.ParameterScenario;
 import models.entities.unittests.*;
-import processor.unittests.IProcessorHandlerUnitTesterArranger;
+import models.entities.unittests.arranges.Arrange;
+import models.entities.unittests.arranges.ArrangeStatement;
+import models.entities.unittests.arranges.Declaration;
+import models.entities.unittests.arranges.Definition;
 
 import java.util.ArrayList;
 

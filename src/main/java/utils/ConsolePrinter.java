@@ -1,7 +1,7 @@
 package utils;
 
 import models.entities.aggregates.Function;
-import models.entities.unittests.ArrangeStatement;
+import models.entities.unittests.arranges.ArrangeStatement;
 import models.entities.unittests.UnitTest;
 
 import java.util.ArrayList;

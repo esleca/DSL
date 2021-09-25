@@ -1,6 +1,7 @@
 package models.entities.unittests;
 
 import models.entities.parameters.ParameterScenario;
+import models.entities.unittests.asserts.AssertType;
 
 import java.util.ArrayList;
 
@@ -10,14 +11,16 @@ public class TestScenario {
     private TestableUnit testableUnit;
     private ArrayList<ParameterScenario> parameters;
     private ExpectedResult expectedResult;
+    private AssertType assertion;
     private UnitTest testUnit;
 
 
-    public TestScenario(String testName, TestableUnit testableUnit, ArrayList<ParameterScenario> parameters, ExpectedResult expectedResult) {
+    public TestScenario(String testName, TestableUnit testableUnit, ArrayList<ParameterScenario> parameters, ExpectedResult expectedResult, AssertType assertion) {
         this.testName = testName;
         this.testableUnit = testableUnit;
         this.parameters = parameters;
         this.expectedResult = expectedResult;
+        this.assertion = assertion;
     }
 
     public String getTestName() {
@@ -50,6 +53,14 @@ public class TestScenario {
 
     public void setExpectedResult(ExpectedResult expectedResult) {
         this.expectedResult = expectedResult;
+    }
+
+    public AssertType getAssertion() {
+        return assertion;
+    }
+
+    public void setAssertion(AssertType assertion) {
+        this.assertion = assertion;
     }
 
     public UnitTest getTestUnit() {

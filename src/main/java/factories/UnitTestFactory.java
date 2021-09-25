@@ -1,6 +1,12 @@
 package factories;
 
 import models.entities.unittests.*;
+import models.entities.unittests.acts.Act;
+import models.entities.unittests.arranges.Arrange;
+import models.entities.unittests.arranges.ArrangeStatement;
+import models.entities.unittests.arranges.Declaration;
+import models.entities.unittests.arranges.Definition;
+import models.entities.unittests.asserts.Assert;
 import models.entities.valuetypes.ValueType;
 
 import java.util.ArrayList;

@@ -14,7 +14,8 @@
                 "value": 5
             }
         ],
-        "expected": "8"
+        "expected": "8",
+        "assert": "areEqual"
     },
     {
         "function": "sumar2",
@@ -31,6 +32,7 @@
                 "value": 7
             }
         ],
-        "expected": "2"
+        "expected": "2",
+        "assert": "areEqual"
     }
 ]

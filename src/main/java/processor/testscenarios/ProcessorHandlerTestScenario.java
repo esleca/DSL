@@ -1,14 +1,12 @@
 package processor.testscenarios;
 
-import factories.ExpectedResultsFactory;
-import factories.ParametersFactory;
-import factories.TestableFactory;
-import factories.ValueTypeFactory;
+import factories.*;
 import models.entities.parameters.ParameterFunction;
 import models.entities.parameters.ParameterScenario;
 import models.entities.unittests.ExpectedResult;
 import models.entities.unittests.TestScenario;
 import models.entities.unittests.TestableUnit;
+import models.entities.unittests.asserts.AssertType;
 import models.entities.valuetypes.ValueType;
 import testrun.config.TestScenarioRun;
 
@@ -96,7 +94,10 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
         // Expected result
         String expected = (String) configurationObject.get("expected");
 
-        return new TestScenarioRun(function, testName, parameterScenarios, expected);
+        // Assert
+        String assertion = (String) configurationObject.get("assert");
+
+        return new TestScenarioRun(function, testName, parameterScenarios, expected, assertion);
     }
 
 
@@ -116,6 +117,7 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
         TestableFactory testsFactory = new TestableFactory();
         ValueTypeFactory valueTypeFactory = new ValueTypeFactory();
         ExpectedResultsFactory expectedResultsFactory = new ExpectedResultsFactory();
+        AssertsFactory assertsFactory = new AssertsFactory();
 
         for (TestScenarioRun testScenarioRun : testScenarioRuns){
             // test name
@@ -131,8 +133,11 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
                 // expected result
                 ExpectedResult expectedResult = expectedResultsFactory.createExpectedResult(valueType);
 
+                // Assert
+                AssertType assertion = assertsFactory.createAssert(testScenarioRun.getAssertion());
+
                 // test scenario
-                TestScenario testScenario = testsFactory.createTestScenario(testName, testableUnit, testScenarioRun.getParameters(), expectedResult);
+                TestScenario testScenario = testsFactory.createTestScenario(testName, testableUnit, testScenarioRun.getParameters(), expectedResult, assertion);
                 testScenarios.add(testScenario);
             }
         }

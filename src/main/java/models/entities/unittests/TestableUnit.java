@@ -1,8 +1,9 @@
 package models.entities.unittests;
 
+import models.DSLMObject;
 import models.entities.aggregates.Function;
 
-public class TestableUnit {
+public class TestableUnit extends DSLMObject {
 
     private Function function;
 

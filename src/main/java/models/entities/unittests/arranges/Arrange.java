@@ -1,4 +1,4 @@
-package models.entities.unittests;
+package models.entities.unittests.arranges;
 
 import java.util.ArrayList;
 
@@ -12,10 +12,6 @@ public class Arrange {
 
     public ArrayList<ArrangeStatement> getArrangeStatements() {
         return arrangeStatements;
-    }
-
-    public void setArrangeStatements(ArrayList<ArrangeStatement> arrangeStatements) {
-        this.arrangeStatements = arrangeStatements;
     }
 
 }
