@@ -16,8 +16,8 @@ public class GestorModel {
     private final String configurationPath;
     private final String testScenariosPath;
 
-    private ArrayList<ConfigurationTestRun> configurationsRun;
-    private ArrayList<TestScenarioRun> testScenariosRun;
+    private ArrayList<ConfigurationTestRun> configurationsRunFiles;
+    private ArrayList<TestScenarioRun> testScenariosRunFiles;
     private ArrayList<CompilationUnit> compilationUnits;
     private ArrayList<Function> compilationUnitFunctions;
     private ArrayList<TestableUnit> testableUnits;
@@ -26,8 +26,8 @@ public class GestorModel {
 
     public GestorModel(){
         writeToDisk = true;
-        configurationsRun = new ArrayList<>();
-        testScenariosRun = new ArrayList<>();
+        configurationsRunFiles = new ArrayList<>();
+        testScenariosRunFiles = new ArrayList<>();
         compilationUnits = new ArrayList<>();
         compilationUnitFunctions = new ArrayList<>();
         testableUnits = new ArrayList<>();
@@ -48,20 +48,20 @@ public class GestorModel {
         return testScenariosPath;
     }
 
-    public ArrayList<ConfigurationTestRun> getConfigurationsRun() {
-        return configurationsRun;
+    public ArrayList<ConfigurationTestRun> getConfigurationsRunFiles() {
+        return configurationsRunFiles;
     }
 
-    public void setConfigurationsRun(ArrayList<ConfigurationTestRun> configurationsRun){
-        this.configurationsRun = configurationsRun;
+    public void setConfigurationsRunFiles(ArrayList<ConfigurationTestRun> configurationsRunFiles){
+        this.configurationsRunFiles = configurationsRunFiles;
     }
 
-    public ArrayList<TestScenarioRun> getTestScenariosRun() {
-        return testScenariosRun;
+    public ArrayList<TestScenarioRun> getTestScenariosRunFiles() {
+        return testScenariosRunFiles;
     }
 
-    public void setTestScenariosRun(ArrayList<TestScenarioRun> testScenariosRun) {
-        this.testScenariosRun = testScenariosRun;
+    public void setTestScenariosRunFiles(ArrayList<TestScenarioRun> testScenariosRunFiles) {
+        this.testScenariosRunFiles = testScenariosRunFiles;
     }
 
     public ArrayList<CompilationUnit> getCompilationUnits() {

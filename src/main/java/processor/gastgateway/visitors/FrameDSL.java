@@ -1,5 +1,7 @@
 package processor.gastgateway.visitors;
 
+import exceptions.ModifierNotFoundException;
+import exceptions.ReturnNotFoundException;
 import factories.AggregatesFactory;
 import factories.ModifiersFactory;
 import factories.ParametersFactory;
@@ -72,7 +74,7 @@ public class FrameDSL implements IFrameDSL {
     }
 
     @Override
-    public void writeFunctionModifier(String name) {
+    public void writeFunctionModifier(String name) throws ModifierNotFoundException {
         getCurrentFunction().setModifier(modifiersFactory.createModifier(name));
     }
 
@@ -82,7 +84,7 @@ public class FrameDSL implements IFrameDSL {
     }
 
     @Override
-    public void writeFunctionReturn(String name) {
+    public void writeFunctionReturn(String name) throws ReturnNotFoundException {
         getCurrentFunction().setReturn(returnsFactory.createReturn(name));
     }
 

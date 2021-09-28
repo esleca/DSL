@@ -5,7 +5,6 @@ import models.entities.valuetypes.ValueType;
 public class Definition {
 
     private ValueType valueType;
-    private Declaration declaration;
 
     public Definition (ValueType valueType){
         this.valueType = valueType;
@@ -20,11 +19,4 @@ public class Definition {
         this.valueType = valueType;
     }
 
-    public Declaration getDeclaration() {
-        return declaration;
-    }
-
-    public void setDeclaration(Declaration declaration) {
-        this.declaration = declaration;
-    }
 }

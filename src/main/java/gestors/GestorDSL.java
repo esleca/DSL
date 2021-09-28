@@ -40,7 +40,7 @@ public class GestorDSL implements IGestorDSL{
     @Override
     public void readConfigurationFile() throws UnsupportedLanguageException {
         IProcessorHandlerRunner handlerRunner = new ProcessorHandlerRunner();
-        dslModel.setConfigurationsRun(handlerRunner.processConfigurationFiles(dslModel.getConfigurationPath()));
+        dslModel.setConfigurationsRunFiles(handlerRunner.processConfigurationFiles(dslModel.getConfigurationPath()));
     }
 
     /**
@@ -57,7 +57,7 @@ public class GestorDSL implements IGestorDSL{
     public void beginTransformation() throws IOException, UnsupportedLanguageException {
         MapperFactory factory = new MapperFactory();
 
-        for (ConfigurationTestRun testRun : dslModel.getConfigurationsRun()) {
+        for (ConfigurationTestRun testRun : dslModel.getConfigurationsRunFiles()) {
             Mapper mapper = factory.createMapper(testRun.getSourceLanguage());
             IProcessorHandlerReadable handlerReadable = new ProcessorHandlerReadable(testRun.getInputDirectory(), testRun.getOutputDirectory(),
                                                                                      testRun.getSourceLanguage(), mapper, testRun.isValidateMap());
@@ -96,8 +96,8 @@ public class GestorDSL implements IGestorDSL{
     @Override
     public void readTestScenarios() {
         IProcessorHandlerTestScenario handlerTestScenario = new ProcessorHandlerTestScenario();
-        dslModel.setTestScenariosRun(handlerTestScenario.readTestScenariosRun(dslModel.getTestScenariosPath()));
-        dslModel.setTestScenarios(handlerTestScenario.getTestScenarios(dslModel.getTestScenariosRun(), dslModel.getTestableUnits()));
+        dslModel.setTestScenariosRunFiles(handlerTestScenario.readTestScenariosRun(dslModel.getTestScenariosPath()));
+        dslModel.setTestScenarios(handlerTestScenario.getTestScenarios(dslModel.getTestScenariosRunFiles(), dslModel.getTestableUnits()));
     }
 
     /**

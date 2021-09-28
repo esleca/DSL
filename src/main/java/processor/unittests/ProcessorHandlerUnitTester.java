@@ -15,9 +15,6 @@ public class ProcessorHandlerUnitTester implements IProcessorHandlerUnitTester {
     private IProcessorHandlerUnitTesterActioner handlerActioner;
     private IProcessorHandlerUnitTesterAsserter handlerAsserter;
 
-    /**
-     * Constructor
-     */
     public ProcessorHandlerUnitTester(){
         unitTestFactory = new UnitTestFactory();
         handlerArranger = new ProcessorHandlerUnitTesterArranger();

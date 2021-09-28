@@ -7,6 +7,8 @@ import ASTMCore.ASTMSyntax.DeclarationAndDefinition.*;
 import ASTMCore.ASTMSyntax.Expression.*;
 import ASTMCore.ASTMSyntax.Statement.*;
 import ASTMCore.ASTMSyntax.Types.*;
+import exceptions.ModifierNotFoundException;
+import exceptions.ReturnNotFoundException;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -182,7 +184,11 @@ public class VisitorDSL extends VisitorBase {
         String typeReference = namedTypeReference.getTypeName().getNameString();
 
         if (WritingReturn){
-            frame.writeFunctionReturn(typeReference);
+            try {
+                frame.writeFunctionReturn(typeReference);
+            } catch (ReturnNotFoundException e) {
+                e.printStackTrace();
+            }
         } else if (WritingParameterFunction){
             frame.writeFunctionParameterType(typeReference);
         }
@@ -710,19 +716,31 @@ public class VisitorDSL extends VisitorBase {
     @Override
     public void visitPrivateModifier(PrivateModifier privateModifier) {
         String functionModifier = privateModifier.getModifier();
-        frame.writeFunctionModifier(functionModifier);
+        try {
+            frame.writeFunctionModifier(functionModifier);
+        } catch (ModifierNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void visitProtectedModifier(ProtectedModifier protectedModifier) {
         String functionModifier = protectedModifier.getModifier();
-        frame.writeFunctionModifier(functionModifier);
+        try {
+            frame.writeFunctionModifier(functionModifier);
+        } catch (ModifierNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void visitPublicModifier(PublicModifier publicModifier) {
         String functionModifier = publicModifier.getModifier();
-        frame.writeFunctionModifier(functionModifier);
+        try {
+            frame.writeFunctionModifier(functionModifier);
+        } catch (ModifierNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

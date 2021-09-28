@@ -1,4 +1,4 @@
-package models.entities.unittests.asserts;
+package models.entities.unittests.asserts.types;
 
 public abstract class AssertType {
 

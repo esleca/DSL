@@ -1,12 +1,14 @@
 package processor.testscenarios;
 
+import exceptions.AssertNotFoundException;
+import exceptions.ValueTypeNotFoundException;
 import factories.*;
 import models.entities.parameters.ParameterFunction;
 import models.entities.parameters.ParameterScenario;
 import models.entities.unittests.ExpectedResult;
 import models.entities.unittests.TestScenario;
 import models.entities.unittests.TestableUnit;
-import models.entities.unittests.asserts.AssertType;
+import models.entities.unittests.asserts.types.AssertType;
 import models.entities.valuetypes.ValueType;
 import testrun.config.TestScenarioRun;
 
@@ -19,8 +21,22 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenario {
+
+    private TestableFactory testsFactory;
+    private ValueTypeFactory valueTypeFactory;
+    private ExpectedResultsFactory expectedResultsFactory;
+    private AssertsFactory assertsFactory;
+    private ParametersFactory parametersFactory;
+
+    public ProcessorHandlerTestScenario(){
+        testsFactory = new TestableFactory();
+        valueTypeFactory = new ValueTypeFactory();
+        expectedResultsFactory = new ExpectedResultsFactory();
+        assertsFactory = new AssertsFactory();
+        parametersFactory = new ParametersFactory();
+    }
+
 
     /**
      * Receive the path where the test scenarios are stored
@@ -45,7 +61,7 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
                 testScenarios.add(test);
             }
 
-        } catch (IOException | ParseException e) {
+        } catch (IOException | ParseException | ValueTypeNotFoundException e) {
             System.err.println("Error reading the configuration file.");
             e.printStackTrace();
         }
@@ -61,41 +77,25 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
      * @return
      * @throws ClassCastException
      */
-    private TestScenarioRun getTestScenarioRun(JSONObject configurationObject) throws ClassCastException {
-        // Function name to test
-        String function = (String) configurationObject.get("function");
-
-        // Test name
-        String testName = (String) configurationObject.get("testName");
-
-        // Function Parameters
+    private TestScenarioRun getTestScenarioRun(JSONObject configurationObject) throws ClassCastException, ValueTypeNotFoundException {
         ArrayList<ParameterScenario> parameterScenarios = new ArrayList<>();
+        String function = (String) configurationObject.get("function");
+        String testName = (String) configurationObject.get("testName");
+        String expected = (String) configurationObject.get("expected");
+        String assertion = (String) configurationObject.get("assert");
         JSONArray paramsArray = (JSONArray)configurationObject.get("parameters");
 
-        ValueTypeFactory typeFactory = new ValueTypeFactory();
-        ParametersFactory parametersFactory = new ParametersFactory();
-
         for (Object paramRawObject : paramsArray) {
-
             JSONObject paramObject = (JSONObject) paramRawObject;
             Object value = paramObject.get("value");
             String name = (String) paramObject.get("name");
             String type = (String) paramObject.get("type");
 
-            // value type
-            ValueType valueType = typeFactory.createValueType(type, value);
-
-            // parameter function and scenario
+            ValueType valueType = valueTypeFactory.createValueType(type, value);
             ParameterFunction parameterFunction = parametersFactory.createParameterFunction(type, name);
             ParameterScenario parameterScenario = parametersFactory.createParameterScenario(parameterFunction, valueType);
             parameterScenarios.add(parameterScenario);
         }
-
-        // Expected result
-        String expected = (String) configurationObject.get("expected");
-
-        // Assert
-        String assertion = (String) configurationObject.get("assert");
 
         return new TestScenarioRun(function, testName, parameterScenarios, expected, assertion);
     }
@@ -111,48 +111,22 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
      * @return Test scenarios list
      */
     @Override
-    public ArrayList<TestScenario> getTestScenarios(ArrayList<TestScenarioRun> testScenarioRuns,
-                                                    ArrayList<TestableUnit> testableUnits){
+    public ArrayList<TestScenario> getTestScenarios(ArrayList<TestScenarioRun> testScenarioRuns, ArrayList<TestableUnit> testableUnits)
+            throws ValueTypeNotFoundException, AssertNotFoundException {
+
         ArrayList<TestScenario> testScenarios = new ArrayList<>();
-        TestableFactory testsFactory = new TestableFactory();
-        ValueTypeFactory valueTypeFactory = new ValueTypeFactory();
-        ExpectedResultsFactory expectedResultsFactory = new ExpectedResultsFactory();
-        AssertsFactory assertsFactory = new AssertsFactory();
 
         for (TestScenarioRun testScenarioRun : testScenarioRuns){
-            // test name
-            String testName = testScenarioRun.getTestName();
 
-            // testable unit
             TestableUnit testableUnit = getTestableUnit(testScenarioRun.getFunction(), testableUnits);
-
             if (testableUnit != null){
-                // value type
-                ValueType valueType = valueTypeFactory.createValueType(testableUnit.getFunction().getReturn().getName(), testScenarioRun.getExpected());
-
-                // expected result
-                ExpectedResult expectedResult = expectedResultsFactory.createExpectedResult(valueType);
-
-                // Assert
-                AssertType assertion = assertsFactory.createAssert(testScenarioRun.getAssertion());
-
-                // test scenario
-                TestScenario testScenario = testsFactory.createTestScenario(testName, testableUnit, testScenarioRun.getParameters(), expectedResult, assertion);
+                TestScenario testScenario = getTestScenario(testScenarioRun, testableUnit);
                 testScenarios.add(testScenario);
             }
         }
-
         return testScenarios;
     }
 
-    /**
-     * Receive a function name with the testable units and
-     * search for the testable unit in the list
-     *
-     * @param functionName
-     * @param testableUnits
-     * @return a testable unit
-     */
     private TestableUnit getTestableUnit(String functionName, ArrayList<TestableUnit> testableUnits) {
         for (TestableUnit testableUnit : testableUnits) {
             if (testableUnit.getFunction().getName().equals((functionName))){
@@ -162,5 +136,12 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
         return null;
     }
 
+    private TestScenario getTestScenario(TestScenarioRun testScenarioRun, TestableUnit testableUnit)
+            throws ValueTypeNotFoundException, AssertNotFoundException {
+        AssertType assertType = assertsFactory.createAssertType(testScenarioRun.getAssertion());
+        ValueType valueType = valueTypeFactory.createValueType(testableUnit.getFunction().getReturn().getName(), testScenarioRun.getExpected());
+        ExpectedResult expectedResult = expectedResultsFactory.createExpectedResult(valueType);
+        return testsFactory.createTestScenario(testScenarioRun.getTestName(), testableUnit, testScenarioRun.getParameters(), expectedResult, assertType);
+    }
 
 }

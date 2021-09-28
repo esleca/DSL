@@ -4,7 +4,6 @@ public class Declaration {
 
     private String type;
     private String name;
-    private Definition definition;
 
     public Declaration(String type, String name){
         this.type = type;
@@ -27,11 +26,4 @@ public class Declaration {
         this.name = name;
     }
 
-    public Definition getDefinition() {
-        return definition;
-    }
-
-    public void setDefinition(Definition definition) {
-        this.definition = definition;
-    }
 }

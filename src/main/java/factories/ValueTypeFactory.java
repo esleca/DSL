@@ -1,10 +1,11 @@
 package factories;
 
+import exceptions.ValueTypeNotFoundException;
 import models.entities.valuetypes.*;
 
 public class ValueTypeFactory {
 
-    public ValueType createValueType(String inType, Object value) {
+    public ValueType createValueType(String inType, Object value) throws ValueTypeNotFoundException {
         ValueType type = null;
 
         switch (inType){
@@ -26,6 +27,10 @@ public class ValueTypeFactory {
 
         if (type != null){
             type.setValue(value);
+        }
+
+        if (type == null){
+            throw new ValueTypeNotFoundException();
         }
 
         return type;

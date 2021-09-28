@@ -1,10 +1,11 @@
 package factories;
 
+import exceptions.ReturnNotFoundException;
 import models.entities.returns.*;
 
 public class ReturnsFactory {
 
-    public Return createReturn(String type){
+    public Return createReturn(String type) throws ReturnNotFoundException {
         Return returns = null;
 
         if (isPrimitiveReturnType(type)){
@@ -23,9 +24,15 @@ public class ReturnsFactory {
                     returns = new DoubleReturn(); break;
                 case "char":
                     returns = new CharReturn(); break;
+                case "void":
+                    returns = new VoidReturn(); break;
             }
         }else{
             returns = null;
+        }
+
+        if(returns == null){
+            throw new ReturnNotFoundException();
         }
 
         return returns;

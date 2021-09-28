@@ -1,4 +1,4 @@
 package models.entities.unittests.acts;
 
-public abstract class Act {
+public class StaticAct extends Act{
 }

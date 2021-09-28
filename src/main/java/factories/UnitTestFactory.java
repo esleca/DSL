@@ -7,6 +7,9 @@ import models.entities.unittests.arranges.ArrangeStatement;
 import models.entities.unittests.arranges.Declaration;
 import models.entities.unittests.arranges.Definition;
 import models.entities.unittests.asserts.Assert;
+import models.entities.unittests.asserts.AssertExpression;
+import models.entities.unittests.asserts.AssertParameter;
+import models.entities.unittests.asserts.types.AssertType;
 import models.entities.valuetypes.ValueType;
 
 import java.util.ArrayList;
@@ -32,6 +35,20 @@ public class UnitTestFactory {
         Arrange arrange = new Arrange(arrangeStatements);
         return arrange;
     }
+
+
+
+    public AssertExpression createAssertExpression(String calledFunction, AssertType assertType, ArrayList<AssertParameter> assertParameters){
+        AssertExpression assertExpression = new AssertExpression(calledFunction, assertType, assertParameters);
+        return assertExpression;
+    }
+
+    public Assert createAssert(ArrayList<AssertExpression> assertExpressions){
+        Assert lassert = new Assert(assertExpressions);
+        return lassert;
+    }
+
+
 
     public UnitTest createUnitTest(TestScenario testScenario, Arrange arrange, Act act, Assert inAssert){
         UnitTest unitTest = new UnitTest(testScenario, arrange, act, inAssert);

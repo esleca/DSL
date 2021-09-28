@@ -1,30 +1,35 @@
 package factories;
 
-import models.entities.unittests.asserts.*;
+import exceptions.AssertNotFoundException;
+import models.entities.unittests.asserts.types.*;
 
 public class AssertsFactory {
 
-    public AssertType createAssert(String type){
-        AssertType assertion = null;
+    public AssertType createAssertType(String type) throws AssertNotFoundException {
+        AssertType assertType = null;
 
         switch (type){
             case "areEqual":
-                assertion = new AreEqual(); break;
+                assertType = new AreEqual(); break;
             case "areNotEqual":
-                assertion = new AreNotEqual(); break;
+                assertType = new AreNotEqual(); break;
             case "isTrue":
-                assertion = new IsTrue(); break;
+                assertType = new IsTrue(); break;
             case "isFalse":
-                assertion = new IsFalse(); break;
+                assertType = new IsFalse(); break;
             case "isNull":
-                assertion = new IsNull(); break;
+                assertType = new IsNull(); break;
             case "isNotNull":
-                assertion = new IsNotNull(); break;
+                assertType = new IsNotNull(); break;
             case "isInstanceOfType":
-                assertion = new IsInstanceOfType(); break;
+                assertType = new IsInstanceOfType(); break;
         }
 
-        return assertion;
+        if (assertType == null){
+            throw new AssertNotFoundException();
+        }
+
+        return assertType;
     }
 
 }
