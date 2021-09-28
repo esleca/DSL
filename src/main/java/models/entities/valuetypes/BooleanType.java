@@ -6,7 +6,11 @@ public class BooleanType extends ValueType {
 
     @Override
     public void setValue(Object value) {
-        this.value = (boolean) value;
+        if (value.equals("true")) {
+            this.value = true;
+        }else{
+            this.value = false;
+        }
     }
 
     @Override

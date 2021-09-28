@@ -28,7 +28,7 @@ public class ValueTypeFactory {
                 throw new ValueTypeNotFoundException();
         }
 
-        if (type != null){
+        if (type != null && value != null){
             type.setValue(value);
         }
 

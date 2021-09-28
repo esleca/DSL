@@ -25,7 +25,6 @@ public class ProcessorHandlerUnitTesterAsserter implements IProcessorHandlerUnit
     @Override
     public Assert getAssert(TestScenario testScenario) throws AssertNotFoundException {
         ArrayList<AssertExpression> expressions = new ArrayList<>();
-
         AssertExpression expression = getAssertExpression(testScenario);
         expressions.add(expression);
 
@@ -35,15 +34,9 @@ public class ProcessorHandlerUnitTesterAsserter implements IProcessorHandlerUnit
     private AssertExpression getAssertExpression(TestScenario testScenario) throws AssertNotFoundException {
         String assertName = testScenario.getAssertType().getName();
         AssertType assertType = assertsFactory.createAssertType(assertName);
-        ArrayList<AssertParameter> assertParameters = getAssertParameters();
+        ArrayList<AssertParameter> assertParameters = assertType.getAssertParameters();
 
         return unitTestFactory.createAssertExpression(Constants.ASSERT_CLASS, assertType, assertParameters);
     }
 
-    private ArrayList<AssertParameter> getAssertParameters(){
-        ArrayList<AssertParameter> assertParameters = new ArrayList<>();
-        assertParameters.add(new AssertParameter("expected"));
-        assertParameters.add(new AssertParameter("result"));
-        return assertParameters;
-    }
 }

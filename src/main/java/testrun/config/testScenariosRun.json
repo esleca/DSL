@@ -1,5 +1,43 @@
 [
-    {
+	{
+		"function": "isMayorEdad",
+		"testName": "test00",
+        "parameters": [
+            {
+                "name": "edad",
+                "type": "int",
+                "value": 31
+            }
+        ],
+        "assert": "isTrue"
+	},
+	{
+		"function": "isMayorEdad",
+		"testName": "test01",
+        "parameters": [
+            {
+                "name": "edad",
+                "type": "int",
+                "value": 15
+            }
+        ],
+        "expected": "false",
+        "assert": "isFalse"
+	},
+	{
+		"function": "isMenorEdad",
+		"testName": "test02",
+        "parameters": [
+            {
+                "name": "edad",
+                "type": "int",
+                "value": 15
+            }
+        ],
+        "expected": "true",
+        "assert": "isTrue"
+	},
+	{
         "function": "sumar",
 		"testName": "test1",
         "parameters": [

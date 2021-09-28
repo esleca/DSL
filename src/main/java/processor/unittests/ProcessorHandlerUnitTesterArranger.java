@@ -32,7 +32,7 @@ public class ProcessorHandlerUnitTesterArranger implements IProcessorHandlerUnit
         for (ParameterScenario parameterScenario : parameterScenarios){
             String type = parameterScenario.getParameterFunction().getType();
             String name = parameterScenario.getParameterFunction().getName();
-            
+
             Declaration declaration = unitTestFactory.createArrangeStatementDeclaration(type, name);
             Definition definition = unitTestFactory.createArrangeStatementDefinition(parameterScenario.getValueType());
 

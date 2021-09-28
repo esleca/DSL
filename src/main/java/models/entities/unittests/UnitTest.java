@@ -44,11 +44,11 @@ public class UnitTest {
         this.act = act;
     }
 
-    public Assert getAssertion() {
+    public Assert getAssert() {
         return assertion;
     }
 
-    public void setAssertion(Assert assertion) {
+    public void setAssert(Assert assertion) {
         this.assertion = assertion;
     }
 }
