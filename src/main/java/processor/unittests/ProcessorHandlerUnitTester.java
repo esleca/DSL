@@ -1,5 +1,6 @@
 package processor.unittests;
 
+import exceptions.AssertNotFoundException;
 import factories.UnitTestFactory;
 import models.entities.unittests.*;
 import models.entities.unittests.acts.Act;
@@ -31,7 +32,7 @@ public class ProcessorHandlerUnitTester implements IProcessorHandlerUnitTester {
      * @return a list of unit tests
      */
     @Override
-    public ArrayList<UnitTest> getUnitTests(ArrayList<TestScenario> testScenarios){
+    public ArrayList<UnitTest> getUnitTests(ArrayList<TestScenario> testScenarios) throws AssertNotFoundException {
         ArrayList<UnitTest> unitTests = new ArrayList<>();
 
         for (TestScenario testScenario : testScenarios){

@@ -115,7 +115,6 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
             throws ValueTypeNotFoundException, AssertNotFoundException {
 
         ArrayList<TestScenario> testScenarios = new ArrayList<>();
-
         for (TestScenarioRun testScenarioRun : testScenarioRuns){
 
             TestableUnit testableUnit = getTestableUnit(testScenarioRun.getFunction(), testableUnits);

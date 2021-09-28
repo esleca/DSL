@@ -1,6 +1,8 @@
 package gestors;
 
 import ASTMCore.ASTMSource.CompilationUnit;
+import exceptions.AssertNotFoundException;
+import exceptions.ValueTypeNotFoundException;
 import gastmappers.Mapper;
 import gastmappers.MapperFactory;
 import gastmappers.exceptions.UnsupportedLanguageException;
@@ -94,7 +96,7 @@ public class GestorDSL implements IGestorDSL{
      * the test scenario object representations.
      */
     @Override
-    public void readTestScenarios() {
+    public void readTestScenarios() throws ValueTypeNotFoundException, AssertNotFoundException {
         IProcessorHandlerTestScenario handlerTestScenario = new ProcessorHandlerTestScenario();
         dslModel.setTestScenariosRunFiles(handlerTestScenario.readTestScenariosRun(dslModel.getTestScenariosPath()));
         dslModel.setTestScenarios(handlerTestScenario.getTestScenarios(dslModel.getTestScenariosRunFiles(), dslModel.getTestableUnits()));
@@ -106,7 +108,7 @@ public class GestorDSL implements IGestorDSL{
      *
      */
     @Override
-    public void processUnitTests(){
+    public void processUnitTests() throws AssertNotFoundException {
         IProcessorHandlerUnitTester handlerUnitTester = new ProcessorHandlerUnitTester();
         dslModel.setUnitTests(handlerUnitTester.getUnitTests(dslModel.getTestScenarios()));
         printUnitTests();

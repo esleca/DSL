@@ -2,37 +2,36 @@ package factories;
 
 import exceptions.ReturnNotFoundException;
 import models.entities.returns.*;
+import utils.Constants;
 
 public class ReturnsFactory {
 
     public Return createReturn(String type) throws ReturnNotFoundException {
-        Return returns = null;
+        Return returns;
 
         if (isPrimitiveReturnType(type)){
             switch (type){
-                case "int":
+                case Constants.RETURN_INTEGER:
                     returns = new IntegerReturn(); break;
-                case "String":
+                case Constants.RETURN_STRING:
                     returns = new StringReturn(); break;
-                case "boolean":
+                case Constants.RETURN_BOOLEAN:
                     returns = new BooleanReturn(); break;
-                case "float":
+                case Constants.RETURN_FLOAT:
                     returns = new FloatReturn(); break;
-                case "long":
+                case Constants.RETURN_LONG:
                     returns = new LongReturn(); break;
-                case "double":
+                case Constants.RETURN_DOUBLE:
                     returns = new DoubleReturn(); break;
-                case "char":
+                case Constants.RETURN_CHAR:
                     returns = new CharReturn(); break;
-                case "void":
+                case Constants.RETURN_VOID:
                     returns = new VoidReturn(); break;
+                default:
+                    throw new ReturnNotFoundException();
             }
         }else{
             returns = null;
-        }
-
-        if(returns == null){
-            throw new ReturnNotFoundException();
         }
 
         return returns;

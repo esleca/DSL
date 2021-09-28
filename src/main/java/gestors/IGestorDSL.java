@@ -1,5 +1,7 @@
 package gestors;
 
+import exceptions.AssertNotFoundException;
+import exceptions.ValueTypeNotFoundException;
 import gastmappers.exceptions.UnsupportedLanguageException;
 
 import java.io.IOException;
@@ -14,9 +16,9 @@ public interface IGestorDSL {
 
     void processTestableUnits();
 
-    void readTestScenarios();
+    void readTestScenarios() throws ValueTypeNotFoundException, AssertNotFoundException;
 
-    void processUnitTests();
+    void processUnitTests() throws AssertNotFoundException;
 
     void writeGastUnitTests();
 }

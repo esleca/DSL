@@ -1,5 +1,7 @@
 package testrun;
 
+import exceptions.AssertNotFoundException;
+import exceptions.ValueTypeNotFoundException;
 import gastmappers.exceptions.UnsupportedLanguageException;
 import gestors.GestorDSL;
 import gestors.IGestorDSL;
@@ -12,7 +14,10 @@ public class Main {
 
     private final static IGestorDSL dsl = new GestorDSL();
 
-    public static void main(String[] args) throws HeadlessException, IllegalArgumentException, SecurityException, IOException, UnsupportedLanguageException, ParseException {
+    public static void main(String[] args)
+            throws HeadlessException, IllegalArgumentException, SecurityException, IOException,
+            UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException
+    {
         // read source code files
         dsl.readConfigurationFile();
 
