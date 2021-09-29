@@ -1,10 +1,13 @@
 package models.entities.unittests;
 
+import models.entities.unittests.acts.Act;
+import models.entities.unittests.arranges.Arrange;
+import models.entities.unittests.asserts.Assert;
+
 public class UnitTest {
 
     private TestScenario testScenario;
 
-    private String name; // TODO
     private Arrange arrange;
     private Act act;
     private Assert assertion;
@@ -41,11 +44,11 @@ public class UnitTest {
         this.act = act;
     }
 
-    public Assert getAssertion() {
+    public Assert getAssert() {
         return assertion;
     }
 
-    public void setAssertion(Assert assertion) {
+    public void setAssert(Assert assertion) {
         this.assertion = assertion;
     }
 }

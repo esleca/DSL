@@ -13,8 +13,24 @@ public class Class {
         this.name = name;
     }
 
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
     public String getName(){
         return this.name;
+    }
+
+    public boolean isStatic() {
+        return isStatic;
+    }
+
+    public ArrayList<Function> getFunctions() {
+        return functions;
     }
 
 }

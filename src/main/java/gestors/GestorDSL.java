@@ -1,106 +1,53 @@
 package gestors;
 
 import ASTMCore.ASTMSource.CompilationUnit;
-import gastmappers.Language;
+import exceptions.AssertNotFoundException;
+import exceptions.ValueTypeNotFoundException;
 import gastmappers.Mapper;
 import gastmappers.MapperFactory;
 import gastmappers.exceptions.UnsupportedLanguageException;
 
-import models.entities.aggregates.Function;
-import models.entities.unittests.TestScenario;
-import models.entities.unittests.UnitTest;
-import models.entities.unittests.TestableUnit;
-
-import processor.*;
-
-import gastgateway.visitors.VisitorBase;
-import gastgateway.visitors.VisitorDSL;
-import testrun.config.TestScenarioRun;
+import processor.configfiles.IProcessorHandlerRunner;
+import processor.configfiles.ProcessorHandlerRunner;
+import processor.gastgateway.visitors.VisitorBase;
+import processor.gastgateway.visitors.VisitorDSL;
+import processor.gastgateway.IProcessorHandlerReadable;
+import processor.gastgateway.ProcessorHandlerReadable;
+import processor.testscenarios.IProcessorHandlerTestScenario;
+import processor.testscenarios.ProcessorHandlerTestScenario;
+import processor.unittests.IProcessorHandlerTestable;
+import processor.unittests.IProcessorHandlerUnitTester;
+import processor.unittests.ProcessorHandlerTestable;
+import processor.unittests.ProcessorHandlerUnitTester;
+import utils.*;
 import testrun.config.ConfigurationTestRun;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 import java.awt.*;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
+public class GestorDSL implements IGestorDSL{
 
-public class GestorDSL {
-
-    private boolean writeToDisk;
-
-    private ArrayList<ConfigurationTestRun> configurationsRun;
-    private ArrayList<TestScenarioRun> testScenariosRun;
-
-    private ArrayList<CompilationUnit> compilationUnits;
-    private ArrayList<Function> compilationUnitFunctions;
-
-    private ArrayList<TestableUnit> testableUnits;
-    private ArrayList<TestScenario> testScenarios;
-    private ArrayList<UnitTest> unitTests;
-
-    private final String configurationPath;
-    private final String testScenariosPath;
+    private GestorModel dslModel;
 
     public GestorDSL(){
-        writeToDisk = true;
-        configurationsRun = new ArrayList<>();
-        testScenariosRun = new ArrayList<>();
-        compilationUnits = new ArrayList<>();
-        compilationUnitFunctions = new ArrayList<>();
-        testableUnits = new ArrayList<>();
-        unitTests = new ArrayList<>();
-        configurationPath = "./src/main/java/testrun/config/configurationTestRun.json";
-        testScenariosPath = "./src/main/java/testrun/config/testScenariosRun.json";
+        dslModel = new GestorModel();
     }
 
-
     /**
+     * Read the configuration file for initial specifications
+     * Set the configuration objects
      *
      * @throws UnsupportedLanguageException
      */
+    @Override
     public void readConfigurationFile() throws UnsupportedLanguageException {
-        JSONParser jsonParser = new JSONParser();
-
-        try (FileReader reader = new FileReader(configurationPath)) {
-            JSONArray configurationsArray = (JSONArray) jsonParser.parse(reader);
-
-            for (Object configurationRawObject : configurationsArray) {
-
-                JSONObject configurationObject = (JSONObject) configurationRawObject;
-                ConfigurationTestRun testRun = getConfigurationTestRun(configurationObject);
-
-                configurationsRun.add(testRun);
-            }
-        } catch (IOException | ParseException e) {
-            System.err.println("Error reading the configuration file.");
-            e.printStackTrace();
-        }
+        IProcessorHandlerRunner handlerRunner = new ProcessorHandlerRunner();
+        dslModel.setConfigurationsRunFiles(handlerRunner.processConfigurationFiles(dslModel.getConfigurationPath()));
     }
 
     /**
-     *
-     * @param configurationObject
-     * @return
-     * @throws UnsupportedLanguageException
-     */
-    private ConfigurationTestRun getConfigurationTestRun(JSONObject configurationObject) throws UnsupportedLanguageException {
-        String inputDirectory = (String) configurationObject.get("inputDirectory");
-        String outputDirectory = (String) configurationObject.get("outputDirectory");
-        String sourceLanguageRaw = (String) configurationObject.get("sourceLanguage");
-        Language sourceLanguage = Language.getLanguageFromString(sourceLanguageRaw);
-        boolean validateMap = (boolean) configurationObject.get("validateMap");
-        boolean semantic = (boolean) configurationObject.get("semantic");
-
-        return new ConfigurationTestRun(inputDirectory, outputDirectory, sourceLanguage, validateMap, semantic);
-    }
-
-
-    /**
+     * This method create a handler in memory to process
+     * GAST and return the root compilation units.
      *
      * @throws IOException
      * @throws IllegalArgumentException
@@ -108,77 +55,80 @@ public class GestorDSL {
      * @throws HeadlessException
      * @throws UnsupportedLanguageException
      */
-    public void beginTransformation() throws IOException, IllegalArgumentException, SecurityException, HeadlessException, UnsupportedLanguageException {
+    @Override
+    public void beginTransformation() throws IOException, UnsupportedLanguageException {
         MapperFactory factory = new MapperFactory();
 
-        for (ConfigurationTestRun testRun : configurationsRun) {
+        for (ConfigurationTestRun testRun : dslModel.getConfigurationsRunFiles()) {
             Mapper mapper = factory.createMapper(testRun.getSourceLanguage());
-
-            IProcessorHandlerInMemory handlerInMemory =
-                    new ProcessorHandlerInMemory(testRun.getInputDirectory(), testRun.getOutputDirectory(), testRun.getSourceLanguage(), mapper, testRun.isValidateMap(), testRun.isSemantic());
-
-            compilationUnits = handlerInMemory.processFilesInDir(writeToDisk);
+            IProcessorHandlerReadable handlerReadable = new ProcessorHandlerReadable(testRun.getInputDirectory(), testRun.getOutputDirectory(),
+                                                                                     testRun.getSourceLanguage(), mapper, testRun.isValidateMap());
+            dslModel.setCompilationUnits(handlerReadable.processFilesInDir(dslModel.isWriteToDisk()));
         }
     }
 
     /**
-     *
      * Create a visitor DSL to visit the entire compilation unit
      * This method set a list of the compilation unit functions
      */
+    @Override
     public void processGastFunctions(){
-        for (CompilationUnit compilationUnit : compilationUnits) {
-
+        for (CompilationUnit compilationUnit : dslModel.getCompilationUnits()) {
             VisitorBase dslVisitor = new VisitorDSL();
             dslVisitor.visitCompilationUnit(compilationUnit);
-
-            compilationUnitFunctions = dslVisitor.getFrameDSL().getFunctions();
+            dslModel.setCompilationUnitFunctions(dslVisitor.getFrameDSL().getFunctions());
         }
     }
 
     /**
-     *
      * Create a transformation handler for testable units
      * This method filter the functions in order to obtain
      * the valid testable units.
      */
+    @Override
     public void processTestableUnits(){
         IProcessorHandlerTestable handlerTestable = new ProcessorHandlerTestable();
-
-        testableUnits = handlerTestable.getTestableUnits(compilationUnitFunctions);
+        dslModel.setTestableUnits(handlerTestable.getTestableUnits(dslModel.getCompilationUnitFunctions()));
     }
 
     /**
-     *
+     * Use a processor handler test scenario to define
+     * the test scenario object representations.
      */
-    public void readTestScenarios() {
+    @Override
+    public void readTestScenarios() throws ValueTypeNotFoundException, AssertNotFoundException {
         IProcessorHandlerTestScenario handlerTestScenario = new ProcessorHandlerTestScenario();
-
-        testScenariosRun = handlerTestScenario.readTestScenariosRun(testScenariosPath);
-
-        testScenarios = handlerTestScenario.getTestScenarios(testScenariosRun, testableUnits);
+        dslModel.setTestScenariosRunFiles(handlerTestScenario.readTestScenariosRun(dslModel.getTestScenariosPath()));
+        dslModel.setTestScenarios(handlerTestScenario.getTestScenarios(dslModel.getTestScenariosRunFiles(), dslModel.getTestableUnits()));
     }
 
     /**
+     * Use the unit test handler to convert from the
+     * test scenarios to the unit test object representations
      *
      */
-    public void processUnitTests(){
+    @Override
+    public void processUnitTests() throws AssertNotFoundException {
         IProcessorHandlerUnitTester handlerUnitTester = new ProcessorHandlerUnitTester();
-        ConsolePrinter consolePrinter = new ConsolePrinter();
-
-        unitTests = handlerUnitTester.getUnitTests(testScenarios);
-
-        for (UnitTest ut : unitTests){
-            consolePrinter.printUnitTest(ut);
-        }
-
+        dslModel.setUnitTests(handlerUnitTester.getUnitTests(dslModel.getTestScenarios()));
+        printUnitTests();
     }
 
-
+    /**
+     * Use the console printer to print unit tests
+     * on the console screen.
+     */
+    private void printUnitTests(){
+        IPrinter printer = new ConsolePrinter();
+        for (var ut : dslModel.getUnitTests()){
+            printer.printUnitTest(ut);
+        }
+    }
 
     /**
      *
      */
+    @Override
     public void writeGastUnitTests(){
 
     }

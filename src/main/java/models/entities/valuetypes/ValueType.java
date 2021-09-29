@@ -1,8 +1,6 @@
 package models.entities.valuetypes;
 
-import models.DSLMObject;
-
-public abstract class ValueType extends DSLMObject {
+public abstract class ValueType {
 
     public abstract void setValue(Object value);
 

@@ -1,12 +1,50 @@
 [
-    {
+	{
+		"function": "isMayorEdad",
+		"testName": "test00",
+        "parameters": [
+            {
+                "name": "edad",
+                "type": "int",
+                "value": 31
+            }
+        ],
+        "assert": "isTrue"
+	},
+	{
+		"function": "isMayorEdad",
+		"testName": "test01",
+        "parameters": [
+            {
+                "name": "edad",
+                "type": "int",
+                "value": 15
+            }
+        ],
+        "expected": "false",
+        "assert": "isFalse"
+	},
+	{
+		"function": "isMenorEdad",
+		"testName": "test02",
+        "parameters": [
+            {
+                "name": "edad",
+                "type": "int",
+                "value": 15
+            }
+        ],
+        "expected": "true",
+        "assert": "isTrue"
+	},
+	{
         "function": "sumar",
 		"testName": "test1",
         "parameters": [
             {
                 "name": "num1",
                 "type": "int",
-                "value": 2
+                "value": 3
             },
             {
                 "name": "num2",
@@ -14,7 +52,8 @@
                 "value": 5
             }
         ],
-        "expected": "7"
+        "expected": "8",
+        "assert": "areEqual"
     },
     {
         "function": "sumar2",
@@ -31,6 +70,7 @@
                 "value": 7
             }
         ],
-        "expected": "2"
+        "expected": "2",
+        "assert": "areEqual"
     }
 ]
