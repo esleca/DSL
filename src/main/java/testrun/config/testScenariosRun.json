@@ -21,7 +21,6 @@
                 "value": 15
             }
         ],
-        "expected": "false",
         "assert": "isFalse"
 	},
 	{
@@ -34,7 +33,6 @@
                 "value": 15
             }
         ],
-        "expected": "true",
         "assert": "isTrue"
 	},
 	{

@@ -1,26 +1,13 @@
 package utils;
 
 import models.entities.aggregates.Function;
+import models.entities.unittests.*;
+import models.entities.unittests.acts.*;
 import models.entities.unittests.arranges.ArrangeStatement;
-import models.entities.unittests.UnitTest;
 import models.entities.unittests.asserts.AssertExpression;
-import models.entities.unittests.asserts.AssertParameter;
-import models.entities.unittests.asserts.types.AssertType;
-import models.entities.unittests.asserts.types.AssertTypePair;
-
 import java.util.ArrayList;
 
 public class ConsolePrinter implements IPrinter {
-
-    public void printMenu(){
-        System.out.println("\n\n----------------------- DSL TESTER -----------------------\n");
-
-        System.out.println("1) Leer codigo fuente del disco");
-        System.out.println("2) Ingresar escenarios de prueba");
-        System.out.println("");
-
-        System.out.println("----------------------- DSL TESTER -----------------------");
-    }
 
     public void printUnitTest(UnitTest ut){
         printTestHeader(ut);
@@ -44,39 +31,50 @@ public class ConsolePrinter implements IPrinter {
         ArrayList<ArrangeStatement> arrangeStatements = ut.getArrange().getArrangeStatements();
 
         for (ArrangeStatement as : arrangeStatements){
-            System.out.println(as.getDeclaration().getType() + " " +
-                    as.getDeclaration().getName() + " = " +
+            Declaration declaration = as.getDeclaration();
+
+            System.out.println(declaration.getType() + " " + declaration.getName() + " = " +
                     as.getDefinition().getValueType().getValue() + ";");
         }
+
+        Function function = ut.getTestScenario().getTestableUnit().getFunction();
+        String fReturn = function.getReturn().getName();
+        ExpectedResult expectedResult = ut.getTestScenario().getExpectedResult();
+
+        // TODO: This print should be done just when assert type expects a second param
+        // TODO: AssertTypeSingle and AssertTypePair classes can be used to determine this
+        
+        System.out.println(fReturn + " expected = " + expectedResult.getValueType().getValue() + ";");
     }
 
     private void printAct(UnitTest ut){
         Function function = ut.getTestScenario().getTestableUnit().getFunction();
-        String fClass = function.getFileClass().getName();
-        String fReturn = function.getReturn().getName();
-        ArrayList<ArrangeStatement> arrangeStatements = ut.getArrange().getArrangeStatements();
-        String sutParams = getFunctionParameters(arrangeStatements);
 
         System.out.println("\n//Act");
 
+        ActExecution actExecution = ut.getAct().getActExecution();
+
+        Declaration declaration = actExecution.getDeclaration();
+
+        ArrayList<ArrangeStatement> arrangeStatements = ut.getArrange().getArrangeStatements();
+
+        String sutParams = getFunctionArgs(arrangeStatements);
+
         if (function.isStatic()){
-            System.out.println(fReturn + " result = " + fClass+ "." + function.getName() + "(" + sutParams + ");");
-        } else {
-            System.out.println(fClass + " sut = new " + fClass + "();");
-            System.out.println(fReturn + " result = sut." + function.getName() + "(" + sutParams + ");");
-        }
 
-        AssertType assertType = ut.getAssert().getAssertExpressions().get(0).getAssertType();
-        if (isAssertTypePair(assertType)){
-            System.out.println(fReturn + " expected = " + ut.getTestScenario().getExpectedResult().getValueType().getValue() + ";");
-        }
-    }
+            System.out.println(declaration.getType() + " " + declaration.getName() +" = " +
+                    actExecution.getCalledFunction() + "." + actExecution.getFunctionName() + "(" + sutParams + ");");
+        } else{
 
-    private boolean isAssertTypePair(AssertType assertType){
-        if (assertType instanceof AssertTypePair){
-            return true;
+            IInstanceActioner instanceActioner = (IInstanceActioner) ut.getAct();
+            ActNewType actNewType = instanceActioner.getActNewType();
+
+            System.out.println(actNewType.getType() + " " + actNewType.getName() + " = new " +
+                    actNewType.getType() + "();");
+
+            System.out.println(declaration.getType() + " " + declaration.getName() +" = " +
+                    actExecution.getCalledFunction() + "." + actExecution.getFunctionName() + "(" + sutParams + ");");
         }
-        return false;
     }
 
     private void printAssert(UnitTest ut){
@@ -85,16 +83,15 @@ public class ConsolePrinter implements IPrinter {
         ArrayList<AssertExpression> expressions = ut.getAssert().getAssertExpressions();
 
         for (AssertExpression ae : expressions){
-            String assertParams = getAssertParameters(expressions);
+            String assertParams = getAssertArgs(expressions);
 
-            System.out.println(ae.getCalledFunction() + "." +
-                    ae.getAssertType().getName() + "(" + assertParams + ");");
+            System.out.println(ae.getCalledFunction() + "." + ae.getAssertType().getName() + "(" + assertParams + ");");
         }
 
         System.out.println("\n######################################");
     }
 
-    private String getFunctionParameters(ArrayList<ArrangeStatement> arrangeStatements){
+    private String getFunctionArgs(ArrayList<ArrangeStatement> arrangeStatements){
         String resultStr = "";
 
         for (ArrangeStatement as : arrangeStatements){
@@ -106,12 +103,12 @@ public class ConsolePrinter implements IPrinter {
         return resultStr;
     }
 
-    private String getAssertParameters(ArrayList<AssertExpression> expressions){
+    private String getAssertArgs(ArrayList<AssertExpression> expressions){
         String resultStr = "";
 
         for (AssertExpression ae : expressions){
-            ArrayList<AssertParameter> assertParameters = ae.getAssertParameters();
-            for (AssertParameter ap : assertParameters){
+            ArrayList<FunctionArgument> functionArguments = ae.getFunctionArguments();
+            for (FunctionArgument ap : functionArguments){
                 resultStr += ap.getValue() + ", ";
             }
         }

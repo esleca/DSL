@@ -5,8 +5,8 @@ import models.entities.unittests.TestableUnit;
 
 import java.util.ArrayList;
 
-public interface IProcessorHandlerTestable {
+public interface ITestableUnitHandler {
 
-    ArrayList<TestableUnit> getTestableUnits(ArrayList<Function> functions);
+    ArrayList<TestableUnit> processTestableUnits(ArrayList<Function> functions);
 
 }

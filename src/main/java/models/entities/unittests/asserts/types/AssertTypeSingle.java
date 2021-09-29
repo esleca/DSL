@@ -1,6 +1,6 @@
 package models.entities.unittests.asserts.types;
 
-import models.entities.unittests.asserts.AssertParameter;
+import models.entities.unittests.FunctionArgument;
 import utils.Constants;
 
 import java.util.ArrayList;
@@ -8,9 +8,9 @@ import java.util.ArrayList;
 public abstract class AssertTypeSingle extends AssertType {
 
     @Override
-    public ArrayList<AssertParameter> getAssertParameters() {
-        ArrayList<AssertParameter> assertParameters = new ArrayList<>();
-        assertParameters.add(new AssertParameter(Constants.PARAM_RESULT));
+    public ArrayList<FunctionArgument> getAssertArguments() {
+        ArrayList<FunctionArgument> assertParameters = new ArrayList<>();
+        assertParameters.add(new FunctionArgument(Constants.ARGUMENT_RESULT));
         return assertParameters;
     }
 }

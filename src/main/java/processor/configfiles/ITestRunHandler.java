@@ -5,7 +5,7 @@ import testrun.config.ConfigurationTestRun;
 
 import java.util.ArrayList;
 
-public interface IProcessorHandlerRunner {
+public interface ITestRunHandler {
 
     ArrayList<ConfigurationTestRun> processConfigurationFiles(String configPath)throws UnsupportedLanguageException;
 

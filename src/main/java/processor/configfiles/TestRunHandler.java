@@ -12,7 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ProcessorHandlerRunner implements IProcessorHandlerRunner{
+public class TestRunHandler implements ITestRunHandler {
 
     /**
      *

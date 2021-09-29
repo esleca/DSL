@@ -7,23 +7,23 @@ import gastmappers.Mapper;
 import gastmappers.MapperFactory;
 import gastmappers.exceptions.UnsupportedLanguageException;
 
-import processor.configfiles.IProcessorHandlerRunner;
-import processor.configfiles.ProcessorHandlerRunner;
+import processor.configfiles.ITestRunHandler;
+import processor.configfiles.TestRunHandler;
 import processor.gastgateway.visitors.VisitorBase;
 import processor.gastgateway.visitors.VisitorDSL;
-import processor.gastgateway.IProcessorHandlerReadable;
-import processor.gastgateway.ProcessorHandlerReadable;
-import processor.testscenarios.IProcessorHandlerTestScenario;
-import processor.testscenarios.ProcessorHandlerTestScenario;
-import processor.unittests.IProcessorHandlerTestable;
-import processor.unittests.IProcessorHandlerUnitTester;
-import processor.unittests.ProcessorHandlerTestable;
-import processor.unittests.ProcessorHandlerUnitTester;
+import processor.gastgateway.ICompilationUnitHandler;
+import processor.gastgateway.CompilationUnitHandler;
+import processor.testscenarios.ITestScenarioHandler;
+import processor.testscenarios.TestScenarioHandler;
+import processor.unittests.ITestableUnitHandler;
+import processor.unittests.IUnitTestHandler;
+import processor.unittests.TestableUnitHandler;
+import processor.unittests.UnitTestHandler;
 import utils.*;
 import testrun.config.ConfigurationTestRun;
 
-import java.awt.*;
 import java.io.IOException;
+
 
 public class GestorDSL implements IGestorDSL{
 
@@ -41,18 +41,15 @@ public class GestorDSL implements IGestorDSL{
      */
     @Override
     public void readConfigurationFile() throws UnsupportedLanguageException {
-        IProcessorHandlerRunner handlerRunner = new ProcessorHandlerRunner();
-        dslModel.setConfigurationsRunFiles(handlerRunner.processConfigurationFiles(dslModel.getConfigurationPath()));
+        ITestRunHandler dslRunner = new TestRunHandler();
+        dslModel.setConfigurationsRunFiles(dslRunner.processConfigurationFiles(dslModel.getConfigurationPath()));
     }
 
     /**
-     * This method create a handler in memory to process
+     * This method create a dsl in memory to process
      * GAST and return the root compilation units.
      *
      * @throws IOException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
-     * @throws HeadlessException
      * @throws UnsupportedLanguageException
      */
     @Override
@@ -61,9 +58,9 @@ public class GestorDSL implements IGestorDSL{
 
         for (ConfigurationTestRun testRun : dslModel.getConfigurationsRunFiles()) {
             Mapper mapper = factory.createMapper(testRun.getSourceLanguage());
-            IProcessorHandlerReadable handlerReadable = new ProcessorHandlerReadable(testRun.getInputDirectory(), testRun.getOutputDirectory(),
+            ICompilationUnitHandler compilationUnitHandler = new CompilationUnitHandler(testRun.getInputDirectory(), testRun.getOutputDirectory(),
                                                                                      testRun.getSourceLanguage(), mapper, testRun.isValidateMap());
-            dslModel.setCompilationUnits(handlerReadable.processFilesInDir(dslModel.isWriteToDisk()));
+            dslModel.setCompilationUnits(compilationUnitHandler.processFilesInDir(dslModel.isWriteToDisk()));
         }
     }
 
@@ -81,36 +78,40 @@ public class GestorDSL implements IGestorDSL{
     }
 
     /**
-     * Create a transformation handler for testable units
+     * Create a transformation dsl for testable units
      * This method filter the functions in order to obtain
      * the valid testable units.
      */
     @Override
     public void processTestableUnits(){
-        IProcessorHandlerTestable handlerTestable = new ProcessorHandlerTestable();
-        dslModel.setTestableUnits(handlerTestable.getTestableUnits(dslModel.getCompilationUnitFunctions()));
+        ITestableUnitHandler testableUnitHandler = new TestableUnitHandler();
+        dslModel.setTestableUnits(testableUnitHandler.processTestableUnits(dslModel.getCompilationUnitFunctions()));
     }
 
     /**
-     * Use a processor handler test scenario to define
+     * Use a processor dsl test scenario to define
      * the test scenario object representations.
+     *
+     * @throws ValueTypeNotFoundException
+     * @throws AssertNotFoundException
      */
     @Override
     public void readTestScenarios() throws ValueTypeNotFoundException, AssertNotFoundException {
-        IProcessorHandlerTestScenario handlerTestScenario = new ProcessorHandlerTestScenario();
-        dslModel.setTestScenariosRunFiles(handlerTestScenario.readTestScenariosRun(dslModel.getTestScenariosPath()));
-        dslModel.setTestScenarios(handlerTestScenario.getTestScenarios(dslModel.getTestScenariosRunFiles(), dslModel.getTestableUnits()));
+        ITestScenarioHandler testScenarioHandler = new TestScenarioHandler();
+        dslModel.setTestScenariosRunFiles(testScenarioHandler.processTestScenariosRun(dslModel.getTestScenariosPath()));
+        dslModel.setTestScenarios(testScenarioHandler.processTestScenarios(dslModel.getTestScenariosRunFiles(), dslModel.getTestableUnits()));
     }
 
     /**
-     * Use the unit test handler to convert from the
+     * Use the unit test dsl to convert from the
      * test scenarios to the unit test object representations
      *
+     * @throws AssertNotFoundException
      */
     @Override
     public void processUnitTests() throws AssertNotFoundException {
-        IProcessorHandlerUnitTester handlerUnitTester = new ProcessorHandlerUnitTester();
-        dslModel.setUnitTests(handlerUnitTester.getUnitTests(dslModel.getTestScenarios()));
+        IUnitTestHandler unitTestHandler = new UnitTestHandler();
+        dslModel.setUnitTests(unitTestHandler.processUnitTests(dslModel.getTestScenarios()));
         printUnitTests();
     }
 

@@ -1,6 +1,6 @@
 package processor.gastgateway;
 
-public class ProcessorHandlerWritable implements IProcessorHandlerWritable{
+public class GASTWriterHandler implements IGASTWriterHandler {
 
     @Override
     public void writeUnitTests() {

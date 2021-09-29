@@ -1,6 +1,6 @@
 package models.entities.unittests.asserts.types;
 
-import models.entities.unittests.asserts.AssertParameter;
+import models.entities.unittests.FunctionArgument;
 
 import java.util.ArrayList;
 
@@ -12,6 +12,6 @@ public abstract class AssertType {
         return this.name;
     }
 
-    public abstract ArrayList<AssertParameter> getAssertParameters();
+    public abstract ArrayList<FunctionArgument> getAssertArguments();
 
 }

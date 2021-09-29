@@ -6,7 +6,7 @@ import gastmappers.exceptions.UnsupportedLanguageException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public interface IProcessorHandlerReadable {
+public interface ICompilationUnitHandler {
 
     ArrayList<CompilationUnit> processFilesInDir(boolean writeInDisk)
             throws IOException, IllegalArgumentException, SecurityException, UnsupportedLanguageException;

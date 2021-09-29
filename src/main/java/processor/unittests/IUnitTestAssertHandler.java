@@ -4,8 +4,8 @@ import exceptions.AssertNotFoundException;
 import models.entities.unittests.asserts.Assert;
 import models.entities.unittests.TestScenario;
 
-public interface IProcessorHandlerUnitTesterAsserter {
+public interface IUnitTestAssertHandler {
 
-    Assert getAssert(TestScenario testScenario) throws AssertNotFoundException;
+    Assert processUnitTestAssert(TestScenario testScenario) throws AssertNotFoundException;
 
 }

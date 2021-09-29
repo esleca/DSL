@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import static gastmappers.misc.Misc.writeInFile;
 
 
-public class ProcessorHandlerReadable implements IProcessorHandlerReadable {
+public class CompilationUnitHandler implements ICompilationUnitHandler {
 
     private final String inputPath;
     private final String translationFilePath;
@@ -34,7 +34,7 @@ public class ProcessorHandlerReadable implements IProcessorHandlerReadable {
      * @param mapper     The corresponding mapper for the language.
      * @param validate   True if is necessary to validate the map process (run the Validator).
      */
-    public ProcessorHandlerReadable(String inputPath, String outputPath, Language language, Mapper mapper, boolean validate) {
+    public CompilationUnitHandler(String inputPath, String outputPath, Language language, Mapper mapper, boolean validate) {
         this.inputPath = inputPath;
         this.translationFilePath = outputPath + "\\result.json";
         this.differencesFilePath = outputPath + "\\summaryDifferences.txt";

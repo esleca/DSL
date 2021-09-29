@@ -3,8 +3,8 @@ package processor.unittests;
 import models.entities.unittests.arranges.Arrange;
 import models.entities.unittests.TestScenario;
 
-public interface IProcessorHandlerUnitTesterArranger {
+public interface IUnitTestArrangeHandler {
 
-    Arrange getArrange(TestScenario testScenario);
+    Arrange processUnitTestArrange(TestScenario testScenario);
 
 }

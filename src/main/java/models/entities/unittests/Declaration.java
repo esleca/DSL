@@ -1,4 +1,4 @@
-package models.entities.unittests.arranges;
+package models.entities.unittests;
 
 public class Declaration {
 

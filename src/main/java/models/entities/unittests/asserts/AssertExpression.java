@@ -1,5 +1,6 @@
 package models.entities.unittests.asserts;
 
+import models.entities.unittests.FunctionArgument;
 import models.entities.unittests.asserts.types.AssertType;
 
 import java.util.ArrayList;
@@ -8,20 +9,16 @@ public class AssertExpression {
 
     private String calledFunction;
     private AssertType assertType;
-    private ArrayList<AssertParameter> assertParameters;
+    private ArrayList<FunctionArgument> functionArguments;
 
-    public AssertExpression(String calledFunction, AssertType assertType, ArrayList<AssertParameter> assertParameters) {
+    public AssertExpression(String calledFunction, AssertType assertType, ArrayList<FunctionArgument> functionArguments) {
         this.calledFunction = calledFunction;
         this.assertType = assertType;
-        this.assertParameters = assertParameters;
+        this.functionArguments = functionArguments;
     }
 
     public String getCalledFunction() {
         return calledFunction;
-    }
-
-    public void setCalledFunction(String calledFunction) {
-        this.calledFunction = calledFunction;
     }
 
     public AssertType getAssertType() {
@@ -32,12 +29,8 @@ public class AssertExpression {
         this.assertType = assertType;
     }
 
-    public ArrayList<AssertParameter> getAssertParameters() {
-        return assertParameters;
-    }
-
-    public void setAssertParameters(ArrayList<AssertParameter> assertParameters) {
-        this.assertParameters = assertParameters;
+    public ArrayList<FunctionArgument> getFunctionArguments() {
+        return functionArguments;
     }
 
 }

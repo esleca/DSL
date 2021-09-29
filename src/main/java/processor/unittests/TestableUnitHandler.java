@@ -7,17 +7,15 @@ import models.entities.unittests.TestableUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProcessorHandlerTestable implements IProcessorHandlerTestable {
+public class TestableUnitHandler implements ITestableUnitHandler {
 
     private List<String> modifiers;
     private List<String> returns;
     private TestableFactory factory;
 
-
-    public ProcessorHandlerTestable(){
+    public TestableUnitHandler(){
         initializePermitModifiers();
         initializeExcludedReturns();
-
         factory = new TestableFactory();
     }
 
@@ -32,7 +30,7 @@ public class ProcessorHandlerTestable implements IProcessorHandlerTestable {
     }
 
     @Override
-    public ArrayList<TestableUnit> getTestableUnits(ArrayList<Function> functions){
+    public ArrayList<TestableUnit> processTestableUnits(ArrayList<Function> functions){
         ArrayList<TestableUnit> testableUnits = new ArrayList<>();
 
         for (Function function: functions){
