@@ -5,6 +5,9 @@ import models.entities.unittests.*;
 import models.entities.unittests.acts.*;
 import models.entities.unittests.arranges.ArrangeStatement;
 import models.entities.unittests.asserts.AssertExpression;
+import models.entities.unittests.asserts.types.AssertType;
+import models.entities.unittests.asserts.types.AssertTypePair;
+
 import java.util.ArrayList;
 
 public class ConsolePrinter implements IPrinter {
@@ -37,14 +40,23 @@ public class ConsolePrinter implements IPrinter {
                     as.getDefinition().getValueType().getValue() + ";");
         }
 
-        Function function = ut.getTestScenario().getTestableUnit().getFunction();
-        String fReturn = function.getReturn().getName();
-        ExpectedResult expectedResult = ut.getTestScenario().getExpectedResult();
+        AssertType assertType = ut.getAssert().getAssertExpressions().get(0).getAssertType();
+        if (isAssertTypePair(assertType)){
+            Function function = ut.getTestScenario().getTestableUnit().getFunction();
 
-        // TODO: This print should be done just when assert type expects a second param
-        // TODO: AssertTypeSingle and AssertTypePair classes can be used to determine this
-        
-        System.out.println(fReturn + " expected = " + expectedResult.getValueType().getValue() + ";");
+            String fReturn = function.getReturn().getName();
+
+            ExpectedResult expectedResult = ut.getTestScenario().getExpectedResult();
+
+            System.out.println(fReturn + " expected = " + expectedResult.getValueType().getValue() + ";");
+        }
+    }
+
+    private boolean isAssertTypePair(AssertType assertType){
+        if (assertType instanceof AssertTypePair){
+            return true;
+        }
+        return false;
     }
 
     private void printAct(UnitTest ut){

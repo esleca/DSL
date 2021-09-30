@@ -21,7 +21,7 @@ public class TestRunHandler implements ITestRunHandler {
      * @throws UnsupportedLanguageException
      */
     @Override
-    public ArrayList<ConfigurationTestRun> processConfigurationFiles(String configPath) throws UnsupportedLanguageException {
+    public ArrayList<ConfigurationTestRun> processConfigFiles(String configPath) throws UnsupportedLanguageException {
         ArrayList<ConfigurationTestRun> results = new ArrayList<>();
         JSONParser jsonParser = new JSONParser();
 

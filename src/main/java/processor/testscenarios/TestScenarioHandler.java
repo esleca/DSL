@@ -23,20 +23,21 @@ import java.util.ArrayList;
 
 public class TestScenarioHandler implements ITestScenarioHandler {
 
-    private TestableFactory testsFactory;
+    private TestableFactory testableFactory;
     private ValueTypeFactory valueTypeFactory;
-    private ExpectedResultsFactory expectedResultsFactory;
+    private ExpectedResultsFactory expectedResFactory;
     private AssertsFactory assertsFactory;
     private ParametersFactory parametersFactory;
 
-    public TestScenarioHandler(){
-        testsFactory = new TestableFactory();
-        valueTypeFactory = new ValueTypeFactory();
-        expectedResultsFactory = new ExpectedResultsFactory();
-        assertsFactory = new AssertsFactory();
-        parametersFactory = new ParametersFactory();
+    public TestScenarioHandler(TestableFactory testableFactory, ValueTypeFactory valueTypeFactory,
+                               ExpectedResultsFactory expectedFactory, AssertsFactory assertsFactory,
+                               ParametersFactory parametersFactory){
+        this.testableFactory = testableFactory;
+        this.valueTypeFactory = valueTypeFactory;
+        this.expectedResFactory = expectedFactory;
+        this.assertsFactory = assertsFactory;
+        this.parametersFactory = parametersFactory;
     }
-
 
     /**
      * Receive the path where the test scenarios are stored
@@ -68,8 +69,6 @@ public class TestScenarioHandler implements ITestScenarioHandler {
 
         return testScenarios;
     }
-
-
 
     /**
      * Create an instance of the TestScenarioRun object being loaded from file
@@ -138,9 +137,12 @@ public class TestScenarioHandler implements ITestScenarioHandler {
     private TestScenario getTestScenario(TestScenarioRun testScenarioRun, TestableUnit testableUnit)
             throws ValueTypeNotFoundException, AssertNotFoundException {
         AssertType assertType = assertsFactory.createAssertType(testScenarioRun.getAssertion());
+
         ValueType valueType = valueTypeFactory.createValueType(testableUnit.getFunction().getReturn().getName(), testScenarioRun.getExpected());
-        ExpectedResult expectedResult = expectedResultsFactory.createExpectedResult(valueType);
-        return testsFactory.createTestScenario(testScenarioRun.getTestName(), testableUnit, testScenarioRun.getParameters(), expectedResult, assertType);
+
+        ExpectedResult expectedResult = expectedResFactory.createExpectedResult(valueType);
+
+        return testableFactory.createTestScenario(testScenarioRun.getTestName(), testableUnit, testScenarioRun.getParameters(), expectedResult, assertType);
     }
 
 }

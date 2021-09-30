@@ -12,6 +12,12 @@ import java.util.ArrayList;
 
 public class UnitTestArrangeHandler implements IUnitTestArrangeHandler {
 
+    private UnitTestFactory unitTestFactory;
+
+    public UnitTestArrangeHandler(UnitTestFactory unitTestFactory){
+        this.unitTestFactory = unitTestFactory;
+    }
+
     /**
      * Create the Arrange section of the unit test
      *
@@ -20,7 +26,6 @@ public class UnitTestArrangeHandler implements IUnitTestArrangeHandler {
      */
     @Override
     public Arrange processUnitTestArrange(TestScenario testScenario) {
-        UnitTestFactory unitTestFactory = new UnitTestFactory();
         ArrayList<ArrangeStatement> arranges = new ArrayList<>();
         ArrayList<ParameterScenario> parameterScenarios = testScenario.getParameters();
 

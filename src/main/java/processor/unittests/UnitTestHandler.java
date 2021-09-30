@@ -11,14 +11,14 @@ import java.util.ArrayList;
 
 public class UnitTestHandler implements IUnitTestHandler {
 
-    private IUnitTestArrangeHandler dslArranger;
-    private IUnitTestActionHandler dslActioner;
-    private IUnitTestAssertHandler dslAsserter;
+    private IUnitTestArrangeHandler arrangeHandler;
+    private IUnitTestActionHandler actionHandler;
+    private IUnitTestAssertHandler assertHandler;
 
-    public UnitTestHandler(){
-        dslArranger = new UnitTestArrangeHandler();
-        dslActioner = new UnitTestActionHandler();
-        dslAsserter = new UnitTestAssertHandler();
+    public UnitTestHandler(IUnitTestArrangeHandler arrangeHandler, IUnitTestActionHandler actionHandler, IUnitTestAssertHandler assertHandler){
+        this.arrangeHandler = arrangeHandler;
+        this.actionHandler = actionHandler;
+        this.assertHandler = assertHandler;
     }
 
     /**
@@ -36,9 +36,9 @@ public class UnitTestHandler implements IUnitTestHandler {
 
         for (TestScenario testScenario : testScenarios){
             // AAA
-            Arrange arrange = dslArranger.processUnitTestArrange(testScenario);
-            Act act = dslActioner.processUnitTestAct(testScenario);
-            Assert lAssert = dslAsserter.processUnitTestAssert(testScenario);
+            Arrange arrange = arrangeHandler.processUnitTestArrange(testScenario);
+            Act act = actionHandler.processUnitTestAct(testScenario);
+            Assert lAssert = assertHandler.processUnitTestAssert(testScenario);
 
             // unit test
             UnitTest unitTest = unitTestFactory.createUnitTest(testScenario, arrange, act, lAssert);

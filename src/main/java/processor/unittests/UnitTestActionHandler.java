@@ -17,8 +17,8 @@ public class UnitTestActionHandler implements IUnitTestActionHandler {
 
     private UnitTestFactory unitTestFactory;
 
-    public UnitTestActionHandler(){
-        unitTestFactory = new UnitTestFactory();
+    public UnitTestActionHandler(UnitTestFactory unitTestFactory){
+        this.unitTestFactory = unitTestFactory;
     }
 
     /**
@@ -47,6 +47,7 @@ public class UnitTestActionHandler implements IUnitTestActionHandler {
      */
     private StaticAct getStaticAct(TestScenario testScenario){
         Function function = testScenario.getTestableUnit().getFunction();
+
         String calledFunction = function.getFileClass().getName();
 
         ActExecution actExecution = getActExecution(testScenario, calledFunction);
@@ -62,6 +63,7 @@ public class UnitTestActionHandler implements IUnitTestActionHandler {
     private InstanceAct getInstanceAct(TestScenario testScenario){
         String sutType = testScenario.getTestableUnit().getFunction().getFileClass().getName();
         String sutName = SYSTEM_UNDER_TEST;
+
         ActNewType actNewType = unitTestFactory.createActNewType(sutType, sutName);
 
         ActExecution actExecution = getActExecution(testScenario, sutName);
@@ -79,6 +81,7 @@ public class UnitTestActionHandler implements IUnitTestActionHandler {
         Declaration declaration = getActExecutionDeclaration(testScenario);
 
         Function function = testScenario.getTestableUnit().getFunction();
+
         String functionName = function.getName();
 
         ArrayList<FunctionArgument> functionArguments = getActExecutionArguments(testScenario.getParameters());
@@ -93,9 +96,10 @@ public class UnitTestActionHandler implements IUnitTestActionHandler {
      */
     private Declaration getActExecutionDeclaration(TestScenario testScenario){
         Function function = testScenario.getTestableUnit().getFunction();
+
         String type = function.getReturn().getName();
-        String name = ACT_RESULT_NAME;
-        return unitTestFactory.createDeclaration(type, name);
+
+        return unitTestFactory.createDeclaration(type, ACT_RESULT_NAME);
     }
 
     /**
@@ -107,7 +111,9 @@ public class UnitTestActionHandler implements IUnitTestActionHandler {
         ArrayList<FunctionArgument> functionArguments = new ArrayList<>();
 
         for (ParameterScenario ps : parameterScenarios){
-            functionArguments.add(unitTestFactory.createFunctionArgument(ps.getParameterFunction().getName()));
+            String value = ps.getParameterFunction().getName();
+            FunctionArgument functionArg = unitTestFactory.createFunctionArgument(value);
+            functionArguments.add(functionArg);
         }
 
         return functionArguments;

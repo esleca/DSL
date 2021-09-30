@@ -7,6 +7,6 @@ import java.util.ArrayList;
 
 public interface ITestRunHandler {
 
-    ArrayList<ConfigurationTestRun> processConfigurationFiles(String configPath)throws UnsupportedLanguageException;
+    ArrayList<ConfigurationTestRun> processConfigFiles(String configPath)throws UnsupportedLanguageException;
 
 }

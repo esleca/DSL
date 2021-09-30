@@ -17,9 +17,9 @@ public class UnitTestAssertHandler implements IUnitTestAssertHandler {
     private UnitTestFactory unitTestFactory;
     private AssertsFactory assertsFactory;
 
-    public UnitTestAssertHandler(){
-        unitTestFactory = new UnitTestFactory();
-        assertsFactory = new AssertsFactory();
+    public UnitTestAssertHandler(UnitTestFactory unitTestFactory, AssertsFactory assertsFactory){
+        this.unitTestFactory = unitTestFactory;
+        this.assertsFactory = assertsFactory;
     }
 
     @Override
