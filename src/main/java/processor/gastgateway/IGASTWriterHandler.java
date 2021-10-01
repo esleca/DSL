@@ -1,6 +1,6 @@
 package processor.gastgateway;
 
-public interface IProcessorHandlerWritable {
+public interface IGASTWriterHandler {
 
     void writeUnitTests();
 

@@ -8,10 +8,10 @@ import testrun.config.TestScenarioRun;
 
 import java.util.ArrayList;
 
-public interface IProcessorHandlerTestScenario {
+public interface ITestScenarioHandler {
 
-    ArrayList<TestScenarioRun> readTestScenariosRun(String scenariosPath);
+    ArrayList<TestScenarioRun> processTestScenariosRun(String scenariosPath);
 
-    ArrayList<TestScenario> getTestScenarios(ArrayList<TestScenarioRun> testScenarioRuns,
+    ArrayList<TestScenario> processTestScenarios(ArrayList<TestScenarioRun> testScenarioRuns,
                                              ArrayList<TestableUnit> testableUnits) throws ValueTypeNotFoundException, AssertNotFoundException;
 }

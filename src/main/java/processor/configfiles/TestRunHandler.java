@@ -12,7 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ProcessorHandlerRunner implements IProcessorHandlerRunner{
+public class TestRunHandler implements ITestRunHandler {
 
     /**
      *
@@ -21,7 +21,7 @@ public class ProcessorHandlerRunner implements IProcessorHandlerRunner{
      * @throws UnsupportedLanguageException
      */
     @Override
-    public ArrayList<ConfigurationTestRun> processConfigurationFiles(String configPath) throws UnsupportedLanguageException {
+    public ArrayList<ConfigurationTestRun> processConfigFiles(String configPath) throws UnsupportedLanguageException {
         ArrayList<ConfigurationTestRun> results = new ArrayList<>();
         JSONParser jsonParser = new JSONParser();
 

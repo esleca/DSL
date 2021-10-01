@@ -1,54 +1,73 @@
 package factories;
 
 import models.entities.unittests.*;
-import models.entities.unittests.acts.Act;
+import models.entities.unittests.acts.*;
 import models.entities.unittests.arranges.Arrange;
 import models.entities.unittests.arranges.ArrangeStatement;
-import models.entities.unittests.arranges.Declaration;
-import models.entities.unittests.arranges.Definition;
+import models.entities.unittests.arranges.ArrangeDefinition;
+
 import models.entities.unittests.asserts.Assert;
 import models.entities.unittests.asserts.AssertExpression;
-import models.entities.unittests.asserts.AssertParameter;
 import models.entities.unittests.asserts.types.AssertType;
+
 import models.entities.valuetypes.ValueType;
 
 import java.util.ArrayList;
 
 public class UnitTestFactory {
 
-    public Declaration createArrangeStatementDeclaration(String type, String name){
-        Declaration declaration = new Declaration(type, name);
-        return declaration;
+    public Declaration createDeclaration(String type, String name){
+        return new Declaration(type, name);
     }
 
-    public Definition createArrangeStatementDefinition(ValueType valueType){
-        Definition definition = new Definition(valueType);
-        return definition;
+    public FunctionArgument createFunctionArgument(String value){
+        return new FunctionArgument(value);
     }
 
-    public ArrangeStatement createArrangeStatement(Declaration declaration, Definition definition) {
-        ArrangeStatement arrangeStatement = new ArrangeStatement(declaration, definition);
-        return arrangeStatement;
+    public ActNewType createActNewType(String type, String name){
+        return new ActNewType(type, name);
+    }
+
+
+    // Arranges
+    public ArrangeDefinition createArrangeStatementDefinition(ValueType valueType){
+        return new ArrangeDefinition(valueType);
+    }
+
+    public ArrangeStatement createArrangeStatement(Declaration declaration, ArrangeDefinition definition) {
+        return new ArrangeStatement(declaration, definition);
     }
 
     public Arrange createArrange(ArrayList<ArrangeStatement> arrangeStatements){
-        Arrange arrange = new Arrange(arrangeStatements);
-        return arrange;
+        return new Arrange(arrangeStatements);
     }
 
-    public AssertExpression createAssertExpression(String calledFunction, AssertType assertType, ArrayList<AssertParameter> assertParameters){
-        AssertExpression assertExpression = new AssertExpression(calledFunction, assertType, assertParameters);
-        return assertExpression;
+
+    //Acts
+    public Act createStaticAct(ActExecution actExecution){
+        return new StaticAct(actExecution);
+    }
+
+    public Act createInstaceAct(ActNewType actNewType, ActExecution actExecution){
+        return new InstanceAct(actNewType, actExecution);
+    }
+
+    public ActExecution createActExecution(Declaration declaration, String calledFunction, String functionName, ArrayList<FunctionArgument> functionArguments){
+        return new ActExecution(declaration, calledFunction, functionName, functionArguments);
+    }
+
+
+    // Asserts
+    public AssertExpression createAssertExpression(String calledFunction, AssertType assertType, ArrayList<FunctionArgument> assertParameters){
+        return new AssertExpression(calledFunction, assertType, assertParameters);
     }
 
     public Assert createAssert(ArrayList<AssertExpression> assertExpressions){
-        Assert lassert = new Assert(assertExpressions);
-        return lassert;
+        return new Assert(assertExpressions);
     }
 
     public UnitTest createUnitTest(TestScenario testScenario, Arrange arrange, Act act, Assert inAssert){
-        UnitTest unitTest = new UnitTest(testScenario, arrange, act, inAssert);
-        return unitTest;
+        return new UnitTest(testScenario, arrange, act, inAssert);
     }
 
 }

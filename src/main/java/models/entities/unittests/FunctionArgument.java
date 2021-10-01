@@ -1,10 +1,10 @@
-package models.entities.unittests.asserts;
+package models.entities.unittests;
 
-public class AssertParameter {
+public class FunctionArgument {
 
     private String value;
 
-    public AssertParameter(String value) {
+    public FunctionArgument(String value) {
         this.value = value;
     }
 

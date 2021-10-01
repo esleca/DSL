@@ -33,7 +33,11 @@ public class Constants {
     public final static String VALUE_TYPE_DOUBLE = "double";
     public final static String VALUE_TYPE_CHAR = "char";
 
-    public final static String PARAM_EXPECTED = "expected";
-    public final static String PARAM_RESULT = "result";
+    public final static String ACT_RESULT_NAME = "result";
+
+    public final static String ARGUMENT_EXPECTED = "expected";
+    public final static String ARGUMENT_RESULT = "result";
+
+    public final static String SYSTEM_UNDER_TEST = "sut";
 
 }

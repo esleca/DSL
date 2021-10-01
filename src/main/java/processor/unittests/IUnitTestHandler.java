@@ -6,8 +6,8 @@ import models.entities.unittests.UnitTest;
 
 import java.util.ArrayList;
 
-public interface IProcessorHandlerUnitTester {
+public interface IUnitTestHandler {
 
-    ArrayList<UnitTest> getUnitTests(ArrayList<TestScenario> testScenarios) throws AssertNotFoundException;
+    ArrayList<UnitTest> processUnitTests(ArrayList<TestScenario> testScenarios) throws AssertNotFoundException;
 
 }

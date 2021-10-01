@@ -5,17 +5,17 @@ import models.entities.parameters.ParameterScenario;
 import models.entities.unittests.*;
 import models.entities.unittests.arranges.Arrange;
 import models.entities.unittests.arranges.ArrangeStatement;
-import models.entities.unittests.arranges.Declaration;
-import models.entities.unittests.arranges.Definition;
+import models.entities.unittests.Declaration;
+import models.entities.unittests.arranges.ArrangeDefinition;
 
 import java.util.ArrayList;
 
-public class ProcessorHandlerUnitTesterArranger implements IProcessorHandlerUnitTesterArranger {
+public class UnitTestArrangeHandler implements IUnitTestArrangeHandler {
 
     private UnitTestFactory unitTestFactory;
 
-    public ProcessorHandlerUnitTesterArranger(){
-        unitTestFactory = new UnitTestFactory();
+    public UnitTestArrangeHandler(UnitTestFactory unitTestFactory){
+        this.unitTestFactory = unitTestFactory;
     }
 
     /**
@@ -25,7 +25,7 @@ public class ProcessorHandlerUnitTesterArranger implements IProcessorHandlerUnit
      * @return Arrange section
      */
     @Override
-    public Arrange getArrange(TestScenario testScenario) {
+    public Arrange processUnitTestArrange(TestScenario testScenario) {
         ArrayList<ArrangeStatement> arranges = new ArrayList<>();
         ArrayList<ParameterScenario> parameterScenarios = testScenario.getParameters();
 
@@ -33,8 +33,8 @@ public class ProcessorHandlerUnitTesterArranger implements IProcessorHandlerUnit
             String type = parameterScenario.getParameterFunction().getType();
             String name = parameterScenario.getParameterFunction().getName();
 
-            Declaration declaration = unitTestFactory.createArrangeStatementDeclaration(type, name);
-            Definition definition = unitTestFactory.createArrangeStatementDefinition(parameterScenario.getValueType());
+            Declaration declaration = unitTestFactory.createDeclaration(type, name);
+            ArrangeDefinition definition = unitTestFactory.createArrangeStatementDefinition(parameterScenario.getValueType());
 
             ArrangeStatement arrangeStatement = unitTestFactory.createArrangeStatement(declaration, definition);
             arranges.add(arrangeStatement);

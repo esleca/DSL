@@ -21,22 +21,23 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenario {
+public class TestScenarioHandler implements ITestScenarioHandler {
 
-    private TestableFactory testsFactory;
+    private TestableFactory testableFactory;
     private ValueTypeFactory valueTypeFactory;
-    private ExpectedResultsFactory expectedResultsFactory;
+    private ExpectedResultsFactory expectedResFactory;
     private AssertsFactory assertsFactory;
     private ParametersFactory parametersFactory;
 
-    public ProcessorHandlerTestScenario(){
-        testsFactory = new TestableFactory();
-        valueTypeFactory = new ValueTypeFactory();
-        expectedResultsFactory = new ExpectedResultsFactory();
-        assertsFactory = new AssertsFactory();
-        parametersFactory = new ParametersFactory();
+    public TestScenarioHandler(TestableFactory testableFactory, ValueTypeFactory valueTypeFactory,
+                               ExpectedResultsFactory expectedFactory, AssertsFactory assertsFactory,
+                               ParametersFactory parametersFactory){
+        this.testableFactory = testableFactory;
+        this.valueTypeFactory = valueTypeFactory;
+        this.expectedResFactory = expectedFactory;
+        this.assertsFactory = assertsFactory;
+        this.parametersFactory = parametersFactory;
     }
-
 
     /**
      * Receive the path where the test scenarios are stored
@@ -48,7 +49,7 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
      * @return
      */
     @Override
-    public ArrayList<TestScenarioRun> readTestScenariosRun(String scenariosPath){
+    public ArrayList<TestScenarioRun> processTestScenariosRun(String scenariosPath) {
         ArrayList<TestScenarioRun> testScenarios = new ArrayList<>();
         JSONParser jsonParser = new JSONParser();
 
@@ -68,7 +69,6 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
 
         return testScenarios;
     }
-
 
     /**
      * Create an instance of the TestScenarioRun object being loaded from file
@@ -100,7 +100,6 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
         return new TestScenarioRun(function, testName, parameterScenarios, expected, assertion);
     }
 
-
     /**
      * Receive two lists, test scenarios and testable units
      * Process the parameters lists and return a list of
@@ -111,7 +110,7 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
      * @return Test scenarios list
      */
     @Override
-    public ArrayList<TestScenario> getTestScenarios(ArrayList<TestScenarioRun> testScenarioRuns, ArrayList<TestableUnit> testableUnits)
+    public ArrayList<TestScenario> processTestScenarios(ArrayList<TestScenarioRun> testScenarioRuns, ArrayList<TestableUnit> testableUnits)
             throws ValueTypeNotFoundException, AssertNotFoundException {
 
         ArrayList<TestScenario> testScenarios = new ArrayList<>();
@@ -138,9 +137,12 @@ public class ProcessorHandlerTestScenario implements IProcessorHandlerTestScenar
     private TestScenario getTestScenario(TestScenarioRun testScenarioRun, TestableUnit testableUnit)
             throws ValueTypeNotFoundException, AssertNotFoundException {
         AssertType assertType = assertsFactory.createAssertType(testScenarioRun.getAssertion());
+
         ValueType valueType = valueTypeFactory.createValueType(testableUnit.getFunction().getReturn().getName(), testScenarioRun.getExpected());
-        ExpectedResult expectedResult = expectedResultsFactory.createExpectedResult(valueType);
-        return testsFactory.createTestScenario(testScenarioRun.getTestName(), testableUnit, testScenarioRun.getParameters(), expectedResult, assertType);
+
+        ExpectedResult expectedResult = expectedResFactory.createExpectedResult(valueType);
+
+        return testableFactory.createTestScenario(testScenarioRun.getTestName(), testableUnit, testScenarioRun.getParameters(), expectedResult, assertType);
     }
 
 }
