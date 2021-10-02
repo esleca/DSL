@@ -35,12 +35,9 @@ public class UnitTestHandler implements IUnitTestHandler {
         UnitTestFactory unitTestFactory = new UnitTestFactory();
 
         for (TestScenario testScenario : testScenarios){
-            // AAA
             Arrange arrange = arrangeHandler.processUnitTestArrange(testScenario);
             Act act = actionHandler.processUnitTestAct(testScenario);
             Assert lAssert = assertHandler.processUnitTestAssert(testScenario);
-
-            // unit test
             UnitTest unitTest = unitTestFactory.createUnitTest(testScenario, arrange, act, lAssert);
             unitTests.add(unitTest);
         }
