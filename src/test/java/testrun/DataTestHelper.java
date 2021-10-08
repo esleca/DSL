@@ -1,5 +1,6 @@
 package testrun;
 
+import models.entities.aggregates.Package;
 import models.entities.aggregates.Class;
 import models.entities.aggregates.Function;
 import models.entities.parameters.ParameterFunction;
@@ -56,8 +57,7 @@ public class DataTestHelper {
 
     public static Function getFunction(){
         Class fClass = getFClass();
-        String fpackage = "TestPackage";
-        Function function = new Function(fClass, fpackage);
+        Function function = new Function(fClass);
         function.setName("functionToTest");
         Return freturn = getIntReturn();
         function.setReturn(freturn);
@@ -69,8 +69,15 @@ public class DataTestHelper {
         return fReturn;
     }
 
+
+    public static Package getPackage(){
+        Package pkg = new Package("TestPackage");
+        return pkg;
+    }
+
     public static Class getFClass(){
-        Class fClass = new Class("TestClass");
+        Package fpackage = getPackage();
+        Class fClass = new Class("TestClass", fpackage);
         return fClass;
     }
 }

@@ -6,7 +6,8 @@
             {
                 "name": "edad",
                 "type": "int",
-                "value": 31
+                "value": 303
+                "value": 30
             }
         ],
         "assert": "isTrue"

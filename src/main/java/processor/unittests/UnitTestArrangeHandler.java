@@ -1,6 +1,6 @@
 package processor.unittests;
 
-import factories.UnitTestFactory;
+import factories.IUnitTestFactory;
 import models.entities.parameters.ParameterScenario;
 import models.entities.unittests.*;
 import models.entities.unittests.arranges.Arrange;
@@ -12,18 +12,12 @@ import java.util.ArrayList;
 
 public class UnitTestArrangeHandler implements IUnitTestArrangeHandler {
 
-    private UnitTestFactory unitTestFactory;
+    private IUnitTestFactory unitTestFactory;
 
-    public UnitTestArrangeHandler(UnitTestFactory unitTestFactory){
+    public UnitTestArrangeHandler(IUnitTestFactory unitTestFactory){
         this.unitTestFactory = unitTestFactory;
     }
 
-    /**
-     * Create the Arrange section of the unit test
-     *
-     * @param testScenario
-     * @return Arrange section
-     */
     @Override
     public Arrange processUnitTestArrange(TestScenario testScenario) {
         ArrayList<ArrangeStatement> arranges = new ArrayList<>();

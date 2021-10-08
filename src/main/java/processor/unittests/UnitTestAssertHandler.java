@@ -1,8 +1,8 @@
 package processor.unittests;
 
 import exceptions.AssertNotFoundException;
-import factories.AssertsFactory;
-import factories.UnitTestFactory;
+import factories.IAssertTypesFactory;
+import factories.IUnitTestFactory;
 import models.entities.unittests.asserts.Assert;
 import models.entities.unittests.TestScenario;
 import models.entities.unittests.asserts.AssertExpression;
@@ -14,12 +14,12 @@ import java.util.ArrayList;
 
 public class UnitTestAssertHandler implements IUnitTestAssertHandler {
 
-    private UnitTestFactory unitTestFactory;
-    private AssertsFactory assertsFactory;
+    private IUnitTestFactory unitTestFactory;
+    private IAssertTypesFactory assertTypesFactory;
 
-    public UnitTestAssertHandler(UnitTestFactory unitTestFactory, AssertsFactory assertsFactory){
+    public UnitTestAssertHandler(IUnitTestFactory unitTestFactory, IAssertTypesFactory assertsFactory){
         this.unitTestFactory = unitTestFactory;
-        this.assertsFactory = assertsFactory;
+        this.assertTypesFactory = assertsFactory;
     }
 
     @Override
@@ -33,7 +33,7 @@ public class UnitTestAssertHandler implements IUnitTestAssertHandler {
 
     private AssertExpression getAssertExpression(TestScenario testScenario) throws AssertNotFoundException {
         String assertName = testScenario.getAssertType().getName();
-        AssertType assertType = assertsFactory.createAssertType(assertName);
+        AssertType assertType = assertTypesFactory.createAssertType(assertName);
         ArrayList<FunctionArgument> assertParameters = assertType.getAssertArguments();
 
         return unitTestFactory.createAssertExpression(Constants.ASSERT_CLASS, assertType, assertParameters);

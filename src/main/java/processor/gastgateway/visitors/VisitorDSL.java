@@ -9,6 +9,7 @@ import ASTMCore.ASTMSyntax.Statement.*;
 import ASTMCore.ASTMSyntax.Types.*;
 import exceptions.ModifierNotFoundException;
 import exceptions.ReturnNotFoundException;
+import factories.*;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -18,15 +19,25 @@ public class VisitorDSL extends VisitorBase {
     private boolean WritingReturn;
     private boolean WritingParameterFunction;
 
-
     public VisitorDSL(){
-        frame = new FrameDSL();
+        IModifiersFactory iModifiersFactory = new ModifiersFactory();
+        IReturnsFactory iReturnsFactory = new ReturnsFactory();
+        IParametersFactory iParametersFactory = new ParametersFactory();
+        IAggregatesFactory iAggregatesFactory = new AggregatesFactory();
+        IImportsFactory iImportsFactory = new ImportsFactory();
+
+        frame = new FrameDSL(iModifiersFactory, iReturnsFactory, iParametersFactory, iAggregatesFactory, iImportsFactory);
     }
 
     @Override
     public void visitCompilationUnit(CompilationUnit compilationUnit) {
         // Visit Package
         compilationUnit.getgPackage().accept(this);
+
+        // Visit Imports
+        for (ImportDeclaration classImport : compilationUnit.getImports()) {
+            classImport.accept(this);
+        }
 
         // Visit ProgramScope
         compilationUnit.getOpensScope().accept(this);
@@ -102,7 +113,7 @@ public class VisitorDSL extends VisitorBase {
     @Override
     public void visitNameSpaceDefinition(NameSpaceDefinition nameSpaceDefinition) {
         String namespaceDef = nameSpaceDefinition.getNameSpace().getNameString();
-        frame.writeFunctionPackage(namespaceDef);
+        frame.writeClassPackage(namespaceDef);
     }
 
     @Override
@@ -112,7 +123,8 @@ public class VisitorDSL extends VisitorBase {
 
     @Override
     public void visitImportDeclaration(ImportDeclaration importDeclaration) {
-
+        String classImport = importDeclaration.getIdentifierName().getNameString();
+        frame.writeClassImport(classImport);
     }
 
     @Override

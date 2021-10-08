@@ -2,21 +2,26 @@ package processor.gastgateway.visitors;
 
 import exceptions.ModifierNotFoundException;
 import exceptions.ReturnNotFoundException;
-import models.entities.aggregates.Function;
-
-import java.util.ArrayList;
+import models.entities.aggregates.Class;
 
 public interface IFrameDSL {
 
     void createFunction();
+
     void createParameter();
 
     void writeFunction();
 
-    void writeFunctionPackage(String name);
+    void writeClassPackage(String name);
+
+    void writeClassImport(String name);
+
     void writeFunctionClass(String name);
+
     void writeFunctionModifier(String name) throws ModifierNotFoundException;
+
     void writeFunctionName(String name);
+
     void writeFunctionReturn(String name) throws ReturnNotFoundException;
 
     void writeFunctionParameter();
@@ -24,8 +29,9 @@ public interface IFrameDSL {
     void writeStaticFunction();
 
     void writeFunctionParameterName(String name);
+
     void writeFunctionParameterType(String name);
 
-    ArrayList<Function> getFunctions();
+    Class getCompilationUnit();
 
 }

@@ -1,6 +1,7 @@
 package processor.unittests;
 
 import exceptions.AssertNotFoundException;
+import factories.IUnitTestFactory;
 import factories.UnitTestFactory;
 import models.entities.unittests.*;
 import models.entities.unittests.acts.Act;
@@ -14,11 +15,14 @@ public class UnitTestHandler implements IUnitTestHandler {
     private IUnitTestArrangeHandler arrangeHandler;
     private IUnitTestActionHandler actionHandler;
     private IUnitTestAssertHandler assertHandler;
+    private IUnitTestFactory unitTestFactory;
 
-    public UnitTestHandler(IUnitTestArrangeHandler arrangeHandler, IUnitTestActionHandler actionHandler, IUnitTestAssertHandler assertHandler){
+    public UnitTestHandler(IUnitTestArrangeHandler arrangeHandler, IUnitTestActionHandler actionHandler,
+                           IUnitTestAssertHandler assertHandler, IUnitTestFactory unitTestFactory){
         this.arrangeHandler = arrangeHandler;
         this.actionHandler = actionHandler;
         this.assertHandler = assertHandler;
+        this.unitTestFactory = unitTestFactory;
     }
 
     /**
@@ -32,7 +36,6 @@ public class UnitTestHandler implements IUnitTestHandler {
     @Override
     public ArrayList<UnitTest> processUnitTests(ArrayList<TestScenario> testScenarios) throws AssertNotFoundException {
         ArrayList<UnitTest> unitTests = new ArrayList<>();
-        UnitTestFactory unitTestFactory = new UnitTestFactory();
 
         for (TestScenario testScenario : testScenarios){
             Arrange arrange = arrangeHandler.processUnitTestArrange(testScenario);

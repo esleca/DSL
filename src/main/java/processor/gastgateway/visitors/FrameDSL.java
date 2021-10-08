@@ -2,43 +2,46 @@ package processor.gastgateway.visitors;
 
 import exceptions.ModifierNotFoundException;
 import exceptions.ReturnNotFoundException;
-import factories.AggregatesFactory;
-import factories.ModifiersFactory;
-import factories.ParametersFactory;
-import factories.ReturnsFactory;
+import factories.*;
 
 import models.entities.aggregates.Class;
 import models.entities.aggregates.Function;
+import models.entities.aggregates.Package;
+import models.entities.imports.Import;
 import models.entities.parameters.ParameterFunction;
 
 import java.util.ArrayList;
 
 public class FrameDSL implements IFrameDSL {
 
-    private String gPackage;
+    private Package gPackage;
+    private ArrayList<Import> imports;
     private Class fileClass;
     private Function currentFunction;
     private ParameterFunction parameter;
     private ArrayList<Function> functions;
 
-    private ModifiersFactory modifiersFactory;
-    private ReturnsFactory returnsFactory;
-    private ParametersFactory parametersFactory;
-    private AggregatesFactory aggregatesFactory;
+    private IModifiersFactory modifiersFactory;
+    private IReturnsFactory returnsFactory;
+    private IParametersFactory parametersFactory;
+    private IAggregatesFactory aggregatesFactory;
+    private IImportsFactory importsFactory;
 
-    public FrameDSL(){
-
+    public FrameDSL(IModifiersFactory iModifiersFactory, IReturnsFactory iReturnsFactory, IParametersFactory iParametersFactory,
+                    IAggregatesFactory iAggregatesFactory, IImportsFactory iImportsFactory){
+        imports = new ArrayList<>();
         parameter = new ParameterFunction();
         functions = new ArrayList<>();
-        modifiersFactory = new ModifiersFactory();
-        returnsFactory = new ReturnsFactory();
-        parametersFactory = new ParametersFactory();
-        aggregatesFactory = new AggregatesFactory();
+        modifiersFactory = iModifiersFactory;
+        returnsFactory = iReturnsFactory;
+        parametersFactory = iParametersFactory;
+        aggregatesFactory = iAggregatesFactory;
+        importsFactory = iImportsFactory;
     }
 
     @Override
     public void createFunction(){
-        this.currentFunction = aggregatesFactory.createFunction(fileClass, gPackage);
+        this.currentFunction = aggregatesFactory.createFunction(fileClass);
     }
 
     @Override
@@ -64,13 +67,18 @@ public class FrameDSL implements IFrameDSL {
     }
 
     @Override
-    public void writeFunctionPackage(String name) {
-        gPackage = name;
+    public void writeClassPackage(String name) {
+        gPackage = aggregatesFactory.createPackage(name);
+    }
+
+    @Override
+    public void writeClassImport(String name){
+        imports.add(importsFactory.createImport(name));
     }
 
     @Override
     public void writeFunctionClass(String name) {
-        fileClass = aggregatesFactory.createClass(name);
+        fileClass = aggregatesFactory.createClass(name, gPackage);
     }
 
     @Override
@@ -98,11 +106,22 @@ public class FrameDSL implements IFrameDSL {
         getParameter().setType(name);
     }
 
+
     @Override
-    public ArrayList<Function> getFunctions(){
-        return this.functions;
+    public Class getCompilationUnit() {
+        getFileClass().setPackage(getPackage());
+        getFileClass().setImports(getImports());
+        getFileClass().setFunctions(getFunctions());
+        return getFileClass();
     }
 
+    private Class getFileClass(){
+        return this.fileClass;
+    }
+
+    private ArrayList<Function> getFunctions(){
+        return this.functions;
+    }
 
     private Function getCurrentFunction(){
         return this.currentFunction;
@@ -110,6 +129,14 @@ public class FrameDSL implements IFrameDSL {
 
     private ParameterFunction getParameter(){
         return this.parameter;
+    }
+
+    private Package getPackage(){
+        return this.gPackage;
+    }
+
+    private ArrayList<Import> getImports(){
+        return this.imports;
     }
 
 }

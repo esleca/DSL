@@ -23,15 +23,15 @@ import java.util.ArrayList;
 
 public class TestScenarioHandler implements ITestScenarioHandler {
 
-    private TestableFactory testableFactory;
-    private ValueTypeFactory valueTypeFactory;
-    private ExpectedResultsFactory expectedResFactory;
-    private AssertsFactory assertsFactory;
-    private ParametersFactory parametersFactory;
+    private ITestableUnitFactory testableFactory;
+    private IValueTypeFactory valueTypeFactory;
+    private IExpectedResultsFactory expectedResFactory;
+    private IAssertTypesFactory assertsFactory;
+    private IParametersFactory parametersFactory;
 
-    public TestScenarioHandler(TestableFactory testableFactory, ValueTypeFactory valueTypeFactory,
-                               ExpectedResultsFactory expectedFactory, AssertsFactory assertsFactory,
-                               ParametersFactory parametersFactory){
+    public TestScenarioHandler(ITestableUnitFactory testableFactory, IValueTypeFactory valueTypeFactory,
+                               IExpectedResultsFactory expectedFactory, IAssertTypesFactory assertsFactory,
+                               IParametersFactory parametersFactory){
         this.testableFactory = testableFactory;
         this.valueTypeFactory = valueTypeFactory;
         this.expectedResFactory = expectedFactory;

@@ -40,4 +40,6 @@ public class Constants {
 
     public final static String SYSTEM_UNDER_TEST = "sut";
 
+    public final static String LANGUAGE_JAVA = "JAVA";
+
 }
