@@ -1,24 +1,26 @@
 package gestors;
 
 import ASTMCore.ASTMSource.CompilationUnit;
+import models.entities.aggregates.Class;
 import models.entities.aggregates.Function;
 import models.entities.unittests.TestScenario;
 import models.entities.unittests.TestableUnit;
 import models.entities.unittests.UnitTest;
 import testrun.config.ConfigurationTestRun;
-import testrun.config.TestScenarioRun;
 
 import java.util.ArrayList;
 
 public class GestorModel {
 
-    private boolean writeToDisk;
+    private final boolean writeToDisk;
     private final String configurationPath;
     private final String testScenariosPath;
 
+
+    private Class aClass;
     private ArrayList<ConfigurationTestRun> configurationsRunFiles;
-    private ArrayList<TestScenarioRun> testScenariosRunFiles;
     private ArrayList<CompilationUnit> compilationUnits;
+    private ArrayList<CompilationUnit> compilationUnitsTests;
     private ArrayList<Function> compilationUnitFunctions;
     private ArrayList<TestableUnit> testableUnits;
     private ArrayList<TestScenario> testScenarios;
@@ -27,8 +29,8 @@ public class GestorModel {
     public GestorModel(){
         writeToDisk = true;
         configurationsRunFiles = new ArrayList<>();
-        testScenariosRunFiles = new ArrayList<>();
         compilationUnits = new ArrayList<>();
+        compilationUnitsTests = new ArrayList<>();
         compilationUnitFunctions = new ArrayList<>();
         testableUnits = new ArrayList<>();
         unitTests = new ArrayList<>();
@@ -48,6 +50,14 @@ public class GestorModel {
         return testScenariosPath;
     }
 
+    public Class getaClass() {
+        return aClass;
+    }
+
+    public void setClass(Class aClass) {
+        this.aClass = aClass;
+    }
+
     public ArrayList<ConfigurationTestRun> getConfigurationsRunFiles() {
         return configurationsRunFiles;
     }
@@ -56,20 +66,20 @@ public class GestorModel {
         this.configurationsRunFiles = configurationsRunFiles;
     }
 
-    public ArrayList<TestScenarioRun> getTestScenariosRunFiles() {
-        return testScenariosRunFiles;
-    }
-
-    public void setTestScenariosRunFiles(ArrayList<TestScenarioRun> testScenariosRunFiles) {
-        this.testScenariosRunFiles = testScenariosRunFiles;
-    }
-
     public ArrayList<CompilationUnit> getCompilationUnits() {
         return compilationUnits;
     }
 
     public void setCompilationUnits(ArrayList<CompilationUnit> compilationUnits) {
         this.compilationUnits = compilationUnits;
+    }
+
+    public ArrayList<CompilationUnit> getCompilationUnitsTests() {
+        return compilationUnitsTests;
+    }
+
+    public void setCompilationUnitsTests(ArrayList<CompilationUnit> compilationUnitsTests) {
+        this.compilationUnitsTests = compilationUnitsTests;
     }
 
     public ArrayList<Function> getCompilationUnitFunctions() {

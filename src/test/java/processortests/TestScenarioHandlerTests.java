@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class TestScenarioHandlerTests {
 
-    private static TestableFactory testableFactory = new TestableFactory();
+    private static TestableUnitFactory testableFactory = new TestableUnitFactory();
     private static ValueTypeFactory valueTypeFactory = new ValueTypeFactory();
     private static ExpectedResultsFactory expectedResFactory = new ExpectedResultsFactory();
     private static AssertsFactory assertsFactory = new AssertsFactory();
@@ -33,7 +33,7 @@ public class TestScenarioHandlerTests {
     public static void init(){
         System.out.println("Before all tests");
 
-        testableFactory = new TestableFactory();
+        testableFactory = new TestableUnitFactory();
         valueTypeFactory = new ValueTypeFactory();
         expectedResFactory = new ExpectedResultsFactory();
         assertsFactory = new AssertsFactory();

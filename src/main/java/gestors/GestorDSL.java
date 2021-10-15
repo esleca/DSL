@@ -7,11 +7,13 @@ import factories.*;
 import gastmappers.Mapper;
 import gastmappers.MapperFactory;
 import gastmappers.exceptions.UnsupportedLanguageException;
-
+import models.entities.aggregates.Class;
 import models.entities.aggregates.Function;
 import models.entities.unittests.TestScenario;
 import models.entities.unittests.TestableUnit;
 import models.entities.unittests.UnitTest;
+import processor.gastgateway.CompilationUnitTestHandler;
+import processor.gastgateway.ICompilationUnitTestHandler;
 import processor.gastgateway.visitors.VisitorBase;
 import processor.gastgateway.visitors.VisitorDSL;
 import processor.configfiles.ITestRunHandler;
@@ -21,14 +23,12 @@ import processor.gastgateway.CompilationUnitHandler;
 import processor.testscenarios.ITestScenarioHandler;
 import processor.testscenarios.TestScenarioHandler;
 import processor.unittests.*;
-
 import testrun.config.TestScenarioRun;
 import utils.*;
 import testrun.config.ConfigurationTestRun;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
 
 public class GestorDSL implements IGestorDSL{
 
@@ -85,10 +85,13 @@ public class GestorDSL implements IGestorDSL{
     public void processGastFunctions(){
         for (CompilationUnit compilationUnit : dslModel.getCompilationUnits()) {
             VisitorBase dslVisitor = new VisitorDSL();
-
             dslVisitor.visitCompilationUnit(compilationUnit);
 
-            ArrayList<Function> functions = dslVisitor.getFrameDSL().getFunctions();
+            Class fileClass = dslVisitor.getFrameDSL().getCompilationUnit();
+
+            dslModel.setClass(fileClass);
+
+            ArrayList<Function> functions = fileClass.getFunctions();
 
             dslModel.setCompilationUnitFunctions(functions);
         }
@@ -101,10 +104,10 @@ public class GestorDSL implements IGestorDSL{
      */
     @Override
     public void processTestableUnits(){
-        ITestableUnitHandler testableUnitHandler = new TestableUnitHandler();
+        ITestableUnitFactory testableUnitFactory = new TestableUnitFactory();
+        ITestableUnitHandler testableUnitHandler = new TestableUnitHandler(testableUnitFactory);
 
         ArrayList<Function> functions = dslModel.getCompilationUnitFunctions();
-
         ArrayList<TestableUnit> testableUnits = testableUnitHandler.processTestableUnits(functions);
 
         dslModel.setTestableUnits(testableUnits);
@@ -119,21 +122,18 @@ public class GestorDSL implements IGestorDSL{
      */
     @Override
     public void readTestScenarios() throws ValueTypeNotFoundException, AssertNotFoundException {
-        TestableFactory testsFactory = new TestableFactory();
-        ValueTypeFactory valueTypeFactory = new ValueTypeFactory();
-        ExpectedResultsFactory expResFactory = new ExpectedResultsFactory();
-        AssertsFactory assertsFactory = new AssertsFactory();
-        ParametersFactory parametersFactory = new ParametersFactory();
+        ITestableUnitFactory testsFactory = new TestableUnitFactory();
+        IValueTypeFactory valueTypeFactory = new ValueTypeFactory();
+        IExpectedResultsFactory expResFactory = new ExpectedResultsFactory();
+        IAssertTypesFactory assertsFactory = new AssertsFactory();
+        IParametersFactory parametersFactory = new ParametersFactory();
 
         ITestScenarioHandler testScenarioHandler = new TestScenarioHandler(testsFactory, valueTypeFactory,
                 expResFactory, assertsFactory, parametersFactory);
 
         String path = dslModel.getTestScenariosPath();
-
         ArrayList<TestScenarioRun> testScenarioRuns = testScenarioHandler.processTestScenariosRun(path);
-
         ArrayList<TestableUnit> testableUnits = dslModel.getTestableUnits();
-
         ArrayList<TestScenario> testScenarios = testScenarioHandler.processTestScenarios(testScenarioRuns, testableUnits);
 
         dslModel.setTestScenarios(testScenarios);
@@ -147,22 +147,33 @@ public class GestorDSL implements IGestorDSL{
      */
     @Override
     public void processUnitTests() throws AssertNotFoundException {
-        UnitTestFactory unitTestFactory = new UnitTestFactory();
-        AssertsFactory assertsFactory = new AssertsFactory();
+        IUnitTestFactory unitTestFactory = new UnitTestFactory();
+        IAssertTypesFactory assertTypesFactory = new AssertsFactory();
         IUnitTestArrangeHandler arrangeHandler = new UnitTestArrangeHandler(unitTestFactory);
         IUnitTestActionHandler actionHandler = new UnitTestActionHandler(unitTestFactory);
-        IUnitTestAssertHandler assertHandler = new UnitTestAssertHandler(unitTestFactory, assertsFactory);
-
-        IUnitTestHandler unitTestHandler = new UnitTestHandler(arrangeHandler, actionHandler, assertHandler);
+        IUnitTestAssertHandler assertHandler = new UnitTestAssertHandler(unitTestFactory, assertTypesFactory);
+        IUnitTestHandler unitTestHandler = new UnitTestHandler(arrangeHandler, actionHandler, assertHandler, unitTestFactory);
 
         ArrayList<TestScenario> testScenarios = dslModel.getTestScenarios();
-
         ArrayList<UnitTest> unitTests = unitTestHandler.processUnitTests(testScenarios);
 
         dslModel.setUnitTests(unitTests);
 
         printUnitTests();
     }
+
+    /**
+     *
+     */
+    @Override
+    public void processCompilationUnitsTests(){
+        ICompilationUnitTestHandler compilationUnitTestHandler = new CompilationUnitTestHandler();
+
+        ArrayList<CompilationUnit> compilationUnitTests = compilationUnitTestHandler.processCompilationUnitTests(dslModel);
+
+        dslModel.setCompilationUnitsTests(compilationUnitTests);
+    }
+
 
     /**
      * Use the console printer to print unit tests
@@ -173,14 +184,6 @@ public class GestorDSL implements IGestorDSL{
         for (var ut : dslModel.getUnitTests()){
             printer.printUnitTest(ut);
         }
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void writeGastUnitTests(){
-
     }
 
 }

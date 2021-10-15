@@ -1,6 +1,6 @@
 package processor.unittests;
 
-import factories.UnitTestFactory;
+import factories.IUnitTestFactory;
 import models.entities.aggregates.Function;
 import models.entities.parameters.ParameterScenario;
 import models.entities.unittests.Declaration;
@@ -15,9 +15,9 @@ import static utils.Constants.SYSTEM_UNDER_TEST;
 
 public class UnitTestActionHandler implements IUnitTestActionHandler {
 
-    private UnitTestFactory unitTestFactory;
+    private IUnitTestFactory unitTestFactory;
 
-    public UnitTestActionHandler(UnitTestFactory unitTestFactory){
+    public UnitTestActionHandler(IUnitTestFactory unitTestFactory){
         this.unitTestFactory = unitTestFactory;
     }
 

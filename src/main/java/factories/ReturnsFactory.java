@@ -4,8 +4,9 @@ import exceptions.ReturnNotFoundException;
 import models.entities.returns.*;
 import utils.Constants;
 
-public class ReturnsFactory {
+public class ReturnsFactory implements IReturnsFactory {
 
+    @Override
     public Return createReturn(String type) throws ReturnNotFoundException {
         Return returns;
 

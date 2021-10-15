@@ -1,36 +1,48 @@
 package models.entities.aggregates;
 
+import models.entities.imports.Import;
 import java.util.ArrayList;
 
 public class Class {
 
-    private String packageName;
+    private Package gpackage;
+    private ArrayList<Import> imports;
     private String name;
-    private boolean isStatic;
     private ArrayList<Function> functions;
 
-    public Class(String name) {
+    public Class(String name, Package aPackage) {
         this.name = name;
+        this.gpackage = aPackage;
+        this.imports = new ArrayList<>();
+        this.functions = new ArrayList<>();
     }
 
-    public String getPackageName() {
-        return packageName;
+    public Package getPackage() {
+        return gpackage;
     }
 
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
+    public void setPackage(Package apackage) {
+        this.gpackage = apackage;
+    }
+
+    public ArrayList<Import> getImports(){
+        return this.imports;
+    }
+
+    public void setImports(ArrayList<Import> imports){
+        this.imports = imports;
     }
 
     public String getName(){
         return this.name;
     }
 
-    public boolean isStatic() {
-        return isStatic;
-    }
-
     public ArrayList<Function> getFunctions() {
         return functions;
+    }
+
+    public void setFunctions(ArrayList<Function> functions){
+        this.functions = functions;
     }
 
 }

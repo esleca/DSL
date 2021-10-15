@@ -8,6 +8,5 @@ import java.util.ArrayList;
 
 public interface ICompilationUnitHandler {
 
-    ArrayList<CompilationUnit> processFilesInDir(boolean writeInDisk)
-            throws IOException, IllegalArgumentException, SecurityException, UnsupportedLanguageException;
+    ArrayList<CompilationUnit> processFilesInDir(boolean writeInDisk) throws IOException, UnsupportedLanguageException;
 }

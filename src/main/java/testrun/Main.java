@@ -37,7 +37,7 @@ public class Main {
         dsl.processUnitTests();
 
         // Write unit tests to GAST
-        dsl.writeGastUnitTests();
+        dsl.processCompilationUnitsTests();
     }
 
 }

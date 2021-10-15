@@ -2,16 +2,25 @@ package factories;
 
 import models.entities.aggregates.Class;
 import models.entities.aggregates.Function;
+import models.entities.aggregates.Package;
 
-public class AggregatesFactory {
+public class AggregatesFactory implements IAggregatesFactory {
 
-    public Class createClass(String name){
-        Class fClass = new Class(name);
+    @Override
+    public Package createPackage(String name){
+        Package aPackage = new Package(name);
+        return aPackage;
+    }
+
+    @Override
+    public Class createClass(String name, Package gpackage){
+        Class fClass = new Class(name, gpackage);
         return fClass;
     }
 
-    public Function createFunction(Class fileClass, String gPackage){
-        Function function = new Function(fileClass, gPackage);
+    @Override
+    public Function createFunction(Class fileClass){
+        Function function = new Function(fileClass);
         return function;
     }
 

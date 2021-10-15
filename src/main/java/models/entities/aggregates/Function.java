@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class Function {
 
-    private String gPackage;
     private Class fileClass;
     private Modifier modifier;
     private boolean isStatic;
@@ -18,20 +17,13 @@ public class Function {
     private ArrayList<ParameterFunction> parameters;
     private ArrayList<TestScenario> testScenarios;
 
-
-    public Function(Class fileClass, String gPackage){
+    public Function(Class fileClass){
         this.fileClass = fileClass;
-        this.gPackage = gPackage;
         this.parameters = new ArrayList<>();
     }
 
-
     public Class getFileClass() {
         return fileClass;
-    }
-
-    public void setFileClass(Class fileClass) {
-        this.fileClass = fileClass;
     }
 
     public Modifier getModifier() {
@@ -66,14 +58,6 @@ public class Function {
         this.name = name;
     }
 
-    public String getPackage() {
-        return gPackage;
-    }
-
-    public void setPackage(String gPackage) {
-        this.gPackage = gPackage;
-    }
-
     public ArrayList<ParameterFunction> getParameters() {
         return parameters;
     }
@@ -84,10 +68,6 @@ public class Function {
 
     public ArrayList<TestScenario> getTestScenarios() {
         return testScenarios;
-    }
-
-    public void setTestScenarios(ArrayList<TestScenario> testScenarios) {
-        this.testScenarios = testScenarios;
     }
 
 }
