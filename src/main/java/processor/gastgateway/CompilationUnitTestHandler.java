@@ -4,20 +4,30 @@ import ASTMCore.ASTMSemantics.AggregateScope;
 import ASTMCore.ASTMSemantics.ProgramScope;
 import ASTMCore.ASTMSource.CompilationUnit;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.*;
+import ASTMCore.ASTMSyntax.Expression.Expression;
+import ASTMCore.ASTMSyntax.Expression.RealLiteral;
 import ASTMCore.ASTMSyntax.Statement.BlockStatement;
+import ASTMCore.ASTMSyntax.Statement.DeclarationOrDefinitionStatement;
+import ASTMCore.ASTMSyntax.Statement.ExpressionStatement;
 import ASTMCore.ASTMSyntax.Statement.Statement;
 import ASTMCore.ASTMSyntax.Types.ClassType;
 import ASTMCore.ASTMSyntax.Types.NamedTypeReference;
 import ASTMCore.ASTMSyntax.Types.TypeReference;
+
 import gestors.GestorModel;
+
 import models.entities.aggregates.Package;
 import models.entities.imports.Import;
 import models.entities.unittests.UnitTest;
 import models.entities.unittests.acts.Act;
 import models.entities.unittests.arranges.Arrange;
+import models.entities.unittests.arranges.ArrangeStatement;
 import models.entities.unittests.asserts.Assert;
+import models.entities.unittests.asserts.AssertExpression;
+import models.entities.valuetypes.ValueType;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
 
@@ -210,13 +220,90 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     private ArrayList<Statement> getBlockSubStatements(UnitTest unitTest){
         ArrayList<Statement> subStatements = new ArrayList<>();
 
+        // TODO : ARRANGE
         Arrange arrange = unitTest.getArrange();
+
+        for (ArrangeStatement as : arrange.getArrangeStatements()) {
+            DeclarationOrDefinitionStatement decOrDefStatement = new DeclarationOrDefinitionStatement();
+            VariableDefinition variableDefinition = getArrangeVariableDefinition(as);
+            decOrDefStatement.setDeclOrDefn(variableDefinition);
+            subStatements.add(decOrDefStatement);
+        }
+
+        // TODO : ACT
         Act act = unitTest.getAct();
+
+
+        // TODO : ASSERTS
         Assert anAssert = unitTest.getAssert();
 
-        
+
+        for (AssertExpression ae : anAssert.getAssertExpressions()) {
+            DeclarationOrDefinitionStatement decOrDefStatement = new DeclarationOrDefinitionStatement();
+            //VariableDefinition variableDefinition = getArrangeVariableDefinition(ae);
+            //decOrDefStatement.setDeclOrDefn(variableDefinition);
+            subStatements.add(decOrDefStatement);
+        }
+
+        ExpressionStatement expressionStatement = new ExpressionStatement();
+
+        subStatements.add(expressionStatement);
 
         return  subStatements;
+    }
+
+    private VariableDefinition getArrangeVariableDefinition(ArrangeStatement arrangeStatement){
+        List<Fragment> fragments = getVariableFragments(arrangeStatement);
+        NamedTypeReference definitionType = getVariableDefinitionType(arrangeStatement);
+
+        VariableDefinition variableDefinition = new VariableDefinition();
+        variableDefinition.setFragments(fragments);
+        variableDefinition.setDefinitionType(definitionType);
+
+        return variableDefinition;
+    }
+
+    private List<Fragment> getVariableFragments(ArrangeStatement arrangeStatement){
+        List<Fragment> fragments = new ArrayList<>();
+        Fragment fragment = new Fragment();
+
+        RealLiteral expression = getFragmentExpression(arrangeStatement);
+        fragment.setInitialValue(expression);
+
+        Name identifier = getFragmentIdentifierName(arrangeStatement);
+        fragment.setIdentifierName(identifier);
+
+        fragments.add(fragment);
+
+        return fragments;
+    }
+
+    private RealLiteral getFragmentExpression(ArrangeStatement arrangeStatement){
+        ValueType value = arrangeStatement.getDefinition().getValueType();
+
+        RealLiteral expression = new RealLiteral();
+        expression.setValue(value.getValue().toString());
+
+        return expression;
+    }
+
+    private Name getFragmentIdentifierName(ArrangeStatement arrangeStatement){
+        Name identifier = new Name();
+
+        String identifierName = arrangeStatement.getDeclaration().getName();
+        identifier.setNameString(identifierName);
+
+        return identifier;
+    }
+
+    private NamedTypeReference getVariableDefinitionType(ArrangeStatement arrangeStatement){
+        NamedTypeReference definitionType = new NamedTypeReference();
+        Name name = new Name();
+
+        name.setNameString(arrangeStatement.getDeclaration().getType());
+        definitionType.setTypeName(name);
+
+        return definitionType;
     }
 
 }
