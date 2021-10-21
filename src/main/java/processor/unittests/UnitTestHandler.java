@@ -2,7 +2,6 @@ package processor.unittests;
 
 import exceptions.AssertNotFoundException;
 import factories.IUnitTestFactory;
-import factories.UnitTestFactory;
 import models.entities.unittests.*;
 import models.entities.unittests.acts.Act;
 import models.entities.unittests.arranges.Arrange;

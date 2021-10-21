@@ -4,8 +4,7 @@ import ASTMCore.ASTMSemantics.AggregateScope;
 import ASTMCore.ASTMSemantics.ProgramScope;
 import ASTMCore.ASTMSource.CompilationUnit;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.*;
-import ASTMCore.ASTMSyntax.Expression.Expression;
-import ASTMCore.ASTMSyntax.Expression.RealLiteral;
+import ASTMCore.ASTMSyntax.Expression.*;
 import ASTMCore.ASTMSyntax.Statement.BlockStatement;
 import ASTMCore.ASTMSyntax.Statement.DeclarationOrDefinitionStatement;
 import ASTMCore.ASTMSyntax.Statement.ExpressionStatement;
@@ -14,10 +13,10 @@ import ASTMCore.ASTMSyntax.Types.ClassType;
 import ASTMCore.ASTMSyntax.Types.NamedTypeReference;
 import ASTMCore.ASTMSyntax.Types.TypeReference;
 
-import gestors.GestorModel;
-
+import factories.gastfactories.IGastFactory;
 import models.entities.aggregates.Package;
 import models.entities.imports.Import;
+import models.entities.unittests.FunctionArgument;
 import models.entities.unittests.UnitTest;
 import models.entities.unittests.acts.Act;
 import models.entities.unittests.arranges.Arrange;
@@ -26,12 +25,18 @@ import models.entities.unittests.asserts.Assert;
 import models.entities.unittests.asserts.AssertExpression;
 import models.entities.valuetypes.ValueType;
 
+import gestors.GestorModel;
+
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
 
-    public CompilationUnitTestHandler(){
+    private IGastFactory gastFactory;
+
+    public CompilationUnitTestHandler(IGastFactory gastFactory){
+        this.gastFactory = gastFactory;
     }
 
     @Override
@@ -41,7 +46,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         CompilationUnit compilationUnit = new CompilationUnit();
 
         processCompilationUnitPackage(compilationUnit, model);
-        processCompilationUnitImports(compilationUnit, model);
+        processCompilationUnitImports(compilationUnit, model); //TODO: IMPORTS
         processCompilationUnitScope(compilationUnit, model);
 
         compilationUnitTests.add(compilationUnit);
@@ -111,18 +116,15 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private ClassType getClassType(GestorModel model){
-        ClassType classType = new ClassType();
-
         Name nameObj = getNameString(model);
-        classType.setNameString(nameObj);
-
         String packageName = getPackageName(model);
-        classType.setPackageName(packageName);
-
         ArrayList<Modifiers> modifiers = getModifiers();
-        classType.setModifiers(modifiers);
-
         AggregateScope aggregateScope = getAggregateScope(model);
+
+        ClassType classType = new ClassType();
+        classType.setNameString(nameObj);
+        classType.setPackageName(packageName);
+        classType.setModifiers(modifiers);
         classType.setOpensScope(aggregateScope);
 
         return classType;
@@ -167,21 +169,17 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private FunctionDefintion getFunctionDefinition(UnitTest unitTest){
-        FunctionDefintion functionDefinition = new FunctionDefintion();
-
         ArrayList<Modifiers> modifiers = getModifiers();
-        functionDefinition.setModifiers(modifiers);
-
         TypeReference returnType = getReturnType();
-        functionDefinition.setReturnType(returnType);
-
         Name name = getFunctionName(unitTest);
-        functionDefinition.setIdentifierName(name);
-
         ArrayList<FormalParameterDefinition> formalParameters = getFormalParameterDefinitions();
-        functionDefinition.setFormalParameters(formalParameters);
-
         Statement statement = getFunctionBody(unitTest);
+
+        FunctionDefintion functionDefinition = new FunctionDefintion();
+        functionDefinition.setModifiers(modifiers);
+        functionDefinition.setReturnType(returnType);
+        functionDefinition.setIdentifierName(name);
+        functionDefinition.setFormalParameters(formalParameters);
         functionDefinition.setBody(statement);
 
         return functionDefinition;
@@ -220,7 +218,6 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     private ArrayList<Statement> getBlockSubStatements(UnitTest unitTest){
         ArrayList<Statement> subStatements = new ArrayList<>();
 
-        // TODO : ARRANGE
         Arrange arrange = unitTest.getArrange();
 
         for (ArrangeStatement as : arrange.getArrangeStatements()) {
@@ -230,24 +227,18 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
             subStatements.add(decOrDefStatement);
         }
 
-        // TODO : ACT
         Act act = unitTest.getAct();
 
 
-        // TODO : ASSERTS
+
         Assert anAssert = unitTest.getAssert();
 
-
         for (AssertExpression ae : anAssert.getAssertExpressions()) {
-            DeclarationOrDefinitionStatement decOrDefStatement = new DeclarationOrDefinitionStatement();
-            //VariableDefinition variableDefinition = getArrangeVariableDefinition(ae);
-            //decOrDefStatement.setDeclOrDefn(variableDefinition);
-            subStatements.add(decOrDefStatement);
+            ExpressionStatement expressionStatement = new ExpressionStatement();
+            Expression expression = getAssertExpression(ae);
+            expressionStatement.setExpression(expression);
+            subStatements.add(expressionStatement);
         }
-
-        ExpressionStatement expressionStatement = new ExpressionStatement();
-
-        subStatements.add(expressionStatement);
 
         return  subStatements;
     }
@@ -267,7 +258,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         List<Fragment> fragments = new ArrayList<>();
         Fragment fragment = new Fragment();
 
-        RealLiteral expression = getFragmentExpression(arrangeStatement);
+        Literal expression = getFragmentExpression(arrangeStatement);
         fragment.setInitialValue(expression);
 
         Name identifier = getFragmentIdentifierName(arrangeStatement);
@@ -278,10 +269,10 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return fragments;
     }
 
-    private RealLiteral getFragmentExpression(ArrangeStatement arrangeStatement){
+    private Literal getFragmentExpression(ArrangeStatement arrangeStatement){
         ValueType value = arrangeStatement.getDefinition().getValueType();
 
-        RealLiteral expression = new RealLiteral();
+        Literal expression = new Literal();
         expression.setValue(value.getValue().toString());
 
         return expression;
@@ -306,4 +297,60 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return definitionType;
     }
 
+
+
+
+    private Expression getAssertExpression(AssertExpression assertExpression){
+        IdentifierReference identifierReference = getCalledFunctionIdentifierReference(assertExpression);
+        ArrayList<ActualParameter> parameterExpressions = getActualParameterExpressions(assertExpression);
+        Name functionName = getFunctionNameIdentifierName(assertExpression);
+
+        FunctionCallExpression expression = new FunctionCallExpression();
+        expression.setCalledFunction(identifierReference);
+        expression.setActualParams(parameterExpressions);
+        expression.setFunctionName(functionName);
+
+        return expression;
+    }
+
+    private IdentifierReference getCalledFunctionIdentifierReference(AssertExpression assertExpression){
+        IdentifierReference identifierReference = new IdentifierReference();
+        Name calledFunction = getIdentifierReferenceIdentifierName(assertExpression);
+        identifierReference.setIdentifierName(calledFunction);
+
+        return identifierReference;
+    }
+
+    private Name getIdentifierReferenceIdentifierName(AssertExpression assertExpression){
+        Name identifier = new Name();
+
+        String identifierName = assertExpression.getCalledFunction();
+        identifier.setNameString(identifierName);
+
+        return identifier;
+    }
+
+    private ArrayList<ActualParameter> getActualParameterExpressions(AssertExpression assertExpression){
+        ArrayList<ActualParameter> actualParameters = new ArrayList<>();
+        ArrayList<FunctionArgument> functionArguments = assertExpression.getFunctionArguments();
+
+        for (FunctionArgument fa : functionArguments){
+            ActualParameterExpression actualParameter = new ActualParameterExpression();
+            Literal literal = new Literal();
+            literal.setValue(fa.getValue());
+            actualParameter.setValue(literal);
+            actualParameters.add(actualParameter);
+        }
+
+        return actualParameters;
+    }
+
+    private Name getFunctionNameIdentifierName(AssertExpression assertExpression){
+        Name identifier = new Name();
+
+        String identifierName = assertExpression.getAssertType().getName();
+        identifier.setNameString(identifierName);
+
+        return identifier;
+    }
 }

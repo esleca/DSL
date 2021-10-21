@@ -6,7 +6,6 @@
             {
                 "name": "edad",
                 "type": "int",
-                "value": 303
                 "value": 30
             }
         ],

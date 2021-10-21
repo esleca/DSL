@@ -4,6 +4,8 @@ import ASTMCore.ASTMSource.CompilationUnit;
 import exceptions.AssertNotFoundException;
 import exceptions.ValueTypeNotFoundException;
 import factories.*;
+import factories.gastfactories.GastFactory;
+import factories.gastfactories.IGastFactory;
 import gastmappers.Mapper;
 import gastmappers.MapperFactory;
 import gastmappers.exceptions.UnsupportedLanguageException;
@@ -167,7 +169,8 @@ public class GestorDSL implements IGestorDSL{
      */
     @Override
     public void processCompilationUnitsTests(){
-        ICompilationUnitTestHandler compilationUnitTestHandler = new CompilationUnitTestHandler();
+        IGastFactory gastFactory = new GastFactory();
+        ICompilationUnitTestHandler compilationUnitTestHandler = new CompilationUnitTestHandler(gastFactory);
 
         ArrayList<CompilationUnit> compilationUnitTests = compilationUnitTestHandler.processCompilationUnitTests(dslModel);
 
