@@ -131,9 +131,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Name getNameString(GestorModel model){
-        Name nameObj = new Name();
-        String className = model.getaClass().getName();
-        nameObj.setNameString(className + "_Tests");
+        Name nameObj = getName(model.getaClass().getName() + "_Tests");
         return nameObj;
     }
 
@@ -196,9 +194,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Name getFunctionName(UnitTest unitTest){
-        Name name = new Name();
-        String testName = unitTest.getTestScenario().getTestName();
-        name.setNameString(testName);
+        Name name = getName(unitTest.getTestScenario().getTestName());
         return name;
     }
 
@@ -294,11 +290,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Name getFragmentIdentifierName(ArrangeStatement arrangeStatement){
-        Name identifier = new Name();
-
-        String identifierName = arrangeStatement.getDeclaration().getName();
-        identifier.setNameString(identifierName);
-
+        Name identifier = getName(arrangeStatement.getDeclaration().getName());
         return identifier;
     }
 
@@ -364,11 +356,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Name getActNewTypeFragmentIdentifierName(ActNewType actNewType){
-        Name identifier = new Name();
-
-        String identifierName = actNewType.getName();
-        identifier.setNameString(identifierName);
-
+        Name identifier = getName(actNewType.getName());
         return identifier;
     }
 
@@ -422,11 +410,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Name getActFragmentIdentifierName(ActExecution actExecution){
-        Name identifier = new Name();
-
-        String identifierName = actExecution.getDeclaration().getName();
-        identifier.setNameString(identifierName);
-
+        Name identifier = getName(actExecution.getDeclaration().getName());
         return identifier;
     }
 
@@ -449,11 +433,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Name getIdentifierReferenceIdentifierName(ActExecution actExecution){
-        Name identifier = new Name();
-
-        String identifierName = actExecution.getCalledFunction();
-        identifier.setNameString(identifierName);
-
+        Name identifier = getName(actExecution.getCalledFunction());
         return identifier;
     }
 
@@ -475,11 +455,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Name getFunctionNameIdentifierName(ActExecution actExecution){
-        Name identifier = new Name();
-
-        String identifierName = actExecution.getFunctionName();
-        identifier.setNameString(identifierName);
-
+        Name identifier = getName(actExecution.getFunctionName());
         return identifier;
     }
 
@@ -506,11 +482,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Name getIdentifierReferenceIdentifierName(AssertExpression assertExpression){
-        Name identifier = new Name();
-
-        String identifierName = assertExpression.getCalledFunction();
-        identifier.setNameString(identifierName);
-
+        Name identifier = getName(assertExpression.getCalledFunction());
         return identifier;
     }
 
@@ -530,13 +502,14 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Name getFunctionNameIdentifierName(AssertExpression assertExpression){
-        Name identifier = new Name();
-
-        String identifierName = assertExpression.getAssertType().getName();
-        identifier.setNameString(identifierName);
-
+        Name identifier = getName(assertExpression.getAssertType().getName());
         return identifier;
     }
 
 
+    private Name getName(String name){
+        Name identifier = new Name();
+        identifier.setNameString(name);
+        return identifier;
+    }
 }
