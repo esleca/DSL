@@ -4,15 +4,15 @@ import exceptions.AssertNotFoundException;
 import exceptions.ValueTypeNotFoundException;
 import models.entities.unittests.TestScenario;
 import models.entities.unittests.TestableUnit;
+import org.json.simple.JSONObject;
 import testrun.config.TestScenarioRun;
 
-import java.util.ArrayList;
+public interface ITestScenarioRunHandler {
 
-public interface ITestScenarioHandler {
+    TestScenarioRun getTestScenarioRun(JSONObject configurationObject)
+            throws ClassCastException, ValueTypeNotFoundException;
 
-    ArrayList<TestScenarioRun> processTestScenariosRun(String scenariosPath);
-
-    ArrayList<TestScenario> processTestScenarios(ArrayList<TestScenarioRun> testScenarioRuns, ArrayList<TestableUnit> testableUnits)
+    TestScenario getTestScenario(TestScenarioRun testScenarioRun, TestableUnit testableUnit)
             throws ValueTypeNotFoundException, AssertNotFoundException;
 
 }

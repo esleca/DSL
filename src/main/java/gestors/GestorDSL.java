@@ -22,8 +22,7 @@ import processor.configfiles.ITestRunHandler;
 import processor.configfiles.TestRunHandler;
 import processor.gastgateway.ICompilationUnitHandler;
 import processor.gastgateway.CompilationUnitHandler;
-import processor.testscenarios.ITestScenarioHandler;
-import processor.testscenarios.TestScenarioHandler;
+import processor.testscenarios.*;
 import processor.unittests.*;
 import testrun.config.TestScenarioRun;
 import utils.*;
@@ -130,13 +129,15 @@ public class GestorDSL implements IGestorDSL{
         IAssertTypesFactory assertsFactory = new AssertsFactory();
         IParametersFactory parametersFactory = new ParametersFactory();
 
-        ITestScenarioHandler testScenarioHandler = new TestScenarioHandler(testsFactory, valueTypeFactory,
-                expResFactory, assertsFactory, parametersFactory);
+        ITestScenarioRunHandler runHandler = new TestScenarioPrimitiveHandler(testsFactory, valueTypeFactory, expResFactory, assertsFactory, parametersFactory);
+        ITestScenarioRunHandler runParamHandler = new TestScenarioParameterizedHandler(testsFactory, valueTypeFactory, expResFactory, assertsFactory, parametersFactory);
+
+        ITestScenarioHandler handler = new TestScenarioHandlerBase(runHandler, runParamHandler);
 
         String path = dslModel.getTestScenariosPath();
-        ArrayList<TestScenarioRun> testScenarioRuns = testScenarioHandler.processTestScenariosRun(path);
+        ArrayList<TestScenarioRun> testScenarioRuns = handler.processTestScenariosRun(path);
         ArrayList<TestableUnit> testableUnits = dslModel.getTestableUnits();
-        ArrayList<TestScenario> testScenarios = testScenarioHandler.processTestScenarios(testScenarioRuns, testableUnits);
+        ArrayList<TestScenario> testScenarios = handler.processTestScenarios(testScenarioRuns, testableUnits);
 
         dslModel.setTestScenarios(testScenarios);
     }

@@ -14,10 +14,14 @@ import factories.*;
 import java.util.List;
 import java.util.ArrayList;
 
+import static utils.Constants.*;
+
+
 public class VisitorDSL extends VisitorBase {
 
     private boolean WritingReturn;
     private boolean WritingParameterFunction;
+    private boolean WritingReturnParameterized;
 
     public VisitorDSL(){
         IModifiersFactory iModifiersFactory = new ModifiersFactory();
@@ -195,20 +199,57 @@ public class VisitorDSL extends VisitorBase {
     public void visitNamedTypeReference(NamedTypeReference namedTypeReference) {
         String typeReference = namedTypeReference.getTypeName().getNameString();
 
-        if (WritingReturn){
-            try {
-                frame.writeFunctionReturn(typeReference);
-            } catch (ReturnNotFoundException e) {
-                e.printStackTrace();
-            }
+        if (WritingReturnParameterized && !isDataTypeList(typeReference)) {
+            setParameterizedArguments(typeReference);
+        }else if (WritingReturn){
+            setParameterizedDataType(namedTypeReference);
         } else if (WritingParameterFunction){
             frame.writeFunctionParameterType(typeReference);
         }
     }
 
+    private boolean isDataTypeList(String typeReference){
+        return typeReference.equals(ARRAY_LIST) || typeReference.equals(LIST);
+    }
+
+    private void setParameterizedArguments(String typeReference){
+        ArrayList<String> returnParams = new ArrayList<>();
+        returnParams.add(typeReference);
+        frame.writeParameterDataTypeArg(returnParams);
+        this.WritingReturnParameterized = false;
+    }
+
+    private void setParameterizedDataType(NamedTypeReference namedTypeReference){
+        String typeReference = namedTypeReference.getTypeName().getNameString();
+
+        try {
+            if (typeReference.equals(RETURN_PARAMETERIZED)){
+                this.WritingReturnParameterized = true;
+                frame.createParameterDataType();
+
+                // DataType
+                namedTypeReference.getDataType().accept(this);
+
+                frame.writeFunctionReturnParameterized(typeReference);
+            }else if (isDataTypeList(typeReference)) {
+                frame.writeParameterDataTypeName(typeReference);
+            }else{
+                frame.writeFunctionReturnPrimitive(typeReference);
+            }
+        } catch (ReturnNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void visitParameterizedType(ParameterizedType parameterizedType) {
+        // Parameter type
+        parameterizedType.getType().accept(this);
 
+        // Parameter arguments
+        for (TypeReference tp : parameterizedType.getArguments()) {
+            tp.accept(this);
+        }
     }
 
     @Override

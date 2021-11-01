@@ -9,6 +9,8 @@ import models.entities.aggregates.Function;
 import models.entities.aggregates.Package;
 import models.entities.imports.Import;
 import models.entities.parameters.ParameterFunction;
+import models.entities.returns.ParameterDataType;
+import models.entities.returns.Return;
 
 import java.util.ArrayList;
 
@@ -20,12 +22,13 @@ public class FrameDSL implements IFrameDSL {
     private Function currentFunction;
     private ParameterFunction parameter;
     private ArrayList<Function> functions;
+    private ParameterDataType parameterDataType;
 
-    private IModifiersFactory modifiersFactory;
-    private IReturnsFactory returnsFactory;
-    private IParametersFactory parametersFactory;
-    private IAggregatesFactory aggregatesFactory;
-    private IImportsFactory importsFactory;
+    private final IModifiersFactory modifiersFactory;
+    private final IReturnsFactory returnsFactory;
+    private final IParametersFactory parametersFactory;
+    private final IAggregatesFactory aggregatesFactory;
+    private final IImportsFactory importsFactory;
 
     public FrameDSL(IModifiersFactory iModifiersFactory, IReturnsFactory iReturnsFactory, IParametersFactory iParametersFactory,
                     IAggregatesFactory iAggregatesFactory, IImportsFactory iImportsFactory){
@@ -47,6 +50,11 @@ public class FrameDSL implements IFrameDSL {
     @Override
     public void createParameter(){
         this.parameter = parametersFactory.createParameterFunction();
+    }
+
+    @Override
+    public void createParameterDataType(){
+        this.parameterDataType = returnsFactory.createParameterDataType();
     }
 
     @Override
@@ -92,8 +100,26 @@ public class FrameDSL implements IFrameDSL {
     }
 
     @Override
-    public void writeFunctionReturn(String name) throws ReturnNotFoundException {
-        getCurrentFunction().setReturn(returnsFactory.createReturn(name));
+    public void writeFunctionReturnPrimitive(String name) throws ReturnNotFoundException {
+        Return returns = returnsFactory.createPrimitiveReturn(name);
+        getCurrentFunction().setReturn(returns);
+    }
+
+    @Override
+    public void writeFunctionReturnParameterized(String name) throws ReturnNotFoundException {
+        ParameterDataType dataType = getParameterDataType();
+        Return returns = returnsFactory.createParameterizedReturn(name, dataType);
+        getCurrentFunction().setReturn(returns);
+    }
+
+    @Override
+    public void writeParameterDataTypeName(String name){
+        getParameterDataType().setName(name);
+    }
+
+    @Override
+    public void writeParameterDataTypeArg(ArrayList<String> names){
+        getParameterDataType().setArgumentType(names);
     }
 
     @Override
@@ -114,6 +140,7 @@ public class FrameDSL implements IFrameDSL {
         getFileClass().setFunctions(getFunctions());
         return getFileClass();
     }
+
 
     private Class getFileClass(){
         return this.fileClass;
@@ -138,5 +165,10 @@ public class FrameDSL implements IFrameDSL {
     private ArrayList<Import> getImports(){
         return this.imports;
     }
+
+    private ParameterDataType getParameterDataType(){
+        return this.parameterDataType;
+    }
+
 
 }
