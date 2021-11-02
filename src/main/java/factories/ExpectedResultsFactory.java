@@ -7,18 +7,14 @@ import models.entities.valuetypes.ValueType;
 
 import java.util.ArrayList;
 
-public class ExpectedResultsFactory implements IExpectedResultsFactory {
+public class ExpectedResultsFactory {
 
-    @Override
-    public ExpectedResult createPrimitiveExpectedResult(ValueType valueType){
-        ExpectedResult result = new PrimitiveExpectedResult();
-        return result;
+    public static ExpectedResult createPrimitiveExpectedResult(ValueType valueType){
+        return new PrimitiveExpectedResult();
     }
 
-    @Override
-    public ExpectedResult createParameterizedExpectedResult(ArrayList<ValueType> argumentTypes){
-        ExpectedResult result = new ParameterizedExpectedResult(argumentTypes);
-        return result;
+    public static ExpectedResult createParameterizedExpectedResult(ArrayList<ValueType> argumentTypes){
+        return new ParameterizedExpectedResult(argumentTypes);
     }
 
 }

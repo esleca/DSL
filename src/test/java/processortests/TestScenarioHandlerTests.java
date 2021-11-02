@@ -2,10 +2,7 @@ package processortests;
 
 import exceptions.*;
 import factories.*;
-import models.entities.unittests.TestScenario;
 import models.entities.unittests.TestableUnit;
-import processor.testscenarios.ITestScenarioHandler;
-import processor.testscenarios.TestScenarioPrimitiveHandler;
 import testrun.DataTestHelper;
 import testrun.config.TestScenarioRun;
 

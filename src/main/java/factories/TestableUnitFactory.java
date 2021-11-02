@@ -9,16 +9,14 @@ import models.entities.unittests.asserts.types.AssertType;
 
 import java.util.ArrayList;
 
-public class TestableUnitFactory implements ITestableUnitFactory {
+public class TestableUnitFactory {
 
-    @Override
-    public TestScenario createTestScenario(String testName, TestableUnit testableUnit, ArrayList<ParameterScenario> parameters, ExpectedResult expectedResult, AssertType assertion){
+    public static TestScenario createTestScenario(String testName, TestableUnit testableUnit, ArrayList<ParameterScenario> parameters, ExpectedResult expectedResult, AssertType assertion){
         TestScenario testScenario = new TestScenario(testName, testableUnit, parameters, expectedResult, assertion);
         return testScenario;
     }
 
-    @Override
-    public TestableUnit createTestableUnit(Function function){
+    public static TestableUnit createTestableUnit(Function function){
         TestableUnit testableUnit = new TestableUnit(function);
         return testableUnit;
     }

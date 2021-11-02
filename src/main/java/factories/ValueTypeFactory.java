@@ -4,10 +4,9 @@ import exceptions.ValueTypeNotFoundException;
 import models.entities.valuetypes.*;
 import utils.Constants;
 
-public class ValueTypeFactory implements IValueTypeFactory {
+public class ValueTypeFactory {
 
-    @Override
-    public ValueType createValueType(String inType, Object value) throws ValueTypeNotFoundException {
+    public static ValueType createValueType(String inType, Object value) throws ValueTypeNotFoundException {
         ValueType type;
 
         switch (inType){

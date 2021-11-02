@@ -2,10 +2,9 @@ package factories;
 
 import models.entities.imports.Import;
 
-public class ImportsFactory implements IImportsFactory {
+public class ImportsFactory {
 
-    @Override
-    public Import createImport(String name) {
+    public static Import createImport(String name) {
         return new Import(name);
     }
 }

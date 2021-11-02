@@ -4,24 +4,18 @@ import models.entities.aggregates.Class;
 import models.entities.aggregates.Function;
 import models.entities.aggregates.Package;
 
-public class AggregatesFactory implements IAggregatesFactory {
+public class AggregatesFactory {
 
-    @Override
-    public Package createPackage(String name){
-        Package aPackage = new Package(name);
-        return aPackage;
+    public static Package createPackage(String name){
+        return new Package(name);
     }
 
-    @Override
-    public Class createClass(String name, Package gpackage){
-        Class fClass = new Class(name, gpackage);
-        return fClass;
+    public static Class createClass(String name, Package gpackage){
+        return new Class(name, gpackage);
     }
 
-    @Override
-    public Function createFunction(Class fileClass){
-        Function function = new Function(fileClass);
-        return function;
+    public static Function createFunction(Class fileClass){
+        return new Function(fileClass);
     }
 
 }

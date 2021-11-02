@@ -24,13 +24,7 @@ public class VisitorDSL extends VisitorBase {
     private boolean WritingReturnParameterized;
 
     public VisitorDSL(){
-        IModifiersFactory iModifiersFactory = new ModifiersFactory();
-        IReturnsFactory iReturnsFactory = new ReturnsFactory();
-        IParametersFactory iParametersFactory = new ParametersFactory();
-        IAggregatesFactory iAggregatesFactory = new AggregatesFactory();
-        IImportsFactory iImportsFactory = new ImportsFactory();
-
-        frame = new FrameDSL(iModifiersFactory, iReturnsFactory, iParametersFactory, iAggregatesFactory, iImportsFactory);
+        frame = new FrameDSL();
     }
 
     @Override

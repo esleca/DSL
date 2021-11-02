@@ -4,15 +4,13 @@ import exceptions.ReturnNotFoundException;
 import models.entities.returns.*;
 import utils.Constants;
 
-public class ReturnsFactory implements IReturnsFactory {
+public class ReturnsFactory {
 
-    @Override
-    public ParameterDataType createParameterDataType() {
+    public static ParameterDataType createParameterDataType() {
         return new ParameterDataType();
     }
 
-    @Override
-    public Return createPrimitiveReturn(String type) throws ReturnNotFoundException {
+    public static Return createPrimitiveReturn(String type) throws ReturnNotFoundException {
         Return returns;
 
         switch (type){
@@ -39,8 +37,7 @@ public class ReturnsFactory implements IReturnsFactory {
         return returns;
     }
 
-    @Override
-    public Return createParameterizedReturn(String type, ParameterDataType dataType) throws ReturnNotFoundException {
+    public static Return createParameterizedReturn(String type, ParameterDataType dataType) throws ReturnNotFoundException {
         Return returns;
         if (Constants.RETURN_PARAMETERIZED.equals(type)) {
             returns = new ParameterizedReturn(dataType);
@@ -50,8 +47,7 @@ public class ReturnsFactory implements IReturnsFactory {
         return returns;
     }
 
-    @Override
-    public Return createInstanceReturn(){
+    public static Return createInstanceReturn(){
         return new InstanceReturn();
     }
 

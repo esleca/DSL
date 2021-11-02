@@ -7,15 +7,18 @@ import java.util.ArrayList;
 
 public class TestScenarioParameterizedRun extends TestScenarioRun {
 
-    private final ArrayList<ValueType> expected;
+    private ArrayList<ValueType> expected;
 
-    public TestScenarioParameterizedRun(String function, String name, ArrayList<ParameterScenario> parameters, ArrayList<ValueType> expected, String assertion) {
+    public TestScenarioParameterizedRun(String function, String name, ArrayList<ParameterScenario> parameters, String assertion) {
         super(function, name, parameters, assertion);
-        this.expected = expected;
     }
 
     public  ArrayList<ValueType> getExpected() {
         return this.expected;
+    }
+
+    public void setExpected(ArrayList<ValueType> expected) {
+        this.expected = expected;
     }
 
 }

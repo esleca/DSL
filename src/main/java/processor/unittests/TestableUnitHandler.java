@@ -1,6 +1,5 @@
 package processor.unittests;
 
-import factories.ITestableUnitFactory;
 import factories.TestableUnitFactory;
 import models.entities.aggregates.Function;
 import models.entities.unittests.TestableUnit;
@@ -10,12 +9,10 @@ import java.util.List;
 
 public class TestableUnitHandler implements ITestableUnitHandler {
 
-    private ITestableUnitFactory testableUnitFactory;
     private List<String> modifiers;
     private List<String> returns;
 
-    public TestableUnitHandler(ITestableUnitFactory testableUnitFactory){
-        this.testableUnitFactory = testableUnitFactory;
+    public TestableUnitHandler(){
         initializePermitModifiers();
         initializeExcludedReturns();
     }
@@ -36,7 +33,7 @@ public class TestableUnitHandler implements ITestableUnitHandler {
 
         for (Function function: functions){
             if (isTestableUnit(function)){
-                TestableUnit testableUnit = testableUnitFactory.createTestableUnit(function);
+                TestableUnit testableUnit = TestableUnitFactory.createTestableUnit(function);
                 testableUnits.add(testableUnit);
             }
         }

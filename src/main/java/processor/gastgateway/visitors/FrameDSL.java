@@ -24,37 +24,25 @@ public class FrameDSL implements IFrameDSL {
     private ArrayList<Function> functions;
     private ParameterDataType parameterDataType;
 
-    private final IModifiersFactory modifiersFactory;
-    private final IReturnsFactory returnsFactory;
-    private final IParametersFactory parametersFactory;
-    private final IAggregatesFactory aggregatesFactory;
-    private final IImportsFactory importsFactory;
-
-    public FrameDSL(IModifiersFactory iModifiersFactory, IReturnsFactory iReturnsFactory, IParametersFactory iParametersFactory,
-                    IAggregatesFactory iAggregatesFactory, IImportsFactory iImportsFactory){
+    public FrameDSL(){
         imports = new ArrayList<>();
         parameter = new ParameterFunction();
         functions = new ArrayList<>();
-        modifiersFactory = iModifiersFactory;
-        returnsFactory = iReturnsFactory;
-        parametersFactory = iParametersFactory;
-        aggregatesFactory = iAggregatesFactory;
-        importsFactory = iImportsFactory;
     }
 
     @Override
     public void createFunction(){
-        this.currentFunction = aggregatesFactory.createFunction(fileClass);
+        this.currentFunction = AggregatesFactory.createFunction(fileClass);
     }
 
     @Override
     public void createParameter(){
-        this.parameter = parametersFactory.createParameterFunction();
+        this.parameter = ParametersFactory.createParameterFunction();
     }
 
     @Override
     public void createParameterDataType(){
-        this.parameterDataType = returnsFactory.createParameterDataType();
+        this.parameterDataType = ReturnsFactory.createParameterDataType();
     }
 
     @Override
@@ -76,22 +64,22 @@ public class FrameDSL implements IFrameDSL {
 
     @Override
     public void writeClassPackage(String name) {
-        gPackage = aggregatesFactory.createPackage(name);
+        gPackage = AggregatesFactory.createPackage(name);
     }
 
     @Override
     public void writeClassImport(String name){
-        imports.add(importsFactory.createImport(name));
+        imports.add(ImportsFactory.createImport(name));
     }
 
     @Override
     public void writeFunctionClass(String name) {
-        fileClass = aggregatesFactory.createClass(name, gPackage);
+        fileClass = AggregatesFactory.createClass(name, gPackage);
     }
 
     @Override
     public void writeFunctionModifier(String name) throws ModifierNotFoundException {
-        getCurrentFunction().setModifier(modifiersFactory.createModifier(name));
+        getCurrentFunction().setModifier(ModifiersFactory.createModifier(name));
     }
 
     @Override
@@ -101,14 +89,14 @@ public class FrameDSL implements IFrameDSL {
 
     @Override
     public void writeFunctionReturnPrimitive(String name) throws ReturnNotFoundException {
-        Return returns = returnsFactory.createPrimitiveReturn(name);
+        Return returns = ReturnsFactory.createPrimitiveReturn(name);
         getCurrentFunction().setReturn(returns);
     }
 
     @Override
     public void writeFunctionReturnParameterized(String name) throws ReturnNotFoundException {
         ParameterDataType dataType = getParameterDataType();
-        Return returns = returnsFactory.createParameterizedReturn(name, dataType);
+        Return returns = ReturnsFactory.createParameterizedReturn(name, dataType);
         getCurrentFunction().setReturn(returns);
     }
 

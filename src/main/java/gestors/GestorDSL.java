@@ -105,8 +105,7 @@ public class GestorDSL implements IGestorDSL{
      */
     @Override
     public void processTestableUnits(){
-        ITestableUnitFactory testableUnitFactory = new TestableUnitFactory();
-        ITestableUnitHandler testableUnitHandler = new TestableUnitHandler(testableUnitFactory);
+        ITestableUnitHandler testableUnitHandler = new TestableUnitHandler();
 
         ArrayList<Function> functions = dslModel.getCompilationUnitFunctions();
         ArrayList<TestableUnit> testableUnits = testableUnitHandler.processTestableUnits(functions);
@@ -123,16 +122,10 @@ public class GestorDSL implements IGestorDSL{
      */
     @Override
     public void readTestScenarios() throws ValueTypeNotFoundException, AssertNotFoundException {
-        ITestableUnitFactory testsFactory = new TestableUnitFactory();
-        IValueTypeFactory valueTypeFactory = new ValueTypeFactory();
-        IExpectedResultsFactory expResFactory = new ExpectedResultsFactory();
-        IAssertTypesFactory assertsFactory = new AssertsFactory();
-        IParametersFactory parametersFactory = new ParametersFactory();
+        IExpectablePrimitive expPrimitive = new ExpectablePrimitiveHandler();
+        IExpectableParameterized expParameterized = new ExpectableParameterizedHandler();
 
-        ITestScenarioRunHandler runHandler = new TestScenarioPrimitiveHandler(testsFactory, valueTypeFactory, expResFactory, assertsFactory, parametersFactory);
-        ITestScenarioRunHandler runParamHandler = new TestScenarioParameterizedHandler(testsFactory, valueTypeFactory, expResFactory, assertsFactory, parametersFactory);
-
-        ITestScenarioHandler handler = new TestScenarioHandlerBase(runHandler, runParamHandler);
+        ITestScenarioHandler handler = new TestScenarioHandler(expPrimitive, expParameterized);
 
         String path = dslModel.getTestScenariosPath();
         ArrayList<TestScenarioRun> testScenarioRuns = handler.processTestScenariosRun(path);
@@ -150,12 +143,10 @@ public class GestorDSL implements IGestorDSL{
      */
     @Override
     public void processUnitTests() throws AssertNotFoundException {
-        IUnitTestFactory unitTestFactory = new UnitTestFactory();
-        IAssertTypesFactory assertTypesFactory = new AssertsFactory();
-        IUnitTestArrangeHandler arrangeHandler = new UnitTestArrangeHandler(unitTestFactory);
-        IUnitTestActionHandler actionHandler = new UnitTestActionHandler(unitTestFactory);
-        IUnitTestAssertHandler assertHandler = new UnitTestAssertHandler(unitTestFactory, assertTypesFactory);
-        IUnitTestHandler unitTestHandler = new UnitTestHandler(arrangeHandler, actionHandler, assertHandler, unitTestFactory);
+        IUnitTestArrangeHandler arrangeHandler = new UnitTestArrangeHandler();
+        IUnitTestActionHandler actionHandler = new UnitTestActionHandler();
+        IUnitTestAssertHandler assertHandler = new UnitTestAssertHandler();
+        IUnitTestHandler unitTestHandler = new UnitTestHandler(arrangeHandler, actionHandler, assertHandler);
 
         ArrayList<TestScenario> testScenarios = dslModel.getTestScenarios();
         ArrayList<UnitTest> unitTests = unitTestHandler.processUnitTests(testScenarios);

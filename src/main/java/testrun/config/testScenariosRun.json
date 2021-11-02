@@ -1,102 +1,15 @@
 [
 	{
-		"function": "getNumbers",
-		"testName": "test_getNumbers1",
-		"parameters": [],
-		"expected": [1,2,3,4,5],
-        "assert": "areEqual"
-	},
-	{
-		"function": "getNumbers",
-		"testName": "test_getNumbers2",
-		"parameters": [],
-		"expected": ["1","2","3","4","5"],
-        "assert": "areEqual"
-	},
-	{
-		"function": "getTodayDay",
-		"testName": "getTodayDay_test01",
-		"parameters": [],
-		"expected": "28",
-        "assert": "isTrue"
-	},
-	{
-		"function": "getTodayDay2",
-		"testName": "test0001",
-		"parameters": [],
-		"expected": "",
-        "assert": "isTrue"
-	},
-	{
-		"function": "isMayorEdad",
-		"testName": "test00",
-        "parameters": [
-            {
-                "name": "edad",
-                "type": "int",
-                "value": 30
-            }
-        ],
-        "assert": "isTrue"
-	},
-	{
-		"function": "isMayorEdad",
-		"testName": "test01",
-        "parameters": [
-            {
-                "name": "edad",
-                "type": "int",
-                "value": 15
-            }
-        ],
-        "assert": "isFalse"
-	},
-	{
-		"function": "isMenorEdad",
-		"testName": "test02",
-        "parameters": [
-            {
-                "name": "edad",
-                "type": "int",
-                "value": 15
-            }
-        ],
-        "assert": "isTrue"
-	},
-	{
-        "function": "sumar",
-		"testName": "test1",
-        "parameters": [
-            {
-                "name": "num1",
-                "type": "int",
-                "value": 3
+		"function": "getEdad",
+		"testName": "getEdad_test1",
+		"parameters": [
+			{
+                "name": "anio",
+                "type": "long",
+                "value": 1990
             },
-            {
-                "name": "num2",
-                "type": "int",
-                "value": 5
-            }
-        ],
-        "expected": "8",
+		],
+		"expected": 31,
         "assert": "areEqual"
-    },
-    {
-        "function": "sumar2",
-		"testName": "test2",
-        "parameters": [
-            {
-                "name": "num1",
-                "type": "int",
-                "value": -5
-            },
-            {
-                "name": "num2",
-                "type": "int",
-                "value": 7
-            }
-        ],
-        "expected": "2",
-        "assert": "areEqual"
-    }
+	}
 ]
