@@ -1,15 +1,41 @@
 [
 	{
+		"function": "getEdades",
+		"testName": "getEdades_test1",
+		"parameters": [
+			{
+                "name": "aNo",
+                "type": "int",
+                "value": 2019
+            },
+		],
+		"expected": [
+			{
+				"type": "int",
+				"value": 1
+			},
+			{
+				"type": "int",
+				"value": 2
+			},
+		]
+        "assert": "areEqual"
+	},
+	{
 		"function": "getEdad",
 		"testName": "getEdad_test1",
 		"parameters": [
 			{
-                "name": "anio",
-                "type": "long",
+                "name": "aNo",
+                "type": "int",
                 "value": 1990
             },
 		],
-		"expected": 31,
+		"expected": {
+			"type": "int",
+			"value": 31
+		},
         "assert": "areEqual"
 	}
+	
 ]

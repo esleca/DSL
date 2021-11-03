@@ -13,7 +13,7 @@ import ASTMCore.ASTMSyntax.Types.ClassType;
 import ASTMCore.ASTMSyntax.Types.NamedTypeReference;
 import ASTMCore.ASTMSyntax.Types.TypeReference;
 
-import factories.gastfactories.IGastFactory;
+import factories.gastfactories.GastFactory;
 import models.entities.aggregates.Package;
 import models.entities.imports.Import;
 import models.entities.unittests.FunctionArgument;
@@ -33,17 +33,11 @@ import java.util.List;
 
 public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
 
-    private IGastFactory gastFactory;
-
-    public CompilationUnitTestHandler(IGastFactory gastFactory){
-        this.gastFactory = gastFactory;
-    }
-
     @Override
     public ArrayList<CompilationUnit> processCompilationUnitTests(GestorModel model) {
         ArrayList<CompilationUnit> compilationUnitTests = new ArrayList<>();
 
-        CompilationUnit compilationUnit = new CompilationUnit();
+        CompilationUnit compilationUnit = GastFactory.getCompilationUnit();
 
         processCompilationUnitPackage(compilationUnit, model);
         processCompilationUnitImports(compilationUnit, model); //TODO: IMPORTS
@@ -60,8 +54,8 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private NameSpaceDefinition getNameSpaceDefinition(GestorModel model){
-        NameSpaceDefinition nameSpaceDefinition = new NameSpaceDefinition();
-        Name nameObj = new Name();
+        NameSpaceDefinition nameSpaceDefinition = GastFactory.getNameSpaceDefinition();
+        Name nameObj = GastFactory.getName();
 
         Package pkg = model.getaClass().getPackage();
         nameObj.setNameString(pkg.getName());

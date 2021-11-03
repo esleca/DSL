@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class ExpectedResultsFactory {
 
     public static ExpectedResult createPrimitiveExpectedResult(ValueType valueType){
-        return new PrimitiveExpectedResult();
+        return new PrimitiveExpectedResult(valueType);
     }
 
     public static ExpectedResult createParameterizedExpectedResult(ArrayList<ValueType> argumentTypes){

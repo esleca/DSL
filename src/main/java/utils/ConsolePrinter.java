@@ -57,7 +57,15 @@ public class ConsolePrinter implements IPrinter {
 
             ExpectedResult expectedResult = ut.getTestScenario().getExpectedResult();
 
-            System.out.println("\t" + fReturn + " expected = " + expectedResult.getValueType().getValue() + ";");
+            if (expectedResult instanceof ParameterizedExpectedResult){
+                ParameterizedExpectedResult paramExpectedResult = (ParameterizedExpectedResult) expectedResult;
+                System.out.println("\t" + fReturn + " expected = " + paramExpectedResult.getArgumentTypes() + ";"); //TODO
+            }else{
+                PrimitiveExpectedResult primExpectedResult = (PrimitiveExpectedResult) expectedResult;
+                System.out.println("\t" + fReturn + " expected = " + primExpectedResult.getValueType().getValue() + ";");
+            }
+
+
         }
     }
 
@@ -108,6 +116,9 @@ public class ConsolePrinter implements IPrinter {
 
             System.out.println("\t" + ae.getCalledFunction() + "." + ae.getAssertType().getName() + "(" + assertParams + ");");
         }
+
+        System.out.println("\t" + "Assert.IsInstanceOfType" + "(result, typeof(...));");
+        //Assert.IsInstanceOfType(0, typeof(int));
     }
 
     private String getFunctionArgs(ArrayList<ArrangeStatement> arrangeStatements){

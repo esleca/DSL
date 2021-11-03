@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class ParameterizedExpectedResult extends ExpectedResult {
 
-
     private ArrayList<ValueType> argumentTypes;
 
     public ParameterizedExpectedResult(ArrayList<ValueType> argumentTypes){

@@ -25,12 +25,12 @@ import java.util.ArrayList;
 
 public class TestScenarioHandler implements ITestScenarioHandler {
 
-    private final IExpectablePrimitive expectablePrimitive;
-    private final IExpectableParameterized expectableParameterized;
+    private final IExpectedPrimitive expectedPrimitive;
+    private final IExpectedParameterized expectedParameterized;
 
-    public TestScenarioHandler(IExpectablePrimitive expectablePrimitive, IExpectableParameterized expectableParameterized){
-        this.expectablePrimitive = expectablePrimitive;
-        this.expectableParameterized = expectableParameterized;
+    public TestScenarioHandler(IExpectedPrimitive expectedPrimitive, IExpectedParameterized expectedParameterized){
+        this.expectedPrimitive = expectedPrimitive;
+        this.expectedParameterized = expectedParameterized;
     }
 
 
@@ -55,8 +55,7 @@ public class TestScenarioHandler implements ITestScenarioHandler {
 
 
     @Override
-    public ArrayList<TestScenario> processTestScenarios(ArrayList<TestScenarioRun> testScenarioRuns, ArrayList<TestableUnit> testableUnits)
-            throws ValueTypeNotFoundException, AssertNotFoundException {
+    public ArrayList<TestScenario> processTestScenarios(ArrayList<TestScenarioRun> testScenarioRuns, ArrayList<TestableUnit> testableUnits) throws AssertNotFoundException {
         ArrayList<TestScenario> testScenarios = new ArrayList<>();
 
         for (TestScenarioRun testScenarioRun : testScenarioRuns){
@@ -82,11 +81,11 @@ public class TestScenarioHandler implements ITestScenarioHandler {
 
         if (expected instanceof JSONArray){
             TestScenarioParameterizedRun paramRun = new TestScenarioParameterizedRun(function, testName, parameterScenarios, assertion);
-            paramRun.setExpected(expectableParameterized.getExpected(jsonObject));
+            paramRun.setExpected(expectedParameterized.getExpected(jsonObject));
             testScenarioRun = paramRun;
         }else{
             TestScenarioPrimitiveRun primRun = new TestScenarioPrimitiveRun(function, testName, parameterScenarios, assertion);
-            primRun.setExpected(expectablePrimitive.getExpected(jsonObject));
+            primRun.setExpected(expectedPrimitive.getExpected(jsonObject));
             testScenarioRun = primRun;
         }
 
@@ -128,8 +127,7 @@ public class TestScenarioHandler implements ITestScenarioHandler {
     }
 
 
-    protected TestScenario getTestScenario(TestScenarioRun testScenarioRun, TestableUnit testableUnit)
-            throws ValueTypeNotFoundException, AssertNotFoundException {
+    protected TestScenario getTestScenario(TestScenarioRun testScenarioRun, TestableUnit testableUnit) throws AssertNotFoundException {
         AssertType assertType = AssertsFactory.createAssertType(testScenarioRun.getAssertion());
         ExpectedResult expectedResult;
 
@@ -138,9 +136,7 @@ public class TestScenarioHandler implements ITestScenarioHandler {
             expectedResult = ExpectedResultsFactory.createParameterizedExpectedResult(valueTypes);
         }else{
             TestScenarioPrimitiveRun primitiveRun = (TestScenarioPrimitiveRun) testScenarioRun;
-            String returnName = testableUnit.getFunction().getReturn().getName();
-            ValueType valueType = ValueTypeFactory.createValueType(returnName, primitiveRun.getExpected());
-            expectedResult = ExpectedResultsFactory.createPrimitiveExpectedResult(valueType);
+            expectedResult = ExpectedResultsFactory.createPrimitiveExpectedResult(primitiveRun.getExpected());
         }
 
         return TestableUnitFactory.createTestScenario(testScenarioRun.getTestName(), testableUnit,
