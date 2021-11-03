@@ -3,12 +3,17 @@ package processor.gastgateway.visitors;
 import exceptions.ModifierNotFoundException;
 import exceptions.ReturnNotFoundException;
 import models.entities.aggregates.Class;
+import models.entities.returns.ParameterDataType;
+
+import java.util.ArrayList;
 
 public interface IFrameDSL {
 
     void createFunction();
 
     void createParameter();
+
+    void createParameterDataType();
 
     void writeFunction();
 
@@ -22,7 +27,13 @@ public interface IFrameDSL {
 
     void writeFunctionName(String name);
 
-    void writeFunctionReturn(String name) throws ReturnNotFoundException;
+    void writeFunctionReturnPrimitive(String name) throws ReturnNotFoundException;
+
+    void writeFunctionReturnParameterized(String name) throws ReturnNotFoundException;
+
+    void writeParameterDataTypeName(String name);
+
+    void writeParameterDataTypeArg(ArrayList<String> names);
 
     void writeFunctionParameter();
 

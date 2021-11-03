@@ -6,13 +6,16 @@ import gastmappers.exceptions.UnsupportedLanguageException;
 import gestors.GestorDSL;
 import gestors.IGestorDSL;
 import org.json.simple.parser.ParseException;
+import utils.ConsolePrinter;
+import utils.IPrinter;
 
 import java.awt.*;
 import java.io.IOException;
 
 public class Main {
 
-    private final static IGestorDSL dsl = new GestorDSL();
+    private static IPrinter printer = new ConsolePrinter();
+    private final static IGestorDSL dsl = new GestorDSL(printer);
 
     public static void main(String[] args)
             throws HeadlessException, IllegalArgumentException, SecurityException, IOException,

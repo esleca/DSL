@@ -17,26 +17,35 @@ public class ConsolePrinter implements IPrinter {
         printArrange(ut);
         printAct(ut);
         printAssert(ut);
+        printTestEnd();
     }
 
     private void printTestHeader(UnitTest ut){
         Function function = ut.getTestScenario().getTestableUnit().getFunction();
         String testName = ut.getTestScenario().getTestName();
 
-        System.out.println("Function: " + function.getName());
+        System.out.println("\n//FUNCTION: " + function.getName());
 
-        System.out.println("Test Name: " + testName);
+        System.out.println("[TestMethod]");
+
+        System.out.println("public void " + testName + "(){");
+    }
+
+    private void printTestEnd(){
+        System.out.println("}");
+
+        System.out.println("\n############################################");
     }
 
     private void printArrange(UnitTest ut){
-        System.out.println("\n//Arrange");
+        System.out.println("\t//Arrange");
 
         ArrayList<ArrangeStatement> arrangeStatements = ut.getArrange().getArrangeStatements();
 
         for (ArrangeStatement as : arrangeStatements){
             Declaration declaration = as.getDeclaration();
 
-            System.out.println(declaration.getType() + " " + declaration.getName() + " = " +
+            System.out.println("\t" + declaration.getType() + " " + declaration.getName() + " = " +
                     as.getDefinition().getValueType().getValue() + ";");
         }
 
@@ -48,7 +57,15 @@ public class ConsolePrinter implements IPrinter {
 
             ExpectedResult expectedResult = ut.getTestScenario().getExpectedResult();
 
-            System.out.println(fReturn + " expected = " + expectedResult.getValueType().getValue() + ";");
+            if (expectedResult instanceof ParameterizedExpectedResult){
+                ParameterizedExpectedResult paramExpectedResult = (ParameterizedExpectedResult) expectedResult;
+                System.out.println("\t" + fReturn + " expected = " + paramExpectedResult.getArgumentTypes() + ";"); //TODO
+            }else{
+                PrimitiveExpectedResult primExpectedResult = (PrimitiveExpectedResult) expectedResult;
+                System.out.println("\t" + fReturn + " expected = " + primExpectedResult.getValueType().getValue() + ";");
+            }
+
+
         }
     }
 
@@ -62,7 +79,7 @@ public class ConsolePrinter implements IPrinter {
     private void printAct(UnitTest ut){
         Function function = ut.getTestScenario().getTestableUnit().getFunction();
 
-        System.out.println("\n//Act");
+        System.out.println("\n\t//Act");
 
         ActExecution actExecution = ut.getAct().getActExecution();
 
@@ -74,33 +91,34 @@ public class ConsolePrinter implements IPrinter {
 
         if (function.isStatic()){
 
-            System.out.println(declaration.getType() + " " + declaration.getName() +" = " +
+            System.out.println("\t" + declaration.getType() + " " + declaration.getName() +" = " +
                     actExecution.getCalledFunction() + "." + actExecution.getFunctionName() + "(" + sutParams + ");");
         } else{
 
             IInstanceActioner instanceActioner = (IInstanceActioner) ut.getAct();
             ActNewType actNewType = instanceActioner.getActNewType();
 
-            System.out.println(actNewType.getType() + " " + actNewType.getName() + " = new " +
+            System.out.println("\t" + actNewType.getType() + " " + actNewType.getName() + " = new " +
                     actNewType.getType() + "();");
 
-            System.out.println(declaration.getType() + " " + declaration.getName() +" = " +
+            System.out.println("\t" + declaration.getType() + " " + declaration.getName() +" = " +
                     actExecution.getCalledFunction() + "." + actExecution.getFunctionName() + "(" + sutParams + ");");
         }
     }
 
     private void printAssert(UnitTest ut){
-        System.out.println("\n//Assert");
+        System.out.println("\n\t//Assert");
 
         ArrayList<AssertExpression> expressions = ut.getAssert().getAssertExpressions();
 
         for (AssertExpression ae : expressions){
             String assertParams = getAssertArgs(expressions);
 
-            System.out.println(ae.getCalledFunction() + "." + ae.getAssertType().getName() + "(" + assertParams + ");");
+            System.out.println("\t" + ae.getCalledFunction() + "." + ae.getAssertType().getName() + "(" + assertParams + ");");
         }
 
-        System.out.println("\n######################################");
+        System.out.println("\t" + "Assert.IsInstanceOfType" + "(result, typeof(...));");
+        //Assert.IsInstanceOfType(0, typeof(int));
     }
 
     private String getFunctionArgs(ArrayList<ArrangeStatement> arrangeStatements){

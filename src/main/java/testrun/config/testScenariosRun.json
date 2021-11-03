@@ -1,75 +1,41 @@
 [
 	{
-		"function": "isMayorEdad",
-		"testName": "test00",
-        "parameters": [
-            {
-                "name": "edad",
+		"function": "getEdades",
+		"testName": "getEdades_test1",
+		"parameters": [
+			{
+                "name": "aNo",
                 "type": "int",
-                "value": 303
-                "value": 30
-            }
-        ],
-        "assert": "isTrue"
-	},
-	{
-		"function": "isMayorEdad",
-		"testName": "test01",
-        "parameters": [
-            {
-                "name": "edad",
-                "type": "int",
-                "value": 15
-            }
-        ],
-        "assert": "isFalse"
-	},
-	{
-		"function": "isMenorEdad",
-		"testName": "test02",
-        "parameters": [
-            {
-                "name": "edad",
-                "type": "int",
-                "value": 15
-            }
-        ],
-        "assert": "isTrue"
-	},
-	{
-        "function": "sumar",
-		"testName": "test1",
-        "parameters": [
-            {
-                "name": "num1",
-                "type": "int",
-                "value": 3
+                "value": 2019
             },
-            {
-                "name": "num2",
-                "type": "int",
-                "value": 5
-            }
-        ],
-        "expected": "8",
+		],
+		"expected": [
+			{
+				"type": "int",
+				"value": 1
+			},
+			{
+				"type": "int",
+				"value": 2
+			},
+		]
         "assert": "areEqual"
-    },
-    {
-        "function": "sumar2",
-		"testName": "test2",
-        "parameters": [
-            {
-                "name": "num1",
+	},
+	{
+		"function": "getEdad",
+		"testName": "getEdad_test1",
+		"parameters": [
+			{
+                "name": "aNo",
                 "type": "int",
-                "value": -5
+                "value": 1990
             },
-            {
-                "name": "num2",
-                "type": "int",
-                "value": 7
-            }
-        ],
-        "expected": "2",
+		],
+		"expected": {
+			"type": "int",
+			"value": 31
+		},
         "assert": "areEqual"
-    }
+	}
+	
 ]

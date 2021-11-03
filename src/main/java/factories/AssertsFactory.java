@@ -4,10 +4,9 @@ import exceptions.AssertNotFoundException;
 import models.entities.unittests.asserts.types.*;
 import utils.Constants;
 
-public class AssertsFactory implements IAssertTypesFactory {
+public class AssertsFactory {
 
-    @Override
-    public AssertType createAssertType(String type) throws AssertNotFoundException {
+    public static AssertType createAssertType(String type) throws AssertNotFoundException {
         AssertType assertType;
 
         switch (type){

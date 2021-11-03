@@ -16,6 +16,7 @@ public class Constants {
     public final static String RETURN_DOUBLE = "double";
     public final static String RETURN_CHAR = "char";
     public final static String RETURN_VOID = "void";
+    public final static String RETURN_PARAMETERIZED = "Parameterized";
 
     public final static String ASSERT_ARE_EQUAL = "areEqual";
     public final static String ASSERT_ARE_NOT_EQUAL = "areNotEqual";
@@ -42,4 +43,6 @@ public class Constants {
 
     public final static String LANGUAGE_JAVA = "JAVA";
 
+    public final static String ARRAY_LIST = "ArrayList";
+    public final static String LIST = "List";
 }

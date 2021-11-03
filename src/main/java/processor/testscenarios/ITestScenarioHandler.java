@@ -12,6 +12,7 @@ public interface ITestScenarioHandler {
 
     ArrayList<TestScenarioRun> processTestScenariosRun(String scenariosPath);
 
-    ArrayList<TestScenario> processTestScenarios(ArrayList<TestScenarioRun> testScenarioRuns,
-                                             ArrayList<TestableUnit> testableUnits) throws ValueTypeNotFoundException, AssertNotFoundException;
+    ArrayList<TestScenario> processTestScenarios(ArrayList<TestScenarioRun> testScenarioRuns, ArrayList<TestableUnit> testableUnits)
+            throws ValueTypeNotFoundException, AssertNotFoundException;
+
 }

@@ -2,10 +2,7 @@ package processortests;
 
 import exceptions.*;
 import factories.*;
-import models.entities.unittests.TestScenario;
 import models.entities.unittests.TestableUnit;
-import processor.testscenarios.ITestScenarioHandler;
-import processor.testscenarios.TestScenarioHandler;
 import testrun.DataTestHelper;
 import testrun.config.TestScenarioRun;
 
@@ -50,15 +47,15 @@ public class TestScenarioHandlerTests {
         testableUnits.add(DataTestHelper.getTestableUnit());
 
         // Act
-        ITestScenarioHandler testScenarioHandler = new TestScenarioHandler(testableFactory, valueTypeFactory,
-                expectedResFactory, assertsFactory, parametersFactory);
-
-        ArrayList<TestScenario> testScenarios = testScenarioHandler.processTestScenarios(testScenarioRuns, testableUnits);
-
-        int actualSize = testScenarios.size();
-
-        // Asserts
-        assertEquals(1, actualSize);
+//        ITestScenarioHandler testScenarioHandler = new TestScenarioPrimitiveHandler(testableFactory, valueTypeFactory,
+//                expectedResFactory, assertsFactory, parametersFactory);
+//
+//        ArrayList<TestScenario> testScenarios = testScenarioHandler.processTestScenarios(testScenarioRuns, testableUnits);
+//
+//        int actualSize = testScenarios.size();
+//
+//        // Asserts
+//        assertEquals(1, actualSize);
     }
 
     @Test

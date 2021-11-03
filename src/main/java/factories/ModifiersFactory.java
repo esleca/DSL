@@ -7,10 +7,9 @@ import models.entities.modifiers.ProtectedModifier;
 import models.entities.modifiers.PublicModifier;
 import utils.Constants;
 
-public class ModifiersFactory implements IModifiersFactory{
+public class ModifiersFactory {
 
-    @Override
-    public Modifier createModifier(String inType) throws ModifierNotFoundException {
+    public static Modifier createModifier(String inType) throws ModifierNotFoundException {
         Modifier modifier;
 
         switch (inType){

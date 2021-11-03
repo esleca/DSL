@@ -1,13 +1,20 @@
 package factories;
 
 import models.entities.unittests.ExpectedResult;
+import models.entities.unittests.ParameterizedExpectedResult;
+import models.entities.unittests.PrimitiveExpectedResult;
 import models.entities.valuetypes.ValueType;
 
-public class ExpectedResultsFactory implements IExpectedResultsFactory {
+import java.util.ArrayList;
 
-    @Override
-    public ExpectedResult createExpectedResult(ValueType valueType){
-        ExpectedResult result = new ExpectedResult(valueType);
-        return result;
+public class ExpectedResultsFactory {
+
+    public static ExpectedResult createPrimitiveExpectedResult(ValueType valueType){
+        return new PrimitiveExpectedResult(valueType);
     }
+
+    public static ExpectedResult createParameterizedExpectedResult(ArrayList<ValueType> argumentTypes){
+        return new ParameterizedExpectedResult(argumentTypes);
+    }
+
 }

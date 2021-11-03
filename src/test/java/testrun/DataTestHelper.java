@@ -20,10 +20,12 @@ public class DataTestHelper {
         String function = "functionToTest";
         String name = "testScenarioName";
         ArrayList<ParameterScenario> parameterScenarios = getParameterScenarios();
-        String expected = "1";
+        //String expected = "1";
         String assertion = "areEqual";
-        TestScenarioRun tsr = new TestScenarioRun(function, name, parameterScenarios, expected, assertion);
-        return tsr;
+        //TestScenarioRun tsr = new TestScenarioRun(function, name, parameterScenarios, expected, assertion);
+        //TestScenarioRun tsr = new TestScenarioRun(function, name, parameterScenarios, null, assertion);
+        //return tsr;
+        return null;
     }
 
     public static ArrayList<ParameterScenario> getParameterScenarios(){

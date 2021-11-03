@@ -9,6 +9,8 @@ import models.entities.aggregates.Function;
 import models.entities.aggregates.Package;
 import models.entities.imports.Import;
 import models.entities.parameters.ParameterFunction;
+import models.entities.returns.ParameterDataType;
+import models.entities.returns.Return;
 
 import java.util.ArrayList;
 
@@ -20,33 +22,27 @@ public class FrameDSL implements IFrameDSL {
     private Function currentFunction;
     private ParameterFunction parameter;
     private ArrayList<Function> functions;
+    private ParameterDataType parameterDataType;
 
-    private IModifiersFactory modifiersFactory;
-    private IReturnsFactory returnsFactory;
-    private IParametersFactory parametersFactory;
-    private IAggregatesFactory aggregatesFactory;
-    private IImportsFactory importsFactory;
-
-    public FrameDSL(IModifiersFactory iModifiersFactory, IReturnsFactory iReturnsFactory, IParametersFactory iParametersFactory,
-                    IAggregatesFactory iAggregatesFactory, IImportsFactory iImportsFactory){
+    public FrameDSL(){
         imports = new ArrayList<>();
         parameter = new ParameterFunction();
         functions = new ArrayList<>();
-        modifiersFactory = iModifiersFactory;
-        returnsFactory = iReturnsFactory;
-        parametersFactory = iParametersFactory;
-        aggregatesFactory = iAggregatesFactory;
-        importsFactory = iImportsFactory;
     }
 
     @Override
     public void createFunction(){
-        this.currentFunction = aggregatesFactory.createFunction(fileClass);
+        this.currentFunction = AggregatesFactory.createFunction(fileClass);
     }
 
     @Override
     public void createParameter(){
-        this.parameter = parametersFactory.createParameterFunction();
+        this.parameter = ParametersFactory.createParameterFunction();
+    }
+
+    @Override
+    public void createParameterDataType(){
+        this.parameterDataType = ReturnsFactory.createParameterDataType();
     }
 
     @Override
@@ -68,22 +64,22 @@ public class FrameDSL implements IFrameDSL {
 
     @Override
     public void writeClassPackage(String name) {
-        gPackage = aggregatesFactory.createPackage(name);
+        gPackage = AggregatesFactory.createPackage(name);
     }
 
     @Override
     public void writeClassImport(String name){
-        imports.add(importsFactory.createImport(name));
+        imports.add(ImportsFactory.createImport(name));
     }
 
     @Override
     public void writeFunctionClass(String name) {
-        fileClass = aggregatesFactory.createClass(name, gPackage);
+        fileClass = AggregatesFactory.createClass(name, gPackage);
     }
 
     @Override
     public void writeFunctionModifier(String name) throws ModifierNotFoundException {
-        getCurrentFunction().setModifier(modifiersFactory.createModifier(name));
+        getCurrentFunction().setModifier(ModifiersFactory.createModifier(name));
     }
 
     @Override
@@ -92,8 +88,26 @@ public class FrameDSL implements IFrameDSL {
     }
 
     @Override
-    public void writeFunctionReturn(String name) throws ReturnNotFoundException {
-        getCurrentFunction().setReturn(returnsFactory.createReturn(name));
+    public void writeFunctionReturnPrimitive(String name) throws ReturnNotFoundException {
+        Return returns = ReturnsFactory.createPrimitiveReturn(name);
+        getCurrentFunction().setReturn(returns);
+    }
+
+    @Override
+    public void writeFunctionReturnParameterized(String name) throws ReturnNotFoundException {
+        ParameterDataType dataType = getParameterDataType();
+        Return returns = ReturnsFactory.createParameterizedReturn(name, dataType);
+        getCurrentFunction().setReturn(returns);
+    }
+
+    @Override
+    public void writeParameterDataTypeName(String name){
+        getParameterDataType().setName(name);
+    }
+
+    @Override
+    public void writeParameterDataTypeArg(ArrayList<String> names){
+        getParameterDataType().setArgumentType(names);
     }
 
     @Override
@@ -114,6 +128,7 @@ public class FrameDSL implements IFrameDSL {
         getFileClass().setFunctions(getFunctions());
         return getFileClass();
     }
+
 
     private Class getFileClass(){
         return this.fileClass;
@@ -138,5 +153,10 @@ public class FrameDSL implements IFrameDSL {
     private ArrayList<Import> getImports(){
         return this.imports;
     }
+
+    private ParameterDataType getParameterDataType(){
+        return this.parameterDataType;
+    }
+
 
 }

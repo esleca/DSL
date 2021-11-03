@@ -1,8 +1,5 @@
 package models.entities.valuetypes;
 
-import factories.IImportsFactory;
-import models.entities.imports.Import;
-
 public class BooleanType extends ValueType {
 
     private boolean value;
