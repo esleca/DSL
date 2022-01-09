@@ -824,4 +824,16 @@ public class VisitorDSL extends VisitorBase {
     public void visitRefModifier(RefModifier refModifier) {
 
     }
+
+	@Override
+	public void visitMethodTypeDefinition(MethodTypeDefinition arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitStatementTypeDefinition(StatementTypeDefinition arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }
