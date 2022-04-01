@@ -117,8 +117,8 @@ public class TestScenarioHandler implements ITestScenarioHandler {
     }
 
 
-    protected Function getFunction(String functionName, ArrayList<Function> testableFunctions) {
-        for (Function function : testableFunctions) {
+    protected Function getFunction(String functionName, ArrayList<Function> testableUnits) {
+        for (Function function : testableUnits) {
             if (function.getName().equals((functionName))){
                 return function;
             }

@@ -21,7 +21,7 @@ public class GestorModel {
     private ArrayList<CompilationUnit> compilationUnits;
     private ArrayList<CompilationUnit> compilationUnitsTests;
     private ArrayList<Function> compilationUnitFunctions;
-    private ArrayList<Function> testableFunctions;
+    private ArrayList<Function> testableUnits;
     private ArrayList<TestScenario> testScenarios;
     private ArrayList<UnitTest> unitTests;
 
@@ -31,7 +31,7 @@ public class GestorModel {
         compilationUnits = new ArrayList<>();
         compilationUnitsTests = new ArrayList<>();
         compilationUnitFunctions = new ArrayList<>();
-        testableFunctions = new ArrayList<>();
+        testableUnits = new ArrayList<>();
         unitTests = new ArrayList<>();
         configurationPath = "./src/main/java/testrun/config/configurationTestRun.json";
         testScenariosPath = "./src/main/java/testrun/config/testScenariosRun.json";
@@ -89,12 +89,12 @@ public class GestorModel {
         this.compilationUnitFunctions = compilationUnitFunctions;
     }
 
-    public ArrayList<Function> getTestableFunctions() {
-        return testableFunctions;
+    public ArrayList<Function> getTestableUnits() {
+        return testableUnits;
     }
 
-    public void setTestableFunctions(ArrayList<Function> testableFunctions) {
-        this.testableFunctions = testableFunctions;
+    public void setTestableUnits(ArrayList<Function> testableUnits) {
+        this.testableUnits = testableUnits;
     }
 
     public ArrayList<TestScenario> getTestScenarios() {

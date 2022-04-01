@@ -27,18 +27,20 @@ public class TestableUnitHandler implements ITestableUnitHandler {
     }
 
     @Override
-    public ArrayList<Function> processTestableFunctions(ArrayList<Function> functions){
-        ArrayList<Function> testableFunctions = new ArrayList<>();
+    public ArrayList<Function> processTestableUnits(ArrayList<Function> functions){
+        ArrayList<Function> testableUnits = new ArrayList<>();
 
         for (Function function: functions){
-            if (isTestableFunction(function)){
-                testableFunctions.add(function);
+            boolean isTestable = isTestableUnit(function);
+            function.setIsTestable(isTestable);
+            if (function.isTestable()){
+                testableUnits.add(function);
             }
         }
-        return testableFunctions;
+        return testableUnits;
     }
 
-    private boolean isTestableFunction(Function function){
+    private boolean isTestableUnit(Function function){
         if (function != null){
             if (!isValidFunctionModifier(function))
                 return false;

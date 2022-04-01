@@ -6,6 +6,6 @@ import java.util.ArrayList;
 
 public interface ITestableUnitHandler {
 
-    ArrayList<Function> processTestableFunctions(ArrayList<Function> functions);
+    ArrayList<Function> processTestableUnits(ArrayList<Function> functions);
 
 }

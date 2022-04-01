@@ -106,9 +106,9 @@ public class GestorDSL implements IGestorDSL{
         ITestableUnitHandler testableUnitHandler = new TestableUnitHandler();
 
         ArrayList<Function> functions = dslModel.getCompilationUnitFunctions();
-        ArrayList<Function> testableFunctions = testableUnitHandler.processTestableFunctions(functions);
+        ArrayList<Function> testableUnits = testableUnitHandler.processTestableUnits(functions);
 
-        dslModel.setTestableFunctions(testableFunctions);
+        dslModel.setTestableUnits(testableUnits);
     }
 
     /**
@@ -126,7 +126,7 @@ public class GestorDSL implements IGestorDSL{
         ITestScenarioHandler handler = new TestScenarioHandler(expPrimitive, expParameterized);
 
         ArrayList<TestScenarioRun> testScenarioRuns = handler.processTestScenariosRun(dslModel.getTestScenariosPath());
-        ArrayList<TestScenario> testScenarios = handler.processTestScenarios(testScenarioRuns, dslModel.getTestableFunctions());
+        ArrayList<TestScenario> testScenarios = handler.processTestScenarios(testScenarioRuns, dslModel.getTestableUnits());
 
         dslModel.setTestScenarios(testScenarios);
     }
