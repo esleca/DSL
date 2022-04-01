@@ -18,7 +18,7 @@ public class UnitTestAssertHandler implements IUnitTestAssertHandler {
     public Assert processUnitTestAssert(TestScenario testScenario) throws AssertNotFoundException {
         ArrayList<AssertExpression> expressions = new ArrayList<>();
         AssertExpression expression = getAssertExpression(testScenario);
-        expressions.add(expression);
+        expressions.add(expression); // handle multiple expressions? iteration
 
         return UnitTestFactory.createAssert(expressions);
     }
