@@ -2,7 +2,7 @@ package processortests;
 
 import exceptions.*;
 import factories.*;
-import models.entities.unittests.TestableUnit;
+import models.entities.aggregates.Function;
 import testrun.DataTestHelper;
 import testrun.config.TestScenarioRun;
 
@@ -43,8 +43,8 @@ public class TestScenarioHandlerTests {
         ArrayList<TestScenarioRun> testScenarioRuns = new ArrayList<>();
         testScenarioRuns.add(DataTestHelper.getTestScenarioRun());
 
-        ArrayList<TestableUnit> testableUnits = new ArrayList<>();
-        testableUnits.add(DataTestHelper.getTestableUnit());
+        ArrayList<Function> testableUnits = new ArrayList<>();
+        testableUnits.add(DataTestHelper.getFunction());
 
         // Act
 //        ITestScenarioHandler testScenarioHandler = new TestScenarioPrimitiveHandler(testableFactory, valueTypeFactory,

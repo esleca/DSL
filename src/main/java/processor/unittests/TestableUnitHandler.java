@@ -1,8 +1,6 @@
 package processor.unittests;
 
-import factories.TestableUnitFactory;
 import models.entities.aggregates.Function;
-import models.entities.unittests.TestableUnit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +18,7 @@ public class TestableUnitHandler implements ITestableUnitHandler {
     private void initializePermitModifiers(){
         modifiers = new ArrayList<>();
         modifiers.add("public");
+        modifiers.add("protected");
     }
 
     private void initializeExcludedReturns(){
@@ -28,19 +27,18 @@ public class TestableUnitHandler implements ITestableUnitHandler {
     }
 
     @Override
-    public ArrayList<TestableUnit> processTestableUnits(ArrayList<Function> functions){
-        ArrayList<TestableUnit> testableUnits = new ArrayList<>();
+    public ArrayList<Function> processTestableFunctions(ArrayList<Function> functions){
+        ArrayList<Function> testableFunctions = new ArrayList<>();
 
         for (Function function: functions){
-            if (isTestableUnit(function)){
-                TestableUnit testableUnit = TestableUnitFactory.createTestableUnit(function);
-                testableUnits.add(testableUnit);
+            if (isTestableFunction(function)){
+                testableFunctions.add(function);
             }
         }
-        return testableUnits;
+        return testableFunctions;
     }
 
-    private boolean isTestableUnit(Function function){
+    private boolean isTestableFunction(Function function){
         if (function != null){
             if (!isValidFunctionModifier(function))
                 return false;

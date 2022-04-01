@@ -4,7 +4,6 @@ import ASTMCore.ASTMSource.CompilationUnit;
 import models.entities.aggregates.Class;
 import models.entities.aggregates.Function;
 import models.entities.unittests.TestScenario;
-import models.entities.unittests.TestableUnit;
 import models.entities.unittests.UnitTest;
 import testrun.config.ConfigurationTestRun;
 
@@ -22,7 +21,7 @@ public class GestorModel {
     private ArrayList<CompilationUnit> compilationUnits;
     private ArrayList<CompilationUnit> compilationUnitsTests;
     private ArrayList<Function> compilationUnitFunctions;
-    private ArrayList<TestableUnit> testableUnits;
+    private ArrayList<Function> testableFunctions;
     private ArrayList<TestScenario> testScenarios;
     private ArrayList<UnitTest> unitTests;
 
@@ -32,7 +31,7 @@ public class GestorModel {
         compilationUnits = new ArrayList<>();
         compilationUnitsTests = new ArrayList<>();
         compilationUnitFunctions = new ArrayList<>();
-        testableUnits = new ArrayList<>();
+        testableFunctions = new ArrayList<>();
         unitTests = new ArrayList<>();
         configurationPath = "./src/main/java/testrun/config/configurationTestRun.json";
         testScenariosPath = "./src/main/java/testrun/config/testScenariosRun.json";
@@ -90,12 +89,12 @@ public class GestorModel {
         this.compilationUnitFunctions = compilationUnitFunctions;
     }
 
-    public ArrayList<TestableUnit> getTestableUnits() {
-        return testableUnits;
+    public ArrayList<Function> getTestableFunctions() {
+        return testableFunctions;
     }
 
-    public void setTestableUnits(ArrayList<TestableUnit> testableUnits) {
-        this.testableUnits = testableUnits;
+    public void setTestableFunctions(ArrayList<Function> testableFunctions) {
+        this.testableFunctions = testableFunctions;
     }
 
     public ArrayList<TestScenario> getTestScenarios() {

@@ -7,7 +7,6 @@ import models.entities.parameters.ParameterFunction;
 import models.entities.parameters.ParameterScenario;
 import models.entities.returns.IntegerReturn;
 import models.entities.returns.Return;
-import models.entities.unittests.TestableUnit;
 import models.entities.valuetypes.LongType;
 import models.entities.valuetypes.ValueType;
 import testrun.config.TestScenarioRun;
@@ -49,12 +48,6 @@ public class DataTestHelper {
         long value = 1;
         valueType.setValue(value);
         return valueType;
-    }
-
-    public static TestableUnit getTestableUnit(){
-        Function function = getFunction();
-        TestableUnit testableUnit = new TestableUnit(function);
-        return testableUnit;
     }
 
     public static Function getFunction(){

@@ -3,11 +3,11 @@ package processor.testscenarios;
 import exceptions.AssertNotFoundException;
 import exceptions.ValueTypeNotFoundException;
 import factories.*;
+import models.entities.aggregates.Function;
 import models.entities.parameters.ParameterFunction;
 import models.entities.parameters.ParameterScenario;
 import models.entities.unittests.ExpectedResult;
 import models.entities.unittests.TestScenario;
-import models.entities.unittests.TestableUnit;
 import models.entities.unittests.asserts.types.AssertType;
 import models.entities.valuetypes.ValueType;
 import org.json.simple.JSONArray;
@@ -55,13 +55,13 @@ public class TestScenarioHandler implements ITestScenarioHandler {
 
 
     @Override
-    public ArrayList<TestScenario> processTestScenarios(ArrayList<TestScenarioRun> testScenarioRuns, ArrayList<TestableUnit> testableUnits) throws AssertNotFoundException {
+    public ArrayList<TestScenario> processTestScenarios(ArrayList<TestScenarioRun> testScenarioRuns, ArrayList<Function> functions) throws AssertNotFoundException {
         ArrayList<TestScenario> testScenarios = new ArrayList<>();
 
         for (TestScenarioRun testScenarioRun : testScenarioRuns){
-            TestableUnit testableUnit = getTestableUnit(testScenarioRun.getFunction(), testableUnits);
-            if (testableUnit != null){
-                TestScenario testScenario = getTestScenario(testScenarioRun, testableUnit);
+            Function function = getFunction(testScenarioRun.getFunction(), functions);
+            if (function != null){
+                TestScenario testScenario = getTestScenario(testScenarioRun, function);
                 testScenarios.add(testScenario);
             }
         }
@@ -117,17 +117,17 @@ public class TestScenarioHandler implements ITestScenarioHandler {
     }
 
 
-    protected TestableUnit getTestableUnit(String functionName, ArrayList<TestableUnit> testableUnits) {
-        for (TestableUnit testableUnit : testableUnits) {
-            if (testableUnit.getFunction().getName().equals((functionName))){
-                return testableUnit;
+    protected Function getFunction(String functionName, ArrayList<Function> testableFunctions) {
+        for (Function function : testableFunctions) {
+            if (function.getName().equals((functionName))){
+                return function;
             }
         }
         return null;
     }
 
 
-    protected TestScenario getTestScenario(TestScenarioRun testScenarioRun, TestableUnit testableUnit) throws AssertNotFoundException {
+    protected TestScenario getTestScenario(TestScenarioRun testScenarioRun, Function function) throws AssertNotFoundException {
         AssertType assertType = AssertsFactory.createAssertType(testScenarioRun.getAssertion());
         ExpectedResult expectedResult;
 
@@ -139,7 +139,7 @@ public class TestScenarioHandler implements ITestScenarioHandler {
             expectedResult = ExpectedResultsFactory.createPrimitiveExpectedResult(primitiveRun.getExpected());
         }
 
-        return TestableUnitFactory.createTestScenario(testScenarioRun.getTestName(), testableUnit,
+        return TestableUnitFactory.createTestScenario(testScenarioRun.getTestName(), function,
                 testScenarioRun.getParameters(), expectedResult, assertType);
     }
 

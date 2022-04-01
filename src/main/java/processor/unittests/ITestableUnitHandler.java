@@ -1,12 +1,11 @@
 package processor.unittests;
 
 import models.entities.aggregates.Function;
-import models.entities.unittests.TestableUnit;
 
 import java.util.ArrayList;
 
 public interface ITestableUnitHandler {
 
-    ArrayList<TestableUnit> processTestableUnits(ArrayList<Function> functions);
+    ArrayList<Function> processTestableFunctions(ArrayList<Function> functions);
 
 }

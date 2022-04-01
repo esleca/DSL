@@ -18,7 +18,7 @@ public class UnitTestActionHandler implements IUnitTestActionHandler {
     public Act processUnitTestAct(TestScenario testScenario) {
         Act action;
 
-        boolean isStaticFunction = testScenario.getTestableUnit().getFunction().isStatic();
+        boolean isStaticFunction = testScenario.getFunction().isStatic();
         if (isStaticFunction){
             action = getStaticAct(testScenario);
         } else {
@@ -34,7 +34,7 @@ public class UnitTestActionHandler implements IUnitTestActionHandler {
      * @return
      */
     private StaticAct getStaticAct(TestScenario testScenario){
-        Function function = testScenario.getTestableUnit().getFunction();
+        Function function = testScenario.getFunction();
 
         String calledFunction = function.getFileClass().getName();
 
@@ -49,7 +49,7 @@ public class UnitTestActionHandler implements IUnitTestActionHandler {
      * @return
      */
     private InstanceAct getInstanceAct(TestScenario testScenario){
-        String sutType = testScenario.getTestableUnit().getFunction().getFileClass().getName();
+        String sutType = testScenario.getFunction().getFileClass().getName();
         String sutName = SYSTEM_UNDER_TEST;
 
         ActNewType actNewType = UnitTestFactory.createActNewType(sutType, sutName);
@@ -68,7 +68,7 @@ public class UnitTestActionHandler implements IUnitTestActionHandler {
     private ActExecution getActExecution(TestScenario testScenario, String calledFunction){
         Declaration declaration = getActExecutionDeclaration(testScenario);
 
-        Function function = testScenario.getTestableUnit().getFunction();
+        Function function = testScenario.getFunction();
 
         String functionName = function.getName();
 
@@ -83,7 +83,7 @@ public class UnitTestActionHandler implements IUnitTestActionHandler {
      * @return
      */
     private Declaration getActExecutionDeclaration(TestScenario testScenario){
-        Function function = testScenario.getTestableUnit().getFunction();
+        Function function = testScenario.getFunction();
 
         String type = function.getReturn().getName();
 
