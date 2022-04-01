@@ -4,7 +4,6 @@ import ASTMCore.ASTMSource.CompilationUnit;
 import models.entities.aggregates.Class;
 import models.entities.aggregates.Function;
 import models.entities.unittests.TestScenario;
-import models.entities.unittests.TestableUnit;
 import models.entities.unittests.UnitTest;
 import testrun.config.ConfigurationTestRun;
 
@@ -22,7 +21,7 @@ public class GestorModel {
     private ArrayList<CompilationUnit> compilationUnits;
     private ArrayList<CompilationUnit> compilationUnitsTests;
     private ArrayList<Function> compilationUnitFunctions;
-    private ArrayList<TestableUnit> testableUnits;
+    private ArrayList<Function> testableUnits;
     private ArrayList<TestScenario> testScenarios;
     private ArrayList<UnitTest> unitTests;
 
@@ -90,11 +89,11 @@ public class GestorModel {
         this.compilationUnitFunctions = compilationUnitFunctions;
     }
 
-    public ArrayList<TestableUnit> getTestableUnits() {
+    public ArrayList<Function> getTestableUnits() {
         return testableUnits;
     }
 
-    public void setTestableUnits(ArrayList<TestableUnit> testableUnits) {
+    public void setTestableUnits(ArrayList<Function> testableUnits) {
         this.testableUnits = testableUnits;
     }
 

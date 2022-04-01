@@ -5,7 +5,7 @@ import models.entities.modifiers.Modifier;
 import models.entities.modifiers.PrivateModifier;
 import models.entities.modifiers.ProtectedModifier;
 import models.entities.modifiers.PublicModifier;
-import utils.Constants;
+import static utils.Constants.*;
 
 public class ModifiersFactory {
 
@@ -13,11 +13,11 @@ public class ModifiersFactory {
         Modifier modifier;
 
         switch (inType){
-            case Constants.MODIFIER_PUBLIC:
+            case MODIFIER_PUBLIC:
                 modifier = new PublicModifier(); break;
-            case Constants.MODIFIER_PRIVATE:
+            case MODIFIER_PRIVATE:
                 modifier = new PrivateModifier(); break;
-            case Constants.MODIFIER_PROTECTED:
+            case MODIFIER_PROTECTED:
                 modifier = new ProtectedModifier(); break;
             default:
                 throw new ModifierNotFoundException();

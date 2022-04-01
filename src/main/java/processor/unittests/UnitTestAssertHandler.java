@@ -8,9 +8,9 @@ import models.entities.unittests.TestScenario;
 import models.entities.unittests.asserts.AssertExpression;
 import models.entities.unittests.FunctionArgument;
 import models.entities.unittests.asserts.types.AssertType;
-import utils.Constants;
-
 import java.util.ArrayList;
+
+import static utils.Constants.ASSERT_CLASS;
 
 public class UnitTestAssertHandler implements IUnitTestAssertHandler {
 
@@ -18,7 +18,7 @@ public class UnitTestAssertHandler implements IUnitTestAssertHandler {
     public Assert processUnitTestAssert(TestScenario testScenario) throws AssertNotFoundException {
         ArrayList<AssertExpression> expressions = new ArrayList<>();
         AssertExpression expression = getAssertExpression(testScenario);
-        expressions.add(expression);
+        expressions.add(expression); // handle multiple expressions? iteration
 
         return UnitTestFactory.createAssert(expressions);
     }
@@ -28,7 +28,7 @@ public class UnitTestAssertHandler implements IUnitTestAssertHandler {
         AssertType assertType = AssertsFactory.createAssertType(assertName);
         ArrayList<FunctionArgument> assertParameters = assertType.getAssertArguments();
 
-        return UnitTestFactory.createAssertExpression(Constants.ASSERT_CLASS, assertType, assertParameters);
+        return UnitTestFactory.createAssertExpression(ASSERT_CLASS, assertType, assertParameters);
     }
 
 }

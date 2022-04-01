@@ -2,7 +2,8 @@ package factories;
 
 import exceptions.ReturnNotFoundException;
 import models.entities.returns.*;
-import utils.Constants;
+
+import static utils.Constants.*;
 
 public class ReturnsFactory {
 
@@ -14,21 +15,21 @@ public class ReturnsFactory {
         Return returns;
 
         switch (type){
-            case Constants.RETURN_INTEGER:
+            case RETURN_INTEGER:
                 returns = new IntegerReturn(); break;
-            case Constants.RETURN_STRING:
+            case RETURN_STRING:
                 returns = new StringReturn(); break;
-            case Constants.RETURN_BOOLEAN:
+            case RETURN_BOOLEAN:
                 returns = new BooleanReturn(); break;
-            case Constants.RETURN_FLOAT:
+            case RETURN_FLOAT:
                 returns = new FloatReturn(); break;
-            case Constants.RETURN_LONG:
+            case RETURN_LONG:
                 returns = new LongReturn(); break;
-            case Constants.RETURN_DOUBLE:
+            case RETURN_DOUBLE:
                 returns = new DoubleReturn(); break;
-            case Constants.RETURN_CHAR:
+            case RETURN_CHAR:
                 returns = new CharReturn(); break;
-            case Constants.RETURN_VOID:
+            case RETURN_VOID:
                 returns = new VoidReturn(); break;
             default:
                 throw new ReturnNotFoundException();
@@ -39,7 +40,7 @@ public class ReturnsFactory {
 
     public static Return createParameterizedReturn(String type, ParameterDataType dataType) throws ReturnNotFoundException {
         Return returns;
-        if (Constants.RETURN_PARAMETERIZED.equals(type)) {
+        if (RETURN_PARAMETERIZED.equals(type)) {
             returns = new ParameterizedReturn(dataType);
         } else {
             throw new ReturnNotFoundException();

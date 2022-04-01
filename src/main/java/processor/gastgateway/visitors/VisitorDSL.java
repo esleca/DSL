@@ -9,7 +9,6 @@ import ASTMCore.ASTMSyntax.Statement.*;
 import ASTMCore.ASTMSyntax.Types.*;
 import exceptions.ModifierNotFoundException;
 import exceptions.ReturnNotFoundException;
-import factories.*;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -824,4 +823,16 @@ public class VisitorDSL extends VisitorBase {
     public void visitRefModifier(RefModifier refModifier) {
 
     }
+
+	@Override
+	public void visitMethodTypeDefinition(MethodTypeDefinition arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitStatementTypeDefinition(StatementTypeDefinition arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -3,7 +3,6 @@ package models.entities.aggregates;
 import models.entities.modifiers.Modifier;
 import models.entities.parameters.ParameterFunction;
 import models.entities.returns.Return;
-import models.entities.unittests.TestScenario;
 
 import java.util.ArrayList;
 
@@ -15,7 +14,7 @@ public class Function {
     private Return returns;
     private String name;
     private ArrayList<ParameterFunction> parameters;
-    private ArrayList<TestScenario> testScenarios;
+    private boolean isTestable;
 
     public Function(Class fileClass){
         this.fileClass = fileClass;
@@ -66,8 +65,12 @@ public class Function {
         this.parameters = parameters;
     }
 
-    public ArrayList<TestScenario> getTestScenarios() {
-        return testScenarios;
+    public boolean isTestable() {
+        return isTestable;
+    }
+
+    public void setIsTestable(boolean inTestable) {
+        this.isTestable = inTestable;
     }
 
 }

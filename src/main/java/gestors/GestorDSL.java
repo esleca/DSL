@@ -9,7 +9,6 @@ import gastmappers.exceptions.UnsupportedLanguageException;
 import models.entities.aggregates.Class;
 import models.entities.aggregates.Function;
 import models.entities.unittests.TestScenario;
-import models.entities.unittests.TestableUnit;
 import models.entities.unittests.UnitTest;
 import processor.gastgateway.CompilationUnitTestHandler;
 import processor.gastgateway.ICompilationUnitTestHandler;
@@ -107,7 +106,7 @@ public class GestorDSL implements IGestorDSL{
         ITestableUnitHandler testableUnitHandler = new TestableUnitHandler();
 
         ArrayList<Function> functions = dslModel.getCompilationUnitFunctions();
-        ArrayList<TestableUnit> testableUnits = testableUnitHandler.processTestableUnits(functions);
+        ArrayList<Function> testableUnits = testableUnitHandler.processTestableUnits(functions);
 
         dslModel.setTestableUnits(testableUnits);
     }

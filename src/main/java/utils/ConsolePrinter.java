@@ -21,7 +21,7 @@ public class ConsolePrinter implements IPrinter {
     }
 
     private void printTestHeader(UnitTest ut){
-        Function function = ut.getTestScenario().getTestableUnit().getFunction();
+        Function function = ut.getTestScenario().getFunction();
         String testName = ut.getTestScenario().getTestName();
 
         System.out.println("\n//FUNCTION: " + function.getName());
@@ -51,7 +51,7 @@ public class ConsolePrinter implements IPrinter {
 
         AssertType assertType = ut.getAssert().getAssertExpressions().get(0).getAssertType();
         if (isAssertTypePair(assertType)){
-            Function function = ut.getTestScenario().getTestableUnit().getFunction();
+            Function function = ut.getTestScenario().getFunction();
 
             String fReturn = function.getReturn().getName();
 
@@ -77,7 +77,7 @@ public class ConsolePrinter implements IPrinter {
     }
 
     private void printAct(UnitTest ut){
-        Function function = ut.getTestScenario().getTestableUnit().getFunction();
+        Function function = ut.getTestScenario().getFunction();
 
         System.out.println("\n\t//Act");
 
