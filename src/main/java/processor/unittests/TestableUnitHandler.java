@@ -30,14 +30,21 @@ public class TestableUnitHandler implements ITestableUnitHandler {
     public ArrayList<Function> processTestableUnits(ArrayList<Function> functions){
         ArrayList<Function> testableUnits = new ArrayList<>();
 
+        processTestableValues(functions);
+
         for (Function function: functions){
-            boolean isTestable = isTestableUnit(function);
-            function.setIsTestable(isTestable);
             if (function.isTestable()){
                 testableUnits.add(function);
             }
         }
         return testableUnits;
+    }
+
+    private void processTestableValues(ArrayList<Function> functions){
+        for (Function function: functions){
+            boolean isTestable = isTestableUnit(function);
+            function.setIsTestable(isTestable);
+        }
     }
 
     private boolean isTestableUnit(Function function){
