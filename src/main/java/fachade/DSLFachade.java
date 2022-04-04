@@ -9,10 +9,10 @@ import models.entities.aggregates.Class;
 import models.entities.aggregates.Function;
 import models.entities.unittests.TestScenario;
 import models.entities.unittests.UnitTest;
-import processor.gastgateway.CompUnitTestHandler;
-import processor.gastgateway.ICompUnitHandler;
-import processor.gastgateway.CompUnitHandler;
-import processor.gastgateway.ICompUnitTestHandler;
+import processor.gastgateway.CompilationUnitTestHandler;
+import processor.gastgateway.ICompilationUnitHandler;
+import processor.gastgateway.CompilationUnitHandler;
+import processor.gastgateway.ICompilationUnitTestHandler;
 import processor.gastgateway.visitors.VisitorBase;
 import processor.gastgateway.visitors.VisitorDSL;
 import processor.testscenarios.*;
@@ -55,7 +55,7 @@ public class DSLFachade implements IDSLFachade {
      * @throws UnsupportedLanguageException
      */
     private void createCompilationUnits(UnitTestRequest unitTestRequest) throws IOException, UnsupportedLanguageException {
-        ICompUnitHandler handler = new CompUnitHandler(unitTestRequest.getLanguage());
+        ICompilationUnitHandler handler = new CompilationUnitHandler(unitTestRequest.getLanguage());
 
         ArrayList<CompilationUnit> compUnits = handler.createCompilationUnits(unitTestRequest.getPath());
 
@@ -140,7 +140,7 @@ public class DSLFachade implements IDSLFachade {
      *
      */
     private void processCompilationUnitsTests(){
-        ICompUnitTestHandler compilationUnitTestHandler = new CompUnitTestHandler();
+        ICompilationUnitTestHandler compilationUnitTestHandler = new CompilationUnitTestHandler();
 
         ArrayList<CompilationUnit> compilationUnitTests = compilationUnitTestHandler.processCompilationUnitTests(model);
 

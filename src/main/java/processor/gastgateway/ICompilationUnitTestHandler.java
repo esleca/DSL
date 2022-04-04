@@ -5,7 +5,7 @@ import fachade.DSLModel;
 
 import java.util.ArrayList;
 
-public interface ICompUnitTestHandler {
+public interface ICompilationUnitTestHandler {
 
     ArrayList<CompilationUnit> processCompilationUnitTests(DSLModel model);
 }

@@ -8,14 +8,14 @@ import models.entities.aggregates.Class;
 import models.entities.aggregates.Function;
 import models.entities.unittests.TestScenario;
 import models.entities.unittests.UnitTest;
-import processor.gastgateway.CompUnitTestHandler;
-import processor.gastgateway.ICompUnitTestHandler;
+import processor.gastgateway.CompilationUnitTestHandler;
+import processor.gastgateway.ICompilationUnitTestHandler;
 import processor.gastgateway.visitors.VisitorBase;
 import processor.gastgateway.visitors.VisitorDSL;
 import processor.configfiles.ITestRunHandler;
 import processor.configfiles.TestRunHandler;
-import processor.gastgateway.ICompUnitLocalHandler;
-import processor.gastgateway.CompUnitLocalHandler;
+import processor.gastgateway.ICompilationUnitFileHandler;
+import processor.gastgateway.CompilationUnitFileHandler;
 import processor.testscenarios.*;
 import processor.unittests.*;
 import testrun.config.TestScenarioRun;
@@ -61,7 +61,7 @@ public class GestorDSL implements IGestorDSL{
     @Override
     public void beginTransformation() throws IOException, UnsupportedLanguageException {
         for (ConfigurationTestRun testRun : dslModel.getConfigurationsRunFiles()) {
-            ICompUnitLocalHandler compilationUnitHandler = new CompUnitLocalHandler(testRun);
+            ICompilationUnitFileHandler compilationUnitHandler = new CompilationUnitFileHandler(testRun);
 
             ArrayList<CompilationUnit> compilationUnits = compilationUnitHandler.processFilesInDir(dslModel.isWriteToDisk());
 
@@ -150,7 +150,7 @@ public class GestorDSL implements IGestorDSL{
      */
     @Override
     public void processCompilationUnitsTests(){
-        ICompUnitTestHandler compilationUnitTestHandler = new CompUnitTestHandler();
+        ICompilationUnitTestHandler compilationUnitTestHandler = new CompilationUnitTestHandler();
 
         ArrayList<CompilationUnit> compilationUnitTests = compilationUnitTestHandler.processCompilationUnitTests(dslModel);
 

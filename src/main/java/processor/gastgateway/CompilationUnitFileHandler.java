@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import static gastmappers.misc.Misc.writeInFile;
 
 
-public class CompUnitLocalHandler implements ICompUnitLocalHandler {
+public class CompilationUnitFileHandler implements ICompilationUnitFileHandler {
 
     private final String inputPath;
     private final String translationFilePath;
@@ -36,7 +36,7 @@ public class CompUnitLocalHandler implements ICompUnitLocalHandler {
      * @param mapper     The corresponding mapper for the language.
      * @param validate   True if is necessary to validate the map process (run the Validator).
      */
-    public CompUnitLocalHandler(String inputPath, String outputPath, Language language, Mapper mapper, boolean validate) {
+    public CompilationUnitFileHandler(String inputPath, String outputPath, Language language, Mapper mapper, boolean validate) {
         this.inputPath = inputPath;
         this.translationFilePath = outputPath + "\\result.json";
         this.differencesFilePath = outputPath + "\\summaryDifferences.txt";
@@ -46,7 +46,7 @@ public class CompUnitLocalHandler implements ICompUnitLocalHandler {
         this.parsedFileList = new ArrayList<>();
     }
 
-    public CompUnitLocalHandler(ConfigurationTestRun testRun) throws UnsupportedLanguageException {
+    public CompilationUnitFileHandler(ConfigurationTestRun testRun) throws UnsupportedLanguageException {
         MapperFactory factory = new MapperFactory();
         Mapper mapper = factory.createMapper(testRun.getSourceLanguage());
 

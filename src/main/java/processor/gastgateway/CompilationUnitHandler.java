@@ -9,12 +9,12 @@ import org.apache.commons.io.FilenameUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CompUnitHandler implements ICompUnitHandler{
+public class CompilationUnitHandler implements ICompilationUnitHandler {
 
     private final Language language;
     private final Mapper mapper;
 
-    public CompUnitHandler(String language) throws UnsupportedLanguageException {
+    public CompilationUnitHandler(String language) throws UnsupportedLanguageException {
         MapperFactory factory = new MapperFactory();
         Language sourceLanguage = Language.getLanguageFromString(language);
 

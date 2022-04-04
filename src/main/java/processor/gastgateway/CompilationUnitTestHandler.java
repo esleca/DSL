@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CompUnitTestHandler implements ICompUnitTestHandler {
+public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
 
     @Override
     public ArrayList<CompilationUnit> processCompilationUnitTests(DSLModel model) {
