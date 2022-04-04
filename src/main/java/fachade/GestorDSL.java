@@ -1,23 +1,21 @@
-package gestors;
+package fachade;
 
 import ASTMCore.ASTMSource.CompilationUnit;
 import exceptions.AssertNotFoundException;
 import exceptions.ValueTypeNotFoundException;
-import gastmappers.Mapper;
-import gastmappers.MapperFactory;
 import gastmappers.exceptions.UnsupportedLanguageException;
 import models.entities.aggregates.Class;
 import models.entities.aggregates.Function;
 import models.entities.unittests.TestScenario;
 import models.entities.unittests.UnitTest;
-import processor.gastgateway.CompilationUnitTestHandler;
-import processor.gastgateway.ICompilationUnitTestHandler;
+import processor.gastgateway.CompUnitTestHandler;
+import processor.gastgateway.ICompUnitTestHandler;
 import processor.gastgateway.visitors.VisitorBase;
 import processor.gastgateway.visitors.VisitorDSL;
 import processor.configfiles.ITestRunHandler;
 import processor.configfiles.TestRunHandler;
-import processor.gastgateway.ICompilationUnitHandler;
-import processor.gastgateway.CompilationUnitHandler;
+import processor.gastgateway.ICompUnitLocalHandler;
+import processor.gastgateway.CompUnitLocalHandler;
 import processor.testscenarios.*;
 import processor.unittests.*;
 import testrun.config.TestScenarioRun;
@@ -62,13 +60,8 @@ public class GestorDSL implements IGestorDSL{
      */
     @Override
     public void beginTransformation() throws IOException, UnsupportedLanguageException {
-        MapperFactory factory = new MapperFactory();
-
         for (ConfigurationTestRun testRun : dslModel.getConfigurationsRunFiles()) {
-            Mapper mapper = factory.createMapper(testRun.getSourceLanguage());
-
-            ICompilationUnitHandler compilationUnitHandler = new CompilationUnitHandler(testRun.getInputDirectory(),
-                        testRun.getOutputDirectory(), testRun.getSourceLanguage(), mapper, testRun.isValidateMap());
+            ICompUnitLocalHandler compilationUnitHandler = new CompUnitLocalHandler(testRun);
 
             ArrayList<CompilationUnit> compilationUnits = compilationUnitHandler.processFilesInDir(dslModel.isWriteToDisk());
 
@@ -83,11 +76,11 @@ public class GestorDSL implements IGestorDSL{
     @Override
     public void processGastFunctions(){
         for (CompilationUnit compilationUnit : dslModel.getCompilationUnits()) {
+
             VisitorBase dslVisitor = new VisitorDSL();
             dslVisitor.visitCompilationUnit(compilationUnit);
 
             Class fileClass = dslVisitor.getFrameDSL().getCompilationUnit();
-
             dslModel.setClass(fileClass);
 
             ArrayList<Function> functions = fileClass.getFunctions();
@@ -157,7 +150,7 @@ public class GestorDSL implements IGestorDSL{
      */
     @Override
     public void processCompilationUnitsTests(){
-        ICompilationUnitTestHandler compilationUnitTestHandler = new CompilationUnitTestHandler();
+        ICompUnitTestHandler compilationUnitTestHandler = new CompUnitTestHandler();
 
         ArrayList<CompilationUnit> compilationUnitTests = compilationUnitTestHandler.processCompilationUnitTests(dslModel);
 

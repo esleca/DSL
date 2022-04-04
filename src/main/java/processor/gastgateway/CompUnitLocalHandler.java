@@ -4,8 +4,10 @@ import ASTMCore.ASTMSource.CompilationUnit;
 import com.google.gson.Gson;
 import gastmappers.Language;
 import gastmappers.Mapper;
+import gastmappers.MapperFactory;
 import gastmappers.exceptions.UnsupportedLanguageException;
 import org.apache.commons.io.FilenameUtils;
+import testrun.config.ConfigurationTestRun;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 import static gastmappers.misc.Misc.writeInFile;
 
 
-public class CompilationUnitHandler implements ICompilationUnitHandler {
+public class CompUnitLocalHandler implements ICompUnitLocalHandler {
 
     private final String inputPath;
     private final String translationFilePath;
@@ -34,13 +36,26 @@ public class CompilationUnitHandler implements ICompilationUnitHandler {
      * @param mapper     The corresponding mapper for the language.
      * @param validate   True if is necessary to validate the map process (run the Validator).
      */
-    public CompilationUnitHandler(String inputPath, String outputPath, Language language, Mapper mapper, boolean validate) {
+    public CompUnitLocalHandler(String inputPath, String outputPath, Language language, Mapper mapper, boolean validate) {
         this.inputPath = inputPath;
         this.translationFilePath = outputPath + "\\result.json";
         this.differencesFilePath = outputPath + "\\summaryDifferences.txt";
         this.language = language;
         this.mapper = mapper;
         this.validate = validate;
+        this.parsedFileList = new ArrayList<>();
+    }
+
+    public CompUnitLocalHandler(ConfigurationTestRun testRun) throws UnsupportedLanguageException {
+        MapperFactory factory = new MapperFactory();
+        Mapper mapper = factory.createMapper(testRun.getSourceLanguage());
+
+        this.inputPath = testRun.getInputDirectory();
+        this.translationFilePath = testRun.getOutputDirectory() + "\\result.json";
+        this.differencesFilePath = testRun.getOutputDirectory() + "\\summaryDifferences.txt";
+        this.language = testRun.getSourceLanguage();
+        this.mapper = mapper;
+        this.validate = testRun.isValidateMap();
         this.parsedFileList = new ArrayList<>();
     }
 

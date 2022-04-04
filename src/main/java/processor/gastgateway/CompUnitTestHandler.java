@@ -13,6 +13,7 @@ import ASTMCore.ASTMSyntax.Types.ClassType;
 import ASTMCore.ASTMSyntax.Types.NamedTypeReference;
 import ASTMCore.ASTMSyntax.Types.TypeReference;
 
+import fachade.DSLModel;
 import factories.gastfactories.GastFactory;
 import models.entities.aggregates.Package;
 import models.entities.imports.Import;
@@ -25,16 +26,14 @@ import models.entities.unittests.asserts.Assert;
 import models.entities.unittests.asserts.AssertExpression;
 import models.entities.valuetypes.ValueType;
 
-import gestors.GestorModel;
-
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
+public class CompUnitTestHandler implements ICompUnitTestHandler {
 
     @Override
-    public ArrayList<CompilationUnit> processCompilationUnitTests(GestorModel model) {
+    public ArrayList<CompilationUnit> processCompilationUnitTests(DSLModel model) {
         ArrayList<CompilationUnit> compilationUnitTests = new ArrayList<>();
 
         CompilationUnit compilationUnit = GastFactory.getCompilationUnit();
@@ -48,29 +47,29 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return compilationUnitTests;
     }
 
-    private void processCompilationUnitPackage(CompilationUnit compilationUnit, GestorModel model){
+    private void processCompilationUnitPackage(CompilationUnit compilationUnit, DSLModel model){
         NameSpaceDefinition nameSpaceDefinition = getNameSpaceDefinition(model);
         compilationUnit.setgPackage(nameSpaceDefinition);
     }
 
-    private NameSpaceDefinition getNameSpaceDefinition(GestorModel model){
+    private NameSpaceDefinition getNameSpaceDefinition(DSLModel model){
         NameSpaceDefinition nameSpaceDefinition = GastFactory.getNameSpaceDefinition();
         Name nameObj = GastFactory.getName();
 
-        Package pkg = model.getaClass().getPackage();
+        Package pkg = model.getlClass().getPackage();
         nameObj.setNameString(pkg.getName());
         nameSpaceDefinition.setNameSpace(nameObj);
 
         return nameSpaceDefinition;
     }
 
-    private void processCompilationUnitImports(CompilationUnit compilationUnit, GestorModel model){
+    private void processCompilationUnitImports(CompilationUnit compilationUnit, DSLModel model){
         ArrayList<ImportDeclaration> importDeclarations = getImportDeclarations(model);
         compilationUnit.setImports(importDeclarations);
     }
 
-    private ArrayList<ImportDeclaration> getImportDeclarations(GestorModel model){
-        ArrayList<Import> imports = model.getaClass().getImports();
+    private ArrayList<ImportDeclaration> getImportDeclarations(DSLModel model){
+        ArrayList<Import> imports = model.getlClass().getImports();
         ArrayList<ImportDeclaration> importDeclarations = new ArrayList<>();
         for (Import i : imports) {
             ImportDeclaration importDeclaration = new ImportDeclaration();
@@ -84,12 +83,12 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return importDeclarations;
     }
 
-    private void processCompilationUnitScope(CompilationUnit compilationUnit, GestorModel model){
+    private void processCompilationUnitScope(CompilationUnit compilationUnit, DSLModel model){
         ProgramScope programScope = getProgramScope(model);
         compilationUnit.setOpensScope(programScope);
     }
 
-    private ProgramScope getProgramScope(GestorModel model){
+    private ProgramScope getProgramScope(DSLModel model){
         ProgramScope programScope = new ProgramScope();
 
         ArrayList<DefintionObject> definitions = getProgramScopeDefinitionObjects(model);
@@ -98,7 +97,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return programScope;
     }
 
-    private ArrayList<DefintionObject> getProgramScopeDefinitionObjects(GestorModel model){
+    private ArrayList<DefintionObject> getProgramScopeDefinitionObjects(DSLModel model){
         ArrayList<DefintionObject> definitions = new ArrayList<>();
         AggregateTypeDefinition aggregateTypeDefinition = new AggregateTypeDefinition();
 
@@ -109,7 +108,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return definitions;
     }
 
-    private ClassType getClassType(GestorModel model){
+    private ClassType getClassType(DSLModel model){
         Name nameObj = getNameString(model);
         String packageName = getPackageName(model);
         ArrayList<Modifiers> modifiers = getModifiers();
@@ -124,13 +123,13 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return classType;
     }
 
-    private Name getNameString(GestorModel model){
-        Name nameObj = getName(model.getaClass().getName() + "_Tests");
+    private Name getNameString(DSLModel model){
+        Name nameObj = getName(model.getlClass().getName() + "_Tests");
         return nameObj;
     }
 
-    private String getPackageName(GestorModel model){
-        return model.getaClass().getPackage().getName();
+    private String getPackageName(DSLModel model){
+        return model.getlClass().getPackage().getName();
     }
 
     private ArrayList<Modifiers> getModifiers(){
@@ -139,7 +138,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return modifiers;
     }
 
-    private AggregateScope getAggregateScope(GestorModel model){
+    private AggregateScope getAggregateScope(DSLModel model){
         AggregateScope openScope = new AggregateScope();
 
         ArrayList<DefintionObject> definitionObjects = getAggregateScopeDefinitionObjects(model);
@@ -148,7 +147,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return openScope;
     }
 
-    private ArrayList<DefintionObject> getAggregateScopeDefinitionObjects(GestorModel model){
+    private ArrayList<DefintionObject> getAggregateScopeDefinitionObjects(DSLModel model){
         ArrayList<DefintionObject> definitions = new ArrayList<>();
         ArrayList<UnitTest> unitTests = model.getUnitTests();
 
