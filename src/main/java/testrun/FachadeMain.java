@@ -7,6 +7,7 @@ import fachade.IDSLFachade;
 import gastmappers.exceptions.UnsupportedLanguageException;
 import models.dtos.TestScenarioRequest;
 import models.dtos.UnitTestRequest;
+import services.IDSLService;
 import utils.ConsolePrinter;
 import utils.IPrinter;
 
@@ -15,8 +16,7 @@ import java.io.IOException;
 
 public class FachadeMain {
 
-    private static IPrinter printer = new ConsolePrinter();
-    private final static IDSLFachade dsl = new DSLFachade(printer);
+    private final static IDSLFachade dsl = new DSLFachade();
 
     public static void main(String[] args) throws IOException, UnsupportedLanguageException,
             ValueTypeNotFoundException, AssertNotFoundException {
