@@ -2,10 +2,11 @@ package processor.testscenarios;
 
 import exceptions.ValueTypeNotFoundException;
 import factories.ValueTypeFactory;
+
 import models.entities.valuetypes.ValueType;
 import org.json.simple.JSONObject;
 
-public class ExpectedPrimitiveHandler implements IExpectedPrimitive {
+public class ExpectedPrimitiveHandler implements IExpectedPrimitiveHandler {
 
     @Override
     public ValueType getExpected(JSONObject configurationObject) throws ValueTypeNotFoundException {

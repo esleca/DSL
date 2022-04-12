@@ -1,23 +1,30 @@
 package models.dtos;
 
+import org.json.simple.JSONArray;
+
 public class UnitTestRequest {
 
-    private String path;
-    private String language;
+    private String classPath; // required by mapper
+    private String language;  // required by mapper
     private String function;
-    private TestScenarioRequest testScenario;
+    private String testName;
+    private JSONArray parameters;
+    private String expected;
+    private String assertion;
 
-
-
-    public UnitTestRequest(String path, String language, TestScenarioRequest testScenario) {
-        this.path = path;
+    public UnitTestRequest(String classPath, String language, String function, String testName,
+                           JSONArray parameters, String expected, String assertion) {
+        this.classPath = classPath;
         this.language = language;
-        this.function = "";
-        this.testScenario = testScenario;
+        this.function = function;
+        this.testName = testName;
+        this.parameters = parameters;
+        this.expected = expected;
+        this.assertion = assertion;
     }
 
-    public String getPath() {
-        return path;
+    public String getClassPath() {
+        return classPath;
     }
 
     public String getLanguage() {
@@ -28,16 +35,19 @@ public class UnitTestRequest {
         return function;
     }
 
-    public void setFunction(String function) {
-        this.function = function;
+    public String getTestName(){
+        return testName;
     }
 
-    public TestScenarioRequest getTestScenario() {
-        return testScenario;
+    public JSONArray getParameters() {
+        return parameters;
     }
 
-    public void setTestScenario(TestScenarioRequest testScenario) {
-        this.testScenario = testScenario;
+    public String getExpected() {
+        return expected;
     }
 
+    public String getAssert() {
+        return assertion;
+    }
 }

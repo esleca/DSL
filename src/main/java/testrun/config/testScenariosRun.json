@@ -1,5 +1,21 @@
 [
 	{
+		"function": "saludar",
+		"testName": "saludar_test1",
+		"parameters": [
+			{
+                "name": "nombre",
+                "type": "String",
+                "value": "Esteban"
+            }
+		],
+		"expected": {
+			"type": "String",
+			"value": "Hola Esteban"
+		},
+        "assert": "areEqual"
+	},
+	{
 		"function": "getEdades",
 		"testName": "getEdades_test1",
 		"parameters": [
@@ -37,5 +53,4 @@
 		},
         "assert": "areEqual"
 	}
-	
 ]

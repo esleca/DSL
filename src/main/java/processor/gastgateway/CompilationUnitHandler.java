@@ -26,17 +26,17 @@ public class CompilationUnitHandler implements ICompilationUnitHandler {
      * Create the compilation unit structure based
      * on the input path
      *
-     * @param filePath
+     * @param classPath
      * @return
      * @throws IOException
      * @throws UnsupportedLanguageException
      */
     @Override
-    public ArrayList<CompilationUnit> createCompilationUnits(String filePath) throws IOException, UnsupportedLanguageException {
+    public ArrayList<CompilationUnit> createCompilationUnits(String classPath) throws IOException, UnsupportedLanguageException {
         ArrayList<CompilationUnit> compilationUnits = new ArrayList<>();
 
-        if (FilenameUtils.getExtension(filePath).equals(Language.getFileExtension(language))) {
-            compilationUnits = mapper.getGastCompilationUnit(filePath);
+        if (FilenameUtils.getExtension(classPath).equals(Language.getFileExtension(language))) {
+            compilationUnits = mapper.getGastCompilationUnit(classPath);
         }
 
         return compilationUnits;

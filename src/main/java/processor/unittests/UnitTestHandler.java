@@ -22,6 +22,24 @@ public class UnitTestHandler implements IUnitTestHandler {
         this.assertHandler = assertHandler;
     }
 
+
+    /**
+     * Receive a test scenario defined by the user
+     * and return a unit test instance
+     *
+     * @param testScenario
+     * @return
+     * @throws AssertNotFoundException
+     */
+    @Override
+    public UnitTest processUnitTest(TestScenario testScenario) throws AssertNotFoundException{
+        Arrange arrange = arrangeHandler.processUnitTestArrange( testScenario );
+        Act act = actionHandler.processUnitTestAct( testScenario );
+        Assert lAssert = assertHandler.processUnitTestAssert( testScenario );
+        return UnitTestFactory.createUnitTest( testScenario, arrange, act, lAssert );
+    }
+
+
     /**
      * Receive a list of test scenarios defined by user and
      * return a list of the corresponding unit tests

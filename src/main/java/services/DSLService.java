@@ -10,12 +10,8 @@ import models.entities.aggregates.Class;
 import models.entities.aggregates.Function;
 import models.entities.unittests.TestScenario;
 import models.entities.unittests.UnitTest;
-import processor.gastgateway.CompilationUnitHandler;
-import processor.gastgateway.CompilationUnitTestHandler;
-import processor.gastgateway.ICompilationUnitHandler;
-import processor.gastgateway.ICompilationUnitTestHandler;
-import processor.gastgateway.visitors.VisitorBase;
-import processor.gastgateway.visitors.VisitorDSL;
+import processor.gastgateway.*;
+import processor.gastgateway.visitors.*;
 import processor.testscenarios.*;
 import processor.unittests.*;
 import utils.IPrinter;
@@ -43,7 +39,7 @@ public class DSLService implements IDSLService{
         processUnitTests();
         processCompilationUnitsTests();
 
-        return model.getUnitTests().get(0); // TODO: check usage of one or many
+        return model.getUnitTest();
     }
 
     @Override
@@ -80,7 +76,7 @@ public class DSLService implements IDSLService{
     private void createCompilationUnits(UnitTestRequest unitTestRequest) throws IOException, UnsupportedLanguageException {
         ICompilationUnitHandler handler = new CompilationUnitHandler(unitTestRequest.getLanguage());
 
-        ArrayList<CompilationUnit> compUnits = handler.createCompilationUnits(unitTestRequest.getPath());
+        ArrayList<CompilationUnit> compUnits = handler.createCompilationUnits(unitTestRequest.getClassPath());
 
         model.setCompilationUnits(compUnits);
     }
@@ -126,15 +122,13 @@ public class DSLService implements IDSLService{
      * @throws AssertNotFoundException
      */
     private void processTestScenarios(UnitTestRequest unitTestRequest) throws ValueTypeNotFoundException, AssertNotFoundException {
-        IExpectedPrimitive expPrimitive = new ExpectedPrimitiveHandler();
-        IExpectedParameterized expParameterized = new ExpectedParameterizedHandler();
+        IExpectedPrimitiveHandler expPrimitive = new ExpectedPrimitiveHandler();
+        IExpectedParameterizedHandler expParameterized = new ExpectedParameterizedHandler();
 
         ITestScenarioHandler handler = new TestScenarioHandler(expPrimitive, expParameterized);
+        TestScenario testScenario = handler.processTestScenario(unitTestRequest, model.getTestableUnits());
 
-        //ArrayList<TestScenarioRun> testScenarioRuns = handler.processTestScenariosRun(dslModel.getTestScenariosPath());
-        //ArrayList<TestScenario> testScenarios = handler.processTestScenarios(testScenarioRuns, model.getTestableUnits());
-
-        //model.setTestScenarios(testScenarios);
+        model.setTestScenario(testScenario);
     }
 
     /**
@@ -149,12 +143,12 @@ public class DSLService implements IDSLService{
         IUnitTestAssertHandler assertHandler = new UnitTestAssertHandler();
         IUnitTestHandler unitTestHandler = new UnitTestHandler(arrangeHandler, actionHandler, assertHandler);
 
-        ArrayList<TestScenario> testScenarios = model.getTestScenarios();
-        ArrayList<UnitTest> unitTests = unitTestHandler.processUnitTests(testScenarios);
+        TestScenario testScenario = model.getTestScenario();
+        UnitTest unitTest = unitTestHandler.processUnitTest(testScenario);
 
-        model.setUnitTests(unitTests);
+        model.setUnitTest(unitTest);
 
-        printUnitTests();
+        printUnitTest();
     }
 
     /**
@@ -171,13 +165,11 @@ public class DSLService implements IDSLService{
     }
 
     /**
-     * Use the console printer to print unit tests
+     * Use the console printer to print unit test
      * on the console screen.
      */
-    private void printUnitTests(){
-        for (var ut : model.getUnitTests()){
-            printer.printUnitTest(ut);
-        }
+    private void printUnitTest(){
+        printer.printUnitTest(model.getUnitTest());
     }
 
 

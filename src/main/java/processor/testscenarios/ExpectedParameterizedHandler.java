@@ -2,13 +2,13 @@ package processor.testscenarios;
 
 import exceptions.ValueTypeNotFoundException;
 import factories.ValueTypeFactory;
-import models.entities.parameters.ParameterScenario;
 import models.entities.valuetypes.ValueType;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
-public class ExpectedParameterizedHandler implements IExpectedParameterized {
+public class ExpectedParameterizedHandler implements IExpectedParameterizedHandler {
 
     @Override
     public ArrayList<ValueType> getExpected(JSONObject configurationObject) throws ValueTypeNotFoundException {

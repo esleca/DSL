@@ -15,7 +15,8 @@ public class DSLModel {
     private ArrayList<CompilationUnit> compilationUnitsTests;
     private ArrayList<Function> compilationUnitFunctions;
     private ArrayList<Function> testableUnits;
-    private ArrayList<TestScenario> testScenarios;
+    private TestScenario testScenario;
+    private UnitTest unitTest;
     private ArrayList<UnitTest> unitTests;
 
     public DSLModel(){
@@ -23,7 +24,7 @@ public class DSLModel {
         compilationUnitsTests = new ArrayList<>();
         compilationUnitFunctions = new ArrayList<>();
         testableUnits = new ArrayList<>();
-        testScenarios = new ArrayList<>();
+        //testScenario = new ArrayList<>();
         unitTests = new ArrayList<>();
     }
 
@@ -68,20 +69,23 @@ public class DSLModel {
         this.testableUnits = testableUnits;
     }
 
-    public ArrayList<TestScenario> getTestScenarios() {
-        return testScenarios;
+    public TestScenario getTestScenario() {
+        return testScenario;
     }
 
-    public void setTestScenarios(ArrayList<TestScenario> testScenarios) {
-        this.testScenarios = testScenarios;
+    public void setTestScenario(TestScenario testScenario) {
+        this.testScenario = testScenario;
+    }
+
+    public UnitTest getUnitTest() {
+        return unitTest;
+    }
+
+    public void setUnitTest(UnitTest unitTest) {
+        this.unitTest = unitTest;
     }
 
     public ArrayList<UnitTest> getUnitTests() {
         return unitTests;
     }
-
-    public void setUnitTests(ArrayList<UnitTest> unitTests) {
-        this.unitTests = unitTests;
-    }
-
 }
