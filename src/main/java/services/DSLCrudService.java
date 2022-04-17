@@ -1,0 +1,178 @@
+package services;
+
+import ASTMCore.ASTMSource.CompilationUnit;
+import exceptions.AssertNotFoundException;
+import exceptions.ValueTypeNotFoundException;
+import fachade.models.DSLModel;
+import gastmappers.exceptions.UnsupportedLanguageException;
+import models.dtos.UnitTestRequest;
+import models.entities.aggregates.Class;
+import models.entities.aggregates.Function;
+import models.entities.unittests.TestScenario;
+import models.entities.unittests.UnitTest;
+import processor.gastgateway.*;
+import processor.gastgateway.visitors.*;
+import processor.testscenarios.*;
+import processor.unittests.*;
+import repositories.IDSLRepo;
+import utils.IPrinter;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+
+public class DSLCrudService implements IDSLCrudService {
+
+    private DSLModel model;
+    private IPrinter printer;
+    private IDSLRepo _Repository;
+
+    public DSLCrudService(IPrinter printer, IDSLRepo repository){
+        this.model = new DSLModel();
+        this.printer = printer;
+        this._Repository = repository;
+    }
+
+    @Override
+    public UnitTest createUnitTest(UnitTestRequest unitTestRequest) throws IOException, UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException {
+        createCompilationUnits(unitTestRequest);
+        visitCompilationUnits();
+        processTestableUnits();
+        processTestScenario(unitTestRequest);
+        processUnitTest();
+        processCompilationUnitsTests();
+        saveToDataStore(unitTestRequest);
+
+        return model.getUnitTest();
+    }
+
+    @Override
+    public UnitTest editUnitTest(UnitTestRequest unitTestRequest) {
+        return null;
+    }
+
+    @Override
+    public void removeUnitTest(UnitTestRequest unitTestRequest) {
+    }
+
+
+
+    /**
+     * Call the compilation units handler in order
+     * to generate compilation units based on input path
+     *
+     * @param unitTestRequest
+     * @throws IOException
+     * @throws UnsupportedLanguageException
+     */
+    private void createCompilationUnits(UnitTestRequest unitTestRequest) throws IOException, UnsupportedLanguageException {
+        ICompilationUnitHandler handler = new CompilationUnitHandler(unitTestRequest.getLanguage());
+
+        ArrayList<CompilationUnit> compUnits = handler.createCompilationUnits(unitTestRequest.getClassPath());
+
+        model.setCompilationUnits(compUnits);
+    }
+
+    /**
+     *  Create a visitor DSL to visit the entire compilation unit
+     *  This method set a list of the compilation unit functions
+     */
+    private void visitCompilationUnits(){
+        for (CompilationUnit compilationUnit : model.getCompilationUnits()) {
+
+            VisitorBase dslVisitor = new VisitorDSL();
+            dslVisitor.visitCompilationUnit(compilationUnit);
+
+            Class fileClass = dslVisitor.getFrameDSL().getCompilationUnit();
+            model.setClass(fileClass);
+
+            ArrayList<Function> functions = fileClass.getFunctions();
+
+            model.setCompilationUnitFunctions(functions);
+        }
+    }
+
+    /**
+     * Create a transformation dsl for testable units
+     * This method filter the functions in order to obtain
+     * the valid testable units.
+     */
+    private void processTestableUnits(){
+        ITestableUnitHandler testableUnitHandler = new TestableUnitHandler();
+
+        ArrayList<Function> functions = model.getCompilationUnitFunctions();
+        ArrayList<Function> testableUnits = testableUnitHandler.processTestableUnits(functions);
+
+        model.setTestableUnits(testableUnits);
+    }
+
+    /**
+     * Use a test scenario handler to define
+     * the test scenario object representations.
+     *
+     * @throws ValueTypeNotFoundException
+     * @throws AssertNotFoundException
+     */
+    private void processTestScenario(UnitTestRequest unitTestRequest) throws ValueTypeNotFoundException, AssertNotFoundException {
+        IExpectedPrimitiveHandler expPrimitive = new ExpectedPrimitiveHandler();
+        IExpectedParameterizedHandler expParameterized = new ExpectedParameterizedHandler();
+
+        ITestScenarioHandler handler = new TestScenarioHandler(expPrimitive, expParameterized);
+        TestScenario testScenario = handler.processTestScenario(unitTestRequest, model.getTestableUnits());
+
+        model.setTestScenario(testScenario);
+    }
+
+    /**
+     * Use the unit test dsl to convert from the
+     * test scenario to the unit test object representation
+     *
+     * @throws AssertNotFoundException
+     */
+    private void processUnitTest() throws AssertNotFoundException {
+        IUnitTestArrangeHandler arrangeHandler = new UnitTestArrangeHandler();
+        IUnitTestActionHandler actionHandler = new UnitTestActionHandler();
+        IUnitTestAssertHandler assertHandler = new UnitTestAssertHandler();
+        IUnitTestHandler unitTestHandler = new UnitTestHandler(arrangeHandler, actionHandler, assertHandler);
+
+        TestScenario testScenario = model.getTestScenario();
+        UnitTest unitTest = unitTestHandler.processUnitTest(testScenario);
+
+        model.setUnitTest(unitTest);
+
+        printUnitTest();
+    }
+
+    /**
+     * Process the unit tests in order to write them
+     * into the GAST structure, create compilation units
+     * with the unit tests objects.
+     */
+    private void processCompilationUnitsTests(){
+        ICompilationUnitTestHandler compilationUnitTestHandler = new CompilationUnitTestHandler();
+
+        ArrayList<CompilationUnit> compilationUnitTests = compilationUnitTestHandler.processCompilationUnitTests(model);
+
+        model.setCompilationUnitsTests(compilationUnitTests);
+    }
+
+    /**
+     * Use the repository to delegate saving the unit test
+     * to a local data store.
+     *
+     * @param unitTestRequest
+     */
+    private void saveToDataStore(UnitTestRequest unitTestRequest) {
+        _Repository.saveToDataStore(unitTestRequest);
+    }
+
+    /**
+     * Use the console printer to print unit test
+     * on the console screen.
+     */
+    private void printUnitTest(){
+        printer.printUnitTest(model.getUnitTest());
+    }
+
+
+}

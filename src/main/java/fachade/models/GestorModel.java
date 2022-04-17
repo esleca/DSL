@@ -1,4 +1,4 @@
-package gestors;
+package fachade.models;
 
 import ASTMCore.ASTMSource.CompilationUnit;
 import models.entities.aggregates.Class;
@@ -6,35 +6,45 @@ import models.entities.aggregates.Function;
 import models.entities.unittests.TestScenario;
 import models.entities.unittests.UnitTest;
 import testrun.config.ConfigurationTestRun;
-
 import java.util.ArrayList;
 
-public class GestorModel {
+public class GestorModel{
 
     private final boolean writeToDisk;
     private final String configurationPath;
     private final String testScenariosPath;
 
-
-    private Class aClass;
-    private ArrayList<ConfigurationTestRun> configurationsRunFiles;
+    private Class lClass;
     private ArrayList<CompilationUnit> compilationUnits;
     private ArrayList<CompilationUnit> compilationUnitsTests;
     private ArrayList<Function> compilationUnitFunctions;
     private ArrayList<Function> testableUnits;
     private ArrayList<TestScenario> testScenarios;
     private ArrayList<UnitTest> unitTests;
+    private ArrayList<ConfigurationTestRun> configurationsRunFiles;
+
 
     public GestorModel(){
         writeToDisk = true;
-        configurationsRunFiles = new ArrayList<>();
+
         compilationUnits = new ArrayList<>();
         compilationUnitsTests = new ArrayList<>();
         compilationUnitFunctions = new ArrayList<>();
         testableUnits = new ArrayList<>();
+        testScenarios = new ArrayList<>();
         unitTests = new ArrayList<>();
+        configurationsRunFiles = new ArrayList<>();
+
         configurationPath = "./src/main/java/testrun/config/configurationTestRun.json";
         testScenariosPath = "./src/main/java/testrun/config/testScenariosRun.json";
+    }
+
+    public ArrayList<UnitTest> getUnitTests() {
+        return unitTests;
+    }
+
+    public void setUnitTests(ArrayList<UnitTest> unitTests) {
+        this.unitTests = unitTests;
     }
 
     public boolean isWriteToDisk() {
@@ -49,20 +59,20 @@ public class GestorModel {
         return testScenariosPath;
     }
 
-    public Class getaClass() {
-        return aClass;
-    }
-
-    public void setClass(Class aClass) {
-        this.aClass = aClass;
-    }
-
     public ArrayList<ConfigurationTestRun> getConfigurationsRunFiles() {
         return configurationsRunFiles;
     }
 
     public void setConfigurationsRunFiles(ArrayList<ConfigurationTestRun> configurationsRunFiles){
         this.configurationsRunFiles = configurationsRunFiles;
+    }
+
+    public Class getlClass() {
+        return lClass;
+    }
+
+    public void setClass(Class inClass) {
+        this.lClass = inClass;
     }
 
     public ArrayList<CompilationUnit> getCompilationUnits() {
@@ -89,14 +99,6 @@ public class GestorModel {
         this.compilationUnitFunctions = compilationUnitFunctions;
     }
 
-    public ArrayList<Function> getTestableUnits() {
-        return testableUnits;
-    }
-
-    public void setTestableUnits(ArrayList<Function> testableUnits) {
-        this.testableUnits = testableUnits;
-    }
-
     public ArrayList<TestScenario> getTestScenarios() {
         return testScenarios;
     }
@@ -105,11 +107,12 @@ public class GestorModel {
         this.testScenarios = testScenarios;
     }
 
-    public ArrayList<UnitTest> getUnitTests() {
-        return unitTests;
+    public ArrayList<Function> getTestableUnits() {
+        return testableUnits;
     }
 
-    public void setUnitTests(ArrayList<UnitTest> unitTests) {
-        this.unitTests = unitTests;
+    public void setTestableUnits(ArrayList<Function> testableUnits) {
+        this.testableUnits = testableUnits;
     }
+
 }

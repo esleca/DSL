@@ -12,8 +12,7 @@ import ASTMCore.ASTMSyntax.Statement.Statement;
 import ASTMCore.ASTMSyntax.Types.ClassType;
 import ASTMCore.ASTMSyntax.Types.NamedTypeReference;
 import ASTMCore.ASTMSyntax.Types.TypeReference;
-
-import fachade.models.DSLModel;
+import fachade.models.GestorModel;
 import factories.gastfactories.GastFactory;
 import models.entities.aggregates.Package;
 import models.entities.imports.Import;
@@ -30,10 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
+public class CompilationUnitTestFileHandler implements ICompilationUnitTestFileHandler {
 
     @Override
-    public ArrayList<CompilationUnit> processCompilationUnitTests(DSLModel model) {
+    public ArrayList<CompilationUnit> processCompilationUnitTests(GestorModel model) {
         ArrayList<CompilationUnit> compilationUnitTests = new ArrayList<>();
 
         CompilationUnit compilationUnit = GastFactory.getCompilationUnit();
@@ -47,12 +46,12 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return compilationUnitTests;
     }
 
-    private void processCompilationUnitPackage(CompilationUnit compilationUnit, DSLModel model){
+    private void processCompilationUnitPackage(CompilationUnit compilationUnit, GestorModel model){
         NameSpaceDefinition nameSpaceDefinition = getNameSpaceDefinition(model);
         compilationUnit.setgPackage(nameSpaceDefinition);
     }
 
-    private NameSpaceDefinition getNameSpaceDefinition(DSLModel model){
+    private NameSpaceDefinition getNameSpaceDefinition(GestorModel model){
         NameSpaceDefinition nameSpaceDefinition = GastFactory.getNameSpaceDefinition();
         Name nameObj = GastFactory.getName();
 
@@ -63,12 +62,12 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return nameSpaceDefinition;
     }
 
-    private void processCompilationUnitImports(CompilationUnit compilationUnit, DSLModel model){
+    private void processCompilationUnitImports(CompilationUnit compilationUnit, GestorModel model){
         ArrayList<ImportDeclaration> importDeclarations = getImportDeclarations(model);
         compilationUnit.setImports(importDeclarations);
     }
 
-    private ArrayList<ImportDeclaration> getImportDeclarations(DSLModel model){
+    private ArrayList<ImportDeclaration> getImportDeclarations(GestorModel model){
         ArrayList<Import> imports = model.getlClass().getImports();
         ArrayList<ImportDeclaration> importDeclarations = new ArrayList<>();
         for (Import i : imports) {
@@ -83,12 +82,12 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return importDeclarations;
     }
 
-    private void processCompilationUnitScope(CompilationUnit compilationUnit, DSLModel model){
+    private void processCompilationUnitScope(CompilationUnit compilationUnit, GestorModel model){
         ProgramScope programScope = getProgramScope(model);
         compilationUnit.setOpensScope(programScope);
     }
 
-    private ProgramScope getProgramScope(DSLModel model){
+    private ProgramScope getProgramScope(GestorModel model){
         ProgramScope programScope = new ProgramScope();
 
         ArrayList<DefintionObject> definitions = getProgramScopeDefinitionObjects(model);
@@ -97,7 +96,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return programScope;
     }
 
-    private ArrayList<DefintionObject> getProgramScopeDefinitionObjects(DSLModel model){
+    private ArrayList<DefintionObject> getProgramScopeDefinitionObjects(GestorModel model){
         ArrayList<DefintionObject> definitions = new ArrayList<>();
         AggregateTypeDefinition aggregateTypeDefinition = new AggregateTypeDefinition();
 
@@ -108,7 +107,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return definitions;
     }
 
-    private ClassType getClassType(DSLModel model){
+    private ClassType getClassType(GestorModel model){
         Name nameObj = getNameString(model);
         String packageName = getPackageName(model);
         ArrayList<Modifiers> modifiers = getModifiers();
@@ -123,12 +122,12 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return classType;
     }
 
-    private Name getNameString(DSLModel model){
+    private Name getNameString(GestorModel model){
         Name nameObj = getName(model.getlClass().getName() + "_Tests");
         return nameObj;
     }
 
-    private String getPackageName(DSLModel model){
+    private String getPackageName(GestorModel model){
         return model.getlClass().getPackage().getName();
     }
 
@@ -138,7 +137,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return modifiers;
     }
 
-    private AggregateScope getAggregateScope(DSLModel model){
+    private AggregateScope getAggregateScope(GestorModel model){
         AggregateScope openScope = new AggregateScope();
 
         ArrayList<DefintionObject> definitionObjects = getAggregateScopeDefinitionObjects(model);
@@ -147,7 +146,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return openScope;
     }
 
-    private ArrayList<DefintionObject> getAggregateScopeDefinitionObjects(DSLModel model){
+    private ArrayList<DefintionObject> getAggregateScopeDefinitionObjects(GestorModel model){
         ArrayList<DefintionObject> definitions = new ArrayList<>();
         ArrayList<UnitTest> unitTests = model.getUnitTests();
 

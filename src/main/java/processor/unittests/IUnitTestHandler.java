@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public interface IUnitTestHandler {
 
+    UnitTest processUnitTest(TestScenario testScenario) throws AssertNotFoundException;
+
     ArrayList<UnitTest> processUnitTests(ArrayList<TestScenario> testScenarios) throws AssertNotFoundException;
 
 }

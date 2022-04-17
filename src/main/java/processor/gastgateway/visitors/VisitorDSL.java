@@ -194,7 +194,7 @@ public class VisitorDSL extends VisitorBase {
 
         if (WritingReturnParameterized && !isDataTypeList(typeReference)) {
             setParameterizedArguments(typeReference);
-        }else if (WritingReturn){
+        } else if (WritingReturn){
             setParameterizedDataType(namedTypeReference);
         } else if (WritingParameterFunction){
             frame.writeFunctionParameterType(typeReference);
@@ -227,7 +227,7 @@ public class VisitorDSL extends VisitorBase {
             }else if (isDataTypeList(typeReference)) {
                 frame.writeParameterDataTypeName(typeReference);
             }else{
-                frame.writeFunctionReturnPrimitive(typeReference);
+                frame.writeFunctionReturnPrimitiveOrInstance(typeReference);
             }
         } catch (ReturnNotFoundException e) {
             e.printStackTrace();

@@ -6,7 +6,7 @@ import gastmappers.exceptions.UnsupportedLanguageException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public interface ICompilationUnitHandler {
+public interface ICompilationUnitFileHandler {
 
-    ArrayList<CompilationUnit> createCompilationUnits(String classPath) throws IOException, UnsupportedLanguageException;
+    ArrayList<CompilationUnit> processFilesInDir(boolean writeInDisk) throws IOException, UnsupportedLanguageException;
 }

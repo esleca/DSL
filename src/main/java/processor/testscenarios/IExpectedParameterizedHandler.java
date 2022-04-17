@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
-public interface IExpectedParameterized {
+public interface IExpectedParameterizedHandler {
 
     ArrayList<ValueType> getExpected(JSONObject configurationObject) throws ValueTypeNotFoundException;
 

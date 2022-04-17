@@ -47,7 +47,7 @@ public class TestScenarioHandlerTests {
         testableUnits.add(DataTestHelper.getFunction());
 
         // Act
-//        ITestScenarioHandler testScenarioHandler = new TestScenarioPrimitiveHandler(testableFactory, valueTypeFactory,
+//        ITestScenarioFileHandler testScenarioHandler = new TestScenarioPrimitiveHandler(testableFactory, valueTypeFactory,
 //                expectedResFactory, assertsFactory, parametersFactory);
 //
 //        ArrayList<TestScenario> testScenarios = testScenarioHandler.processTestScenarios(testScenarioRuns, testableUnits);

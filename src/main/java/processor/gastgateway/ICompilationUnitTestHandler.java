@@ -1,11 +1,11 @@
 package processor.gastgateway;
 
 import ASTMCore.ASTMSource.CompilationUnit;
-import gestors.GestorModel;
+import fachade.models.DSLModel;
 
 import java.util.ArrayList;
 
 public interface ICompilationUnitTestHandler {
 
-    ArrayList<CompilationUnit> processCompilationUnitTests(GestorModel model);
+    ArrayList<CompilationUnit> processCompilationUnitTests(DSLModel model);
 }
