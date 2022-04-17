@@ -3,7 +3,7 @@ package services;
 import ASTMCore.ASTMSource.CompilationUnit;
 import exceptions.AssertNotFoundException;
 import exceptions.ValueTypeNotFoundException;
-import fachade.DSLModel;
+import fachade.models.DSLModel;
 import gastmappers.exceptions.UnsupportedLanguageException;
 import models.dtos.UnitTestRequest;
 import models.entities.aggregates.Class;
@@ -14,20 +14,23 @@ import processor.gastgateway.*;
 import processor.gastgateway.visitors.*;
 import processor.testscenarios.*;
 import processor.unittests.*;
+import repositories.IDSLRepo;
 import utils.IPrinter;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class DSLService implements IDSLService{
+
+public class DSLCrudService implements IDSLCrudService {
 
     private DSLModel model;
     private IPrinter printer;
+    private IDSLRepo _Repository;
 
-    public DSLService(IPrinter printer){
+    public DSLCrudService(IPrinter printer, IDSLRepo repository){
         this.model = new DSLModel();
         this.printer = printer;
+        this._Repository = repository;
     }
 
     @Override
@@ -35,9 +38,10 @@ public class DSLService implements IDSLService{
         createCompilationUnits(unitTestRequest);
         visitCompilationUnits();
         processTestableUnits();
-        processTestScenarios(unitTestRequest);
-        processUnitTests();
+        processTestScenario(unitTestRequest);
+        processUnitTest();
         processCompilationUnitsTests();
+        saveToDataStore(unitTestRequest);
 
         return model.getUnitTest();
     }
@@ -48,20 +52,8 @@ public class DSLService implements IDSLService{
     }
 
     @Override
-    public List<UnitTest> getFunctionUnitTests(String inFunction) {
-        return null;
+    public void removeUnitTest(UnitTestRequest unitTestRequest) {
     }
-
-    @Override
-    public List<UnitTest> getClassUnitTests(String inClass) {
-        return null;
-    }
-
-    @Override
-    public List<UnitTest> getPackageUnitTests(String inPackage) {
-        return null;
-    }
-
 
 
 
@@ -121,7 +113,7 @@ public class DSLService implements IDSLService{
      * @throws ValueTypeNotFoundException
      * @throws AssertNotFoundException
      */
-    private void processTestScenarios(UnitTestRequest unitTestRequest) throws ValueTypeNotFoundException, AssertNotFoundException {
+    private void processTestScenario(UnitTestRequest unitTestRequest) throws ValueTypeNotFoundException, AssertNotFoundException {
         IExpectedPrimitiveHandler expPrimitive = new ExpectedPrimitiveHandler();
         IExpectedParameterizedHandler expParameterized = new ExpectedParameterizedHandler();
 
@@ -133,11 +125,11 @@ public class DSLService implements IDSLService{
 
     /**
      * Use the unit test dsl to convert from the
-     * test scenarios to the unit test object representations
+     * test scenario to the unit test object representation
      *
      * @throws AssertNotFoundException
      */
-    private void processUnitTests() throws AssertNotFoundException {
+    private void processUnitTest() throws AssertNotFoundException {
         IUnitTestArrangeHandler arrangeHandler = new UnitTestArrangeHandler();
         IUnitTestActionHandler actionHandler = new UnitTestActionHandler();
         IUnitTestAssertHandler assertHandler = new UnitTestAssertHandler();
@@ -162,6 +154,16 @@ public class DSLService implements IDSLService{
         ArrayList<CompilationUnit> compilationUnitTests = compilationUnitTestHandler.processCompilationUnitTests(model);
 
         model.setCompilationUnitsTests(compilationUnitTests);
+    }
+
+    /**
+     * Use the repository to delegate saving the unit test
+     * to a local data store.
+     *
+     * @param unitTestRequest
+     */
+    private void saveToDataStore(UnitTestRequest unitTestRequest) {
+        _Repository.saveToDataStore(unitTestRequest);
     }
 
     /**

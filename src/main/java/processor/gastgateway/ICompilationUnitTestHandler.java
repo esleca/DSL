@@ -1,7 +1,7 @@
 package processor.gastgateway;
 
 import ASTMCore.ASTMSource.CompilationUnit;
-import fachade.DSLModel;
+import fachade.models.DSLModel;
 
 import java.util.ArrayList;
 

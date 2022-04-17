@@ -1,8 +1,9 @@
-package fachade;
+package fachade.local;
 
 import ASTMCore.ASTMSource.CompilationUnit;
 import exceptions.AssertNotFoundException;
 import exceptions.ValueTypeNotFoundException;
+import fachade.models.GestorModel;
 import gastmappers.exceptions.UnsupportedLanguageException;
 import models.entities.aggregates.Class;
 import models.entities.aggregates.Function;

@@ -5,20 +5,15 @@ import exceptions.ValueTypeNotFoundException;
 import gastmappers.exceptions.UnsupportedLanguageException;
 import models.dtos.UnitTestRequest;
 import models.entities.unittests.UnitTest;
-
 import java.io.IOException;
-import java.util.List;
 
-public interface IDSLService {
+public interface IDSLCrudService {
 
     UnitTest createUnitTest(UnitTestRequest unitTestRequest) throws IOException,
             UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException;
 
     UnitTest editUnitTest(UnitTestRequest unitTestRequest);
 
-    List<UnitTest> getFunctionUnitTests(String inFunction);
+    void removeUnitTest(UnitTestRequest unitTestRequest);
 
-    List<UnitTest> getClassUnitTests(String inClass);
-
-    List<UnitTest> getPackageUnitTests(String inPackage);
 }

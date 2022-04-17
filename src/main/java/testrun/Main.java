@@ -3,8 +3,8 @@ package testrun;
 import exceptions.AssertNotFoundException;
 import exceptions.ValueTypeNotFoundException;
 import gastmappers.exceptions.UnsupportedLanguageException;
-import fachade.GestorDSL;
-import fachade.IGestorDSL;
+import fachade.local.GestorDSL;
+import fachade.local.IGestorDSL;
 import utils.ConsolePrinter;
 import utils.IPrinter;
 

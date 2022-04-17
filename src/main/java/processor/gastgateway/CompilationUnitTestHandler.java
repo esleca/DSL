@@ -13,7 +13,7 @@ import ASTMCore.ASTMSyntax.Types.ClassType;
 import ASTMCore.ASTMSyntax.Types.NamedTypeReference;
 import ASTMCore.ASTMSyntax.Types.TypeReference;
 
-import fachade.DSLModel;
+import fachade.models.DSLModel;
 import factories.gastfactories.GastFactory;
 import models.entities.aggregates.Package;
 import models.entities.imports.Import;

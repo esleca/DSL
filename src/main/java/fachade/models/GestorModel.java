@@ -1,4 +1,4 @@
-package fachade;
+package fachade.models;
 
 import ASTMCore.ASTMSource.CompilationUnit;
 import models.entities.aggregates.Class;

@@ -1,7 +1,7 @@
 package processor.gastgateway;
 
 import ASTMCore.ASTMSource.CompilationUnit;
-import fachade.GestorModel;
+import fachade.models.GestorModel;
 
 import java.util.ArrayList;
 

@@ -2,7 +2,6 @@ package factories;
 
 import exceptions.ReturnNotFoundException;
 import models.entities.returns.*;
-
 import static utils.Constants.*;
 
 public class ReturnsFactory {
@@ -32,7 +31,8 @@ public class ReturnsFactory {
             case RETURN_VOID:
                 returns = new VoidReturn(); break;
             default:
-                throw new ReturnNotFoundException();
+                //throw new ReturnNotFoundException();
+                returns = createInstanceReturn(type);
         }
 
         return returns;
@@ -48,8 +48,8 @@ public class ReturnsFactory {
         return returns;
     }
 
-    public static Return createInstanceReturn(){
-        return new InstanceReturn();
+    private static Return createInstanceReturn(String name){
+        return new InstanceReturn(name);
     }
 
 }

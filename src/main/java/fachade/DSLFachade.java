@@ -5,47 +5,58 @@ import exceptions.ValueTypeNotFoundException;
 import gastmappers.exceptions.UnsupportedLanguageException;
 import models.dtos.UnitTestRequest;
 import models.entities.unittests.UnitTest;
-import services.DSLService;
-import services.IDSLService;
-import utils.IPrinter;
+import repositories.DSLRepo;
+import services.DSLReportService;
+import services.DSLCrudService;
+import services.IDSLReportService;
+import services.IDSLCrudService;
 import utils.ConsolePrinter;
+
 import java.io.IOException;
 import java.util.List;
 
-public class DSLFachade implements IDSLFachade {
 
-    private IDSLService _Service;
+public class DSLFachade implements IDSLFachade, IDSLFachadeReporter {
+
+    private IDSLCrudService _CrudService;
+    private IDSLReportService _ReportService;
 
     public DSLFachade(){
-        IPrinter printer = new ConsolePrinter();
-        this._Service = new DSLService(printer);
+        this._CrudService = new DSLCrudService(new ConsolePrinter(), new DSLRepo());
+        this._ReportService = new DSLReportService();
     }
 
     @Override
     public UnitTest createUnitTest(UnitTestRequest unitTestRequest) throws IOException,
             UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException {
 
-        return _Service.createUnitTest(unitTestRequest);
+        return _CrudService.createUnitTest(unitTestRequest);
     }
 
     @Override
     public UnitTest editUnitTest(UnitTestRequest unitTestRequest) {
-        return _Service.editUnitTest(unitTestRequest);
+        return _CrudService.editUnitTest(unitTestRequest);
     }
 
     @Override
+    public void removeUnitTest(UnitTestRequest unitTestRequest) {
+        _CrudService.removeUnitTest(unitTestRequest);
+    }
+
+
+    @Override
     public List<UnitTest> getFunctionUnitTests(String inFunction) {
-        return _Service.getFunctionUnitTests(inFunction);
+        return _ReportService.getFunctionUnitTests(inFunction);
     }
 
     @Override
     public List<UnitTest> getClassUnitTests(String inClass) {
-        return _Service.getClassUnitTests(inClass);
+        return _ReportService.getClassUnitTests(inClass);
     }
 
     @Override
     public List<UnitTest> getPackageUnitTests(String inPackage) {
-        return _Service.getPackageUnitTests(inPackage);
+        return _ReportService.getPackageUnitTests(inPackage);
     }
 
 }

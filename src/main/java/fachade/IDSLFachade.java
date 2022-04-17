@@ -7,7 +7,6 @@ import models.dtos.UnitTestRequest;
 import models.entities.unittests.UnitTest;
 
 import java.io.IOException;
-import java.util.List;
 
 public interface IDSLFachade {
 
@@ -15,10 +14,5 @@ public interface IDSLFachade {
 
     UnitTest editUnitTest(UnitTestRequest unitTestRequest);
 
-    List<UnitTest> getFunctionUnitTests(String inFunction);
-
-    List<UnitTest> getClassUnitTests(String inClass);
-
-    List<UnitTest> getPackageUnitTests(String inPackage);
-
+    void removeUnitTest(UnitTestRequest unitTestRequest);
 }
