@@ -1,70 +1,93 @@
 package processortests;
 
 import exceptions.*;
-import factories.*;
+import models.dtos.UnitTestRequest;
+import models.entities.aggregates.Class;
 import models.entities.aggregates.Function;
-import testrun.DataTestHelper;
-import testrun.config.TestScenarioRun;
+import models.entities.aggregates.Package;
+import models.entities.unittests.TestScenario;
+import processor.testscenarios.IExpectedParameterizedHandler;
+import processor.testscenarios.IExpectedPrimitiveHandler;
+import processor.testscenarios.TestScenarioHandler;
 
-import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import static org.junit.Assert.*;
+import static factories.AggregatesFactory.*;
+import static factories.ModifiersFactory.*;
+import static factories.ReturnsFactory.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.junit.Test;
+import org.mockito.Mock;
+
+
 public class TestScenarioHandlerTests {
 
-    private static TestableUnitFactory testableFactory = new TestableUnitFactory();
-    private static ValueTypeFactory valueTypeFactory = new ValueTypeFactory();
-    private static ExpectedResultsFactory expectedResFactory = new ExpectedResultsFactory();
-    private static AssertsFactory assertsFactory = new AssertsFactory();
-    private static ParametersFactory parametersFactory = new ParametersFactory();
-
-    @BeforeEach
-    public void initialize() {
-        System.out.println("Before tests");
-    }
-
-    @BeforeAll
-    public static void init(){
-        System.out.println("Before all tests");
-
-        testableFactory = new TestableUnitFactory();
-        valueTypeFactory = new ValueTypeFactory();
-        expectedResFactory = new ExpectedResultsFactory();
-        assertsFactory = new AssertsFactory();
-        parametersFactory = new ParametersFactory();
-    }
-
+	@Mock 
+	private IExpectedPrimitiveHandler _expectedPrimitiveHandler;
+	
+	@Mock 
+	private IExpectedParameterizedHandler _expectedParameterizedHandler;
+	
+	
+	private TestScenarioHandler _testScenarioHandler = 
+		new TestScenarioHandler(_expectedPrimitiveHandler, _expectedParameterizedHandler);
+	
+	
+	//__________________________________________________
+    // test_processTestScenario_NotNull
+    //
+    // GIVEN: TestScenarioHandler is executed
+    // WHEN:  processTestScenario is called
+    // THEN:  TestScenario returned is not null
+    //__________________________________________________
     @Test
-    public void TestScenario_Test1() throws ValueTypeNotFoundException, AssertNotFoundException {
+    public void test_processTestScenario_NotNull() throws ValueTypeNotFoundException, AssertNotFoundException, ModifierNotFoundException, ReturnNotFoundException {
         // Arrange
-        ArrayList<TestScenarioRun> testScenarioRuns = new ArrayList<>();
-        testScenarioRuns.add(DataTestHelper.getTestScenarioRun());
-
-        ArrayList<Function> testableUnits = new ArrayList<>();
-        testableUnits.add(DataTestHelper.getFunction());
-
+    	UnitTestRequest request = createUnitTestRequest();
+    	
+    	ArrayList<Function> testableUnits = new ArrayList<Function>();
+    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	function.setName("saludar");
+    	function.setModifier(createModifier("public"));
+    	function.setReturn(createPrimitiveReturn("String"));
+    	testableUnits.add(function);
+    	
         // Act
-//        ITestScenarioFileHandler testScenarioHandler = new TestScenarioPrimitiveHandler(testableFactory, valueTypeFactory,
-//                expectedResFactory, assertsFactory, parametersFactory);
-//
-//        ArrayList<TestScenario> testScenarios = testScenarioHandler.processTestScenarios(testScenarioRuns, testableUnits);
-//
-//        int actualSize = testScenarios.size();
-//
-//        // Asserts
-//        assertEquals(1, actualSize);
+    	TestScenario testScenario = _testScenarioHandler.processTestScenario(request, testableUnits);
+
+        // Assert
+    	assertNotNull(testScenario);
+    }
+    
+    
+    
+    private static UnitTestRequest createUnitTestRequest() {
+        String classPath = "C:\\TestMapper\\JAVA\\Input\\Clase_Prueba.java";
+        String language = "JAVA";
+        String function = "saludar";
+        String testName = "test_saludar_valid";
+        String expected = "Hola Esteban";
+        String assertion = "areEqual";
+        JSONArray parameters = getParameters();
+        return new UnitTestRequest(classPath, language, function, testName, parameters, expected, assertion);
     }
 
-    @Test
-    public void TestScenario_Test2() {
-        // Arrange
-
-        // Act
-
-        // Asserts
-        assertEquals(1, 1);
+    private static JSONArray getParameters() {
+        JSONArray parameters = new JSONArray();
+        parameters.add(getParameter());
+        return parameters;
     }
+
+    private static JSONObject getParameter() {
+        JSONObject parameter = new JSONObject();
+        parameter.put("name", "nombre");
+        parameter.put("type", "String");
+        parameter.put("value", "Esteban");
+        return parameter;
+    }
+
+
 }
