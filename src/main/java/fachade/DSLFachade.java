@@ -14,12 +14,13 @@ import utils.ConsolePrinter;
 
 import java.io.IOException;
 import java.util.List;
+import javax.inject.Inject;
 
 
 public class DSLFachade implements IDSLFachade, IDSLFachadeReporter {
 
-    private IDSLCrudService _CrudService;
-    private IDSLReportService _ReportService;
+    @Inject private IDSLCrudService _CrudService;
+    @Inject private IDSLReportService _ReportService;
 
     public DSLFachade(){
         this._CrudService = new DSLCrudService(new ConsolePrinter(), new DSLRepo());
