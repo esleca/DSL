@@ -13,49 +13,47 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DSLFachade implements IDSLFachade, IDSLFachadeReporter {
+public class DSLFachade implements IDSLCrudFachade, IDSLFachadeReporter {
 
-	private IDSLCrudService _CrudService;
-    private IDSLReportService _ReportService;
+	private IDSLCrudService _crudService;
+    private IDSLReportService _reportService;
 	
 	public DSLFachade(IDSLCrudService inCrudService, IDSLReportService inReportService){ 
-		this._CrudService = inCrudService; 
-		this._ReportService = inReportService; 
+		this._crudService = inCrudService;
+		this._reportService = inReportService;
 	}
 
 	
     @Override
     public UnitTest createUnitTest(UnitTestRequest unitTestRequest) throws IOException,
             UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException {
-        return _CrudService.createUnitTest(unitTestRequest);
+        return _crudService.createUnitTest(unitTestRequest);
     }
 
     @Override
     public UnitTest editUnitTest(UnitTestRequest unitTestRequest) {
-        return _CrudService.editUnitTest(unitTestRequest);
+        return _crudService.editUnitTest(unitTestRequest);
     }
 
     @Override
     public void removeUnitTest(UnitTestRequest unitTestRequest) {
-        _CrudService.removeUnitTest(unitTestRequest);
+        _crudService.removeUnitTest(unitTestRequest);
     }
-
 
     
     @Override
     public List<UnitTest> getFunctionUnitTests(String inFunction) {
-        return _ReportService.getFunctionUnitTests(inFunction);
+        return _reportService.getFunctionUnitTests(inFunction);
     }
 
     @Override
     public List<UnitTest> getClassUnitTests(String inClass) {
-        return _ReportService.getClassUnitTests(inClass);
+        return _reportService.getClassUnitTests(inClass);
     }
 
     @Override
     public List<UnitTest> getPackageUnitTests(String inPackage) {
-        return _ReportService.getPackageUnitTests(inPackage);
+        return _reportService.getPackageUnitTests(inPackage);
     }
-    
 
 }

@@ -1,6 +1,6 @@
 package com.dsl;
 
-import com.dsl.fachade.IDSLFachade;
+import com.dsl.fachade.IDSLCrudFachade;
 import com.dsl.models.dtos.UnitTestRequest;
 
 import org.json.simple.JSONArray;
@@ -12,9 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class FachadeMain implements CommandLineRunner{
 
-	private IDSLFachade dsl;
+	private IDSLCrudFachade dsl;
 
-    public FachadeMain(IDSLFachade inDsl) {
+    public FachadeMain(IDSLCrudFachade inDsl) {
     	this.dsl = inDsl;
     }
     

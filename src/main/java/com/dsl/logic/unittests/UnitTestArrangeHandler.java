@@ -9,7 +9,6 @@ import com.dsl.models.entities.unittests.Declaration;
 import com.dsl.models.entities.unittests.arranges.ArrangeDefinition;
 
 import java.util.ArrayList;
-
 import org.springframework.stereotype.Component;
 
 @Component

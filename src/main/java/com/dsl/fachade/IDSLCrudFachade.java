@@ -9,18 +9,12 @@ import com.dsl.models.entities.unittests.UnitTest;
 import java.io.IOException;
 import java.util.List;
 
-public interface IDSLFachade {
+public interface IDSLCrudFachade {
 
     UnitTest createUnitTest(UnitTestRequest unitTestRequest) throws UnsupportedLanguageException, IOException, ValueTypeNotFoundException, AssertNotFoundException;
 
     UnitTest editUnitTest(UnitTestRequest unitTestRequest);
 
     void removeUnitTest(UnitTestRequest unitTestRequest);
-    
-    List<UnitTest> getFunctionUnitTests(String inFunction);
-
-    List<UnitTest> getClassUnitTests(String inClass);
-
-    List<UnitTest> getPackageUnitTests(String inPackage);
 
 }

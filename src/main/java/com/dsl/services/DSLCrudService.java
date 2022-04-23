@@ -1,10 +1,10 @@
 package com.dsl.services;
 
 import ASTMCore.ASTMSource.CompilationUnit;
+import gastmappers.exceptions.UnsupportedLanguageException;
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.fachade.models.DSLModel;
-import gastmappers.exceptions.UnsupportedLanguageException;
 import com.dsl.models.dtos.UnitTestRequest;
 import com.dsl.models.entities.aggregates.Class;
 import com.dsl.models.entities.aggregates.Function;
@@ -142,7 +142,7 @@ public class DSLCrudService implements IDSLCrudService {
 
         model.setUnitTest(unitTest);
 
-        printUnitTest();
+        _printer.printUnitTest(model.getUnitTest());
     }
 
     /**
@@ -165,14 +165,5 @@ public class DSLCrudService implements IDSLCrudService {
     private void saveToDataStore(UnitTestRequest unitTestRequest) {
         _Repository.saveToDataStore(unitTestRequest);
     }
-
-    /**
-     * Use the console printer to print unit test
-     * on the console screen.
-     */
-    private void printUnitTest(){
-    	_printer.printUnitTest(model.getUnitTest());
-    }
-
 
 }
