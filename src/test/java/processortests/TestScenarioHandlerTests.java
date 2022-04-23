@@ -1,18 +1,18 @@
 package processortests;
 
-import exceptions.*;
-import models.dtos.UnitTestRequest;
-import models.entities.aggregates.Class;
-import models.entities.aggregates.Function;
-import models.entities.aggregates.Package;
-import models.entities.unittests.TestScenario;
-import processor.testscenarios.IExpectedParameterizedHandler;
-import processor.testscenarios.IExpectedPrimitiveHandler;
-import processor.testscenarios.TestScenarioHandler;
+import com.dsl.exceptions.*;
+import com.dsl.models.dtos.UnitTestRequest;
+import com.dsl.models.entities.aggregates.Class;
+import com.dsl.models.entities.aggregates.Function;
+import com.dsl.models.entities.aggregates.Package;
+import com.dsl.models.entities.unittests.TestScenario;
+import com.dsl.logic.testscenarios.IExpectedParameterizedHandler;
+import com.dsl.logic.testscenarios.IExpectedPrimitiveHandler;
+import com.dsl.logic.testscenarios.TestScenarioHandler;
 
-import static factories.AggregatesFactory.*;
-import static factories.ModifiersFactory.*;
-import static factories.ReturnsFactory.*;
+import static com.dsl.factories.AggregatesFactory.*;
+import static com.dsl.factories.ModifiersFactory.*;
+import static com.dsl.factories.ReturnsFactory.*;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
@@ -20,9 +20,13 @@ import java.util.ArrayList;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 
+@ExtendWith(MockitoExtension.class)
 public class TestScenarioHandlerTests {
 
 	@Mock 
@@ -31,9 +35,8 @@ public class TestScenarioHandlerTests {
 	@Mock 
 	private IExpectedParameterizedHandler _expectedParameterizedHandler;
 	
-	
-	private TestScenarioHandler _testScenarioHandler = 
-		new TestScenarioHandler(_expectedPrimitiveHandler, _expectedParameterizedHandler);
+	@InjectMocks
+	private TestScenarioHandler _testScenarioHandler;
 	
 	
 	//__________________________________________________

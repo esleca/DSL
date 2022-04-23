@@ -1,0 +1,13 @@
+package com.dsl.logic.testscenarios;
+
+import com.dsl.exceptions.ValueTypeNotFoundException;
+import com.dsl.models.entities.valuetypes.ValueType;
+import org.json.simple.JSONObject;
+
+import java.util.ArrayList;
+
+public interface IExpectedParameterizedHandler {
+
+    ArrayList<ValueType> getExpected(JSONObject configurationObject) throws ValueTypeNotFoundException;
+
+}

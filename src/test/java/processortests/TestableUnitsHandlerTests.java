@@ -3,18 +3,19 @@ package processortests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+
 import java.util.ArrayList;
 
-import exceptions.ModifierNotFoundException;
-import exceptions.ReturnNotFoundException;
-import models.entities.aggregates.Class;
-import models.entities.aggregates.Function;
-import models.entities.aggregates.Package;
-import processor.unittests.TestableUnitHandler;
+import com.dsl.exceptions.ModifierNotFoundException;
+import com.dsl.exceptions.ReturnNotFoundException;
+import com.dsl.models.entities.aggregates.Class;
+import com.dsl.models.entities.aggregates.Function;
+import com.dsl.models.entities.aggregates.Package;
+import com.dsl.logic.unittests.TestableUnitHandler;
 
-import static factories.AggregatesFactory.*;
-import static factories.ModifiersFactory.*;
-import static factories.ReturnsFactory.*;
+import static com.dsl.factories.AggregatesFactory.*;
+import static com.dsl.factories.ModifiersFactory.*;
+import static com.dsl.factories.ReturnsFactory.*;
 
 public class TestableUnitsHandlerTests {
 	

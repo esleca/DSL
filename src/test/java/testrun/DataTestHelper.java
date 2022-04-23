@@ -1,15 +1,15 @@
 package testrun;
 
-import models.entities.aggregates.Package;
-import models.entities.aggregates.Class;
-import models.entities.aggregates.Function;
-import models.entities.parameters.ParameterFunction;
-import models.entities.parameters.ParameterScenario;
-import models.entities.returns.IntegerReturn;
-import models.entities.returns.Return;
-import models.entities.valuetypes.LongType;
-import models.entities.valuetypes.ValueType;
-import testrun.config.TestScenarioRun;
+import com.dsl.models.entities.aggregates.Package;
+import com.dsl.models.entities.aggregates.Class;
+import com.dsl.models.entities.aggregates.Function;
+import com.dsl.models.entities.parameters.ParameterFunction;
+import com.dsl.models.entities.parameters.ParameterScenario;
+import com.dsl.models.entities.returns.IntegerReturn;
+import com.dsl.models.entities.returns.Return;
+import com.dsl.models.entities.valuetypes.LongType;
+import com.dsl.models.entities.valuetypes.ValueType;
+import com.dsl.testrun.config.TestScenarioRun;
 
 import java.util.ArrayList;
 
