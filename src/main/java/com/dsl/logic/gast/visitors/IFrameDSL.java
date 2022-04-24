@@ -26,7 +26,9 @@ public interface IFrameDSL {
 
     void writeFunctionName(String name);
 
-    void writeFunctionReturnPrimitiveOrInstance(String name) throws ReturnNotFoundException;
+    void writeFunctionReturnPrimitive(String name) throws ReturnNotFoundException;
+
+    void writeFunctionReturnInstance(String name) throws ReturnNotFoundException;
 
     void writeFunctionReturnParameterized(String name) throws ReturnNotFoundException;
 

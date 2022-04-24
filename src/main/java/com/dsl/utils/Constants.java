@@ -1,5 +1,8 @@
 package com.dsl.utils;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Constants {
 
     public final static String ASSERT_CLASS = "Assert";
@@ -33,6 +36,15 @@ public class Constants {
     public final static String VALUE_TYPE_LONG = "long";
     public final static String VALUE_TYPE_DOUBLE = "double";
     public final static String VALUE_TYPE_CHAR = "char";
+    
+    public final static List<String> PRIM_VALUE_TYPES = Arrays.asList(
+    		VALUE_TYPE_INTEGER, 
+    		VALUE_TYPE_STRING,
+    		VALUE_TYPE_BOOLEAN, 
+    		VALUE_TYPE_FLOAT,
+    		VALUE_TYPE_LONG, 
+    		VALUE_TYPE_DOUBLE,
+    		VALUE_TYPE_CHAR);
 
     public final static String ACT_RESULT_NAME = "result";
 

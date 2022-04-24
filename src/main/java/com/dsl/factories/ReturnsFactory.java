@@ -31,11 +31,14 @@ public class ReturnsFactory {
             case RETURN_VOID:
                 returns = new VoidReturn(); break;
             default:
-                //throw new ReturnNotFoundException();
-                returns = createInstanceReturn(type);
+                throw new ReturnNotFoundException();
         }
 
         return returns;
+    }
+
+    public static Return createInstanceReturn(String name){
+        return new InstanceReturn(name);
     }
 
     public static Return createParameterizedReturn(String type, ParameterDataType dataType) throws ReturnNotFoundException {
@@ -46,10 +49,6 @@ public class ReturnsFactory {
             throw new ReturnNotFoundException();
         }
         return returns;
-    }
-
-    private static Return createInstanceReturn(String name){
-        return new InstanceReturn(name);
     }
 
 }

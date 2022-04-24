@@ -88,8 +88,14 @@ public class FrameDSL implements IFrameDSL {
     }
 
     @Override
-    public void writeFunctionReturnPrimitiveOrInstance(String name) throws ReturnNotFoundException {
+    public void writeFunctionReturnPrimitive(String name) throws ReturnNotFoundException {
         Return returns = ReturnsFactory.createPrimitiveReturn(name);
+        getCurrentFunction().setReturn(returns);
+    }
+    
+    @Override
+    public void writeFunctionReturnInstance(String name) throws ReturnNotFoundException {
+        Return returns = ReturnsFactory.createInstanceReturn(name);
         getCurrentFunction().setReturn(returns);
     }
 

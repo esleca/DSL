@@ -203,12 +203,18 @@ public class VisitorDSL extends VisitorBase {
 
     private boolean isDataTypeList(String typeReference){
         return typeReference.equals(ARRAY_LIST) || typeReference.equals(LIST);
+    }  
+    
+    private boolean isPrimitiveType(String typeReference){
+        return PRIM_VALUE_TYPES.contains(typeReference);
     }
 
     private void setParameterizedArguments(String typeReference){
         ArrayList<String> returnParams = new ArrayList<>();
         returnParams.add(typeReference);
+        
         frame.writeParameterDataTypeArg(returnParams);
+        
         this.WritingReturnParameterized = false;
     }
 
@@ -216,18 +222,20 @@ public class VisitorDSL extends VisitorBase {
         String typeReference = namedTypeReference.getTypeName().getNameString();
 
         try {
-            if (typeReference.equals(RETURN_PARAMETERIZED)){
+            if (typeReference.equals(RETURN_PARAMETERIZED)) {
                 this.WritingReturnParameterized = true;
+                
                 frame.createParameterDataType();
 
-                // DataType
-                namedTypeReference.getDataType().accept(this);
+                namedTypeReference.getDataType().accept(this); // DataType accept
 
                 frame.writeFunctionReturnParameterized(typeReference);
             }else if (isDataTypeList(typeReference)) {
                 frame.writeParameterDataTypeName(typeReference);
+            }else if (isPrimitiveType(typeReference)) {
+            	frame.writeFunctionReturnPrimitive(typeReference);
             }else{
-                frame.writeFunctionReturnPrimitiveOrInstance(typeReference);
+                frame.writeFunctionReturnInstance(typeReference);
             }
         } catch (ReturnNotFoundException e) {
             e.printStackTrace();
