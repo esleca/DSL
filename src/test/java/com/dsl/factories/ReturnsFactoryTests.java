@@ -407,7 +407,6 @@ public class ReturnsFactoryTests {
 	public void test_createParameterizedReturn_ParameterizedName() throws ReturnNotFoundException {
 		//Arrange
 		String type = "Parameterized";
-		
 		ParameterDataType dataType = ReturnsFactory.createParameterDataType();
 		
 		//Act
@@ -429,7 +428,6 @@ public class ReturnsFactoryTests {
 	public void test_createParameterizedReturn_InstanceOfParameterized() throws ReturnNotFoundException {
 		//Arrange
 		String type = "Parameterized";
-		
 		ParameterDataType dataType = ReturnsFactory.createParameterDataType();
 		
 		//Act
@@ -437,6 +435,32 @@ public class ReturnsFactoryTests {
 		
 		//Assert
 		assertTrue(lReturn instanceof ParameterizedReturn);
+	}
+	
+	
+	//__________________________________________________
+    // test_createParameterizedReturn_NotFoundException
+    //
+    // GIVEN: createParameterizedReturn is called
+    // WHEN:  invalid type is passed
+    // THEN:  ReturnNotFoundException is returned
+    //___________________________________________________
+	@Test
+	public void test_createParameterizedReturn_NotFoundException() throws ReturnNotFoundException {
+		//Arrange
+		String type = "invalid";
+		ParameterDataType dataType = ReturnsFactory.createParameterDataType();
+		
+		//Act
+		Exception exception = assertThrows(ReturnNotFoundException.class, () -> {
+			 ReturnsFactory.createParameterizedReturn(type, dataType);
+        });		
+
+		String expectedMessage = "Invalid DSL function return";
+		String actualMessage = exception.getMessage();
+		
+		//Assert
+		assertTrue(actualMessage.contains(expectedMessage));
 	}
 	
 }
