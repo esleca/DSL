@@ -2,11 +2,11 @@ package com.dsl.models.entities.valuetypes;
 
 public class IntegerType extends ValueType {
 
-    private long value;
+    private int value;
 
     @Override
     public void setValue(Object value) {
-        this.value = (long) value;
+        this.value = (int) value;
     }
 
     @Override

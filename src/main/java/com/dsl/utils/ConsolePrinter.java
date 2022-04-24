@@ -65,7 +65,7 @@ public class ConsolePrinter implements IPrinter {
                 System.out.println("\t" + fReturn + " expected = " + paramExpectedResult.getArgumentTypes() + ";"); //TODO
             }else{
                 PrimitiveExpectedResult primExpectedResult = (PrimitiveExpectedResult) expectedResult;
-                System.out.println("\t" + fReturn + " expected = " + primExpectedResult.getValueType().getValue() + ";");
+                //System.out.println("\t" + fReturn + " expected = " + primExpectedResult.getValueType().getValue() + ";");
             }
 
 
