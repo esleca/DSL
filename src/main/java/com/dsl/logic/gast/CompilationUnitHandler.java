@@ -8,7 +8,6 @@ import gastmappers.exceptions.UnsupportedLanguageException;
 import org.apache.commons.io.FilenameUtils;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import org.springframework.stereotype.Component;
 
 @Component
@@ -39,13 +38,15 @@ public class CompilationUnitHandler implements ICompilationUnitHandler {
      */
     @Override
     public ArrayList<CompilationUnit> createCompilationUnits(String classPath) throws IOException, UnsupportedLanguageException {
-        ArrayList<CompilationUnit> compilationUnits = new ArrayList<>();
-
-        if (FilenameUtils.getExtension(classPath).equals(Language.getFileExtension(language))) {
-            compilationUnits = mapper.getGastCompilationUnit(classPath);
-        }
-
-        return compilationUnits;
+    	ArrayList<CompilationUnit> compilationUnits = new ArrayList<>();
+    	try	{
+            if (FilenameUtils.getExtension(classPath).equals(Language.getFileExtension(language))) {
+            	compilationUnits = mapper.getGastCompilationUnit(classPath);
+            }
+            return compilationUnits;
+    	}catch(Exception ex) {
+    		return compilationUnits;
+    	}
     }
 
 }

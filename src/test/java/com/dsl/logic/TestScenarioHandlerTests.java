@@ -1,4 +1,4 @@
-package processortests;
+package com.dsl.logic;
 
 import com.dsl.exceptions.*;
 import com.dsl.models.dtos.UnitTestRequest;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
