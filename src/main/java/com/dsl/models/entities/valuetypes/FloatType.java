@@ -6,7 +6,7 @@ public class FloatType extends ValueType {
 
     @Override
     public void setValue(Object value) {
-        this.value = (float) value;
+        this.value = Float.parseFloat((String) value);
     }
 
     @Override

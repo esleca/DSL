@@ -6,7 +6,7 @@ public class DoubleType extends ValueType {
 
     @Override
     public void setValue(Object value) {
-        this.value = (double) value;
+    	this.value = Double.parseDouble((String) value);
     }
 
     @Override

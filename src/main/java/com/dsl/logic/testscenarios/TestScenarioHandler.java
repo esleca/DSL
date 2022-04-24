@@ -18,8 +18,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestScenarioHandler extends TestScenarioHandlerBase implements ITestScenarioHandler {
 
-    public TestScenarioHandler(IExpectedPrimitiveHandler expectedPrimitive, IExpectedParameterizedHandler expectedParameterized){
-        super(expectedPrimitive, expectedParameterized);
+    public TestScenarioHandler(IExpectedPrimitiveHandler expectedPrimitiveHandler, IExpectedParameterizedHandler expectedParameterizedHandler){
+        super(expectedPrimitiveHandler, expectedParameterizedHandler);
     }
 
     @Override
@@ -36,13 +36,17 @@ public class TestScenarioHandler extends TestScenarioHandlerBase implements ITes
 
     protected TestScenario getTestScenario(UnitTestRequest request, Function function) throws AssertNotFoundException, ValueTypeNotFoundException {
         AssertType assertType = AssertsFactory.createAssertType(request.getAssert());
+        
         JSONArray paramsArray = request.getParameters();
         ArrayList<ParameterScenario> parameters = getParameterScenarios(paramsArray);
+        
         ExpectedResult expectedResult = null;
 
         Object expected = request.getExpected();
+        
         if (expected instanceof JSONArray){
             expectedResult = null;
+            //_expectedPrimitiveHandler.getExpected(e)
         }else{
             expectedResult = null;
         }
@@ -55,8 +59,7 @@ public class TestScenarioHandler extends TestScenarioHandlerBase implements ITes
 //            expectedResult = ExpectedResultsFactory.createPrimitiveExpectedResult(primitiveRun.getExpected());
 //        }
 
-        return TestableUnitFactory.createTestScenario(request.getTestName(), function, parameters,
-                expectedResult, assertType);
+        return TestableUnitFactory.createTestScenario(request.getTestName(), function, parameters, expectedResult, assertType);
     }
 
 }

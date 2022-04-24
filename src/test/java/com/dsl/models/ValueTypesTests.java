@@ -68,7 +68,7 @@ public class ValueTypesTests {
 	public void test_getValue_CharType() {
 		//Arrange
 		ValueType valueType = new CharType();
-		valueType.setValue('a');
+		valueType.setValue("a");
 		
 		//Act
 		char value = (char) valueType.getValue();
@@ -89,7 +89,7 @@ public class ValueTypesTests {
 	public void test_getValue_DoubleType() {
 		//Arrange
 		ValueType valueType = new DoubleType();
-		valueType.setValue(3.1482734);
+		valueType.setValue("3.1482734");
 		
 		//Act
 		double value = (double) valueType.getValue();
@@ -110,7 +110,7 @@ public class ValueTypesTests {
 	public void test_getValue_FloatType() {
 		//Arrange
 		ValueType valueType = new FloatType();
-		valueType.setValue(3.14F);
+		valueType.setValue("3.14F");
 		
 		//Act
 		float value = (float) valueType.getValue();
@@ -131,7 +131,7 @@ public class ValueTypesTests {
 	public void test_getValue_IntegerType() {
 		//Arrange
 		ValueType valueType = new IntegerType();
-		valueType.setValue(7);
+		valueType.setValue("7");
 		
 		//Act
 		int value = (int) valueType.getValue();
@@ -152,7 +152,7 @@ public class ValueTypesTests {
 	public void test_getValue_LongType() {
 		//Arrange
 		ValueType valueType = new LongType();
-		valueType.setValue(999999999L);
+		valueType.setValue("999999999");
 		
 		//Act
 		long value = (long) valueType.getValue();

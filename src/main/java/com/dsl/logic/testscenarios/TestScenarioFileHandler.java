@@ -23,8 +23,8 @@ import java.util.ArrayList;
 
 public class TestScenarioFileHandler extends TestScenarioHandlerBase implements ITestScenarioFileHandler {
 
-    public TestScenarioFileHandler(IExpectedPrimitiveHandler expectedPrimitive, IExpectedParameterizedHandler expectedParameterized){
-        super(expectedPrimitive, expectedParameterized);
+    public TestScenarioFileHandler(IExpectedPrimitiveHandler expectedPrimitiveHandler, IExpectedParameterizedHandler expectedParameterizedHandler){
+        super(expectedPrimitiveHandler, expectedParameterizedHandler);
     }
 
     @Override
@@ -72,11 +72,11 @@ public class TestScenarioFileHandler extends TestScenarioHandlerBase implements 
 
         if (expected instanceof JSONArray){
             TestScenarioParameterizedRun paramRun = new TestScenarioParameterizedRun(function, testName, parameterScenarios, assertion);
-            paramRun.setExpected(expectedParameterized.getExpected(jsonObject));
+            paramRun.setExpected(_expectedParameterizedHandler.getExpected(jsonObject));
             testScenarioRun = paramRun;
         }else{
             TestScenarioPrimitiveRun primRun = new TestScenarioPrimitiveRun(function, testName, parameterScenarios, assertion);
-            primRun.setExpected(expectedPrimitive.getExpected(jsonObject));
+            primRun.setExpected(_expectedPrimitiveHandler.getExpected(jsonObject));
             testScenarioRun = primRun;
         }
 

@@ -35,8 +35,8 @@ public class GestorModel{
         unitTests = new ArrayList<>();
         configurationsRunFiles = new ArrayList<>();
 
-        configurationPath = "./src/main/java/testrun/config/configurationTestRun.json";
-        testScenariosPath = "./src/main/java/testrun/config/testScenariosRun.json";
+        configurationPath = "./src/main/java/com/dsl/testrun/config/configurationTestRun.json";
+        testScenariosPath = "./src/main/java/com/dsl/testrun/config/testScenariosRun.json";
     }
 
     public ArrayList<UnitTest> getUnitTests() {

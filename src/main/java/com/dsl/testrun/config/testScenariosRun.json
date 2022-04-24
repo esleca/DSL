@@ -1,5 +1,15 @@
 [
 	{
+		"function": "returnInt",
+		"testName": "returnInt_test1",
+		"parameters": [],
+		"expected": {
+			"type": "int",
+			"value": "-1"
+		},
+        "assert": "areEqual"
+	},
+	{
 		"function": "saludar",
 		"testName": "saludar_test1",
 		"parameters": [

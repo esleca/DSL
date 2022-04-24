@@ -6,7 +6,7 @@ public class LongType extends ValueType {
 
     @Override
     public void setValue(Object value) {
-        this.value = (long) value;
+    	this.value = Long.parseLong((String) value);
     }
 
     @Override

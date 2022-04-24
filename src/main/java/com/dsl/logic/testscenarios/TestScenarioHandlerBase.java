@@ -16,12 +16,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestScenarioHandlerBase {
 
-    protected final IExpectedPrimitiveHandler expectedPrimitive;
-    protected final IExpectedParameterizedHandler expectedParameterized;
+    protected final IExpectedPrimitiveHandler _expectedPrimitiveHandler;
+    protected final IExpectedParameterizedHandler _expectedParameterizedHandler;
 
     public TestScenarioHandlerBase(IExpectedPrimitiveHandler expectedPrimitive, IExpectedParameterizedHandler expectedParameterized){
-        this.expectedPrimitive = expectedPrimitive;
-        this.expectedParameterized = expectedParameterized;
+        this._expectedPrimitiveHandler = expectedPrimitive;
+        this._expectedParameterizedHandler = expectedParameterized;
     }
 
 

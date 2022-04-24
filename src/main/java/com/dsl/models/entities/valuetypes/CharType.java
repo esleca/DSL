@@ -6,7 +6,8 @@ public class CharType extends ValueType {
 
     @Override
     public void setValue(Object value) {
-        this.value = (char) value;
+    	String valueCast = (String) value;
+        this.value = valueCast.charAt(0);
     }
 
     @Override
