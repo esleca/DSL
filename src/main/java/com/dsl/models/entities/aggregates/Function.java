@@ -9,8 +9,9 @@ import java.util.ArrayList;
 public class Function {
 
     private Class fileClass;
-    private Modifier modifier;
+    private ArrayList<Modifier> modifiers;
     private boolean isStatic;
+    private boolean isAbstract;
     private Return returns;
     private String name;
     private ArrayList<ParameterFunction> parameters;
@@ -18,6 +19,7 @@ public class Function {
 
     public Function(Class fileClass){
         this.fileClass = fileClass;
+        this.modifiers = new ArrayList<>(); 
         this.parameters = new ArrayList<>();
     }
 
@@ -25,12 +27,12 @@ public class Function {
         return fileClass;
     }
 
-    public Modifier getModifier() {
-        return modifier;
+    public ArrayList<Modifier> getModifiers() {
+        return modifiers;
     }
 
-    public void setModifier(Modifier modifier) {
-        this.modifier = modifier;
+    public void addModifier(Modifier modifier) {
+        this.modifiers.add(modifier);
     }
 
     public boolean isStatic() {
@@ -38,7 +40,15 @@ public class Function {
     }
 
     public void setStatic(boolean aStatic) {
-        isStatic = aStatic;
+    	this.isStatic = aStatic;
+    }
+    
+    public boolean isAbstract() {
+        return isAbstract;
+    }
+
+    public void setAbstract(boolean inAbstract) {
+    	this.isAbstract = inAbstract;
     }
 
     public Return getReturn() {

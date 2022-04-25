@@ -744,7 +744,13 @@ public class VisitorDSL extends VisitorBase {
 
     @Override
     public void visitAbstractModifier(AbstractModifier abstractModifier) {
-
+    	String functionModifier = abstractModifier.getModifier();
+        try {
+            frame.writeFunctionModifier(functionModifier);
+            frame.writeAbstractFunction();
+        } catch (ModifierNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -799,7 +805,13 @@ public class VisitorDSL extends VisitorBase {
 
     @Override
     public void visitStaticModifier(StaticModifier staticModifier) {
-        frame.writeStaticFunction();
+    	String functionModifier = staticModifier.getModifier();
+        try {
+            frame.writeFunctionModifier(functionModifier);
+        	frame.writeStaticFunction();
+        } catch (ModifierNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

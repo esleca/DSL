@@ -129,6 +129,86 @@ public class ModifiersFactoryTests {
 	}
 	
 	
+	//___________________________________________
+    // test_createModifier_StaticName
+    //
+    // GIVEN: createModifier is called
+    // WHEN:  static type is passed
+    // THEN:  StaticModifier is returned
+    //___________________________________________
+	@Test
+	public void test_createModifier_StaticName() throws ModifierNotFoundException {
+		//Arrange
+		String type = "static";
+
+		//Act
+		Modifier modifier = ModifiersFactory.createModifier(type);
+		
+		//Assert
+		assertEquals("static", modifier.getName());
+	}
+	
+	
+	//______________________________________________
+    // test_createModifier_InstanceOfStatic
+    //
+    // GIVEN: createModifier is called
+    // WHEN:  static type is passed
+    // THEN:  Modifier is instance of StaticModifier
+    //______________________________________________
+	@Test
+	public void test_createModifier_InstanceOfStatic() throws ModifierNotFoundException {
+		//Arrange
+		String type = "static";
+		
+		//Act
+		Modifier modifier = ModifiersFactory.createModifier(type);
+		
+		//Assert
+		assertTrue(modifier instanceof StaticModifier);
+	}
+	
+	
+	//___________________________________________
+    // test_createModifier_AbstractName
+    //
+    // GIVEN: createModifier is called
+    // WHEN:  abstract type is passed
+    // THEN:  Abstract is returned
+    //___________________________________________
+	@Test
+	public void test_createModifier_AbstractName() throws ModifierNotFoundException {
+		//Arrange
+		String type = "abstract";
+
+		//Act
+		Modifier modifier = ModifiersFactory.createModifier(type);
+		
+		//Assert
+		assertEquals("abstract", modifier.getName());
+	}
+	
+	
+	//______________________________________________
+    // test_createModifier_InstanceOfPrivate
+    //
+    // GIVEN: createModifier is called
+    // WHEN:  abstract type is passed
+    // THEN:  Modifier is instance of AbstractModifier
+    //______________________________________________
+	@Test
+	public void test_createModifier_InstanceOfAbstract() throws ModifierNotFoundException {
+		//Arrange
+		String type = "abstract";
+		
+		//Act
+		Modifier modifier = ModifiersFactory.createModifier(type);
+		
+		//Assert
+		assertTrue(modifier instanceof AbstractModifier);
+	}
+	
+	
 	//______________________________________________
     // test_createModifier_ModifierNotFound
     //

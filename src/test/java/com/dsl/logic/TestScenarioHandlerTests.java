@@ -54,7 +54,7 @@ public class TestScenarioHandlerTests {
     	ArrayList<Function> testableUnits = new ArrayList<Function>();
     	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
     	function.setName("saludar");
-    	function.setModifier(createModifier("public"));
+    	//function.setModifiers(createModifier("public"));
     	function.setReturn(createPrimitiveReturn("String"));
     	testableUnits.add(function);
     	

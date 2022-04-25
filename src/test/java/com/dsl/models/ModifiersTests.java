@@ -3,10 +3,12 @@ package com.dsl.models;
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.assertEquals;
 
+import com.dsl.models.entities.modifiers.AbstractModifier;
 import com.dsl.models.entities.modifiers.Modifier;
 import com.dsl.models.entities.modifiers.PrivateModifier;
 import com.dsl.models.entities.modifiers.ProtectedModifier;
 import com.dsl.models.entities.modifiers.PublicModifier;
+import com.dsl.models.entities.modifiers.StaticModifier;
 
 public class ModifiersTests {
 
@@ -65,5 +67,43 @@ public class ModifiersTests {
 		
 		//Assert
 		assertEquals("protected", modifierName);
+	}
+	
+	//_____________________________________________
+    // test_getName_StaticModifier
+    //
+    // GIVEN: getName is called
+    // WHEN:  Static instance is executed
+    // THEN:  name returned will be static
+    //_____________________________________________
+	@Test
+	public void test_getName_StaticModifier() {
+		//Arrange
+		Modifier modifier = new StaticModifier();
+		
+		//Act
+		String modifierName = modifier.getName();
+		
+		//Assert
+		assertEquals("static", modifierName);
+	}
+	
+	//_____________________________________________
+    // test_getName_AbstractModifier
+    //
+    // GIVEN: getName is called
+    // WHEN:  Abstract instance is executed
+    // THEN:  name returned will be abstract
+    //_____________________________________________
+	@Test
+	public void test_getName_AbstractModifier() {
+		//Arrange
+		Modifier modifier = new AbstractModifier();
+		
+		//Act
+		String modifierName = modifier.getName();
+		
+		//Assert
+		assertEquals("abstract", modifierName);
 	}
 }

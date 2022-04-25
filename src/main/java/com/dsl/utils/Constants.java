@@ -10,6 +10,8 @@ public class Constants {
     public final static String MODIFIER_PUBLIC = "public";
     public final static String MODIFIER_PRIVATE = "private";
     public final static String MODIFIER_PROTECTED = "protected";
+    public final static String MODIFIER_STATIC = "static";
+    public final static String MODIFIER_ABSTRACT = "abstract";
 
     public final static String RETURN_INTEGER = "int";
     public final static String RETURN_STRING = "String";

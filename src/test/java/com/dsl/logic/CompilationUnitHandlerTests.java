@@ -1,13 +1,16 @@
 package com.dsl.logic;
 
 import com.dsl.logic.gast.*;
+
 import ASTMCore.ASTMSource.CompilationUnit;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.AggregateTypeDefinition;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.DefintionObject;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.FunctionDefintion;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.Modifiers;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.PrivateModifier;
+import ASTMCore.ASTMSyntax.DeclarationAndDefinition.ProtectedModifier;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.PublicModifier;
+import ASTMCore.ASTMSyntax.DeclarationAndDefinition.StaticModifier;
 import ASTMCore.ASTMSyntax.Types.AggregateType;
 import ASTMCore.ASTMSyntax.Types.ClassType;
 import ASTMCore.ASTMSyntax.Types.NamedTypeReference;
@@ -533,7 +536,7 @@ public class CompilationUnitHandlerTests {
     //
     // GIVEN: CompilationUnitHandler is executed
     // WHEN:  TestClass is mapped to compilation units
-    // THEN:  Class definition objects contain 14 elements
+    // THEN:  Class definition objects contain 18 elements
     //______________________________________________________
     @Test
 	public void test_createCompUnits_ClassType_DefObjs_Size() throws IOException, UnsupportedLanguageException {
@@ -554,7 +557,7 @@ public class CompilationUnitHandlerTests {
     	ArrayList<DefintionObject> defintionObjects = classType.getOpensScope().getDeclOrDefn();
     	
     	//Assert
-    	assertEquals(14, defintionObjects.size());    	
+    	assertEquals(18, defintionObjects.size());    	
 	}
     
     
@@ -974,6 +977,137 @@ public class CompilationUnitHandlerTests {
 	}
     
     
+    //____________________________________________________________
+    // test_createCompUnits_staticReturnIntWithoutParams_Name
+    //
+    // GIVEN: CompilationUnitHandler is executed
+    // WHEN:  Class functions are mapped correctly
+    // THEN:  Function 14 mapped is staticReturnIntWithoutParams
+    //____________________________________________________________
+    @Test
+	public void test_createCompUnits_staticReturnIntWithoutParams_Name() throws IOException, UnsupportedLanguageException {
+		//Arrange
+		String classPath = DIRECTORY_NAME + TEST_CLASS_PATH;
+    	
+    	//Act
+		ArrayList<CompilationUnit> compUnits = sut.createCompilationUnits(classPath);
+    	CompilationUnit compUnit = compUnits.get(0);
+    	
+    	AggregateTypeDefinition aggTypeDef = (AggregateTypeDefinition)compUnit
+    			.getOpensScope()
+    			.getDeclOrDefn()
+    			.get(0);
+
+    	ClassType classType = (ClassType) aggTypeDef.getAggregateType();
+
+    	ArrayList<DefintionObject> defintionObjects = classType.getOpensScope().getDeclOrDefn();
+    	
+    	FunctionDefintion functionDef = (FunctionDefintion)defintionObjects.get(13);
+
+    	//Assert
+    	assertEquals("staticReturnIntWithoutParams", functionDef.getIdentifierName().getNameString());    	
+	}
+    
+    
+    //____________________________________________________________
+    // test_createCompUnits_staticReturnIntWithParams_Name
+    //
+    // GIVEN: CompilationUnitHandler is executed
+    // WHEN:  Class functions are mapped correctly
+    // THEN:  Function 15 mapped is staticReturnIntWithParams
+    //____________________________________________________________
+    @Test
+	public void test_createCompUnits_staticReturnIntWithParams_Name() throws IOException, UnsupportedLanguageException {
+		//Arrange
+		String classPath = DIRECTORY_NAME + TEST_CLASS_PATH;
+    	
+    	//Act
+		ArrayList<CompilationUnit> compUnits = sut.createCompilationUnits(classPath);
+    	CompilationUnit compUnit = compUnits.get(0);
+    	
+    	AggregateTypeDefinition aggTypeDef = (AggregateTypeDefinition)compUnit
+    			.getOpensScope()
+    			.getDeclOrDefn()
+    			.get(0);
+
+    	ClassType classType = (ClassType) aggTypeDef.getAggregateType();
+
+    	ArrayList<DefintionObject> defintionObjects = classType.getOpensScope().getDeclOrDefn();
+    	
+    	FunctionDefintion functionDef = (FunctionDefintion)defintionObjects.get(14);
+
+    	//Assert
+    	assertEquals("staticReturnIntWithParams", functionDef.getIdentifierName().getNameString());    	
+	}
+    
+    
+    //____________________________________________________________
+    // test_createCompUnits_privateStaticReturnIntWithParams_Name
+    //
+    // GIVEN: CompilationUnitHandler is executed
+    // WHEN:  Class functions are mapped correctly
+    // THEN:  Function 16 mapped is privateStaticReturnIntWithParams
+    //____________________________________________________________
+    @Test
+	public void test_createCompUnits_privateStaticReturnIntWithParams_Name() throws IOException, UnsupportedLanguageException {
+		//Arrange
+		String classPath = DIRECTORY_NAME + TEST_CLASS_PATH;
+    	
+    	//Act
+		ArrayList<CompilationUnit> compUnits = sut.createCompilationUnits(classPath);
+    	CompilationUnit compUnit = compUnits.get(0);
+    	
+    	AggregateTypeDefinition aggTypeDef = (AggregateTypeDefinition)compUnit
+    			.getOpensScope()
+    			.getDeclOrDefn()
+    			.get(0);
+
+    	ClassType classType = (ClassType) aggTypeDef.getAggregateType();
+
+    	ArrayList<DefintionObject> defintionObjects = classType.getOpensScope().getDeclOrDefn();
+    	
+    	FunctionDefintion functionDef = (FunctionDefintion)defintionObjects.get(15);
+
+    	//Assert
+    	assertEquals("privateStaticReturnIntWithParams", functionDef.getIdentifierName().getNameString());    	
+	}
+    
+    
+    //____________________________________________________________
+    // test_createCompUnits_staticProtectedReturnInt_Name
+    //
+    // GIVEN: CompilationUnitHandler is executed
+    // WHEN:  Class functions are mapped correctly
+    // THEN: Function 17 mapped is staticProtectedReturnInt
+    //____________________________________________________________
+    @Test
+	public void test_createCompUnits_staticProtectedReturnInt_Name() throws IOException, UnsupportedLanguageException {
+		//Arrange
+		String classPath = DIRECTORY_NAME + TEST_CLASS_PATH;
+    	
+    	//Act
+		ArrayList<CompilationUnit> compUnits = sut.createCompilationUnits(classPath);
+    	CompilationUnit compUnit = compUnits.get(0);
+    	
+    	AggregateTypeDefinition aggTypeDef = (AggregateTypeDefinition)compUnit
+    			.getOpensScope()
+    			.getDeclOrDefn()
+    			.get(0);
+
+    	ClassType classType = (ClassType) aggTypeDef.getAggregateType();
+
+    	ArrayList<DefintionObject> defintionObjects = classType.getOpensScope().getDeclOrDefn();
+    	
+    	FunctionDefintion functionDef = (FunctionDefintion)defintionObjects.get(16);
+
+    	//Assert
+    	assertEquals("staticProtectedReturnInt", functionDef.getIdentifierName().getNameString());    	
+	}
+    
+    
+    
+    
+    
     //_____________________________________________________________________
     // test_createCompUnits_returnStringWithoutParams_PublicModifier
     //
@@ -1245,6 +1379,249 @@ public class CompilationUnitHandlerTests {
     	assertEquals("private", modifier.getModifier());    	  	
 	}
     
+  
+    //_____________________________________________________________________
+    // test_createCompUnits_staticReturnIntWithoutParams_PublicModifier
+    //
+    // GIVEN: CompilationUnitHandler is executed
+    // WHEN:  Class functions are mapped correctly
+    // THEN:  First function modifier is public
+    //______________________________________________________________
+    @Test
+	public void test_createCompUnits_staticReturnIntWithoutParams_PublicModifier() throws IOException, UnsupportedLanguageException {
+		//Arrange
+		String classPath = DIRECTORY_NAME + TEST_CLASS_PATH;
+    	
+    	//Act
+		ArrayList<CompilationUnit> compUnits = sut.createCompilationUnits(classPath);
+    	CompilationUnit compUnit = compUnits.get(0);
+    	
+    	AggregateTypeDefinition aggTypeDef = (AggregateTypeDefinition)compUnit
+    			.getOpensScope()
+    			.getDeclOrDefn()
+    			.get(0);
+
+    	ClassType classType = (ClassType) aggTypeDef.getAggregateType();
+
+    	ArrayList<DefintionObject> defintionObjects = classType.getOpensScope().getDeclOrDefn();
+    	
+    	FunctionDefintion functionDef = (FunctionDefintion)defintionObjects.get(13);
+
+    	PublicModifier modifier = (PublicModifier) functionDef.getModifiers().get(0);
+    	
+    	//Assert
+    	assertEquals("public", modifier.getModifier());    	  	
+	}
+    
+  
+    //_____________________________________________________________________
+    // test_createCompUnits_staticReturnIntWithoutParams_StaticModifier
+    //
+    // GIVEN: CompilationUnitHandler is executed
+    // WHEN:  Class functions are mapped correctly
+    // THEN:  Second function modifier is static
+    //______________________________________________________________
+    @Test
+	public void test_createCompUnits_staticReturnIntWithoutParams_StaticModifier() throws IOException, UnsupportedLanguageException {
+		//Arrange
+		String classPath = DIRECTORY_NAME + TEST_CLASS_PATH;
+    	
+    	//Act
+		ArrayList<CompilationUnit> compUnits = sut.createCompilationUnits(classPath);
+    	CompilationUnit compUnit = compUnits.get(0);
+    	
+    	AggregateTypeDefinition aggTypeDef = (AggregateTypeDefinition)compUnit
+    			.getOpensScope()
+    			.getDeclOrDefn()
+    			.get(0);
+
+    	ClassType classType = (ClassType) aggTypeDef.getAggregateType();
+
+    	ArrayList<DefintionObject> defintionObjects = classType.getOpensScope().getDeclOrDefn();
+    	
+    	FunctionDefintion functionDef = (FunctionDefintion)defintionObjects.get(13);
+
+    	StaticModifier modifier = (StaticModifier) functionDef.getModifiers().get(1);
+    	
+    	//Assert
+    	assertEquals("static", modifier.getModifier());    	  	
+	}
+    
+    
+    //_____________________________________________________________________
+    // test_createCompUnits_staticReturnIntWithParams_PublicModifier
+    //
+    // GIVEN: CompilationUnitHandler is executed
+    // WHEN:  Class functions are mapped correctly
+    // THEN:  First function modifier is public
+    //______________________________________________________________
+    @Test
+	public void test_createCompUnits_staticReturnIntWithParams_PublicModifier() throws IOException, UnsupportedLanguageException {
+		//Arrange
+		String classPath = DIRECTORY_NAME + TEST_CLASS_PATH;
+    	
+    	//Act
+		ArrayList<CompilationUnit> compUnits = sut.createCompilationUnits(classPath);
+    	CompilationUnit compUnit = compUnits.get(0);
+    	
+    	AggregateTypeDefinition aggTypeDef = (AggregateTypeDefinition)compUnit
+    			.getOpensScope()
+    			.getDeclOrDefn()
+    			.get(0);
+
+    	ClassType classType = (ClassType) aggTypeDef.getAggregateType();
+
+    	ArrayList<DefintionObject> defintionObjects = classType.getOpensScope().getDeclOrDefn();
+    	
+    	FunctionDefintion functionDef = (FunctionDefintion)defintionObjects.get(14);
+
+    	PublicModifier modifier = (PublicModifier) functionDef.getModifiers().get(0);
+    	
+    	//Assert
+    	assertEquals("public", modifier.getModifier());    	  	
+	}
+    
+    
+    //_____________________________________________________________________
+    // test_createCompUnits_staticReturnIntWithParams_StaticModifier
+    //
+    // GIVEN: CompilationUnitHandler is executed
+    // WHEN:  Class functions are mapped correctly
+    // THEN:  Second function modifier is static
+    //______________________________________________________________
+    @Test
+	public void test_createCompUnits_staticReturnIntWithParams_StaticModifier() throws IOException, UnsupportedLanguageException {
+		//Arrange
+		String classPath = DIRECTORY_NAME + TEST_CLASS_PATH;
+    	
+    	//Act
+		ArrayList<CompilationUnit> compUnits = sut.createCompilationUnits(classPath);
+    	CompilationUnit compUnit = compUnits.get(0);
+    	
+    	AggregateTypeDefinition aggTypeDef = (AggregateTypeDefinition)compUnit
+    			.getOpensScope()
+    			.getDeclOrDefn()
+    			.get(0);
+
+    	ClassType classType = (ClassType) aggTypeDef.getAggregateType();
+
+    	ArrayList<DefintionObject> defintionObjects = classType.getOpensScope().getDeclOrDefn();
+    	
+    	FunctionDefintion functionDef = (FunctionDefintion)defintionObjects.get(14);
+
+    	StaticModifier modifier = (StaticModifier) functionDef.getModifiers().get(1);
+    	
+    	//Assert
+    	assertEquals("static", modifier.getModifier());    	  	
+	}
+    
+    
+    //_____________________________________________________________________
+    // test_createCompUnits_privateStaticReturnIntWithParams_StaticModifier
+    //
+    // GIVEN: CompilationUnitHandler is executed
+    // WHEN:  Class functions are mapped correctly
+    // THEN:  Function modifier is static
+    //______________________________________________________________
+    @Test
+	public void test_createCompUnits_privateStaticReturnIntWithParams_StaticModifier() throws IOException, UnsupportedLanguageException {
+		//Arrange
+		String classPath = DIRECTORY_NAME + TEST_CLASS_PATH;
+    	
+    	//Act
+		ArrayList<CompilationUnit> compUnits = sut.createCompilationUnits(classPath);
+    	CompilationUnit compUnit = compUnits.get(0);
+    	
+    	AggregateTypeDefinition aggTypeDef = (AggregateTypeDefinition)compUnit
+    			.getOpensScope()
+    			.getDeclOrDefn()
+    			.get(0);
+
+    	ClassType classType = (ClassType) aggTypeDef.getAggregateType();
+
+    	ArrayList<DefintionObject> defintionObjects = classType.getOpensScope().getDeclOrDefn();
+    	
+    	FunctionDefintion functionDef = (FunctionDefintion)defintionObjects.get(15);
+
+    	StaticModifier modifier = (StaticModifier) functionDef.getModifiers().get(0);
+    	
+    	//Assert
+    	assertEquals("static", modifier.getModifier());    	  	
+	}
+    
+    
+    //____________________________________________________________
+    // test_createCompUnits_staticProtected_StaticModifier
+    //
+    // GIVEN: CompilationUnitHandler is executed
+    // WHEN:  Class functions are mapped correctly
+    // THEN:  Function modifier is static
+    //____________________________________________________________
+    @Test
+	public void test_createCompUnits_staticProtected_StaticModifier() throws IOException, UnsupportedLanguageException {
+		//Arrange
+		String classPath = DIRECTORY_NAME + TEST_CLASS_PATH;
+    	
+    	//Act
+		ArrayList<CompilationUnit> compUnits = sut.createCompilationUnits(classPath);
+    	CompilationUnit compUnit = compUnits.get(0);
+    	
+    	AggregateTypeDefinition aggTypeDef = (AggregateTypeDefinition)compUnit
+    			.getOpensScope()
+    			.getDeclOrDefn()
+    			.get(0);
+
+    	ClassType classType = (ClassType) aggTypeDef.getAggregateType();
+
+    	ArrayList<DefintionObject> defintionObjects = classType.getOpensScope().getDeclOrDefn();
+    	
+    	FunctionDefintion functionDef = (FunctionDefintion)defintionObjects.get(16);
+
+    	StaticModifier modifier = (StaticModifier) functionDef.getModifiers().get(0);
+    	
+    	//Assert
+    	assertEquals("static", modifier.getModifier());    	  	
+	}
+    
+    
+    //______________________________________________________________
+    // test_createCompUnits_staticProtected_ProtectedModifier
+    //
+    // GIVEN: CompilationUnitHandler is executed
+    // WHEN:  Class functions are mapped correctly
+    // THEN:  Function modifier is static
+    //______________________________________________________________
+    @Test
+	public void test_createCompUnits_staticProtected_ProtectedModifier() throws IOException, UnsupportedLanguageException {
+		//Arrange
+		String classPath = DIRECTORY_NAME + TEST_CLASS_PATH;
+    	
+    	//Act
+		ArrayList<CompilationUnit> compUnits = sut.createCompilationUnits(classPath);
+    	CompilationUnit compUnit = compUnits.get(0);
+    	
+    	AggregateTypeDefinition aggTypeDef = (AggregateTypeDefinition)compUnit
+    			.getOpensScope()
+    			.getDeclOrDefn()
+    			.get(0);
+
+    	ClassType classType = (ClassType) aggTypeDef.getAggregateType();
+
+    	ArrayList<DefintionObject> defintionObjects = classType.getOpensScope().getDeclOrDefn();
+    	
+    	FunctionDefintion functionDef = (FunctionDefintion)defintionObjects.get(16);
+
+    	ProtectedModifier modifier = (ProtectedModifier) functionDef.getModifiers().get(1);
+    	
+    	//Assert
+    	assertEquals("protected", modifier.getModifier());    	  	
+	}
+    
+    
+    
+    
+    
+    
     
     //______________________________________________________________
     // test_createCompUnits_returnStringWithoutParams_Return
@@ -1414,6 +1791,43 @@ public class CompilationUnitHandlerTests {
     	//Assert
     	assertEquals("void", returnType.getTypeName().getNameString());    	
 	}
+
+    
+    //______________________________________________________________
+    // test_createCompUnits_staticReturnIntWithoutParams_IntReturn
+    //
+    // GIVEN: CompilationUnitHandler is executed
+    // WHEN:  Class functions are mapped correctly
+    // THEN:  Thirteen function return is int
+    //_____________________________________________________________
+    @Test
+	public void test_createCompUnits_staticReturnIntWithoutParams_IntReturn() throws IOException, UnsupportedLanguageException {
+		//Arrange
+		String classPath = DIRECTORY_NAME + TEST_CLASS_PATH;
+    	
+    	//Act
+		ArrayList<CompilationUnit> compUnits = sut.createCompilationUnits(classPath);
+    	CompilationUnit compUnit = compUnits.get(0);
+    	
+    	AggregateTypeDefinition aggTypeDef = (AggregateTypeDefinition)compUnit
+    			.getOpensScope()
+    			.getDeclOrDefn()
+    			.get(0);
+
+    	ClassType classType = (ClassType) aggTypeDef.getAggregateType();
+
+    	ArrayList<DefintionObject> defintionObjects = classType.getOpensScope().getDeclOrDefn();
+    	
+    	FunctionDefintion functionDef = (FunctionDefintion)defintionObjects.get(13);
+
+    	NamedTypeReference returnType = (NamedTypeReference) functionDef.getReturnType();
+    	
+    	//Assert
+    	assertEquals("int", returnType.getTypeName().getNameString());    	
+	}
+    
+    
+    
     
     
     //__________________________________________________________________
@@ -1570,6 +1984,70 @@ public class CompilationUnitHandlerTests {
     	ArrayList<DefintionObject> defintionObjects = classType.getOpensScope().getDeclOrDefn();
     	
     	FunctionDefintion functionDef = (FunctionDefintion)defintionObjects.get(5);
+
+    	//Assert
+    	assertEquals(1, functionDef.getFormalParameters().size());    	
+	}
+    
+    
+    //________________________________________________________
+    // test_createCompUnits_staticReturnInt_Parameters
+    //
+    // GIVEN: CompilationUnitHandler is executed
+    // WHEN:  Class functions are mapped correctly
+    // THEN:  Function parameters is empty
+    //________________________________________________________
+    @Test
+	public void test_createCompUnits_staticReturnIntWithoutParams_Parameters() throws IOException, UnsupportedLanguageException {
+		//Arrange
+		String classPath = DIRECTORY_NAME + TEST_CLASS_PATH;
+    	
+    	//Act
+		ArrayList<CompilationUnit> compUnits = sut.createCompilationUnits(classPath);
+    	CompilationUnit compUnit = compUnits.get(0);
+    	
+    	AggregateTypeDefinition aggTypeDef = (AggregateTypeDefinition)compUnit
+    			.getOpensScope()
+    			.getDeclOrDefn()
+    			.get(0);
+
+    	ClassType classType = (ClassType) aggTypeDef.getAggregateType();
+
+    	ArrayList<DefintionObject> defintionObjects = classType.getOpensScope().getDeclOrDefn();
+    	
+    	FunctionDefintion functionDef = (FunctionDefintion)defintionObjects.get(13);
+
+    	//Assert
+    	assertTrue(functionDef.getFormalParameters().isEmpty());    	
+	}
+    
+    
+    //________________________________________________________
+    // test_createCompUnits_staticReturnIntWithParams_Parameters
+    //
+    // GIVEN: CompilationUnitHandler is executed
+    // WHEN:  Class functions are mapped correctly
+    // THEN:  Function parameters has one item
+    //________________________________________________________
+    @Test
+	public void test_createCompUnits_staticReturnIntWithParams_Parameters() throws IOException, UnsupportedLanguageException {
+		//Arrange
+		String classPath = DIRECTORY_NAME + TEST_CLASS_PATH;
+    	
+    	//Act
+		ArrayList<CompilationUnit> compUnits = sut.createCompilationUnits(classPath);
+    	CompilationUnit compUnit = compUnits.get(0);
+    	
+    	AggregateTypeDefinition aggTypeDef = (AggregateTypeDefinition)compUnit
+    			.getOpensScope()
+    			.getDeclOrDefn()
+    			.get(0);
+
+    	ClassType classType = (ClassType) aggTypeDef.getAggregateType();
+
+    	ArrayList<DefintionObject> defintionObjects = classType.getOpensScope().getDeclOrDefn();
+    	
+    	FunctionDefintion functionDef = (FunctionDefintion)defintionObjects.get(14);
 
     	//Assert
     	assertEquals(1, functionDef.getFormalParameters().size());    	

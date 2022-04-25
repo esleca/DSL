@@ -61,6 +61,11 @@ public class FrameDSL implements IFrameDSL {
     public void writeStaticFunction(){
         getCurrentFunction().setStatic(true);
     }
+    
+    @Override
+    public void writeAbstractFunction(){
+        getCurrentFunction().setAbstract(true);
+    }
 
     @Override
     public void writeClassPackage(String name) {
@@ -79,7 +84,7 @@ public class FrameDSL implements IFrameDSL {
 
     @Override
     public void writeFunctionModifier(String name) throws ModifierNotFoundException {
-        getCurrentFunction().setModifier(ModifiersFactory.createModifier(name));
+        getCurrentFunction().addModifier(ModifiersFactory.createModifier(name));
     }
 
     @Override

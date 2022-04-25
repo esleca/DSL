@@ -72,6 +72,26 @@ public class TestClass {
 	}
 	
 	
+	/******************************************/
+	/************ static functions ***********/
+	/******************************************/
+	public static int staticReturnIntWithoutParams() {
+		return -1;
+	}
+	
+	public static int staticReturnIntWithParams(int inInt) {
+		return -1 * inInt;
+	}
+	
+	static int privateStaticReturnIntWithParams(int inInt) {
+		return -1 * inInt;
+	}
+	
+	static protected int staticProtectedReturnInt() {
+		return 0;
+	}
+	
+	
 	// reference test class
 	class objResponse{} 
 	

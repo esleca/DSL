@@ -1,6 +1,7 @@
 package com.dsl.logic.unittests;
 
 import com.dsl.models.entities.aggregates.Function;
+import com.dsl.models.entities.modifiers.Modifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,24 +11,32 @@ import org.springframework.stereotype.Component;
 public class TestableUnitHandler implements ITestableUnitHandler {
 
     private List<String> modifiers;
+    private List<String> restrictModifiers;
     private List<String> returns;
 
     public TestableUnitHandler(){
-        initializePermitModifiers();
-        initializeExcludedReturns();
+        initValidModifiers();
+        initRestrictedModifiers();
+        initRestrictedReturns();
     }
 
-    private void initializePermitModifiers(){
+    private void initValidModifiers(){
         modifiers = new ArrayList<>();
         modifiers.add("public");
         modifiers.add("protected");
     }
+    
+    private void initRestrictedModifiers(){
+    	restrictModifiers = new ArrayList<>();
+    	restrictModifiers.add("abstract");
+    }
 
-    private void initializeExcludedReturns(){
+    private void initRestrictedReturns(){
         returns = new ArrayList<>();
         returns.add("void");
     }
 
+    
     @Override
     public ArrayList<Function> processTestableUnits(ArrayList<Function> functions){
         ArrayList<Function> testableUnits = new ArrayList<>();
@@ -42,33 +51,50 @@ public class TestableUnitHandler implements ITestableUnitHandler {
         return testableUnits;
     }
 
+    
     private void processTestableValues(ArrayList<Function> functions){
         for (Function function: functions){
-            boolean isTestable = isTestableUnit(function);
-            function.setIsTestable(isTestable);
-        }
-    }
-
-    private boolean isTestableUnit(Function function){
-        if (function != null){
-            if (!isValidFunctionModifier(function))
-                return false;
-            if (!isValidFunctionReturn(function)){
-                return false;
+        	if (function != null){
+        		boolean isTestable = isTestableUnit(function);
+                function.setIsTestable(isTestable);
             }
-            return true;
         }
-        return false;
     }
 
-    private boolean isValidFunctionModifier(Function function){
-        String funcModifier = function.getModifier().getName();
-
-        if (modifiers.contains(funcModifier)){
-            return true;
-        }
-        return false;
+    
+    private boolean isTestableUnit(Function function){
+    	if (hasRestrictedModifier(function))
+            return false;
+        
+    	if (!hasValidModifier(function))
+            return false;
+        
+        if (!isValidFunctionReturn(function))
+            return false;
+        
+        return true;
     }
+    
+    
+    private boolean hasRestrictedModifier(Function function) {
+    	for (Modifier modifier: function.getModifiers()){
+    		if(restrictModifiers.contains(modifier.getName()))
+    			return true;
+        }
+
+    	return false;
+    }
+
+    
+    private boolean hasValidModifier(Function function){
+    	for (Modifier modifier: function.getModifiers()){
+    		if(modifiers.contains(modifier.getName()))
+    			return true;
+        }
+
+    	return false;
+    }
+    
 
     private boolean isValidFunctionReturn(Function function){
         String funcReturn = function.getReturn().getName();

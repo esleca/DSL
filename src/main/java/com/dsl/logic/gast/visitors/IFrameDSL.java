@@ -39,6 +39,8 @@ public interface IFrameDSL {
     void writeFunctionParameter();
 
     void writeStaticFunction();
+    
+    void writeAbstractFunction();
 
     void writeFunctionParameterName(String name);
 
