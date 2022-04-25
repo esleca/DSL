@@ -323,7 +323,7 @@ public class TestableUnitHandlerTests {
     	ArrayList<Function> functions = new ArrayList<Function>();
     	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
     	function.setModifier(createModifier("public"));
-    	function.setReturn(createPrimitiveReturn("objResponse"));
+    	function.setReturn(createInstanceReturn("objResponse"));
     	functions.add(function);
     	
     	//Act

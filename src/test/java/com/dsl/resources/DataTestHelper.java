@@ -55,7 +55,7 @@ public class DataTestHelper {
 
     public static ValueType getValueType(){
         ValueType valueType = new LongType();
-        long value = 1;
+        long value = 1555555555;
         valueType.setValue(value);
         return valueType;
     }

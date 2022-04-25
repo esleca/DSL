@@ -6,6 +6,7 @@ import com.dsl.exceptions.ModifierNotFoundException;
 import com.dsl.models.entities.modifiers.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 public class ModifiersFactoryTests {
@@ -107,6 +108,7 @@ public class ModifiersFactoryTests {
 		assertEquals("private", modifier.getName());
 	}
 	
+	
 	//______________________________________________
     // test_createModifier_InstanceOfPrivate
     //
@@ -125,4 +127,31 @@ public class ModifiersFactoryTests {
 		//Assert
 		assertTrue(modifier instanceof PrivateModifier);
 	}
+	
+	
+	//______________________________________________
+    // test_createModifier_ModifierNotFound
+    //
+    // GIVEN: createModifier is called
+    // WHEN:  invalid type is passed
+    // THEN:  ModifierNotFoundException is returned
+    //______________________________________________
+	@Test
+	public void test_createModifier_ModifierNotFound() throws ModifierNotFoundException {
+		//Arrange
+		String type = "invalid";
+		
+		//Act
+		Exception exception = assertThrows(ModifierNotFoundException.class, () -> {
+			ModifiersFactory.createModifier(type);
+		});		
+
+		String expectedMessage = "Invalid DSL function modifier";
+		String actualMessage = exception.getMessage();
+		
+		//Assert
+		assertTrue(actualMessage.contains(expectedMessage));
+	}
+	
+	
 }
