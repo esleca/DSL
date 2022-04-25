@@ -1,7 +1,6 @@
 package com.dsl.logic;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +11,7 @@ import com.dsl.exceptions.ReturnNotFoundException;
 import com.dsl.models.entities.aggregates.Class;
 import com.dsl.models.entities.aggregates.Function;
 import com.dsl.models.entities.aggregates.Package;
-import com.dsl.logic.unittests.TestableUnitHandler;
+import com.dsl.logic.testableunits.TestableUnitHandler;
 
 import static com.dsl.factories.AggregatesFactory.*;
 import static com.dsl.factories.ModifiersFactory.*;
@@ -383,6 +382,7 @@ public class TestableUnitHandlerTests {
     	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("public"));
     	function.addModifier(createModifier("static"));
+    	function.setStatic(true);
     	function.setReturn(createInstanceReturn("objResponse"));
     	functions.add(function);
     	
@@ -411,6 +411,7 @@ public class TestableUnitHandlerTests {
     	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("protected"));
     	function.addModifier(createModifier("static"));
+    	function.setStatic(true);
     	function.setReturn(createInstanceReturn("objResponse"));
     	functions.add(function);
     	
@@ -439,6 +440,7 @@ public class TestableUnitHandlerTests {
     	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("private"));
     	function.addModifier(createModifier("static"));
+    	function.setStatic(true);
     	function.setReturn(createInstanceReturn("objResponse"));
     	functions.add(function);
     	
@@ -466,6 +468,7 @@ public class TestableUnitHandlerTests {
     	ArrayList<Function> functions = new ArrayList<Function>();
     	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("static"));
+    	function.setStatic(true);
     	function.setReturn(createInstanceReturn("objResponse"));
     	functions.add(function);
     	
@@ -494,6 +497,7 @@ public class TestableUnitHandlerTests {
     	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("public"));
     	function.addModifier(createModifier("abstract"));
+    	function.setAbstract(true);
     	function.setReturn(createInstanceReturn("objResponse"));
     	functions.add(function);
     	
@@ -522,6 +526,7 @@ public class TestableUnitHandlerTests {
     	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("protected"));
     	function.addModifier(createModifier("abstract"));
+    	function.setAbstract(true);
     	function.setReturn(createInstanceReturn("objResponse"));
     	functions.add(function);
     	
@@ -552,6 +557,8 @@ public class TestableUnitHandlerTests {
     	function.addModifier(createModifier("public"));
     	function.addModifier(createModifier("static"));
     	function.addModifier(createModifier("abstract"));
+    	function.setStatic(true);
+    	function.setAbstract(true);
     	function.setReturn(createInstanceReturn("objResponse"));
     	functions.add(function);
     	
@@ -582,6 +589,8 @@ public class TestableUnitHandlerTests {
     	function.addModifier(createModifier("protected"));
     	function.addModifier(createModifier("static"));
     	function.addModifier(createModifier("abstract"));
+    	function.setStatic(true);
+    	function.setAbstract(true);
     	function.setReturn(createInstanceReturn("objResponse"));
     	functions.add(function);
     	
@@ -612,6 +621,8 @@ public class TestableUnitHandlerTests {
     	function.addModifier(createModifier("private"));
     	function.addModifier(createModifier("static"));
     	function.addModifier(createModifier("abstract"));
+    	function.setStatic(true);
+    	function.setAbstract(true);
     	function.setReturn(createInstanceReturn("objResponse"));
     	functions.add(function);
     	
@@ -640,6 +651,8 @@ public class TestableUnitHandlerTests {
     	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("static"));
     	function.addModifier(createModifier("abstract"));
+    	function.setStatic(true);
+    	function.setAbstract(true);
     	function.setReturn(createInstanceReturn("objResponse"));
     	functions.add(function);
     	
