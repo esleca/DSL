@@ -11,12 +11,13 @@ import com.dsl.models.entities.unittests.TestScenario;
 import com.dsl.models.entities.unittests.UnitTest;
 import com.dsl.logic.gast.CompilationUnitTestFileHandler;
 import com.dsl.logic.gast.ICompilationUnitTestFileHandler;
-import com.dsl.logic.gast.visitors.VisitorBase;
-import com.dsl.logic.gast.visitors.VisitorDSL;
+import com.dsl.logic.visitors.VisitorBase;
+import com.dsl.logic.visitors.VisitorDSL;
 import com.dsl.logic.configfiles.ITestRunHandler;
 import com.dsl.logic.configfiles.TestRunHandler;
 import com.dsl.logic.gast.ICompilationUnitFileHandler;
 import com.dsl.logic.gast.CompilationUnitFileHandler;
+import com.dsl.logic.testableunits.*;
 import com.dsl.logic.testscenarios.*;
 import com.dsl.logic.unittests.*;
 import com.dsl.testrun.config.TestScenarioRun;
@@ -114,10 +115,11 @@ public class GestorDSL implements IGestorDSL{
      */
     @Override
     public void readTestScenarios() throws ValueTypeNotFoundException, AssertNotFoundException {
-        IExpectedPrimitiveHandler expPrimitive = new ExpectedPrimitiveHandler();
+    	IParameterScenarioHandler paramScenarioHandler = new ParameterScenarioHandler();
+    	IExpectedPrimitiveHandler expPrimitive = new ExpectedPrimitiveHandler();
         IExpectedParameterizedHandler expParameterized = new ExpectedParameterizedHandler();
 
-        ITestScenarioFileHandler handler = new TestScenarioFileHandler(expPrimitive, expParameterized);
+        ITestScenarioFileHandler handler = new TestScenarioFileHandler(paramScenarioHandler, expPrimitive, expParameterized);
 
         ArrayList<TestScenarioRun> testScenarioRuns = handler.processTestScenariosRun(dslModel.getTestScenariosPath());
         ArrayList<TestScenario> testScenarios = handler.processTestScenarios(testScenarioRuns, dslModel.getTestableUnits());

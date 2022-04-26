@@ -1,4 +1,4 @@
-package com.dsl.logic.gast.visitors;
+package com.dsl.logic.visitors;
 
 import ASTMCore.ASTMSemantics.AggregateScope;
 import ASTMCore.ASTMSemantics.ProgramScope;

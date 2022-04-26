@@ -1,4 +1,4 @@
-package com.dsl.logic.unittests;
+package com.dsl.logic.testableunits;
 
 import com.dsl.models.entities.aggregates.Function;
 import com.dsl.models.entities.modifiers.Modifier;
@@ -11,12 +11,10 @@ import org.springframework.stereotype.Component;
 public class TestableUnitHandler implements ITestableUnitHandler {
 
     private List<String> modifiers;
-    private List<String> restrictModifiers;
     private List<String> returns;
 
     public TestableUnitHandler(){
         initValidModifiers();
-        initRestrictedModifiers();
         initRestrictedReturns();
     }
 
@@ -24,11 +22,6 @@ public class TestableUnitHandler implements ITestableUnitHandler {
         modifiers = new ArrayList<>();
         modifiers.add("public");
         modifiers.add("protected");
-    }
-    
-    private void initRestrictedModifiers(){
-    	restrictModifiers = new ArrayList<>();
-    	restrictModifiers.add("abstract");
     }
 
     private void initRestrictedReturns(){
@@ -63,7 +56,7 @@ public class TestableUnitHandler implements ITestableUnitHandler {
 
     
     private boolean isTestableUnit(Function function){
-    	if (hasRestrictedModifier(function))
+    	if (isAbstract(function))
             return false;
         
     	if (!hasValidModifier(function))
@@ -76,13 +69,8 @@ public class TestableUnitHandler implements ITestableUnitHandler {
     }
     
     
-    private boolean hasRestrictedModifier(Function function) {
-    	for (Modifier modifier: function.getModifiers()){
-    		if(restrictModifiers.contains(modifier.getName()))
-    			return true;
-        }
-
-    	return false;
+    private boolean isAbstract(Function function) {
+    	return function.isAbstract();
     }
 
     

@@ -9,18 +9,23 @@ import com.dsl.models.entities.parameters.ParameterScenario;
 import com.dsl.models.entities.unittests.ExpectedResult;
 import com.dsl.models.entities.unittests.TestScenario;
 import com.dsl.models.entities.unittests.asserts.types.AssertType;
-import org.json.simple.JSONArray;
 
 import java.util.ArrayList;
-
+import org.json.simple.JSONArray;
 import org.springframework.stereotype.Component;
 
-@Component
-public class TestScenarioHandler extends TestScenarioHandlerBase implements ITestScenarioHandler {
 
-    public TestScenarioHandler(IExpectedPrimitiveHandler expectedPrimitiveHandler, IExpectedParameterizedHandler expectedParameterizedHandler){
-        super(expectedPrimitiveHandler, expectedParameterizedHandler);
+@Component
+public class TestScenarioHandler implements ITestScenarioHandler {
+
+	protected final IParameterScenarioHandler _parameterScenarioHandler;
+	protected final IExpectedResultHandler _expectedResultHandler;
+
+    public TestScenarioHandler(IParameterScenarioHandler paramScenarioHandler, IExpectedResultHandler expectedResultHandler){
+        this._parameterScenarioHandler = paramScenarioHandler;
+        this._expectedResultHandler = expectedResultHandler;
     }
+    
 
     @Override
     public TestScenario processTestScenario(UnitTestRequest request, ArrayList<Function> testableUnits) throws ValueTypeNotFoundException, AssertNotFoundException {
@@ -33,33 +38,26 @@ public class TestScenarioHandler extends TestScenarioHandlerBase implements ITes
 
         return testScenario;
     }
-
+    
+    
     protected TestScenario getTestScenario(UnitTestRequest request, Function function) throws AssertNotFoundException, ValueTypeNotFoundException {
         AssertType assertType = AssertsFactory.createAssertType(request.getAssert());
         
         JSONArray paramsArray = request.getParameters();
-        ArrayList<ParameterScenario> parameters = getParameterScenarios(paramsArray);
+        ArrayList<ParameterScenario> parameters = _parameterScenarioHandler.getParameterScenarios(paramsArray);
         
-        ExpectedResult expectedResult = null;
-
-        Object expected = request.getExpected();
+        ExpectedResult expectedResult = _expectedResultHandler.getExpectedResult(request);
         
-        if (expected instanceof JSONArray){
-            expectedResult = null;
-            //_expectedPrimitiveHandler.getExpected(e)
-        }else{
-            expectedResult = null;
-        }
-
-//        if (testScenarioRun instanceof TestScenarioParameterizedRun){
-//            ArrayList<ValueType> valueTypes = ((TestScenarioParameterizedRun) testScenarioRun).getExpected();
-//            expectedResult = ExpectedResultsFactory.createParameterizedExpectedResult(valueTypes);
-//        }else{
-//            TestScenarioPrimitiveRun primitiveRun = (TestScenarioPrimitiveRun) testScenarioRun;
-//            expectedResult = ExpectedResultsFactory.createPrimitiveExpectedResult(primitiveRun.getExpected());
-//        }
-
         return TestableUnitFactory.createTestScenario(request.getTestName(), function, parameters, expectedResult, assertType);
     }
-
+    
+    protected Function getFunction(String functionName, ArrayList<Function> testableUnits) {
+        for (Function function : testableUnits) {
+            if (function.getName().equals((functionName))){
+                return function;
+            }
+        }
+        return null;
+    }
+    
 }

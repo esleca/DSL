@@ -1,4 +1,4 @@
-package com.dsl.logic.gast.visitors;
+package com.dsl.logic.visitors;
 
 import com.dsl.exceptions.ModifierNotFoundException;
 import com.dsl.exceptions.ReturnNotFoundException;

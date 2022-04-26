@@ -4,11 +4,11 @@ import com.dsl.models.entities.valuetypes.ValueType;
 
 import java.util.ArrayList;
 
-public class ParameterizedExpectedResult extends ExpectedResult {
+public class ExpectedResultParameterized extends ExpectedResult {
 
     private ArrayList<ValueType> argumentTypes;
 
-    public ParameterizedExpectedResult(ArrayList<ValueType> argumentTypes){
+    public ExpectedResultParameterized(ArrayList<ValueType> argumentTypes){
         this.argumentTypes = argumentTypes;
     }
 

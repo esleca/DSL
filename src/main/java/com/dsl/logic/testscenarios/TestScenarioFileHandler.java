@@ -4,10 +4,13 @@ import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.factories.*;
 import com.dsl.models.entities.aggregates.Function;
+import com.dsl.models.entities.parameters.ParameterFunction;
 import com.dsl.models.entities.parameters.ParameterScenario;
 import com.dsl.models.entities.unittests.ExpectedResult;
 import com.dsl.models.entities.unittests.TestScenario;
 import com.dsl.models.entities.unittests.asserts.types.AssertType;
+import com.dsl.models.entities.valuetypes.ValueType;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -21,12 +24,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class TestScenarioFileHandler extends TestScenarioHandlerBase implements ITestScenarioFileHandler {
+public class TestScenarioFileHandler implements ITestScenarioFileHandler {
 
-    public TestScenarioFileHandler(IExpectedPrimitiveHandler expectedPrimitiveHandler, IExpectedParameterizedHandler expectedParameterizedHandler){
-        super(expectedPrimitiveHandler, expectedParameterizedHandler);
+	protected final IParameterScenarioHandler _parameterScenarioHandler;
+	protected final IExpectedPrimitiveHandler _expectedPrimitiveHandler;
+    protected final IExpectedParameterizedHandler _expectedParameterizedHandler;
+
+    public TestScenarioFileHandler(IParameterScenarioHandler paramScenarioHandler, IExpectedPrimitiveHandler expectedPrimitive, IExpectedParameterizedHandler expectedParameterized){
+        this._parameterScenarioHandler = paramScenarioHandler;
+    	this._expectedPrimitiveHandler = expectedPrimitive;
+        this._expectedParameterizedHandler = expectedParameterized;
     }
 
+    
     @Override
     public ArrayList<TestScenarioRun> processTestScenariosRun(String scenariosPath) {
         ArrayList<TestScenarioRun> testScenarios = new ArrayList<>();
@@ -65,7 +75,7 @@ public class TestScenarioFileHandler extends TestScenarioHandlerBase implements 
         String testName = (String) jsonObject.get("testName");
         String assertion = (String) jsonObject.get("assert");
         JSONArray paramsArray = (JSONArray)jsonObject.get("parameters");
-        ArrayList<ParameterScenario> parameterScenarios = getParameterScenarios(paramsArray);
+        ArrayList<ParameterScenario> parameterScenarios = _parameterScenarioHandler.getParameterScenarios(paramsArray);
 
         TestScenarioRun testScenarioRun;
         Object expected = jsonObject.get("expected");
@@ -98,5 +108,16 @@ public class TestScenarioFileHandler extends TestScenarioHandlerBase implements 
         return TestableUnitFactory.createTestScenario(testScenarioRun.getTestName(), function,
                 testScenarioRun.getParameters(), expectedResult, assertType);
     }
+
+
+    protected Function getFunction(String functionName, ArrayList<Function> testableUnits) {
+        for (Function function : testableUnits) {
+            if (function.getName().equals((functionName))){
+                return function;
+            }
+        }
+        return null;
+    }
+    
 
 }
