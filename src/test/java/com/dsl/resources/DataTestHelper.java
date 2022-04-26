@@ -9,7 +9,7 @@ import com.dsl.models.entities.returns.IntegerReturn;
 import com.dsl.models.entities.returns.Return;
 import com.dsl.models.entities.unittests.Declaration;
 import com.dsl.models.entities.unittests.ExpectedResult;
-import com.dsl.models.entities.unittests.PrimitiveExpectedResult;
+import com.dsl.models.entities.unittests.ExpectedResultPrimitive;
 import com.dsl.models.entities.unittests.TestScenario;
 import com.dsl.models.entities.unittests.acts.Act;
 import com.dsl.models.entities.unittests.acts.ActExecution;
@@ -70,15 +70,15 @@ public class DataTestHelper {
         function.setReturn(freturn);
         
         ArrayList<ParameterScenario> params = getParameterScenarios();
-        PrimitiveExpectedResult expected = getPrimitiveExpectedResult(); 
+        ExpectedResultPrimitive expected = getPrimitiveExpectedResult(); 
         AreEqual testAssert = getAreEqualAssert();
         
         return new TestScenario(function.getName(), function, params, expected, testAssert);
     }
     
-    public static PrimitiveExpectedResult getPrimitiveExpectedResult() {
+    public static ExpectedResultPrimitive getPrimitiveExpectedResult() {
     	ValueType valueType = getValueType();
-		return new PrimitiveExpectedResult(valueType);
+		return new ExpectedResultPrimitive(valueType);
     }
     
     public static ArrayList<ArrangeStatement> getArrangeStatements(){
