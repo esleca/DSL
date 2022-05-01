@@ -5,7 +5,8 @@ import com.dsl.models.aggregates.Class;
 import com.dsl.models.aggregates.Function;
 import com.dsl.models.unittests.TestScenario;
 import com.dsl.models.unittests.UnitTest;
-import testrun.config.ConfigurationTestRun;
+import com.dsl.testrun.config.ConfigurationTestRun;
+
 import java.util.ArrayList;
 
 public class GestorModel{

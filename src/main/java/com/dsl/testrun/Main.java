@@ -34,6 +34,9 @@ public class Main {
         // Write unit tests to GAST
         dsl.processCompilationUnitsTests();
         
+        // Generate code 
+        dsl.generateCode();
+        
         System.out.println("Closing DSL...");
     }
 

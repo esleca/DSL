@@ -2,11 +2,12 @@ package com.dsl.logic.configfiles;
 
 import gastmappers.Language;
 import gastmappers.exceptions.UnsupportedLanguageException;
+import com.dsl.testrun.config.ConfigurationTestRun;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import testrun.config.ConfigurationTestRun;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -50,11 +51,12 @@ public class TestRunHandler implements ITestRunHandler {
     private ConfigurationTestRun getConfigurationTestRun(JSONObject configurationObject) throws UnsupportedLanguageException {
         String inputDirectory = (String) configurationObject.get("inputDirectory");
         String outputDirectory = (String) configurationObject.get("outputDirectory");
+        String outputCodeDirectory = (String) configurationObject.get("outputCodeDirectory");
         String sourceLanguageRaw = (String) configurationObject.get("sourceLanguage");
         Language sourceLanguage = Language.getLanguageFromString(sourceLanguageRaw);
         boolean validateMap = (boolean) configurationObject.get("validateMap");
         boolean semantic = (boolean) configurationObject.get("semantic");
 
-        return new ConfigurationTestRun(inputDirectory, outputDirectory, sourceLanguage, validateMap, semantic);
+        return new ConfigurationTestRun(inputDirectory, outputDirectory, outputCodeDirectory, sourceLanguage, validateMap, semantic);
     }
 }

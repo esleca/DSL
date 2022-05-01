@@ -1,0 +1,205 @@
+
+GAST FUNCTIONS STRUCTURE FOR MAPPING FROM DSL
+
+***************************************************
+
+
+
+
+RETURNS
+------------------------------------------------
+#1) string function();
+
+returnType = NamedTypeReference
+	typeName = Name
+		nameString = "String"
+		
+------------------------------------------------	
+#2) olResponse function();
+
+returnType = NamedTypeReference
+	typeName = Name
+		nameString = "olResponse"
+		
+------------------------------------------------
+#3) ArrayList<Integer> function();
+
+returnType = NamedTypeReference
+	typeName = Name
+		nameString = "Parameterized"
+		
+	dataType = ParameterizedType
+		type = NamedTypeReference
+			typeName = Name
+				nameString = "ArrayList"
+		Arguments = ArrayList
+			[0] = NamedTypeReference
+				typeName = Name
+					nameString = "Integer"
+				
+**************************************************
+**************************************************
+**************************************************
+
+
+
+
+
+PARAMETERS
+------------------------------------------------
+1#)  function(String nombre);
+
+formalParameters = ArrayList
+	[0] = FormalParameterDefinition
+		identifierName = Name
+			nameString = "nombre"
+		
+		definitionType = NamedTypeReference
+			typeName = Name
+				nameString = "String"
+		
+------------------------------------------------
+2#)  function(olOrder inOrder);
+
+formalParameters = ArrayList
+	[0] = FormalParameterDefinition
+		identifierName = Name
+			nameString = "inOrder"
+
+		definitionType = NamedTypeReference
+			typeName = Name
+				nameString = "olOrder"
+
+------------------------------------------------
+3#)  function(ArrayList<Integer> parameters);
+
+formalParameters = ArrayList
+	[0] = FormalParameterDefinition
+		identifierName = Name
+			nameString = "parameters"
+		
+		definitionType = NamedTypeReference
+			typeName = Name
+				nameString = "Parameterized"
+			
+			dataType = ParameterizedType
+				type = NamedTypeReference
+					typeName = Name
+						nameString = "ArrayList"
+				Arguments = ArrayList
+					[0] = NamedTypeReference
+						typeName = Name
+							nameString = "Integer"
+
+
+**************************************************
+**************************************************
+**************************************************
+
+
+
+
+BODY
+------------------------------------------------
+1#)  areEquals(expected, result);
+
+body.subStatements = ArrayList
+	[0] = ExpressionStatement
+		expression = FunctionCallExpression
+			actualparams = ArrayList
+				[0] = ActualParameterExpression
+					value = IdentifierReference
+						identifierName = Name
+							nameString = "expected"
+							
+				[1] = ActualParameterExpression
+					value = IdentifierReference
+						identifierName = Name
+							nameString = "result"
+			
+			functionName = Name
+				nameString = "areEquals"
+				
+------------------------------------------------
+#2)  assertTrue(boolParam);
+
+body.subStatements = ArrayList
+	[0] = ExpressionStatement
+		expression = FunctionCallExpression
+			actualparams = ArrayList
+				[0] = ActualParameterExpression
+					value = IdentifierReference
+						identifierName = Name
+							nameString = "boolParam"
+
+			functionName = Name
+				nameString = "assertTrue"
+				
+------------------------------------------------
+#3)  Assert.IsTrue(boolParam);
+
+body.subStatements = ArrayList
+	[0] = ExpressionStatement
+		expression = FunctionCallExpression
+			actualparams = ArrayList
+				[0] = ActualParameterExpression
+					value = IdentifierReference
+						identifierName = Name
+							nameString = "boolParam"
+							
+			calledFunction = IdentifierReference
+				identifierName = Name
+					nameString = "Assert"
+					
+			functionName = Name
+				nameString = "IsTrue"
+				
+------------------------------------------------
+#4)  areEquals(5, list.size());
+
+body.subStatements = ArrayList
+	[0] = ExpressionStatement
+		expression = FunctionCallExpression
+			actualparams = ArrayList
+				[0] = ActualParameterExpression
+					value = RealLiteral
+						value = "5"
+						
+				[1] = ActualParameterExpression
+					value = FunctionCallExpression
+						calledFunction = IdentifierReference
+							identifierName = Name
+								nameString = "list"
+								
+						functionName = Name
+							nameString = "size"
+				
+			functionName = Name
+				nameString = "areEquals"
+				
+
+------------------------------------------------
+#5)  isTrue(list.size() == 3);
+
+body.subStatements = ArrayList
+	[0] = ExpressionStatement
+		expression = FunctionCallExpression
+			actualparams = ArrayList
+				[0] = ActualParameterExpression
+					value = BinaryExpression
+						leftOperand = FunctionCallExpression
+						
+						operator = Equal
+							simbolo = "equal"
+						
+						rightOperand = RealLiteral
+							value = "3"	
+						
+			functionName = Name
+				nameString = "isTrue"
+				
+				
+
+**************************************************
+**************************************************
+**************************************************

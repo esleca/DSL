@@ -1,8 +1,7 @@
 package com.dsl.logic.configfiles;
 
 import gastmappers.exceptions.UnsupportedLanguageException;
-import testrun.config.ConfigurationTestRun;
-
+import com.dsl.testrun.config.ConfigurationTestRun;
 import java.util.ArrayList;
 
 public interface ITestRunHandler {

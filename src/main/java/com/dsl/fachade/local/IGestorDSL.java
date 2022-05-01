@@ -21,4 +21,6 @@ public interface IGestorDSL {
     void processUnitTests() throws AssertNotFoundException;
 
     void processCompilationUnitsTests();
+    
+    void generateCode();
 }

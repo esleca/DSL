@@ -69,13 +69,14 @@ public class TestScenarioHandlerTests {
     
     private static UnitTestRequest createUnitTestRequest() {
         String classPath = "C:\\TestMapper\\JAVA\\Input\\Clase_Prueba.java";
+        String outputPath = "C:\\TestPrinter\\JAVA\\Output";
         String language = "JAVA";
         String function = "saludar";
         String testName = "test_saludar_valid";
         String expected = "Hola Esteban";
         String assertion = "areEqual";
         JSONArray parameters = getParameters();
-        return new UnitTestRequest(classPath, language, function, testName, parameters, expected, assertion);
+        return new UnitTestRequest(classPath, outputPath, language, function, testName, parameters, expected, assertion);
     }
 
     private static JSONArray getParameters() {

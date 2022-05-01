@@ -10,11 +10,13 @@ import ASTMCore.ASTMSyntax.Statement.DeclarationOrDefinitionStatement;
 import ASTMCore.ASTMSyntax.Statement.ExpressionStatement;
 import ASTMCore.ASTMSyntax.Statement.Statement;
 import ASTMCore.ASTMSyntax.Types.ClassType;
+import ASTMCore.ASTMSyntax.Types.ImplementsTo;
 import ASTMCore.ASTMSyntax.Types.NamedTypeReference;
+import ASTMCore.ASTMSyntax.Types.TypeParameter;
 import ASTMCore.ASTMSyntax.Types.TypeReference;
 
 import com.dsl.fachade.models.DSLModel;
-import com.dsl.factories.gastfactories.GastFactory;
+import com.dsl.factories.GastFactory;
 import com.dsl.models.aggregates.Package;
 import com.dsl.models.imports.Import;
 import com.dsl.models.unittests.FunctionArgument;
@@ -121,6 +123,8 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         classType.setPackageName(packageName);
         classType.setModifiers(modifiers);
         classType.setOpensScope(aggregateScope);
+        classType.setParameters(new ArrayList<TypeParameter>());
+        classType.setImplementesTo(new ArrayList<ImplementsTo>());
 
         return classType;
     }

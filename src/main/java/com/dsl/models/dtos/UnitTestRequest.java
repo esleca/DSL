@@ -6,15 +6,17 @@ public class UnitTestRequest {
 
     private String classPath; // required by mapper
     private String language;  // required by mapper
-    private String function;
+    private String outputPath; // required by printer
+	private String function;
     private String testName;
     private JSONArray parameters;
     private String expected; //check
     private String assertion;
 
-    public UnitTestRequest(String classPath, String language, String function, String testName,
+    public UnitTestRequest(String classPath, String outputPath, String language, String function, String testName,
                            JSONArray parameters, String expected, String assertion) {
         this.classPath = classPath;
+        this.outputPath = outputPath;
         this.language = language;
         this.function = function;
         this.testName = testName;
@@ -26,6 +28,10 @@ public class UnitTestRequest {
     public String getClassPath() {
         return classPath;
     }
+
+	public String getOutputPath() {
+		return outputPath;
+	}
 
     public String getLanguage() {
         return language;

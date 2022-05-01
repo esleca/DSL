@@ -56,6 +56,8 @@ public class Constants {
     public final static String SYSTEM_UNDER_TEST = "sut";
 
     public final static String LANGUAGE_JAVA = "JAVA";
+    public final static String LANGUAGE_CSHARP = "CSHARP";
+    public final static String LANGUAGE_PYTHON = "PYTHON";
 
     public final static String ARRAY_LIST = "ArrayList";
     public final static String LIST = "List";

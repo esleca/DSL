@@ -5,10 +5,12 @@ import gastmappers.Language;
 import gastmappers.Mapper;
 import gastmappers.MapperFactory;
 import gastmappers.exceptions.UnsupportedLanguageException;
-import org.apache.commons.io.FilenameUtils;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class CompilationUnitHandler implements ICompilationUnitHandler {
@@ -27,26 +29,12 @@ public class CompilationUnitHandler implements ICompilationUnitHandler {
     }
 
     
-    /**
-     * Create the compilation unit structure based
-     * on the input path
-     *
-     * @param classPath
-     * @return
-     * @throws IOException
-     * @throws UnsupportedLanguageException
-     */
     @Override
     public ArrayList<CompilationUnit> createCompilationUnits(String classPath) throws IOException, UnsupportedLanguageException {
     	ArrayList<CompilationUnit> compilationUnits = new ArrayList<>();
-    	try	{
-            if (FilenameUtils.getExtension(classPath).equals(Language.getFileExtension(language))) {
-            	compilationUnits = mapper.getGastCompilationUnit(classPath);
-            }
-            return compilationUnits;
-    	}catch(Exception ex) {
-    		return compilationUnits;
-    	}
+    	if (FilenameUtils.getExtension(classPath).equals(Language.getFileExtension(language))) {
+        	compilationUnits = mapper.getGastCompilationUnit(classPath);
+        }
+        return compilationUnits;
     }
-
 }

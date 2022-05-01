@@ -17,7 +17,7 @@
 			"type": "boolean",
 			"value": "true"
 		},
-        "assert": "IsTrue"
+        "assert": "isTrue"
 	},
 	{
 		"function": "saludar",

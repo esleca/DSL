@@ -1,4 +1,4 @@
-package com.dsl.factories.gastfactories;
+package com.dsl.factories;
 
 import ASTMCore.ASTMSource.CompilationUnit;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.Name;

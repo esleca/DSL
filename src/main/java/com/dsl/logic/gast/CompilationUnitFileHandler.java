@@ -1,13 +1,14 @@
 package com.dsl.logic.gast;
 
 import ASTMCore.ASTMSource.CompilationUnit;
+
+import com.dsl.testrun.config.ConfigurationTestRun;
 import com.google.gson.Gson;
 import gastmappers.Language;
 import gastmappers.Mapper;
 import gastmappers.MapperFactory;
 import gastmappers.exceptions.UnsupportedLanguageException;
 import org.apache.commons.io.FilenameUtils;
-import testrun.config.ConfigurationTestRun;
 
 import java.io.File;
 import java.io.IOException;
