@@ -1,6 +1,6 @@
 package com.dsl.services;
 
-import com.dsl.models.entities.unittests.UnitTest;
+import com.dsl.models.unittests.UnitTest;
 import java.util.List;
 import org.springframework.stereotype.Component;
 

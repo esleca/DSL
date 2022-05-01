@@ -1,12 +1,12 @@
 package com.dsl.logic.unittests;
 
 import com.dsl.factories.UnitTestFactory;
-import com.dsl.models.entities.parameters.ParameterScenario;
-import com.dsl.models.entities.unittests.*;
-import com.dsl.models.entities.unittests.arranges.Arrange;
-import com.dsl.models.entities.unittests.arranges.ArrangeStatement;
-import com.dsl.models.entities.unittests.Declaration;
-import com.dsl.models.entities.unittests.arranges.ArrangeDefinition;
+import com.dsl.models.parameters.ParameterScenario;
+import com.dsl.models.unittests.*;
+import com.dsl.models.unittests.arranges.Arrange;
+import com.dsl.models.unittests.arranges.ArrangeStatement;
+import com.dsl.models.unittests.Declaration;
+import com.dsl.models.unittests.arranges.ArrangeDefinition;
 
 import java.util.ArrayList;
 import org.springframework.stereotype.Component;

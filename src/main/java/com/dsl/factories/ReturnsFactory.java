@@ -1,7 +1,7 @@
 package com.dsl.factories;
 
 import com.dsl.exceptions.ReturnNotFoundException;
-import com.dsl.models.entities.returns.*;
+import com.dsl.models.returns.*;
 import static com.dsl.utils.Constants.*;
 
 public class ReturnsFactory {

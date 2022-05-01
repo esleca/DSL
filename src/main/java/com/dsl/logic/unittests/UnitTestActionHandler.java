@@ -1,12 +1,12 @@
 package com.dsl.logic.unittests;
 
 import com.dsl.factories.UnitTestFactory;
-import com.dsl.models.entities.aggregates.Function;
-import com.dsl.models.entities.parameters.ParameterScenario;
-import com.dsl.models.entities.unittests.Declaration;
-import com.dsl.models.entities.unittests.FunctionArgument;
-import com.dsl.models.entities.unittests.acts.*;
-import com.dsl.models.entities.unittests.TestScenario;
+import com.dsl.models.aggregates.Function;
+import com.dsl.models.parameters.ParameterScenario;
+import com.dsl.models.unittests.Declaration;
+import com.dsl.models.unittests.FunctionArgument;
+import com.dsl.models.unittests.acts.*;
+import com.dsl.models.unittests.TestScenario;
 import java.util.ArrayList;
 
 import static com.dsl.utils.Constants.ACT_RESULT_NAME;

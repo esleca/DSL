@@ -1,6 +1,6 @@
 package com.dsl.fachade;
 
-import com.dsl.models.entities.unittests.UnitTest;
+import com.dsl.models.unittests.UnitTest;
 
 import java.util.List;
 

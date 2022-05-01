@@ -2,10 +2,10 @@ package com.dsl.logic.unittests;
 
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.factories.UnitTestFactory;
-import com.dsl.models.entities.unittests.*;
-import com.dsl.models.entities.unittests.acts.Act;
-import com.dsl.models.entities.unittests.arranges.Arrange;
-import com.dsl.models.entities.unittests.asserts.Assert;
+import com.dsl.models.unittests.*;
+import com.dsl.models.unittests.acts.Act;
+import com.dsl.models.unittests.arranges.Arrange;
+import com.dsl.models.unittests.asserts.Assert;
 
 import java.util.ArrayList;
 import org.springframework.stereotype.Component;

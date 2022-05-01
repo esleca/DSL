@@ -1,6 +1,6 @@
 package com.dsl.utils;
 
-import com.dsl.models.entities.unittests.UnitTest;
+import com.dsl.models.unittests.UnitTest;
 
 public interface IPrinter {
 

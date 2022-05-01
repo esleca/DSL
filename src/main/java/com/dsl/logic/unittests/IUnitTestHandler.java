@@ -1,8 +1,8 @@
 package com.dsl.logic.unittests;
 
 import com.dsl.exceptions.AssertNotFoundException;
-import com.dsl.models.entities.unittests.TestScenario;
-import com.dsl.models.entities.unittests.UnitTest;
+import com.dsl.models.unittests.TestScenario;
+import com.dsl.models.unittests.UnitTest;
 
 import java.util.ArrayList;
 

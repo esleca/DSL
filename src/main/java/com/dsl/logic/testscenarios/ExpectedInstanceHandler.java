@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.factories.ValueTypeFactory;
-import com.dsl.models.entities.valuetypes.ValueType;
+import com.dsl.models.valuetypes.ValueType;
 
 public class ExpectedInstanceHandler implements IExpectedInstanceHandler {
 

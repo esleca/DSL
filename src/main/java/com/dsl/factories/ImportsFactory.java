@@ -1,6 +1,6 @@
 package com.dsl.factories;
 
-import com.dsl.models.entities.imports.Import;
+import com.dsl.models.imports.Import;
 
 public class ImportsFactory {
 

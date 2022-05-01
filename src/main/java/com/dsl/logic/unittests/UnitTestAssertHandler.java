@@ -3,11 +3,11 @@ package com.dsl.logic.unittests;
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.factories.AssertsFactory;
 import com.dsl.factories.UnitTestFactory;
-import com.dsl.models.entities.unittests.asserts.Assert;
-import com.dsl.models.entities.unittests.TestScenario;
-import com.dsl.models.entities.unittests.asserts.AssertExpression;
-import com.dsl.models.entities.unittests.FunctionArgument;
-import com.dsl.models.entities.unittests.asserts.types.AssertType;
+import com.dsl.models.unittests.asserts.Assert;
+import com.dsl.models.unittests.TestScenario;
+import com.dsl.models.unittests.asserts.AssertExpression;
+import com.dsl.models.unittests.FunctionArgument;
+import com.dsl.models.unittests.asserts.types.AssertType;
 import java.util.ArrayList;
 
 import static com.dsl.utils.Constants.ASSERT_CLASS;

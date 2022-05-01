@@ -8,9 +8,9 @@ import org.springframework.stereotype.Component;
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.factories.ParametersFactory;
 import com.dsl.factories.ValueTypeFactory;
-import com.dsl.models.entities.parameters.ParameterFunction;
-import com.dsl.models.entities.parameters.ParameterScenario;
-import com.dsl.models.entities.valuetypes.ValueType;
+import com.dsl.models.parameters.ParameterFunction;
+import com.dsl.models.parameters.ParameterScenario;
+import com.dsl.models.valuetypes.ValueType;
 
 
 @Component

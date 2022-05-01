@@ -1,7 +1,7 @@
 package com.dsl.logic.unittests;
 
-import com.dsl.models.entities.unittests.acts.Act;
-import com.dsl.models.entities.unittests.TestScenario;
+import com.dsl.models.unittests.acts.Act;
+import com.dsl.models.unittests.TestScenario;
 
 public interface IUnitTestActionHandler {
 

@@ -4,13 +4,13 @@ import com.dsl.exceptions.ModifierNotFoundException;
 import com.dsl.exceptions.ReturnNotFoundException;
 import com.dsl.factories.*;
 
-import com.dsl.models.entities.aggregates.Class;
-import com.dsl.models.entities.aggregates.Function;
-import com.dsl.models.entities.aggregates.Package;
-import com.dsl.models.entities.imports.Import;
-import com.dsl.models.entities.parameters.ParameterFunction;
-import com.dsl.models.entities.returns.ParameterDataType;
-import com.dsl.models.entities.returns.Return;
+import com.dsl.models.aggregates.Class;
+import com.dsl.models.aggregates.Function;
+import com.dsl.models.aggregates.Package;
+import com.dsl.models.imports.Import;
+import com.dsl.models.parameters.ParameterFunction;
+import com.dsl.models.returns.ParameterDataType;
+import com.dsl.models.returns.Return;
 
 import java.util.ArrayList;
 

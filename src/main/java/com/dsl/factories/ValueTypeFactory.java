@@ -1,7 +1,7 @@
 package com.dsl.factories;
 
 import com.dsl.exceptions.ValueTypeNotFoundException;
-import com.dsl.models.entities.valuetypes.*;
+import com.dsl.models.valuetypes.*;
 
 import static com.dsl.utils.Constants.*;
 

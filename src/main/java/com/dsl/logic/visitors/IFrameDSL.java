@@ -2,7 +2,7 @@ package com.dsl.logic.visitors;
 
 import com.dsl.exceptions.ModifierNotFoundException;
 import com.dsl.exceptions.ReturnNotFoundException;
-import com.dsl.models.entities.aggregates.Class;
+import com.dsl.models.aggregates.Class;
 
 import java.util.ArrayList;
 

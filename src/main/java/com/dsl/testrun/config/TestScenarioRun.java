@@ -1,6 +1,6 @@
 package com.dsl.testrun.config;
 
-import com.dsl.models.entities.parameters.ParameterScenario;
+import com.dsl.models.parameters.ParameterScenario;
 import java.util.ArrayList;
 
 public abstract class TestScenarioRun {

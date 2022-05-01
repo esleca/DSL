@@ -1,7 +1,7 @@
 package com.dsl.factories;
 
 import com.dsl.exceptions.ModifierNotFoundException;
-import com.dsl.models.entities.modifiers.*;
+import com.dsl.models.modifiers.*;
 
 import static com.dsl.utils.Constants.*;
 

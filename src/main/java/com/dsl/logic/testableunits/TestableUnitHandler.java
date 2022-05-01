@@ -1,7 +1,7 @@
 package com.dsl.logic.testableunits;
 
-import com.dsl.models.entities.aggregates.Function;
-import com.dsl.models.entities.modifiers.Modifier;
+import com.dsl.models.aggregates.Function;
+import com.dsl.models.modifiers.Modifier;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -2,8 +2,8 @@ package com.dsl.logic.testscenarios;
 
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;
-import com.dsl.models.entities.aggregates.Function;
-import com.dsl.models.entities.unittests.TestScenario;
+import com.dsl.models.aggregates.Function;
+import com.dsl.models.unittests.TestScenario;
 import com.dsl.testrun.config.TestScenarioRun;
 
 import java.util.ArrayList;

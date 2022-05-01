@@ -1,8 +1,8 @@
 package com.dsl.factories;
 
-import com.dsl.models.entities.aggregates.Class;
-import com.dsl.models.entities.aggregates.Function;
-import com.dsl.models.entities.aggregates.Package;
+import com.dsl.models.aggregates.Class;
+import com.dsl.models.aggregates.Function;
+import com.dsl.models.aggregates.Package;
 
 public class AggregatesFactory {
 

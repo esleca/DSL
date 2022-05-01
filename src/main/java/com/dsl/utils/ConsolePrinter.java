@@ -1,12 +1,12 @@
 package com.dsl.utils;
 
-import com.dsl.models.entities.aggregates.Function;
-import com.dsl.models.entities.unittests.*;
-import com.dsl.models.entities.unittests.acts.*;
-import com.dsl.models.entities.unittests.arranges.ArrangeStatement;
-import com.dsl.models.entities.unittests.asserts.AssertExpression;
-import com.dsl.models.entities.unittests.asserts.types.AssertType;
-import com.dsl.models.entities.unittests.asserts.types.AssertTypePair;
+import com.dsl.models.aggregates.Function;
+import com.dsl.models.unittests.*;
+import com.dsl.models.unittests.acts.*;
+import com.dsl.models.unittests.arranges.ArrangeStatement;
+import com.dsl.models.unittests.asserts.AssertExpression;
+import com.dsl.models.unittests.asserts.types.AssertType;
+import com.dsl.models.unittests.asserts.types.AssertTypePair;
 
 import java.util.ArrayList;
 

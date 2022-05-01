@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import org.json.simple.JSONArray;
 
 import com.dsl.exceptions.ValueTypeNotFoundException;
-import com.dsl.models.entities.parameters.ParameterScenario;
+import com.dsl.models.parameters.ParameterScenario;
 
 public interface IParameterScenarioHandler {
 

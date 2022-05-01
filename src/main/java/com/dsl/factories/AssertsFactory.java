@@ -1,7 +1,7 @@
 package com.dsl.factories;
 
 import com.dsl.exceptions.AssertNotFoundException;
-import com.dsl.models.entities.unittests.asserts.types.*;
+import com.dsl.models.unittests.asserts.types.*;
 
 import static com.dsl.utils.Constants.*;
 

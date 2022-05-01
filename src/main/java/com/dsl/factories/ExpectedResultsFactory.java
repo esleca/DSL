@@ -1,9 +1,9 @@
 package com.dsl.factories;
 
-import com.dsl.models.entities.unittests.ExpectedResult;
-import com.dsl.models.entities.unittests.ExpectedResultParameterized;
-import com.dsl.models.entities.unittests.ExpectedResultPrimitive;
-import com.dsl.models.entities.valuetypes.ValueType;
+import com.dsl.models.unittests.ExpectedResult;
+import com.dsl.models.unittests.ExpectedResultParameterized;
+import com.dsl.models.unittests.ExpectedResultPrimitive;
+import com.dsl.models.valuetypes.ValueType;
 
 import java.util.ArrayList;
 

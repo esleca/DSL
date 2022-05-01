@@ -1,8 +1,8 @@
 package com.dsl.factories;
 
-import com.dsl.models.entities.parameters.ParameterFunction;
-import com.dsl.models.entities.parameters.ParameterScenario;
-import com.dsl.models.entities.valuetypes.ValueType;
+import com.dsl.models.parameters.ParameterFunction;
+import com.dsl.models.parameters.ParameterScenario;
+import com.dsl.models.valuetypes.ValueType;
 
 public class ParametersFactory {
 

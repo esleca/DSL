@@ -1,8 +1,8 @@
 package com.dsl.logic.unittests;
 
 import com.dsl.exceptions.AssertNotFoundException;
-import com.dsl.models.entities.unittests.asserts.Assert;
-import com.dsl.models.entities.unittests.TestScenario;
+import com.dsl.models.unittests.asserts.Assert;
+import com.dsl.models.unittests.TestScenario;
 
 public interface IUnitTestAssertHandler {
 

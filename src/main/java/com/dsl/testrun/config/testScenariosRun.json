@@ -10,6 +10,16 @@
         "assert": "areEqual"
 	},
 	{
+		"function": "returnBoolean",
+		"testName": "returnBoolean_test1",
+		"parameters": [],
+		"expected": {
+			"type": "boolean",
+			"value": "true"
+		},
+        "assert": "IsTrue"
+	},
+	{
 		"function": "saludar",
 		"testName": "saludar_test1",
 		"parameters": [
@@ -32,17 +42,17 @@
 			{
                 "name": "aNo",
                 "type": "int",
-                "value": 2019
+                "value": "2019"
             }
 		],
 		"expected": [
 			{
 				"type": "int",
-				"value": 1
+				"value": "1"
 			},
 			{
 				"type": "int",
-				"value": 2
+				"value": "2"
 			}
 		],
         "assert": "areEqual"
@@ -54,12 +64,12 @@
 			{
                 "name": "aNo",
                 "type": "int",
-                "value": 1990
+                "value": "1990"
             }
 		],
 		"expected": {
 			"type": "int",
-			"value": 31
+			"value": "31"
 		},
         "assert": "areEqual"
 	}

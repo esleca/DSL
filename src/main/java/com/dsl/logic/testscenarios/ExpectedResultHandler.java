@@ -3,7 +3,7 @@ package com.dsl.logic.testscenarios;
 import org.springframework.stereotype.Component;
 
 import com.dsl.models.dtos.UnitTestRequest;
-import com.dsl.models.entities.unittests.ExpectedResult;
+import com.dsl.models.unittests.ExpectedResult;
 
 
 @Component

@@ -2,7 +2,7 @@ package com.dsl.logic.testscenarios;
 
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.factories.ValueTypeFactory;
-import com.dsl.models.entities.valuetypes.ValueType;
+import com.dsl.models.valuetypes.ValueType;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

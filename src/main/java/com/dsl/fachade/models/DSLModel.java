@@ -1,10 +1,10 @@
 package com.dsl.fachade.models;
 
 import ASTMCore.ASTMSource.CompilationUnit;
-import com.dsl.models.entities.aggregates.Class;
-import com.dsl.models.entities.aggregates.Function;
-import com.dsl.models.entities.unittests.TestScenario;
-import com.dsl.models.entities.unittests.UnitTest;
+import com.dsl.models.aggregates.Class;
+import com.dsl.models.aggregates.Function;
+import com.dsl.models.unittests.TestScenario;
+import com.dsl.models.unittests.UnitTest;
 
 import java.util.ArrayList;
 

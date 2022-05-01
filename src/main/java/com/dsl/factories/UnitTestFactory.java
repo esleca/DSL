@@ -1,14 +1,14 @@
 package com.dsl.factories;
 
-import com.dsl.models.entities.unittests.*;
-import com.dsl.models.entities.unittests.acts.*;
-import com.dsl.models.entities.unittests.arranges.Arrange;
-import com.dsl.models.entities.unittests.arranges.ArrangeStatement;
-import com.dsl.models.entities.unittests.arranges.ArrangeDefinition;
-import com.dsl.models.entities.unittests.asserts.Assert;
-import com.dsl.models.entities.unittests.asserts.AssertExpression;
-import com.dsl.models.entities.unittests.asserts.types.AssertType;
-import com.dsl.models.entities.valuetypes.ValueType;
+import com.dsl.models.unittests.*;
+import com.dsl.models.unittests.acts.*;
+import com.dsl.models.unittests.arranges.Arrange;
+import com.dsl.models.unittests.arranges.ArrangeStatement;
+import com.dsl.models.unittests.arranges.ArrangeDefinition;
+import com.dsl.models.unittests.asserts.Assert;
+import com.dsl.models.unittests.asserts.AssertExpression;
+import com.dsl.models.unittests.asserts.types.AssertType;
+import com.dsl.models.valuetypes.ValueType;
 
 import java.util.ArrayList;
 

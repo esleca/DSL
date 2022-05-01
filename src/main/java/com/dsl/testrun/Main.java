@@ -1,25 +1,18 @@
 package com.dsl.testrun;
 
-import com.dsl.exceptions.AssertNotFoundException;
-import com.dsl.exceptions.ValueTypeNotFoundException;
-import gastmappers.exceptions.UnsupportedLanguageException;
 import com.dsl.fachade.local.GestorDSL;
 import com.dsl.fachade.local.IGestorDSL;
 import com.dsl.utils.ConsolePrinter;
 import com.dsl.utils.IPrinter;
-
-import java.awt.*;
-import java.io.IOException;
 
 public class Main {
 
     private static IPrinter printer = new ConsolePrinter();
     private final static IGestorDSL dsl = new GestorDSL(printer);
 
-    public static void main(String[] args)
-            throws HeadlessException, IllegalArgumentException, SecurityException, IOException,
-            UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException
-    {
+    public static void main(String[] args) throws Exception {
+    	System.out.println("Starting DSL...");
+    	
         // read source code files
         dsl.readConfigurationFile();
 
@@ -40,6 +33,8 @@ public class Main {
 
         // Write unit tests to GAST
         dsl.processCompilationUnitsTests();
+        
+        System.out.println("Closing DSL...");
     }
 
 }

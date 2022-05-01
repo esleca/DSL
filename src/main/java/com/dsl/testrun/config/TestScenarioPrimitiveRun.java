@@ -1,7 +1,7 @@
 package com.dsl.testrun.config;
 
-import com.dsl.models.entities.parameters.ParameterScenario;
-import com.dsl.models.entities.valuetypes.ValueType;
+import com.dsl.models.parameters.ParameterScenario;
+import com.dsl.models.valuetypes.ValueType;
 
 import java.util.ArrayList;
 

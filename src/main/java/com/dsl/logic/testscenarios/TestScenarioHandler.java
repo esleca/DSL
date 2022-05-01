@@ -4,11 +4,11 @@ import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.factories.*;
 import com.dsl.models.dtos.UnitTestRequest;
-import com.dsl.models.entities.aggregates.Function;
-import com.dsl.models.entities.parameters.ParameterScenario;
-import com.dsl.models.entities.unittests.ExpectedResult;
-import com.dsl.models.entities.unittests.TestScenario;
-import com.dsl.models.entities.unittests.asserts.types.AssertType;
+import com.dsl.models.aggregates.Function;
+import com.dsl.models.parameters.ParameterScenario;
+import com.dsl.models.unittests.ExpectedResult;
+import com.dsl.models.unittests.TestScenario;
+import com.dsl.models.unittests.asserts.types.AssertType;
 
 import java.util.ArrayList;
 import org.json.simple.JSONArray;

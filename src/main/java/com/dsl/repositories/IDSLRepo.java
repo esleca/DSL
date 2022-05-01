@@ -1,7 +1,7 @@
 package com.dsl.repositories;
 
 import com.dsl.models.dtos.UnitTestRequest;
-import com.dsl.models.entities.unittests.UnitTest;
+import com.dsl.models.unittests.UnitTest;
 
 public interface IDSLRepo {
 
