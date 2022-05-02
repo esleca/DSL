@@ -6,7 +6,7 @@ import ASTMCore.ASTMSyntax.DeclarationAndDefinition.NameSpaceDefinition;
 
 public class GastFactory {
 
-    public static CompilationUnit getCompilationUnit(){
+    public static CompilationUnit createCompilationUnit(){
         return new CompilationUnit();
     }
 

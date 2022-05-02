@@ -17,6 +17,7 @@ import ASTMCore.ASTMSyntax.Types.TypeReference;
 
 import com.dsl.fachade.models.DSLModel;
 import com.dsl.factories.GastFactory;
+import com.dsl.factories.LiteralsFactory;
 import com.dsl.models.aggregates.Package;
 import com.dsl.models.imports.Import;
 import com.dsl.models.unittests.FunctionArgument;
@@ -40,7 +41,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     public ArrayList<CompilationUnit> processCompilationUnitTests(DSLModel model) {
         ArrayList<CompilationUnit> compilationUnitTests = new ArrayList<>();
 
-        CompilationUnit compilationUnit = GastFactory.getCompilationUnit();
+        CompilationUnit compilationUnit = GastFactory.createCompilationUnit();
 
         processCompilationUnitPackage(compilationUnit, model);
         processCompilationUnitImports(compilationUnit, model); //TODO: IMPORTS
@@ -280,9 +281,10 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Literal getFragmentExpression(ArrangeStatement arrangeStatement){
-        ValueType value = arrangeStatement.getDefinition().getValueType();
+    	ValueType value = arrangeStatement.getDefinition().getValueType();
+    	String valueType = arrangeStatement.getDeclaration().getType();
 
-        Literal expression = new Literal();
+        Literal expression = LiteralsFactory.createLiteralExpression(valueType);
         expression.setValue(value.getValue().toString());
 
         return expression;

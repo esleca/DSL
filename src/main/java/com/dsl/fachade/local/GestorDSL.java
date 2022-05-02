@@ -3,14 +3,14 @@ package com.dsl.fachade.local;
 import ASTMCore.ASTMSource.CompilationUnit;
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;
-import com.dsl.fachade.models.GestorModel;
+import com.dsl.fachade.models.DSLModel;
 import gastmappers.exceptions.UnsupportedLanguageException;
 import com.dsl.models.aggregates.Class;
 import com.dsl.models.aggregates.Function;
 import com.dsl.models.unittests.TestScenario;
 import com.dsl.models.unittests.UnitTest;
-import com.dsl.logic.gast.CompilationUnitTestFileHandler;
-import com.dsl.logic.gast.ICompilationUnitTestFileHandler;
+import com.dsl.logic.gast.CompilationUnitTestHandler;
+import com.dsl.logic.gast.ICompilationUnitTestHandler;
 import com.dsl.logic.printers.IPrinterHandler;
 import com.dsl.logic.printers.*;
 import com.dsl.logic.visitors.VisitorBase;
@@ -32,11 +32,11 @@ import java.util.ArrayList;
 public class GestorDSL implements IGestorDSL{
 
     private IPrinter printer;
-    private GestorModel dslModel;
+    private DSLModel dslModel;
 
     public GestorDSL(IPrinter printer){
         this.printer = printer;
-        this.dslModel = new GestorModel();
+        this.dslModel = new DSLModel();
     }
 
 
@@ -156,7 +156,7 @@ public class GestorDSL implements IGestorDSL{
      */
     @Override
     public void processCompilationUnitsTests(){
-        ICompilationUnitTestFileHandler handler = new CompilationUnitTestFileHandler();
+        ICompilationUnitTestHandler handler = new CompilationUnitTestHandler();
 
         ArrayList<CompilationUnit> compilationUnitTests = handler.processCompilationUnitTests(dslModel);
 

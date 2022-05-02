@@ -5,30 +5,55 @@ import com.dsl.models.aggregates.Class;
 import com.dsl.models.aggregates.Function;
 import com.dsl.models.unittests.TestScenario;
 import com.dsl.models.unittests.UnitTest;
+import com.dsl.testrun.config.ConfigurationTestRun;
 
 import java.util.ArrayList;
 
 public class DSLModel {
 
+    private final boolean writeToDisk;
+    private final String configurationPath;
+    private final String testScenariosPath;
+    
     private Class lClass;
     private ArrayList<CompilationUnit> compilationUnits;
     private ArrayList<CompilationUnit> compilationUnitsTests;
     private ArrayList<Function> compilationUnitFunctions;
     private ArrayList<Function> testableUnits;
     private TestScenario testScenario;
-    private UnitTest unitTest;
+    private ArrayList<TestScenario> testScenarios;
+    private UnitTest unitTest;    
     private ArrayList<UnitTest> unitTests;
-
+    private ArrayList<ConfigurationTestRun> configurationsRunFiles;
+    
     public DSLModel(){
+    	writeToDisk = true;
+    	
         compilationUnits = new ArrayList<>();
         compilationUnitsTests = new ArrayList<>();
         compilationUnitFunctions = new ArrayList<>();
         testableUnits = new ArrayList<>();
-        //testScenario = new ArrayList<>();
+        testScenarios = new ArrayList<>();
         unitTests = new ArrayList<>();
+        configurationsRunFiles = new ArrayList<>();
+        
+        configurationPath = "./src/main/java/com/dsl/testrun/config/configurationTestRun.json";
+        testScenariosPath = "./src/main/java/com/dsl/testrun/config/testScenariosRun.json";
     }
 
 
+    public boolean isWriteToDisk() {
+        return writeToDisk;
+    }
+
+    public String getConfigurationPath() {
+        return configurationPath;
+    }
+
+    public String getTestScenariosPath() {
+        return testScenariosPath;
+    }
+    
     public Class getlClass() {
         return lClass;
     }
@@ -77,6 +102,14 @@ public class DSLModel {
         this.testScenario = testScenario;
     }
 
+    public ArrayList<TestScenario> getTestScenarios() {
+        return testScenarios;
+    }
+
+    public void setTestScenarios(ArrayList<TestScenario> testScenarios) {
+        this.testScenarios = testScenarios;
+    }
+
     public UnitTest getUnitTest() {
         return unitTest;
     }
@@ -88,4 +121,17 @@ public class DSLModel {
     public ArrayList<UnitTest> getUnitTests() {
         return unitTests;
     }
+    
+    public void setUnitTests(ArrayList<UnitTest> unitTests) {
+        this.unitTests = unitTests;
+    }
+
+    public ArrayList<ConfigurationTestRun> getConfigurationsRunFiles() {
+        return configurationsRunFiles;
+    }
+
+    public void setConfigurationsRunFiles(ArrayList<ConfigurationTestRun> configurationsRunFiles){
+        this.configurationsRunFiles = configurationsRunFiles;
+    }
+
 }

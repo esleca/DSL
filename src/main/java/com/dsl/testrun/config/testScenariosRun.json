@@ -12,7 +12,13 @@
 	{
 		"function": "returnBoolean",
 		"testName": "returnBoolean_test1",
-		"parameters": [],
+		"parameters": [
+			{
+                "name": "result",
+                "type": "boolean",
+                "value": "true"
+            }
+		],
 		"expected": {
 			"type": "boolean",
 			"value": "true"
@@ -22,6 +28,22 @@
 	{
 		"function": "saludar",
 		"testName": "saludar_test1",
+		"parameters": [
+			{
+                "name": "nombre",
+                "type": "String",
+                "value": "Andrea"
+            }
+		],
+		"expected": {
+			"type": "String",
+			"value": "Hola Andrea"
+		},
+        "assert": "areEqual"
+	},
+	{
+		"function": "saludar",
+		"testName": "saludar_test2",
 		"parameters": [
 			{
                 "name": "nombre",
