@@ -3,6 +3,7 @@ package com.dsl.factories;
 import static com.dsl.utils.Constants.*;
 
 import ASTMCore.ASTMSyntax.Expression.Literal;
+import ASTMCore.ASTMSyntax.Expression.RealLiteral;
 import ASTMCore.ASTMSyntax.Expression.BooleanLiteral;
 import ASTMCore.ASTMSyntax.Expression.CharLiteral;
 import ASTMCore.ASTMSyntax.Expression.IntegerLiteral;
@@ -23,6 +24,10 @@ public class LiteralsFactory {
 	        	literal = new IntegerLiteral(); break;
             case VALUE_TYPE_CHAR:
             	literal = new CharLiteral(); break;
+            case VALUE_TYPE_FLOAT:
+            case VALUE_TYPE_LONG:
+            case VALUE_TYPE_DOUBLE:
+            	literal = new RealLiteral(); break;
                 
 	        //default:
 	            //throw new LiteralNotFoundException();

@@ -1,8 +1,19 @@
 [
 	{
-		"function": "returnInt",
-		"testName": "returnInt_test1",
-		"parameters": [],
+		"function": "returnAlgo",
+		"testName": "returnAlgo_test1",
+		"parameters": [
+			{
+                "name": "param1",
+                "type": "float",
+                "value": "3.14F"
+            },
+			{
+                "name": "param2",
+                "type": "long",
+                "value": "5555555"
+            }
+		],
 		"expected": {
 			"type": "int",
 			"value": "-1"
