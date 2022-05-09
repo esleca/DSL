@@ -1,6 +1,7 @@
 package com.dsl.logic.unittests;
 
 import com.dsl.exceptions.AssertNotFoundException;
+import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.factories.AssertsFactory;
 import com.dsl.factories.UnitTestFactory;
 import com.dsl.models.unittests.asserts.Assert;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Component;
 public class UnitTestAssertHandler implements IUnitTestAssertHandler {
 
     @Override
-    public Assert processUnitTestAssert(TestScenario testScenario) throws AssertNotFoundException {
+    public Assert processUnitTestAssert(TestScenario testScenario) throws AssertNotFoundException, ValueTypeNotFoundException {
         ArrayList<AssertExpression> expressions = new ArrayList<>();
         AssertExpression expression = getAssertExpression(testScenario);
         expressions.add(expression);
@@ -26,7 +27,7 @@ public class UnitTestAssertHandler implements IUnitTestAssertHandler {
         return UnitTestFactory.createAssert(expressions);
     }
 
-    private AssertExpression getAssertExpression(TestScenario testScenario) throws AssertNotFoundException {
+    private AssertExpression getAssertExpression(TestScenario testScenario) throws AssertNotFoundException, ValueTypeNotFoundException {
         String assertName = testScenario.getAssertType().getName();
         AssertType assertType = AssertsFactory.createAssertType(assertName);
         ArrayList<FunctionArgument> assertParameters = assertType.getAssertArguments();

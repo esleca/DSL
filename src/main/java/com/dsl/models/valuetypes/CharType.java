@@ -1,5 +1,7 @@
 package com.dsl.models.valuetypes;
 
+import static com.dsl.utils.Constants.VALUE_TYPE_CHAR;
+
 public class CharType extends ValueType {
 
     private char value;
@@ -14,4 +16,9 @@ public class CharType extends ValueType {
     public Object getValue() {
         return value;
     }
+
+	@Override
+	public String getType() {
+		return VALUE_TYPE_CHAR;
+	}
 }

@@ -1,6 +1,7 @@
 package com.dsl.logic.unittests;
 
 import com.dsl.exceptions.AssertNotFoundException;
+import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.factories.UnitTestFactory;
 import com.dsl.models.unittests.*;
 import com.dsl.models.unittests.acts.Act;
@@ -32,9 +33,10 @@ public class UnitTestHandler implements IUnitTestHandler {
      * @param testScenario
      * @return
      * @throws AssertNotFoundException
+     * @throws ValueTypeNotFoundException 
      */
     @Override
-    public UnitTest processUnitTest(TestScenario testScenario) throws AssertNotFoundException{
+    public UnitTest processUnitTest(TestScenario testScenario) throws AssertNotFoundException, ValueTypeNotFoundException{
         Arrange arrange = arrangeHandler.processUnitTestArrange( testScenario );
         Act act = actionHandler.processUnitTestAct( testScenario );
         Assert lAssert = assertHandler.processUnitTestAssert( testScenario );
@@ -50,9 +52,10 @@ public class UnitTestHandler implements IUnitTestHandler {
      * @param testScenarios
      * @return  a list of unit tests
      * @throws AssertNotFoundException
+     * @throws ValueTypeNotFoundException 
      */
     @Override
-    public ArrayList<UnitTest> processUnitTests(ArrayList<TestScenario> testScenarios) throws AssertNotFoundException {
+    public ArrayList<UnitTest> processUnitTests(ArrayList<TestScenario> testScenarios) throws AssertNotFoundException, ValueTypeNotFoundException {
         ArrayList<UnitTest> unitTests = new ArrayList<>();
 
         for (TestScenario testScenario : testScenarios){

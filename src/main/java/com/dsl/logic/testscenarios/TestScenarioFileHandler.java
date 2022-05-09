@@ -3,13 +3,13 @@ package com.dsl.logic.testscenarios;
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.factories.*;
+import com.dsl.logic.expectedresults.*;
+import com.dsl.logic.parameterscenarios.IParameterScenarioHandler;
 import com.dsl.models.aggregates.Function;
-import com.dsl.models.parameters.ParameterFunction;
 import com.dsl.models.parameters.ParameterScenario;
 import com.dsl.models.unittests.ExpectedResult;
 import com.dsl.models.unittests.TestScenario;
 import com.dsl.models.unittests.asserts.types.AssertType;
-import com.dsl.models.valuetypes.ValueType;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

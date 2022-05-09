@@ -129,7 +129,7 @@ public class DSLCrudService implements IDSLCrudService {
     }
 
 
-    private void processUnitTest() throws AssertNotFoundException {
+    private void processUnitTest() throws AssertNotFoundException, ValueTypeNotFoundException {
         TestScenario testScenario = model.getTestScenario();
         
         UnitTest unitTest = _unitTestHandler.processUnitTest(testScenario);

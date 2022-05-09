@@ -6,8 +6,8 @@ import com.dsl.models.aggregates.Class;
 import com.dsl.models.aggregates.Function;
 import com.dsl.models.aggregates.Package;
 import com.dsl.models.unittests.TestScenario;
-import com.dsl.logic.testscenarios.IExpectedParameterizedHandler;
-import com.dsl.logic.testscenarios.IExpectedPrimitiveHandler;
+import com.dsl.logic.expectedresults.IExpectedParameterizedHandler;
+import com.dsl.logic.expectedresults.IExpectedPrimitiveHandler;
 import com.dsl.logic.testscenarios.TestScenarioHandler;
 
 import static com.dsl.factories.AggregatesFactory.*;

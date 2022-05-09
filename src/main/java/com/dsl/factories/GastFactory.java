@@ -14,7 +14,7 @@ public class GastFactory {
         return new NameSpaceDefinition();
     }
 
-    public static Name getName(){
-        return new Name();
+    public static Name getName(String name){
+        return new Name(name);
     }
 }

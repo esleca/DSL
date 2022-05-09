@@ -2,8 +2,8 @@ package com.dsl.models.unittests;
 
 public class FunctionArgument {
 
-    private String value;
-
+	private String value;
+	
     public FunctionArgument(String value) {
         this.value = value;
     }

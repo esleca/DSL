@@ -1,5 +1,7 @@
 package com.dsl.models.valuetypes;
 
+import static com.dsl.utils.Constants.VALUE_TYPE_BOOLEAN;
+
 public class BooleanType extends ValueType {
 
     private boolean value;
@@ -17,5 +19,10 @@ public class BooleanType extends ValueType {
     public Object getValue() {
         return value;
     }
+
+	@Override
+	public String getType() {
+		return VALUE_TYPE_BOOLEAN;
+	}
 
 }

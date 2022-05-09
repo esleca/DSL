@@ -59,10 +59,9 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
 
     private NameSpaceDefinition getNameSpaceDefinition(DSLModel model){
         NameSpaceDefinition nameSpaceDefinition = GastFactory.getNameSpaceDefinition();
-        Name nameObj = GastFactory.getName();
-
+        
         Package pkg = model.getlClass().getPackage();
-        nameObj.setNameString(pkg.getName());
+        Name nameObj = GastFactory.getName(pkg.getName());
         nameSpaceDefinition.setNameSpace(nameObj);
 
         return nameSpaceDefinition;
@@ -131,7 +130,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Name getNameString(DSLModel model){
-        Name nameObj = getName(model.getlClass().getName() + "_Tests");
+        Name nameObj = GastFactory.getName(model.getlClass().getName() + "_Tests");
         return nameObj;
     }
 
@@ -194,7 +193,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Name getFunctionName(UnitTest unitTest){
-        Name name = getName(unitTest.getTestScenario().getTestName());
+        Name name = GastFactory.getName(unitTest.getTestScenario().getTestName());
         return name;
     }
 
@@ -266,17 +265,16 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private List<Fragment> getVariableFragments(ArrangeStatement arrangeStatement){
-        List<Fragment> fragments = new ArrayList<>();
-        Fragment fragment = new Fragment();
-
+    	List<Fragment> fragments = new ArrayList<>();
+        
         Literal expression = getFragmentExpression(arrangeStatement);
-        fragment.setInitialValue(expression);
-
         Name identifier = getFragmentIdentifierName(arrangeStatement);
+        
+        Fragment fragment = new Fragment();
+        fragment.setInitialValue(expression);
         fragment.setIdentifierName(identifier);
-
         fragments.add(fragment);
-
+        
         return fragments;
     }
 
@@ -291,8 +289,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Name getFragmentIdentifierName(ArrangeStatement arrangeStatement){
-        Name identifier = getName(arrangeStatement.getDeclaration().getName());
-        return identifier;
+        return GastFactory.getName(arrangeStatement.getDeclaration().getName());
     }
 
     private NamedTypeReference getVariableDefinitionType(ArrangeStatement arrangeStatement){
@@ -306,6 +303,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
 
+    
     private DeclarationOrDefinitionStatement getDeclOrDefStatementExec(ActExecution actExecution){
         DeclarationOrDefinitionStatement decOrDefStatement = new DeclarationOrDefinitionStatement();
         VariableDefinition variableDefinitionExec = getActExecutionVariableDefinition(actExecution);
@@ -357,8 +355,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Name getActNewTypeFragmentIdentifierName(ActNewType actNewType){
-        Name identifier = getName(actNewType.getName());
-        return identifier;
+        return GastFactory.getName(actNewType.getName());
     }
 
     private NamedTypeReference getActNewTypeVariableDefinitionType(ActNewType actNewType){
@@ -411,8 +408,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Name getActFragmentIdentifierName(ActExecution actExecution){
-        Name identifier = getName(actExecution.getDeclaration().getName());
-        return identifier;
+        return GastFactory.getName(actExecution.getDeclaration().getName());
     }
 
     private NamedTypeReference getActExecutionVariableDefinitionType(ActExecution actExecution){
@@ -434,7 +430,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Name getIdentifierReferenceIdentifierName(ActExecution actExecution){
-        Name identifier = getName(actExecution.getCalledFunction());
+        Name identifier = GastFactory.getName(actExecution.getCalledFunction());
         return identifier;
     }
 
@@ -443,12 +439,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         ArrayList<FunctionArgument> functionArguments = actExecution.getFunctionArguments();
 
         for (FunctionArgument fa : functionArguments){
-            ActualParameterExpression actualParameter = new ActualParameterExpression();
-            IdentifierReference identifierReference = new IdentifierReference();
-            Name name = new Name();
-            name.setNameString(fa.getValue());
-            identifierReference.setIdentifierName(name);
-            actualParameter.setValue(identifierReference);
+            ActualParameterExpression actualParameter = getActualParameterExpression(fa);
             actualParameters.add(actualParameter);
         }
 
@@ -456,11 +447,11 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Name getFunctionNameIdentifierName(ActExecution actExecution){
-        Name identifier = getName(actExecution.getFunctionName());
-        return identifier;
+        return GastFactory.getName(actExecution.getFunctionName());
     }
 
 
+    
     private Expression getAssertExpression(AssertExpression assertExpression){
         IdentifierReference identifierReference = getCalledFunctionIdentifierReference(assertExpression);
         ArrayList<ActualParameter> parameterExpressions = getActualParameterExpressions(assertExpression);
@@ -483,7 +474,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private Name getIdentifierReferenceIdentifierName(AssertExpression assertExpression){
-        Name identifier = getName(assertExpression.getCalledFunction());
+        Name identifier = GastFactory.getName(assertExpression.getCalledFunction());
         return identifier;
     }
 
@@ -492,25 +483,24 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         ArrayList<FunctionArgument> functionArguments = assertExpression.getFunctionArguments();
 
         for (FunctionArgument fa : functionArguments){
-            ActualParameterExpression actualParameter = new ActualParameterExpression();
-            Literal literal = new Literal();
-            literal.setValue(fa.getValue());
-            actualParameter.setValue(literal);
+            ActualParameterExpression actualParameter = getActualParameterExpression(fa);
             actualParameters.add(actualParameter);
         }
 
         return actualParameters;
     }
+    
+    private ActualParameterExpression getActualParameterExpression(FunctionArgument inFunctionArgument) {
+    	ActualParameterExpression actualParameter = new ActualParameterExpression();
+        IdentifierReference identifierReference = new IdentifierReference();
+        Name name = GastFactory.getName(inFunctionArgument.getValue());
+        identifierReference.setIdentifierName(name);
+        actualParameter.setValue(identifierReference);
+        return actualParameter;
+    }
 
     private Name getFunctionNameIdentifierName(AssertExpression assertExpression){
-        Name identifier = getName(assertExpression.getAssertType().getName());
-        return identifier;
+        return GastFactory.getName(assertExpression.getAssertType().getName());
     }
 
-
-    private Name getName(String name){
-        Name identifier = new Name();
-        identifier.setNameString(name);
-        return identifier;
-    }
 }

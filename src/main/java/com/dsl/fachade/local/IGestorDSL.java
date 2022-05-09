@@ -18,7 +18,7 @@ public interface IGestorDSL {
 
     void readTestScenarios() throws ValueTypeNotFoundException, AssertNotFoundException;
 
-    void processUnitTests() throws AssertNotFoundException;
+    void processUnitTests() throws AssertNotFoundException, ValueTypeNotFoundException;
 
     void processCompilationUnitsTests();
     

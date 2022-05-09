@@ -1,4 +1,4 @@
-package com.dsl.logic.testscenarios;
+package com.dsl.logic.expectedresults;
 
 import org.springframework.stereotype.Component;
 

@@ -8,6 +8,8 @@ import com.dsl.models.unittests.arranges.ArrangeStatement;
 import com.dsl.models.unittests.Declaration;
 import com.dsl.models.unittests.arranges.ArrangeDefinition;
 
+import static com.dsl.utils.Constants.ARGUMENT_EXPECTED;
+
 import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 
@@ -20,17 +22,35 @@ public class UnitTestArrangeHandler implements IUnitTestArrangeHandler {
         ArrayList<ParameterScenario> parameterScenarios = testScenario.getParameters();
 
         for (ParameterScenario parameterScenario : parameterScenarios){
-            String type = parameterScenario.getParameterFunction().getType();
-            String name = parameterScenario.getParameterFunction().getName();
-
-            Declaration declaration = UnitTestFactory.createDeclaration(type, name);
-            ArrangeDefinition definition = UnitTestFactory.createArrangeStatementDefinition(parameterScenario.getValueType());
-
-            ArrangeStatement arrangeStatement = UnitTestFactory.createArrangeStatement(declaration, definition);
+            ArrangeStatement arrangeStatement = getArrangeStatement(parameterScenario);
             arranges.add(arrangeStatement);
         }
-
+        
+        if(testScenario.getExpectedResult().getValueType() != null) {
+        	ArrangeStatement expectedStatement = getExpectedArrange(testScenario.getExpectedResult());
+        	arranges.add(expectedStatement);
+        }
+        
         return UnitTestFactory.createArrange(arranges);
+    }
+    
+    
+    private ArrangeStatement getArrangeStatement(ParameterScenario parameterScenario) {
+    	String type = parameterScenario.getParameterFunction().getType();
+        String name = parameterScenario.getParameterFunction().getName();
+
+        Declaration declaration = UnitTestFactory.createDeclaration(type, name);
+        ArrangeDefinition definition = UnitTestFactory.createArrangeStatementDefinition(parameterScenario.getValueType());
+        
+        return UnitTestFactory.createArrangeStatement(declaration, definition);
+    }
+    
+    
+    private ArrangeStatement getExpectedArrange(ExpectedResult inExpected) {
+        Declaration declaration = UnitTestFactory.createDeclaration(inExpected.getExpectedType(), ARGUMENT_EXPECTED);
+        ArrangeDefinition definition = UnitTestFactory.createArrangeStatementDefinition(inExpected.getValueType());
+        
+        return UnitTestFactory.createArrangeStatement(declaration, definition);
     }
 
 }

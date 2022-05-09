@@ -7,21 +7,21 @@ GAST FUNCTIONS STRUCTURE FOR MAPPING FROM DSL
 
 
 RETURNS
-------------------------------------------------
+----------------------------------------------
 #1) string function();
 
 returnType = NamedTypeReference
 	typeName = Name
 		nameString = "String"
 		
-------------------------------------------------	
+-----------------------------------------------
 #2) olResponse function();
 
 returnType = NamedTypeReference
 	typeName = Name
 		nameString = "olResponse"
 		
-------------------------------------------------
+----------------------------------------------
 #3) ArrayList<Integer> function();
 
 returnType = NamedTypeReference
@@ -36,17 +36,18 @@ returnType = NamedTypeReference
 			[0] = NamedTypeReference
 				typeName = Name
 					nameString = "Integer"
+					
 				
-**************************************************
-**************************************************
-**************************************************
+***********************************************
+***********************************************
+***********************************************
 
 
 
 
 
 PARAMETERS
-------------------------------------------------
+----------------------------------------------------
 1#)  function(String nombre);
 
 formalParameters = ArrayList
@@ -58,7 +59,8 @@ formalParameters = ArrayList
 			typeName = Name
 				nameString = "String"
 		
-------------------------------------------------
+		
+----------------------------------------------------
 2#)  function(olOrder inOrder);
 
 formalParameters = ArrayList
@@ -70,7 +72,8 @@ formalParameters = ArrayList
 			typeName = Name
 				nameString = "olOrder"
 
-------------------------------------------------
+
+----------------------------------------------------
 3#)  function(ArrayList<Integer> parameters);
 
 formalParameters = ArrayList
@@ -92,15 +95,16 @@ formalParameters = ArrayList
 							nameString = "Integer"
 
 
-**************************************************
-**************************************************
-**************************************************
+
+******************************************************
+******************************************************
+******************************************************
 
 
 
 
 BODY
-------------------------------------------------
+-------------------------------------------------------
 1#)  areEquals(expected, result);
 
 body.subStatements = ArrayList
@@ -119,9 +123,29 @@ body.subStatements = ArrayList
 			
 			functionName = Name
 				nameString = "areEquals"
+
+-------------------------------------------------------
+#2)  areNotEquals(6, result);				
+
+
+body.subStatements = ArrayList
+	[0] = ExpressionStatement
+		expression = FunctionCallExpression
+			actualparams = ArrayList
+				[0] = ActualParameterExpression
+					value = RealLiteral
+						value = "6"
+							
+				[1] = ActualParameterExpression
+					value = IdentifierReference
+						identifierName = Name
+							nameString = "result"
+			
+			functionName = Name
+				nameString = "areNotEquals"
 				
-------------------------------------------------
-#2)  assertTrue(boolParam);
+-------------------------------------------------------
+#3)  assertTrue(result);
 
 body.subStatements = ArrayList
 	[0] = ExpressionStatement
@@ -130,13 +154,14 @@ body.subStatements = ArrayList
 				[0] = ActualParameterExpression
 					value = IdentifierReference
 						identifierName = Name
-							nameString = "boolParam"
+							nameString = "result"
 
 			functionName = Name
 				nameString = "assertTrue"
 				
-------------------------------------------------
-#3)  Assert.IsTrue(boolParam);
+				
+-------------------------------------------------------
+#4)  Assert.IsTrue(boolParam);
 
 body.subStatements = ArrayList
 	[0] = ExpressionStatement
@@ -154,8 +179,9 @@ body.subStatements = ArrayList
 			functionName = Name
 				nameString = "IsTrue"
 				
-------------------------------------------------
-#4)  areEquals(5, list.size());
+				
+----------------------------------------------------------
+#5)  areEquals(5, list.size());
 
 body.subStatements = ArrayList
 	[0] = ExpressionStatement
@@ -178,8 +204,8 @@ body.subStatements = ArrayList
 				nameString = "areEquals"
 				
 
-------------------------------------------------
-#5)  isTrue(list.size() == 3);
+----------------------------------------------------------
+#6)  isTrue(list.size() == 3);
 
 body.subStatements = ArrayList
 	[0] = ExpressionStatement
@@ -200,6 +226,6 @@ body.subStatements = ArrayList
 				
 				
 
-**************************************************
-**************************************************
-**************************************************
+********************************************************
+********************************************************
+********************************************************

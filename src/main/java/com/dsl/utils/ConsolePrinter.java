@@ -137,7 +137,7 @@ public class ConsolePrinter implements IPrinter {
         for (AssertExpression ae : expressions){
             ArrayList<FunctionArgument> functionArguments = ae.getFunctionArguments();
             for (FunctionArgument ap : functionArguments){
-                resultStr += ap.getValue() + ", ";
+                resultStr += ap.getValue().toString() + ", ";
             }
         }
 

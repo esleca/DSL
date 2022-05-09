@@ -1,4 +1,4 @@
-package com.dsl.logic.testscenarios;
+package com.dsl.logic.expectedresults;
 
 import com.dsl.models.unittests.*;
 import com.dsl.models.dtos.*;

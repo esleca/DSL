@@ -1,4 +1,4 @@
-package com.dsl.logic.testscenarios;
+package com.dsl.logic.parameterscenarios;
 
 import java.util.ArrayList;
 import org.json.simple.JSONArray;

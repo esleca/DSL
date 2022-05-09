@@ -1,8 +1,8 @@
 package com.dsl.models.unittests.asserts.types;
 
+import com.dsl.factories.UnitTestFactory;
 import com.dsl.models.unittests.FunctionArgument;
 import java.util.ArrayList;
-
 import static com.dsl.utils.Constants.*;
 
 public abstract class AssertTypeSingle extends AssertType {
@@ -10,7 +10,8 @@ public abstract class AssertTypeSingle extends AssertType {
     @Override
     public ArrayList<FunctionArgument> getAssertArguments() {
         ArrayList<FunctionArgument> assertParameters = new ArrayList<>();
-        assertParameters.add(new FunctionArgument(ARGUMENT_RESULT));
+        
+        assertParameters.add(UnitTestFactory.createFunctionArgument(ARGUMENT_RESULT));
         return assertParameters;
     }
 }

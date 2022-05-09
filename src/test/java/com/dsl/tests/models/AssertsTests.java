@@ -188,7 +188,7 @@ public class AssertsTests {
 		FunctionArgument firstArg = arguments.get(0);
 		
 		//Assert
-		assertEquals("expected", firstArg.getValue());
+		assertEquals("expected", firstArg.getValue().toString());
 	}
 	
 	
@@ -209,7 +209,7 @@ public class AssertsTests {
 		FunctionArgument secondArg = arguments.get(1);
 		
 		//Assert
-		assertEquals("result", secondArg.getValue());
+		assertEquals("result", secondArg.getValue().toString());
 	}
 	
 	
@@ -250,7 +250,7 @@ public class AssertsTests {
 		FunctionArgument argument = arguments.get(0);
 		
 		//Assert
-		assertEquals("result", argument.getValue());
+		assertEquals("result", argument.getValue().toString());
 	}
 	
 }

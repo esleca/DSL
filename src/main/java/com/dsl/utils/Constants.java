@@ -48,7 +48,7 @@ public class Constants {
     		VALUE_TYPE_DOUBLE,
     		VALUE_TYPE_CHAR);
 
-    public final static String ACT_RESULT_NAME = "sutResult";
+    public final static String ACT_RESULT_NAME = "result";
 
     public final static String ARGUMENT_EXPECTED = "expected";
     public final static String ARGUMENT_RESULT = "result";

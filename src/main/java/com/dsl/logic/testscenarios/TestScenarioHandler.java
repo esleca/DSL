@@ -3,6 +3,8 @@ package com.dsl.logic.testscenarios;
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.factories.*;
+import com.dsl.logic.expectedresults.IExpectedResultHandler;
+import com.dsl.logic.parameterscenarios.IParameterScenarioHandler;
 import com.dsl.models.dtos.UnitTestRequest;
 import com.dsl.models.aggregates.Function;
 import com.dsl.models.parameters.ParameterScenario;

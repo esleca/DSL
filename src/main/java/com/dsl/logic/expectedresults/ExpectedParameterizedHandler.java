@@ -1,4 +1,4 @@
-package com.dsl.logic.testscenarios;
+package com.dsl.logic.expectedresults;
 
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.factories.ValueTypeFactory;

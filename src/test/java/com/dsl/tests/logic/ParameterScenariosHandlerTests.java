@@ -11,7 +11,7 @@ import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import com.dsl.exceptions.ValueTypeNotFoundException;
-import com.dsl.logic.testscenarios.*;
+import com.dsl.logic.parameterscenarios.*;
 import com.dsl.models.parameters.ParameterScenario;
 
 

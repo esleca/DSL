@@ -1,5 +1,7 @@
 package com.dsl.models.valuetypes;
 
+import static com.dsl.utils.Constants.VALUE_TYPE_LONG;
+
 public class LongType extends ValueType {
 
     private long value;
@@ -13,4 +15,9 @@ public class LongType extends ValueType {
     public Object getValue() {
         return value;
     }
+
+	@Override
+	public String getType() {
+		return VALUE_TYPE_LONG;
+	}
 }
