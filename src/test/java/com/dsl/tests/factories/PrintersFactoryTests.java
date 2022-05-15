@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import com.dsl.factories.PrintersFactory;
-import com.dsl.logic.printers.PrinterBaseHandler;
+import com.dsl.logic.printers.IPrinterHandler;
 import com.dsl.logic.printers.PrinterCSharpHandler;
 import com.dsl.logic.printers.PrinterJavaHandler;
 import com.dsl.logic.printers.PrinterPythonHandler;
@@ -28,7 +28,7 @@ public class PrintersFactoryTests {
 		String type = "Java";
 		
 		//Act
-		PrinterBaseHandler printer =  PrintersFactory.createPrinterHandler(type);
+		IPrinterHandler printer =  PrintersFactory.createPrinterHandler(type);
 		
 		//Assert
 		assertTrue(printer instanceof PrinterJavaHandler);
@@ -48,7 +48,7 @@ public class PrintersFactoryTests {
 		String type = "CSharp";
 		
 		//Act
-		PrinterBaseHandler printer =  PrintersFactory.createPrinterHandler(type);
+		IPrinterHandler printer =  PrintersFactory.createPrinterHandler(type);
 		
 		//Assert
 		assertTrue(printer instanceof PrinterCSharpHandler);
@@ -68,7 +68,7 @@ public class PrintersFactoryTests {
 		String type = "Python";
 		
 		//Act
-		PrinterBaseHandler printer =  PrintersFactory.createPrinterHandler(type);
+		IPrinterHandler printer =  PrintersFactory.createPrinterHandler(type);
 		
 		//Assert
 		assertTrue(printer instanceof PrinterPythonHandler);

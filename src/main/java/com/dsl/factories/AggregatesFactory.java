@@ -10,8 +10,8 @@ public class AggregatesFactory {
         return new Package(name);
     }
 
-    public static Class createClass(String name, Package gpackage){
-        return new Class(name, gpackage);
+    public static Class createClass(String language, String name, Package gpackage){
+        return new Class(language, name, gpackage);
     }
 
     public static Function createFunction(Class fileClass){

@@ -15,6 +15,8 @@ public interface IFrameDSL {
     void createParameterDataType();
 
     void writeFunction();
+    
+    void writeClassLanguage(String name);
 
     void writeClassPackage(String name);
 

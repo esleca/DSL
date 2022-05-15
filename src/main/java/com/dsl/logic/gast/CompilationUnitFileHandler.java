@@ -49,12 +49,13 @@ public class CompilationUnitFileHandler implements ICompilationUnitFileHandler {
 
     public CompilationUnitFileHandler(ConfigurationTestRun testRun) throws UnsupportedLanguageException {
         MapperFactory factory = new MapperFactory();
-        Mapper mapper = factory.createMapper(testRun.getSourceLanguage());
+        Language sourceLanguage = Language.getLanguageFromString(testRun.getSourceLanguage());
+        Mapper mapper = factory.createMapper(sourceLanguage);
 
         this.inputPath = testRun.getInputDirectory();
         this.translationFilePath = testRun.getOutputDirectory() + "\\result.json";
         this.differencesFilePath = testRun.getOutputDirectory() + "\\summaryDifferences.txt";
-        this.language = testRun.getSourceLanguage();
+        this.language = sourceLanguage;
         this.mapper = mapper;
         this.validate = testRun.isValidateMap();
         this.parsedFileList = new ArrayList<>();

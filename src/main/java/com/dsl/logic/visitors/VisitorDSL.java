@@ -28,6 +28,8 @@ public class VisitorDSL extends VisitorBase {
 
     @Override
     public void visitCompilationUnit(CompilationUnit compilationUnit) {
+    	frame.writeClassLanguage(compilationUnit.getLanguage());
+    	
         // Visit Package
         compilationUnit.getgPackage().accept(this);
 

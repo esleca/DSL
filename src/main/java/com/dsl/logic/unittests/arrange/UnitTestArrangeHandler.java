@@ -1,4 +1,4 @@
-package com.dsl.logic.unittests;
+package com.dsl.logic.unittests.arrange;
 
 import com.dsl.factories.UnitTestFactory;
 import com.dsl.models.parameters.ParameterScenario;

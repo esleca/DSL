@@ -37,12 +37,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
 
+	private String language;
+	
     @Override
-    public ArrayList<CompilationUnit> processCompilationUnitTests(DSLModel model) {
+    public ArrayList<CompilationUnit> processCompilationUnitTests(DSLModel model, String language) {
+    	this.language = language;
+    	
         ArrayList<CompilationUnit> compilationUnitTests = new ArrayList<>();
 
         CompilationUnit compilationUnit = GastFactory.createCompilationUnit();
 
+        processCompilationUnitLanguage(compilationUnit);
         processCompilationUnitPackage(compilationUnit, model);
         processCompilationUnitImports(compilationUnit, model); //TODO: IMPORTS
         processCompilationUnitScope(compilationUnit, model);
@@ -52,6 +57,10 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         return compilationUnitTests;
     }
 
+    private void processCompilationUnitLanguage(CompilationUnit compilationUnit) {
+    	compilationUnit.setLanguage(language);
+    }
+    
     private void processCompilationUnitPackage(CompilationUnit compilationUnit, DSLModel model){
         NameSpaceDefinition nameSpaceDefinition = getNameSpaceDefinition(model);
         compilationUnit.setgPackage(nameSpaceDefinition);
@@ -140,6 +149,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
 
     private ArrayList<Modifiers> getModifiers(){
         ArrayList<Modifiers> modifiers = new ArrayList<>();
+        //modifiers.add(new AnnotationModifier("Override"));
         modifiers.add(new PublicModifier());
         return modifiers;
     }
@@ -155,7 +165,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
 
     private ArrayList<DefintionObject> getAggregateScopeDefinitionObjects(DSLModel model){
         ArrayList<DefintionObject> definitions = new ArrayList<>();
-        ArrayList<UnitTest> unitTests = model.getUnitTests();
+        ArrayList<UnitTest> unitTests = model.getUnitTests(language);
 
         for (UnitTest ut : unitTests) {
             FunctionDefintion functionDefinition = getFunctionDefinition(ut);
@@ -466,7 +476,11 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
     }
 
     private IdentifierReference getCalledFunctionIdentifierReference(AssertExpression assertExpression){
-        IdentifierReference identifierReference = new IdentifierReference();
+        if(assertExpression.getCalledFunction() == null) {
+        	return null;
+        }
+    	
+    	IdentifierReference identifierReference = new IdentifierReference();
         Name calledFunction = getIdentifierReferenceIdentifierName(assertExpression);
         identifierReference.setIdentifierName(calledFunction);
 

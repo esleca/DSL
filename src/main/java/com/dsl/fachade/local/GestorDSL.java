@@ -1,30 +1,30 @@
 package com.dsl.fachade.local;
 
 import ASTMCore.ASTMSource.CompilationUnit;
-import com.dsl.exceptions.AssertNotFoundException;
-import com.dsl.exceptions.ValueTypeNotFoundException;
-import com.dsl.fachade.models.DSLModel;
+import com.dsl.logic.unittests.action.IUnitTestActionHandler;
+import com.dsl.logic.unittests.action.UnitTestActionHandler;
+import com.dsl.logic.unittests.arrange.IUnitTestArrangeHandler;
+import com.dsl.logic.unittests.arrange.UnitTestArrangeHandler;
+import com.dsl.logic.unittests.asserts.IUnitTestAssertHandler;
 import gastmappers.exceptions.UnsupportedLanguageException;
+
+import com.dsl.exceptions.*;
+import com.dsl.fachade.models.DSLModel;
+import com.dsl.factories.PrintersFactory;
+import com.dsl.factories.UnitTestAssertsFactory;
+import com.dsl.models.aggregates.*;
 import com.dsl.models.aggregates.Class;
-import com.dsl.models.aggregates.Function;
-import com.dsl.models.unittests.TestScenario;
-import com.dsl.models.unittests.UnitTest;
-import com.dsl.logic.gast.CompilationUnitTestHandler;
-import com.dsl.logic.gast.ICompilationUnitTestHandler;
-import com.dsl.logic.printers.IPrinterHandler;
+import com.dsl.models.unittests.*;
+import com.dsl.logic.gast.*;
+import com.dsl.logic.parameterscenarios.*;
 import com.dsl.logic.printers.*;
-import com.dsl.logic.visitors.VisitorBase;
-import com.dsl.logic.visitors.VisitorDSL;
-import com.dsl.logic.configfiles.ITestRunHandler;
-import com.dsl.logic.configfiles.TestRunHandler;
+import com.dsl.logic.visitors.*;
+import com.dsl.logic.configfiles.*;
 import com.dsl.logic.expectedresults.*;
-import com.dsl.logic.gast.ICompilationUnitFileHandler;
-import com.dsl.logic.gast.CompilationUnitFileHandler;
 import com.dsl.logic.testableunits.*;
 import com.dsl.logic.testscenarios.*;
 import com.dsl.logic.unittests.*;
-import com.dsl.testrun.config.TestScenarioRun;
-import com.dsl.testrun.config.ConfigurationTestRun;
+import com.dsl.testrun.config.*;
 import com.dsl.utils.*;
 
 import java.io.IOException;
@@ -102,45 +102,74 @@ public class GestorDSL implements IGestorDSL{
     }
 
     @Override
-    public void processUnitTests() throws AssertNotFoundException, ValueTypeNotFoundException {
-        IUnitTestArrangeHandler arrangeHandler = new UnitTestArrangeHandler();
-        IUnitTestActionHandler actionHandler = new UnitTestActionHandler();
-        IUnitTestAssertHandler assertHandler = new UnitTestAssertHandler();
-        IUnitTestHandler unitTestHandler = new UnitTestHandler(arrangeHandler, actionHandler, assertHandler);
+    public void processUnitTests() throws AssertNotFoundException, ValueTypeNotFoundException, UnsupportedLanguageException {
+    	ArrayList<String> outputLanguages = dslModel.getConfigurationsRunFiles().get(0).getOutputLanguages();
+    	
+    	for(String language : outputLanguages) {
+    		IUnitTestArrangeHandler arrangeHandler = new UnitTestArrangeHandler();
+            IUnitTestActionHandler actionHandler = new UnitTestActionHandler();
+            IUnitTestAssertHandler assertHandler = UnitTestAssertsFactory.createAssertHandler(language);
+            IUnitTestHandler unitTestHandler = new UnitTestHandler(arrangeHandler, actionHandler, assertHandler);
 
-        ArrayList<TestScenario> testScenarios = dslModel.getTestScenarios();
-        ArrayList<UnitTest> unitTests = unitTestHandler.processUnitTests(testScenarios);
+            ArrayList<TestScenario> testScenarios = dslModel.getTestScenarios();
+            ArrayList<UnitTest> unitTests = unitTestHandler.processUnitTests(testScenarios, language);
 
-        dslModel.setUnitTests(unitTests);
-
-        printUnitTests();
+            dslModel.addUnitTests(unitTests);
+            
+            //printUnitTests();	
+    	}
     }
 
     @Override
     public void processCompilationUnitsTests(){
-        ICompilationUnitTestHandler handler = new CompilationUnitTestHandler();
-
-        ArrayList<CompilationUnit> compilationUnitTests = handler.processCompilationUnitTests(dslModel);
-
-        dslModel.setCompilationUnitsTests(compilationUnitTests);
+        ArrayList<String> outputLanguages = dslModel.getConfigurationsRunFiles().get(0).getOutputLanguages();
+    	
+    	for(String language : outputLanguages) {
+            ICompilationUnitTestHandler handler = new CompilationUnitTestHandler();
+    		ArrayList<CompilationUnit> compilationUnitTests = handler.processCompilationUnitTests(dslModel, language);
+           
+    		dslModel.addCompilationUnitsTests(compilationUnitTests);
+    	}
     }
 
     @Override
-    public void generateCode(){
+    public void generateCode() throws UnsupportedLanguageException{
+    	ArrayList<String> outputLanguages = dslModel.getConfigurationsRunFiles().get(0).getOutputLanguages();
+    	String outputPath = dslModel.getConfigurationsRunFiles().get(0).getOutputCodeDirectory();
+        
+    	for(String language : outputLanguages) {
+    		IPrinterHandler handler = PrintersFactory.createPrinterHandler(language);
+            
+    		ArrayList<CompilationUnit> compilationUnits = dslModel.getCompilationUnitsTests(language);
+        	
+            handler.generateCode(compilationUnits.get(0), outputPath);
+    	}
+    }
+    
+    
+    @Override
+    public void testgenerateCode() throws UnsupportedLanguageException, IOException{
+    	ITestRunHandler dslRunner = new TestRunHandler();
         IPrinterHandler handlerJ = new PrinterJavaHandler();
         IPrinterHandler handlerC = new PrinterCSharpHandler();
-        
-        CompilationUnit compilationUnit = dslModel.getCompilationUnitsTests().get(0);
-        String outputPath = dslModel.getConfigurationsRunFiles().get(0).getOutputCodeDirectory();
-        
-        handlerJ.generateCode(compilationUnit, outputPath);
-        handlerC.generateCode(compilationUnit, outputPath);
-    }
-
-    private void printUnitTests(){
-        for (var ut : dslModel.getUnitTests()){
-            printer.printUnitTest(ut);
+        ArrayList<ConfigurationTestRun> configFiles = dslRunner.processConfigFiles(dslModel.getConfigurationPath());        
+        dslModel.setConfigurationsRunFiles(configFiles);
+        for (ConfigurationTestRun testRun : configFiles) {
+        	ICompilationUnitFileHandler compilationUnitHandler = new CompilationUnitFileHandler(testRun);
+            ArrayList<CompilationUnit> compilationUnits = compilationUnitHandler.processFilesInDir(true);
+            for (CompilationUnit compilationUnit : compilationUnits) {
+            	String outputPath = dslModel.getConfigurationsRunFiles().get(0).getOutputCodeDirectory();
+                handlerJ.generateCode(compilationUnit, outputPath);
+                handlerC.generateCode(compilationUnit, outputPath);
+            }
         }
     }
+    
+
+//    private void printUnitTests(){
+//        for (var ut : dslModel.getUnitTests()){
+//            printer.printUnitTest(ut.iterator());
+//        }
+//    }
 
 }

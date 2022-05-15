@@ -1,4 +1,4 @@
-package com.dsl.logic.unittests;
+package com.dsl.logic.unittests.arrange;
 
 import com.dsl.models.unittests.arranges.Arrange;
 import com.dsl.models.unittests.TestScenario;

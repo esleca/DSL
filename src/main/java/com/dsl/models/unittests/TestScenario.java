@@ -12,15 +12,17 @@ public class TestScenario {
     private Function function;
     private ArrayList<ParameterScenario> parameters;
     private ExpectedResult expectedResult;
+    private String initialAssert;
     private AssertType assertType;
     private UnitTest unitTest;
 
 
-    public TestScenario(String testName, Function function, ArrayList<ParameterScenario> parameters, ExpectedResult expectedResult, AssertType assertType) {
+    public TestScenario(String testName, Function function, ArrayList<ParameterScenario> parameters, ExpectedResult expectedResult, String initialAssert, AssertType assertType) {
         this.testName = testName;
         this.function = function;
         this.parameters = parameters;
         this.expectedResult = expectedResult;
+        this.initialAssert = initialAssert;
         this.assertType = assertType;
     }
 
@@ -56,6 +58,14 @@ public class TestScenario {
         this.expectedResult = expectedResult;
     }
 
+    public String getInitialAssert() {
+        return initialAssert;
+    }
+
+    public void setAssertType(String initialAssert) {
+        this.initialAssert = initialAssert;
+    }
+    
     public AssertType getAssertType() {
         return assertType;
     }

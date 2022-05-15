@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public interface IUnitTestHandler {
 
-    UnitTest processUnitTest(TestScenario testScenario) throws AssertNotFoundException, ValueTypeNotFoundException;
+    UnitTest processUnitTest(TestScenario testScenario, String language) throws AssertNotFoundException, ValueTypeNotFoundException;
 
-    ArrayList<UnitTest> processUnitTests(ArrayList<TestScenario> testScenarios) throws AssertNotFoundException, ValueTypeNotFoundException;
+    ArrayList<UnitTest> processUnitTests(ArrayList<TestScenario> testScenarios, String language) throws AssertNotFoundException, ValueTypeNotFoundException;
 
 }

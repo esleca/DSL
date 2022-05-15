@@ -52,7 +52,7 @@ public class TestScenarioHandlerTests {
     	UnitTestRequest request = createUnitTestRequest();
     	
     	ArrayList<Function> testableUnits = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.setName("saludar");
     	//function.setModifiers(createModifier("public"));
     	function.setReturn(createPrimitiveReturn("String"));

@@ -21,6 +21,7 @@ import com.dsl.models.unittests.arranges.ArrangeStatement;
 import com.dsl.models.unittests.asserts.Assert;
 import com.dsl.models.unittests.asserts.types.AreEqual;
 import com.dsl.models.unittests.asserts.types.AssertType;
+import com.dsl.models.unittests.asserts.types.java.JavaAreEqual;
 import com.dsl.models.valuetypes.LongType;
 import com.dsl.models.valuetypes.ValueType;
 import com.dsl.testrun.config.TestScenarioRun;
@@ -73,7 +74,7 @@ public class DataTestHelper {
         ExpectedResultPrimitive expected = getPrimitiveExpectedResult(); 
         AreEqual testAssert = getAreEqualAssert();
         
-        return new TestScenario(function.getName(), function, params, expected, testAssert);
+        return new TestScenario(function.getName(), function, params, expected, "assertEquals", testAssert);
     }
     
     public static ExpectedResultPrimitive getPrimitiveExpectedResult() {
@@ -121,7 +122,7 @@ public class DataTestHelper {
     }
     
     public static AreEqual getAreEqualAssert() {
-		return new AreEqual();
+		return new JavaAreEqual();
     }
     
     public static Function getFunction(){
@@ -146,7 +147,7 @@ public class DataTestHelper {
 
     public static Class getFClass(){
         Package fpackage = getPackage();
-        Class fClass = new Class("TestClass", fpackage);
+        Class fClass = new Class("Java", "TestClass", fpackage);
         return fClass;
     }
 }

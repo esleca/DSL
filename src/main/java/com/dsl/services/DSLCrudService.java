@@ -132,21 +132,24 @@ public class DSLCrudService implements IDSLCrudService {
     private void processUnitTest() throws AssertNotFoundException, ValueTypeNotFoundException {
         TestScenario testScenario = model.getTestScenario();
         
-        UnitTest unitTest = _unitTestHandler.processUnitTest(testScenario);
+        // TODO: LANG
+        UnitTest unitTest = _unitTestHandler.processUnitTest(testScenario, "JAVA");
 
         model.setUnitTest(unitTest);
     }
 
 
     private void processCompilationUnitsTests(){
-        ArrayList<CompilationUnit> compilationUnitTests = _compUnitTestHandler.processCompilationUnitTests(model);
+    	//TODO: iterate on languages
+    	
+        //ArrayList<CompilationUnit> compilationUnitTests = _compUnitTestHandler.processCompilationUnitTests(model);
 
-        model.setCompilationUnitsTests(compilationUnitTests);
+        //model.setCompilationUnitsTests(compilationUnitTests);
     }
     
     
     private void generateCode(UnitTestRequest unitTestRequest) {
-    	CompilationUnit compilationUnit = model.getCompilationUnitsTests().get(0);
+    	CompilationUnit compilationUnit = model.getCompilationUnitsTests(unitTestRequest.getLanguage()).get(0);
     	
     	_printerHandler.generateCode(compilationUnit, unitTestRequest.getOutputPath());
     }

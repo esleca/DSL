@@ -7,5 +7,5 @@ import java.util.ArrayList;
 
 public interface ICompilationUnitTestHandler {
 
-    ArrayList<CompilationUnit> processCompilationUnitTests(DSLModel model);
+    ArrayList<CompilationUnit> processCompilationUnitTests(DSLModel model, String language);
 }

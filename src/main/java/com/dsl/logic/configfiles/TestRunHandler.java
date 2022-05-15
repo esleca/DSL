@@ -1,6 +1,5 @@
 package com.dsl.logic.configfiles;
 
-import gastmappers.Language;
 import gastmappers.exceptions.UnsupportedLanguageException;
 import com.dsl.testrun.config.ConfigurationTestRun;
 
@@ -52,11 +51,11 @@ public class TestRunHandler implements ITestRunHandler {
         String inputDirectory = (String) configurationObject.get("inputDirectory");
         String outputDirectory = (String) configurationObject.get("outputDirectory");
         String outputCodeDirectory = (String) configurationObject.get("outputCodeDirectory");
-        String sourceLanguageRaw = (String) configurationObject.get("sourceLanguage");
-        Language sourceLanguage = Language.getLanguageFromString(sourceLanguageRaw);
+        String sourceLanguage = (String) configurationObject.get("sourceLanguage");
+        ArrayList<String> outputLanguages = (ArrayList<String>) configurationObject.get("outputLanguages");
         boolean validateMap = (boolean) configurationObject.get("validateMap");
         boolean semantic = (boolean) configurationObject.get("semantic");
 
-        return new ConfigurationTestRun(inputDirectory, outputDirectory, outputCodeDirectory, sourceLanguage, validateMap, semantic);
+        return new ConfigurationTestRun(inputDirectory, outputDirectory, outputCodeDirectory, sourceLanguage, outputLanguages, validateMap, semantic);
     }
 }

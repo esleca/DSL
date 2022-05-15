@@ -1,7 +1,8 @@
 package com.dsl.factories;
 
 import gastmappers.exceptions.UnsupportedLanguageException;
-import com.dsl.logic.printers.PrinterBaseHandler;
+
+import com.dsl.logic.printers.IPrinterHandler;
 import com.dsl.logic.printers.PrinterCSharpHandler;
 import com.dsl.logic.printers.PrinterJavaHandler;
 import com.dsl.logic.printers.PrinterPythonHandler;
@@ -10,8 +11,8 @@ import static com.dsl.utils.Constants.*;
 
 public class PrintersFactory {
 
-	public static PrinterBaseHandler createPrinterHandler(String type) throws UnsupportedLanguageException {
-		PrinterBaseHandler printerHandler;
+	public static IPrinterHandler createPrinterHandler(String type) throws UnsupportedLanguageException {
+		IPrinterHandler printerHandler;
 		
 		switch (type.toUpperCase()){
 			case LANGUAGE_JAVA: 

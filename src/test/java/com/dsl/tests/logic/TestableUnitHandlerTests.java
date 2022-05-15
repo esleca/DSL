@@ -35,7 +35,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_countValid() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("public"));
     	function.setReturn(createPrimitiveReturn("String"));
     	functions.add(function);
@@ -61,12 +61,12 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_TwoCountValid() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("public"));
     	function.setReturn(createPrimitiveReturn("String"));
     	functions.add(function);
     	
-    	function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("public"));
     	function.setReturn(createPrimitiveReturn("long"));
     	functions.add(function);
@@ -92,7 +92,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_PublicModifier_Testable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("public"));
     	function.setReturn(createPrimitiveReturn("String"));
     	functions.add(function);
@@ -118,7 +118,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_ProtectedModifier_Testable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("protected"));
     	function.setReturn(createPrimitiveReturn("String"));
     	functions.add(function);
@@ -144,7 +144,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_PrivateModifier_NotTestable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("private"));
     	function.setReturn(createPrimitiveReturn("String"));
     	functions.add(function);
@@ -170,7 +170,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_VoidReturn_NotTestable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("public"));
     	function.setReturn(createPrimitiveReturn("void"));
     	functions.add(function);
@@ -196,7 +196,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_StringReturn_Testable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("public"));
     	function.setReturn(createPrimitiveReturn("String"));
     	functions.add(function);
@@ -222,7 +222,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_CharReturn_Testable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("public"));
     	function.setReturn(createPrimitiveReturn("char"));
     	functions.add(function);
@@ -248,7 +248,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_IntReturn_Testable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("public"));
     	function.setReturn(createPrimitiveReturn("int"));
     	functions.add(function);
@@ -274,7 +274,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_LongReturn_Testable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("public"));
     	function.setReturn(createPrimitiveReturn("long"));
     	functions.add(function);
@@ -300,7 +300,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_FloatReturn_Testable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("public"));
     	function.setReturn(createPrimitiveReturn("float"));
     	functions.add(function);
@@ -326,7 +326,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_DoubleReturn_Testable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("public"));
     	function.setReturn(createPrimitiveReturn("double"));
     	functions.add(function);
@@ -352,7 +352,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_ObjReturn_Testable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("public"));
     	function.setReturn(createInstanceReturn("objResponse"));
     	functions.add(function);
@@ -379,7 +379,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_PublicStatic_Testable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("public"));
     	function.addModifier(createModifier("static"));
     	function.setStatic(true);
@@ -408,7 +408,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_ProtectedStatic_Testable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("protected"));
     	function.addModifier(createModifier("static"));
     	function.setStatic(true);
@@ -437,7 +437,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_PrivateStatic_NotTestable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("private"));
     	function.addModifier(createModifier("static"));
     	function.setStatic(true);
@@ -466,7 +466,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_OnlyStatic_NotTestable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("static"));
     	function.setStatic(true);
     	function.setReturn(createInstanceReturn("objResponse"));
@@ -494,7 +494,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_PublicAbstract_NotTestable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("public"));
     	function.addModifier(createModifier("abstract"));
     	function.setAbstract(true);
@@ -523,7 +523,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_ProtectedAbstract_NotTestable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("protected"));
     	function.addModifier(createModifier("abstract"));
     	function.setAbstract(true);
@@ -553,7 +553,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_PublicStaticAbstract_NotTestable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("public"));
     	function.addModifier(createModifier("static"));
     	function.addModifier(createModifier("abstract"));
@@ -585,7 +585,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_ProtectedStaticAbstract_NotTestable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("protected"));
     	function.addModifier(createModifier("static"));
     	function.addModifier(createModifier("abstract"));
@@ -617,7 +617,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_PrivateStaticAbstract_NotTestable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("private"));
     	function.addModifier(createModifier("static"));
     	function.addModifier(createModifier("abstract"));
@@ -648,7 +648,7 @@ public class TestableUnitHandlerTests {
 	public void test_processTestableUnits_StaticAbstract_NotTestable() throws ModifierNotFoundException, ReturnNotFoundException {
 		//Arrange
     	ArrayList<Function> functions = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.addModifier(createModifier("static"));
     	function.addModifier(createModifier("abstract"));
     	function.setStatic(true);

@@ -94,7 +94,8 @@ public class TestScenarioFileHandler implements ITestScenarioFileHandler {
     }
 
     protected TestScenario getTestScenario(TestScenarioRun testScenarioRun, Function function) throws AssertNotFoundException {
-        AssertType assertType = AssertsFactory.createAssertType(testScenarioRun.getAssertion());
+    	String initialAssert = testScenarioRun.getAssertion();
+    	AssertType assertType = AssertTypesFactory.createAssertType(testScenarioRun.getAssertion(), function.getFileClass().getLanguage());
         ExpectedResult expectedResult;
 
         if (testScenarioRun instanceof TestScenarioParameterizedRun){
@@ -105,8 +106,7 @@ public class TestScenarioFileHandler implements ITestScenarioFileHandler {
             expectedResult = ExpectedResultsFactory.createPrimitiveExpectedResult(primitiveRun.getExpected());
         }
 
-        return TestableUnitFactory.createTestScenario(testScenarioRun.getTestName(), function,
-                testScenarioRun.getParameters(), expectedResult, assertType);
+        return TestableUnitFactory.createTestScenario(testScenarioRun.getTestName(), function, testScenarioRun.getParameters(), expectedResult, initialAssert, assertType);
     }
 
 

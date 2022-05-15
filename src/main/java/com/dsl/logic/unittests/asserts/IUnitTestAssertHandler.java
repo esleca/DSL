@@ -1,4 +1,4 @@
-package com.dsl.logic.unittests;
+package com.dsl.logic.unittests.asserts;
 
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;

@@ -1,5 +1,29 @@
 [
 	{
+		"function": "getDateTime",
+		"testName": "getDateTime_test1",
+		"parameters": [],
+        "assert": "isNotNull" 
+	},
+	{
+		"function": "getDate",
+		"testName": "getDate_test1",
+		"parameters": [],
+        "assert": "isNotNull" 
+	},
+	{
+		"function": "getPreviousOrder",
+		"testName": "getPreviousOrder_test1",
+		"parameters": [
+			{
+                "name": "control",
+                "type": "String",
+                "value": "ASD-23G-SDG"
+            }
+		],
+        "assert": "isNotNull" 
+	},
+	{
 		"function": "isMayorEdad",
 		"testName": "isMayorEdad_test1",
 		"parameters": [

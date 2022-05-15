@@ -17,13 +17,13 @@ public class DSLModel {
     
     private Class lClass;
     private ArrayList<CompilationUnit> compilationUnits;
-    private ArrayList<CompilationUnit> compilationUnitsTests;
+    private ArrayList<ArrayList<CompilationUnit>> compilationUnitsTests;
     private ArrayList<Function> compilationUnitFunctions;
     private ArrayList<Function> testableUnits;
     private TestScenario testScenario;
     private ArrayList<TestScenario> testScenarios;
     private UnitTest unitTest;    
-    private ArrayList<UnitTest> unitTests;
+    private ArrayList<ArrayList<UnitTest>> unitTests;
     private ArrayList<ConfigurationTestRun> configurationsRunFiles;
     
     public DSLModel(){
@@ -70,12 +70,25 @@ public class DSLModel {
         this.compilationUnits = compilationUnits;
     }
 
-    public ArrayList<CompilationUnit> getCompilationUnitsTests() {
-        return compilationUnitsTests;
+    public ArrayList<CompilationUnit> getCompilationUnitsTests(String language) {
+    	ArrayList<CompilationUnit> result = new ArrayList<CompilationUnit>();
+    	
+    	for(ArrayList<CompilationUnit> compUnits : compilationUnitsTests) {
+    		
+    		for(CompilationUnit cu : compUnits) {
+    			
+    			if (cu.getLanguage().toUpperCase().equals( language.toUpperCase() )) {
+        			result = compUnits;
+        			break;
+        		}	
+    		}
+    	}
+    	
+        return result;
     }
 
-    public void setCompilationUnitsTests(ArrayList<CompilationUnit> compilationUnitsTests) {
-        this.compilationUnitsTests = compilationUnitsTests;
+    public void addCompilationUnitsTests(ArrayList<CompilationUnit> compilationUnitsTests) {
+        this.compilationUnitsTests.add(compilationUnitsTests);
     }
 
     public ArrayList<Function> getCompilationUnitFunctions() {
@@ -118,12 +131,25 @@ public class DSLModel {
         this.unitTest = unitTest;
     }
 
-    public ArrayList<UnitTest> getUnitTests() {
-        return unitTests;
+    public ArrayList<UnitTest> getUnitTests(String language) {
+    	ArrayList<UnitTest> result = new ArrayList<UnitTest>();
+    	
+    	for(ArrayList<UnitTest> langUnitTests : unitTests) {
+    		
+    		for(UnitTest ut : langUnitTests) {
+    		
+        		if (ut.getLanguage().toUpperCase().equals( language.toUpperCase() )) {
+        			result = langUnitTests;
+        			break;
+        		}	
+    		}
+    	}
+    	
+        return result;
     }
     
-    public void setUnitTests(ArrayList<UnitTest> unitTests) {
-        this.unitTests = unitTests;
+    public void addUnitTests(ArrayList<UnitTest> unitTests) {
+        this.unitTests.add(unitTests);
     }
 
     public ArrayList<ConfigurationTestRun> getConfigurationsRunFiles() {

@@ -6,20 +6,25 @@ import com.dsl.models.unittests.asserts.Assert;
 
 public class UnitTest {
 
+	private String language;
     private TestScenario testScenario;
-
     private Arrange arrange;
     private Act act;
     private Assert assertion;
 
-    public UnitTest(TestScenario testScenario, Arrange arrange, Act act, Assert assertion) {
-        this.testScenario = testScenario;
+    public UnitTest(String language, TestScenario testScenario, Arrange arrange, Act act, Assert assertion) {
+        this.language = language;
+    	this.testScenario = testScenario;
         this.arrange = arrange;
         this.act = act;
         this.assertion = assertion;
     }
 
 
+    public String getLanguage() {
+    	return language;
+    }
+    
     public TestScenario getTestScenario() {
         return testScenario;
     }

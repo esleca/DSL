@@ -1,22 +1,23 @@
-package com.dsl.logic.unittests;
+package com.dsl.logic.unittests.asserts;
 
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;
-import com.dsl.factories.AssertsFactory;
+import com.dsl.factories.AssertTypesFactory;
 import com.dsl.factories.UnitTestFactory;
 import com.dsl.models.unittests.asserts.Assert;
 import com.dsl.models.unittests.TestScenario;
 import com.dsl.models.unittests.asserts.AssertExpression;
 import com.dsl.models.unittests.FunctionArgument;
 import com.dsl.models.unittests.asserts.types.AssertType;
+
+import static com.dsl.utils.Constants.JAVA_ASSERT_CLASS;
+import static com.dsl.utils.Constants.LANGUAGE_JAVA;
+
 import java.util.ArrayList;
-
-import static com.dsl.utils.Constants.ASSERT_CLASS;
-
 import org.springframework.stereotype.Component;
 
 @Component
-public class UnitTestAssertHandler implements IUnitTestAssertHandler {
+public class UnitTestAssertJavaHandler implements IUnitTestAssertHandler {
 
     @Override
     public Assert processUnitTestAssert(TestScenario testScenario) throws AssertNotFoundException, ValueTypeNotFoundException {
@@ -27,12 +28,11 @@ public class UnitTestAssertHandler implements IUnitTestAssertHandler {
         return UnitTestFactory.createAssert(expressions);
     }
 
-    private AssertExpression getAssertExpression(TestScenario testScenario) throws AssertNotFoundException, ValueTypeNotFoundException {
-        String assertName = testScenario.getAssertType().getName();
-        AssertType assertType = AssertsFactory.createAssertType(assertName);
+    protected AssertExpression getAssertExpression(TestScenario testScenario) throws AssertNotFoundException, ValueTypeNotFoundException {
+    	String assertName = testScenario.getInitialAssert();
+        AssertType assertType = AssertTypesFactory.createAssertType(assertName, LANGUAGE_JAVA);
         ArrayList<FunctionArgument> assertParameters = assertType.getAssertArguments();
 
-        return UnitTestFactory.createAssertExpression(ASSERT_CLASS, assertType, assertParameters);
+        return UnitTestFactory.createAssertExpression(JAVA_ASSERT_CLASS, assertType, assertParameters);
     }
-
 }

@@ -1,8 +1,4 @@
 package com.dsl.models.unittests.asserts.types;
 
-public class IsTrue extends AssertTypeSingle {
-
-    public IsTrue(){
-        this.name = "isTrue";
-    }
+public abstract class IsTrue extends AssertTypeSingle {
 }

@@ -3,49 +3,53 @@ package com.dsl.tests.factories;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-
 import org.junit.jupiter.api.Test;
 
 import com.dsl.exceptions.AssertNotFoundException;
-import com.dsl.factories.AssertsFactory;
+import com.dsl.factories.AssertTypesFactory;
 import com.dsl.models.unittests.asserts.types.*;
+import static com.dsl.utils.Constants.LANGUAGE_JAVA;
+
 
 public class AssertsFactoryTests {
+	
+	// JAVA TESTS
+	
 
 	//___________________________________________
-    // test_createAssertType_AreEqual
+    // test_Java_createAssertType_AreEqual
     //
     // GIVEN: createAssertType is called
     // WHEN:  areEqual type is passed
     // THEN:  AreEqual type is returned
     //___________________________________________
 	@Test
-	public void test_createAssertType_AreEqual() throws AssertNotFoundException {
+	public void test_Java_createAssertType_AreEqual() throws AssertNotFoundException {
 		//Arrange
 		String type = "areEqual";
 		
 		//Act
-		AssertType assertType = AssertsFactory.createAssertType(type);
+		AssertType assertType = AssertTypesFactory.createAssertType(type, LANGUAGE_JAVA);
 		
 		//Assert
-		assertEquals("areEqual", assertType.getName());
+		assertEquals("assertEquals", assertType.getName());
 	}
 	
 	
 	//______________________________________________
-    // test_createAssertType_InstanceOfAreEqual
+    // test_Java_createAssertType_InstanceOfAreEqual
     //
     // GIVEN: createAssertType is called
     // WHEN:  areEqual type is passed
     // THEN:  AssertType is instance of AreEqual
     //______________________________________________
 	@Test
-	public void test_createAssertType_InstanceOfAreEqual() throws AssertNotFoundException {
+	public void test_Java_createAssertType_InstanceOfAreEqual() throws AssertNotFoundException {
 		//Arrange
 		String type = "areEqual";
 		
 		//Act
-		AssertType assertType = AssertsFactory.createAssertType(type);
+		AssertType assertType = AssertTypesFactory.createAssertType(type, LANGUAGE_JAVA);
 		
 		//Assert
 		assertTrue(assertType instanceof AreEqual);
@@ -53,39 +57,39 @@ public class AssertsFactoryTests {
 	
 	
 	//___________________________________________
-    // test_createAssertType_AreNotEqual
+    // test_Java_createAssertType_AreNotEqual
     //
     // GIVEN: createAssertType is called
     // WHEN:  AreNotEqual type is passed
     // THEN:  AreNotEqual type is returned
     //___________________________________________
 	@Test
-	public void test_createAssertType_AreNotEqual() throws AssertNotFoundException {
+	public void test_Java_createAssertType_AreNotEqual() throws AssertNotFoundException {
 		//Arrange
 		String type = "areNotEqual";
 		
 		//Act
-		AssertType assertType = AssertsFactory.createAssertType(type);
+		AssertType assertType = AssertTypesFactory.createAssertType(type, LANGUAGE_JAVA);
 		
 		//Assert
-		assertEquals("areNotEqual", assertType.getName());
+		assertEquals("assertNotEquals", assertType.getName());
 	}
 	
 	
 	//______________________________________________
-    // test_createAssertType_InstanceOfAreNotEqual
+    // test_Java_createAssertType_InstanceOfAreNotEqual
     //
     // GIVEN: createAssertType is called
     // WHEN:  AreNotEqual type is passed
     // THEN:  AssertType is instance of AreNotEqual
     //______________________________________________
 	@Test
-	public void test_createAssertType_InstanceOfAreNotEqual() throws AssertNotFoundException {
+	public void test_Java_createAssertType_InstanceOfAreNotEqual() throws AssertNotFoundException {
 		//Arrange
 		String type = "areNotEqual";
 		
 		//Act
-		AssertType assertType = AssertsFactory.createAssertType(type);
+		AssertType assertType = AssertTypesFactory.createAssertType(type, LANGUAGE_JAVA);
 		
 		//Assert
 		assertTrue(assertType instanceof AreNotEqual);
@@ -93,39 +97,39 @@ public class AssertsFactoryTests {
 	
 	
 	//___________________________________________
-    // test_createAssertType_IsTrue
+    // test_Java_createAssertType_IsTrue
     //
     // GIVEN: createAssertType is called
     // WHEN:  isTrue type is passed
     // THEN:  IsTrue type is returned
     //___________________________________________
 	@Test
-	public void test_createAssertType_IsTrue() throws AssertNotFoundException {
+	public void test_Java_createAssertType_IsTrue() throws AssertNotFoundException {
 		//Arrange
 		String type = "isTrue";
 		
 		//Act
-		AssertType assertType = AssertsFactory.createAssertType(type);
+		AssertType assertType = AssertTypesFactory.createAssertType(type, LANGUAGE_JAVA);
 		
 		//Assert
-		assertEquals("isTrue", assertType.getName());
+		assertEquals("assertTrue", assertType.getName());
 	}
 	
 	
 	//______________________________________________
-    // test_createAssertType_InstanceOfIsTrue
+    // test_Java_createAssertType_InstanceOfIsTrue
     //
     // GIVEN: createAssertType is called
     // WHEN:  isTrue type is passed
     // THEN:  AssertType is instance of IsTrue
     //______________________________________________
 	@Test
-	public void test_createAssertType_InstanceOfIsTrue() throws AssertNotFoundException {
+	public void test_Java_createAssertType_InstanceOfIsTrue() throws AssertNotFoundException {
 		//Arrange
 		String type = "isTrue";
 		
 		//Act
-		AssertType assertType = AssertsFactory.createAssertType(type);
+		AssertType assertType = AssertTypesFactory.createAssertType(type, LANGUAGE_JAVA);
 		
 		//Assert
 		assertTrue(assertType instanceof IsTrue);
@@ -133,39 +137,39 @@ public class AssertsFactoryTests {
 	
 	
 	//___________________________________________
-    // test_createAssertType_IsFalse
+    // test_Java_createAssertType_IsFalse
     //
     // GIVEN: createAssertType is called
     // WHEN:  isFalse type is passed
     // THEN:  IsFalse type is returned
     //___________________________________________
 	@Test
-	public void test_createAssertType_IsFalse() throws AssertNotFoundException {
+	public void test_Java_createAssertType_IsFalse() throws AssertNotFoundException {
 		//Arrange
 		String type = "isFalse";
 		
 		//Act
-		AssertType assertType = AssertsFactory.createAssertType(type);
+		AssertType assertType = AssertTypesFactory.createAssertType(type, LANGUAGE_JAVA);
 		
 		//Assert
-		assertEquals("isFalse", assertType.getName());
+		assertEquals("assertFalse", assertType.getName());
 	}
 	
 	
 	//______________________________________________
-    // test_createAssertType_InstanceOfIsFalse
+    // test_Java_createAssertType_InstanceOfIsFalse
     //
     // GIVEN: createAssertType is called
     // WHEN:  isFalse type is passed
     // THEN:  AssertType is instance of IsFalse
     //______________________________________________
 	@Test
-	public void test_createAssertType_InstanceOfIsFalse() throws AssertNotFoundException {
+	public void test_Java_createAssertType_InstanceOfIsFalse() throws AssertNotFoundException {
 		//Arrange
 		String type = "isFalse";
 		
 		//Act
-		AssertType assertType = AssertsFactory.createAssertType(type);
+		AssertType assertType = AssertTypesFactory.createAssertType(type, LANGUAGE_JAVA);
 		
 		//Assert
 		assertTrue(assertType instanceof IsFalse);
@@ -173,39 +177,39 @@ public class AssertsFactoryTests {
 	
 	
 	//___________________________________________
-    // test_createAssertType_IsNull
+    // test_Java_createAssertType_IsNull
     //
     // GIVEN: createAssertType is called
     // WHEN:  IsNull type is passed
     // THEN:  IsNull type is returned
     //___________________________________________
 	@Test
-	public void test_createAssertType_IsNull() throws AssertNotFoundException {
+	public void test_Java_createAssertType_IsNull() throws AssertNotFoundException {
 		//Arrange
 		String type = "isNull";
 		
 		//Act
-		AssertType assertType = AssertsFactory.createAssertType(type);
+		AssertType assertType = AssertTypesFactory.createAssertType(type, LANGUAGE_JAVA);
 		
 		//Assert
-		assertEquals("isNull", assertType.getName());
+		assertEquals("assertNull", assertType.getName());
 	}
 	
 	
 	//______________________________________________
-    // test_createAssertType_InstanceOfIsNull
+    // test_Java_createAssertType_InstanceOfIsNull
     //
     // GIVEN: createAssertType is called
     // WHEN:  IsNull type is passed
     // THEN:  AssertType is instance of IsNull
     //______________________________________________
 	@Test
-	public void test_createAssertType_InstanceOfIsNull() throws AssertNotFoundException {
+	public void test_Java_createAssertType_InstanceOfIsNull() throws AssertNotFoundException {
 		//Arrange
 		String type = "isNull";
 		
 		//Act
-		AssertType assertType = AssertsFactory.createAssertType(type);
+		AssertType assertType = AssertTypesFactory.createAssertType(type, LANGUAGE_JAVA);
 		
 		//Assert
 		assertTrue(assertType instanceof IsNull);
@@ -213,39 +217,39 @@ public class AssertsFactoryTests {
 	
 	
 	//___________________________________________
-    // test_createAssertType_IsNotNull
+    // test_Java_createAssertType_IsNotNull
     //
     // GIVEN: createAssertType is called
     // WHEN:  IsNotNull type is passed
     // THEN:  IsNotNull type is returned
     //___________________________________________
 	@Test
-	public void test_createAssertType_IsNotNull() throws AssertNotFoundException {
+	public void test_Java_createAssertType_IsNotNull() throws AssertNotFoundException {
 		//Arrange
 		String type = "isNotNull";
 		
 		//Act
-		AssertType assertType = AssertsFactory.createAssertType(type);
+		AssertType assertType = AssertTypesFactory.createAssertType(type, LANGUAGE_JAVA);
 		
 		//Assert
-		assertEquals("isNotNull", assertType.getName());
+		assertEquals("assertNotNull", assertType.getName());
 	}
 	
 	
 	//______________________________________________
-    // test_createAssertType_InstanceOfIsNotNull
+    // test_Java_createAssertType_InstanceOfIsNotNull
     //
     // GIVEN: createAssertType is called
     // WHEN:  IsNotNull type is passed
     // THEN:  AssertType is instance of IsNotNull
     //______________________________________________
 	@Test
-	public void test_createAssertType_InstanceOfIsNotNull() throws AssertNotFoundException {
+	public void test_Java_createAssertType_InstanceOfIsNotNull() throws AssertNotFoundException {
 		//Arrange
 		String type = "isNotNull";
 		
 		//Act
-		AssertType assertType = AssertsFactory.createAssertType(type);
+		AssertType assertType = AssertTypesFactory.createAssertType(type, LANGUAGE_JAVA);
 		
 		//Assert
 		assertTrue(assertType instanceof IsNotNull);
@@ -253,39 +257,39 @@ public class AssertsFactoryTests {
 	
 	
 	//___________________________________________
-    // test_createAssertType_IsInstanceOfType
+    // test_Java_createAssertType_IsInstanceOfType
     //
     // GIVEN: createAssertType is called
     // WHEN:  IsInstanceOfType type is passed
     // THEN:  IsInstanceOfType type is returned
     //___________________________________________
 	@Test
-	public void test_createAssertType_IsInstanceOfType() throws AssertNotFoundException {
+	public void test_Java_createAssertType_IsInstanceOfType() throws AssertNotFoundException {
 		//Arrange
 		String type = "isInstanceOfType";
 		
 		//Act
-		AssertType assertType = AssertsFactory.createAssertType(type);
+		AssertType assertType = AssertTypesFactory.createAssertType(type, LANGUAGE_JAVA);
 		
 		//Assert
-		assertEquals("isInstanceOfType", assertType.getName());
+		assertEquals("assertInstanceOfType", assertType.getName());
 	}
 	
 	
 	//__________________________________________________
-    // test_createAssertType_InstanceOfType
+    // test_Java_createAssertType_InstanceOfType
     //
     // GIVEN: createAssertType is called
     // WHEN:  IsInstanceOfType type is passed
     // THEN:  AssertType is instance of IsInstanceOfType
     //__________________________________________________
 	@Test
-	public void test_createAssertType_InstanceOfType() throws AssertNotFoundException {
+	public void test_Java_createAssertType_InstanceOfType() throws AssertNotFoundException {
 		//Arrange
 		String type = "isInstanceOfType";
 		
 		//Act
-		AssertType assertType = AssertsFactory.createAssertType(type);
+		AssertType assertType = AssertTypesFactory.createAssertType(type, LANGUAGE_JAVA);
 		
 		//Assert
 		assertTrue(assertType instanceof IsInstanceOfType);
@@ -293,20 +297,20 @@ public class AssertsFactoryTests {
 	
 	
 	//___________________________________________
-    // test_createAssertType_AreEqual
+    // test_Java_createAssertType_AreEqual
     //
     // GIVEN: createAssertType is called
     // WHEN:  areEqual type is passed
     // THEN:  AreEqual type is returned
     //___________________________________________
 	@Test
-	public void test_createAssertType_NotFoundException() throws AssertNotFoundException {
+	public void test_Java_createAssertType_NotFoundException() throws AssertNotFoundException {
 		//Arrange
 		String type = "invalid";
 		
 		//Act
 		Exception exception = assertThrows(AssertNotFoundException.class, () -> {
-			AssertsFactory.createAssertType(type);
+			AssertTypesFactory.createAssertType(type, LANGUAGE_JAVA);
 		});
 		
 		String expectedMessage = "Invalid DSL unit test assert";
