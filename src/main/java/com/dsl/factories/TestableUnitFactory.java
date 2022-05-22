@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class TestableUnitFactory {
 
-    public static TestScenario createTestScenario(String testName, Function function, ArrayList<ParameterScenario> parameters, ExpectedResult expectedResult, AssertType assertion){
-        TestScenario testScenario = new TestScenario(testName, function, parameters, expectedResult, assertion);
+    public static TestScenario createTestScenario(String testName, Function function, ArrayList<ParameterScenario> parameters, ExpectedResult expectedResult, String initialAssert, AssertType assertion){
+        TestScenario testScenario = new TestScenario(testName, function, parameters, expectedResult, initialAssert, assertion);
         return testScenario;
     }
 

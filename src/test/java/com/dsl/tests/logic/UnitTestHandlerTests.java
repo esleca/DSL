@@ -7,19 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.dsl.exceptions.AssertNotFoundException;
-import com.dsl.logic.unittests.IUnitTestActionHandler;
-import com.dsl.logic.unittests.IUnitTestArrangeHandler;
-import com.dsl.logic.unittests.IUnitTestAssertHandler;
+import com.dsl.logic.unittests.action.IUnitTestActionHandler;
+import com.dsl.logic.unittests.arrange.IUnitTestArrangeHandler;
+import com.dsl.logic.unittests.asserts.IUnitTestAssertHandler;
 import com.dsl.logic.unittests.UnitTestHandler;
-import com.dsl.models.unittests.TestScenario;
-import com.dsl.models.unittests.UnitTest;
-import com.dsl.models.unittests.acts.Act;
-import com.dsl.models.unittests.arranges.Arrange;
-import com.dsl.models.unittests.asserts.Assert;
 
-import static com.dsl.resources.DataTestHelper.*;
 import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class UnitTestHandlerTests {

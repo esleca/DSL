@@ -6,8 +6,8 @@ import com.dsl.models.aggregates.Class;
 import com.dsl.models.aggregates.Function;
 import com.dsl.models.aggregates.Package;
 import com.dsl.models.unittests.TestScenario;
-import com.dsl.logic.testscenarios.IExpectedParameterizedHandler;
-import com.dsl.logic.testscenarios.IExpectedPrimitiveHandler;
+import com.dsl.logic.expectedresults.IExpectedParameterizedHandler;
+import com.dsl.logic.expectedresults.IExpectedPrimitiveHandler;
 import com.dsl.logic.testscenarios.TestScenarioHandler;
 
 import static com.dsl.factories.AggregatesFactory.*;
@@ -52,7 +52,7 @@ public class TestScenarioHandlerTests {
     	UnitTestRequest request = createUnitTestRequest();
     	
     	ArrayList<Function> testableUnits = new ArrayList<Function>();
-    	Function function = createFunction(new Class("ClassName", new Package("com.PackageName")));
+    	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
     	function.setName("saludar");
     	//function.setModifiers(createModifier("public"));
     	function.setReturn(createPrimitiveReturn("String"));
@@ -69,13 +69,16 @@ public class TestScenarioHandlerTests {
     
     private static UnitTestRequest createUnitTestRequest() {
         String classPath = "C:\\TestMapper\\JAVA\\Input\\Clase_Prueba.java";
+        String outputPath = "C:\\TestPrinter\\JAVA\\Output";
         String language = "JAVA";
         String function = "saludar";
         String testName = "test_saludar_valid";
-        String expected = "Hola Esteban";
-        String assertion = "areEqual";
+
         JSONArray parameters = getParameters();
-        return new UnitTestRequest(classPath, language, function, testName, parameters, expected, assertion);
+        JSONObject expected = getExpected();
+        String assertion = "areEqual";
+        
+        return new UnitTestRequest(classPath, outputPath, language, function, testName, parameters, expected, assertion);
     }
 
     private static JSONArray getParameters() {
@@ -91,6 +94,12 @@ public class TestScenarioHandlerTests {
         parameter.put("value", "Esteban");
         return parameter;
     }
-
+    
+    private static JSONObject getExpected() {
+        JSONObject expected = new JSONObject();
+        expected.put("type", "String");
+        expected.put("value", "Esteban");
+        return expected;
+    }
 
 }

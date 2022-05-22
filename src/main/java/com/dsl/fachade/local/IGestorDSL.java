@@ -18,7 +18,11 @@ public interface IGestorDSL {
 
     void readTestScenarios() throws ValueTypeNotFoundException, AssertNotFoundException;
 
-    void processUnitTests() throws AssertNotFoundException;
+    void processUnitTests() throws AssertNotFoundException, ValueTypeNotFoundException, UnsupportedLanguageException;
 
-    void processCompilationUnitsTests();
+    void processCompilationUnitsTests() throws UnsupportedLanguageException;
+    
+    void generateCode() throws UnsupportedLanguageException;
+    
+    void testgenerateCode() throws UnsupportedLanguageException, IOException;
 }

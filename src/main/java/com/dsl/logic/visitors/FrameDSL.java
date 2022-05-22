@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 public class FrameDSL implements IFrameDSL {
 
+	private String language;
     private Package gPackage;
     private ArrayList<Import> imports;
     private Class fileClass;
@@ -68,8 +69,13 @@ public class FrameDSL implements IFrameDSL {
     }
 
     @Override
+    public void writeClassLanguage(String name){
+    	this.language = name;
+    }
+    
+    @Override
     public void writeClassPackage(String name) {
-        gPackage = AggregatesFactory.createPackage(name);
+        this.gPackage = AggregatesFactory.createPackage(name);
     }
 
     @Override
@@ -79,7 +85,7 @@ public class FrameDSL implements IFrameDSL {
 
     @Override
     public void writeFunctionClass(String name) {
-        fileClass = AggregatesFactory.createClass(name, gPackage);
+        fileClass = AggregatesFactory.createClass(language, name, gPackage);
     }
 
     @Override

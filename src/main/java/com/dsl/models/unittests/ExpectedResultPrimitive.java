@@ -10,8 +10,14 @@ public class ExpectedResultPrimitive extends ExpectedResult {
         this.valueType = valueType;
     }
 
+    @Override
     public ValueType getValueType() {
         return valueType;
+    }
+    
+    @Override
+    public String getExpectedType() {
+    	return valueType.getType();
     }
 
 }

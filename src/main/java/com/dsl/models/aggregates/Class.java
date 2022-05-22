@@ -5,16 +5,22 @@ import java.util.ArrayList;
 
 public class Class {
 
+	private String language;
     private Package gpackage;
     private ArrayList<Import> imports;
     private String name;
     private ArrayList<Function> functions;
 
-    public Class(String name, Package aPackage) {
-        this.name = name;
+    public Class(String language, String name, Package aPackage) {
+        this.language = language;
+    	this.name = name;
         this.gpackage = aPackage;
         this.imports = new ArrayList<>();
         this.functions = new ArrayList<>();
+    }
+    
+    public String getLanguage(){
+        return this.language;
     }
 
     public Package getPackage() {

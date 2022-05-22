@@ -3,6 +3,8 @@ package com.dsl.logic.testscenarios;
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.factories.*;
+import com.dsl.logic.expectedresults.IExpectedResultHandler;
+import com.dsl.logic.parameterscenarios.IParameterScenarioHandler;
 import com.dsl.models.dtos.UnitTestRequest;
 import com.dsl.models.aggregates.Function;
 import com.dsl.models.parameters.ParameterScenario;
@@ -41,14 +43,14 @@ public class TestScenarioHandler implements ITestScenarioHandler {
     
     
     protected TestScenario getTestScenario(UnitTestRequest request, Function function) throws AssertNotFoundException, ValueTypeNotFoundException {
-        AssertType assertType = AssertsFactory.createAssertType(request.getAssert());
+        AssertType assertType = AssertTypesFactory.createAssertType(request.getAssert(), request.getLanguage());
         
         JSONArray paramsArray = request.getParameters();
         ArrayList<ParameterScenario> parameters = _parameterScenarioHandler.getParameterScenarios(paramsArray);
         
         ExpectedResult expectedResult = _expectedResultHandler.getExpectedResult(request);
         
-        return TestableUnitFactory.createTestScenario(request.getTestName(), function, parameters, expectedResult, assertType);
+        return TestableUnitFactory.createTestScenario(request.getTestName(), function, parameters, expectedResult, request.getAssert(), assertType);
     }
     
     protected Function getFunction(String functionName, ArrayList<Function> testableUnits) {

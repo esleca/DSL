@@ -5,7 +5,8 @@ import java.util.List;
 
 public class Constants {
 
-    public final static String ASSERT_CLASS = "Assert";
+	public final static String JAVA_ASSERT_CLASS = null;
+    public final static String CSHARP_ASSERT_CLASS = "Assert";
 
     public final static String MODIFIER_PUBLIC = "public";
     public final static String MODIFIER_PRIVATE = "private";
@@ -30,6 +31,22 @@ public class Constants {
     public final static String ASSERT_IS_NULL = "isNull";
     public final static String ASSERT_IS_NOT_NULL = "isNotNull";
     public final static String ASSERT_INSTANCE_OF = "isInstanceOfType";
+    
+    public final static String ASSERT_JAVA_ARE_EQUAL = "assertEquals";
+    public final static String ASSERT_JAVA_ARE_NOT_EQUAL = "assertNotEquals";
+    public final static String ASSERT_JAVA_IS_TRUE = "assertTrue";
+    public final static String ASSERT_JAVA_IS_FALSE = "assertFalse";
+    public final static String ASSERT_JAVA_IS_NULL = "assertNull";
+    public final static String ASSERT_JAVA_IS_NOT_NULL = "assertNotNull";
+    public final static String ASSERT_JAVA_INSTANCE_OF = "assertInstanceOfType";
+    
+    public final static String ASSERT_CSHARP_ARE_EQUAL = "AreEqual";
+    public final static String ASSERT_CSHARP_ARE_NOT_EQUAL = "AreNotEqual";
+    public final static String ASSERT_CSHARP_IS_TRUE = "IsTrue";
+    public final static String ASSERT_CSHARP_IS_FALSE = "IsFalse";
+    public final static String ASSERT_CSHARP_IS_NULL = "IsNull";
+    public final static String ASSERT_CSHARP_IS_NOT_NULL = "IsNotNull";
+    public final static String ASSERT_CSHARP_INSTANCE_OF = "IsInstanceOfType";
 
     public final static String VALUE_TYPE_INTEGER = "int";
     public final static String VALUE_TYPE_STRING = "String";
@@ -56,6 +73,8 @@ public class Constants {
     public final static String SYSTEM_UNDER_TEST = "sut";
 
     public final static String LANGUAGE_JAVA = "JAVA";
+    public final static String LANGUAGE_CSHARP = "CSHARP";
+    public final static String LANGUAGE_PYTHON = "PYTHON";
 
     public final static String ARRAY_LIST = "ArrayList";
     public final static String LIST = "List";

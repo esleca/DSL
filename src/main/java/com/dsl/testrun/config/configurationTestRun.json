@@ -2,7 +2,9 @@
     {
         "inputDirectory": "C:\\TestMapper\\JAVA\\Input",
         "outputDirectory": "C:\\TestMapper\\JAVA\\Output",
+        "outputCodeDirectory": "C:\\TestPrinter\\Output",
         "sourceLanguage": "JAVA",
+        "outputLanguages": ["JAVA", "CSHARP"],
         "validateMap": false,
         "semantic": false
     }

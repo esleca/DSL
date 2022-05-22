@@ -1,167 +1,171 @@
 package com.dsl.tests.models;
 
-import static org.junit.Assert.assertEquals;
-
+import static org.junit.Assert.*;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import com.dsl.models.unittests.FunctionArgument;
 import com.dsl.models.unittests.asserts.types.*;
+import com.dsl.models.unittests.asserts.types.java.*;
+import com.dsl.models.unittests.asserts.types.csharp.*;
 
 
 public class AssertsTests {
+	
+	// JAVA LANGUAGE ASSERTS
+	
 
 	//_____________________________________________
-    // test_getName_AreEqual
+    // test_Java_getName_AreEqual
     //
     // GIVEN: getName parent function is called
     // WHEN:  AreEqual instance is executed
     // THEN:  assertName will be 
     //_____________________________________________
 	@Test
-	public void test_getName_AreEqual() {
+	public void test_Java_getName_AreEqual() {
 		//Arrange
-		AssertType assertType = new AreEqual();
+		AssertType assertType = new JavaAreEqual();
 		
 		//Act
 		String assertName = assertType.getName();
 		
 		//Assert
-		assertEquals("areEqual", assertName);
+		assertEquals("assertEquals", assertName);
 	}
 	
 	
 	//_____________________________________________
-    // test_getName_AreNotEqual
+    // test_Java_getName_AreNotEqual
     //
     // GIVEN: getName parent function is called
     // WHEN:  AreNotEqual instance is executed
     // THEN:  assertName will be areNotEqual
     //_____________________________________________
 	@Test
-	public void test_getName_AreNotEqual() {
+	public void test_Java_getName_AreNotEqual() {
 		//Arrange
-		AssertType assertType = new AreNotEqual();
+		AssertType assertType = new JavaAreNotEqual();
 		
 		//Act
 		String assertName = assertType.getName();
 		
 		//Assert
-		assertEquals("areNotEqual", assertName);
+		assertEquals("assertNotEquals", assertName);
 	}
 	
 	
 	//_____________________________________________
-    // test_getName_IsFalse
+    // test_Java_getName_IsFalse
     //
     // GIVEN: getName parent function is called
     // WHEN:  IsFalse instance is executed
     // THEN:  assertName will be isFalse
     //_____________________________________________
 	@Test
-	public void test_getName_IsFalse() {
+	public void test_Java_getName_IsFalse() {
 		//Arrange
-		AssertType assertType = new IsFalse();
+		AssertType assertType = new JavaIsFalse();
 		
 		//Act
 		String assertName = assertType.getName();
 		
 		//Assert
-		assertEquals("isFalse", assertName);
+		assertEquals("assertFalse", assertName);
 	}
 	
 	
 	//_____________________________________________
-    // test_getName_IsTrue
+    // test_Java_getName_IsTrue
     //
     // GIVEN: getName parent function is called
     // WHEN:  IsTrue instance is executed
     // THEN:  assertName will be isTrue
     //_____________________________________________
 	@Test
-	public void test_getName_IsTrue() {
+	public void test_Java_getName_IsTrue() {
 		//Arrange
-		AssertType assertType = new IsTrue();
+		AssertType assertType = new JavaIsTrue();
 		
 		//Act
 		String assertName = assertType.getName();
 		
 		//Assert
-		assertEquals("isTrue", assertName);
+		assertEquals("assertTrue", assertName);
 	}
 	
 	
 	//_____________________________________________
-    // test_getName_IsInstanceOfType
+    // test_Java_getName_IsInstanceOfType
     //
     // GIVEN: getName parent function is called
     // WHEN:  IsInstanceOfType instance is executed
     // THEN:  assertName will be isInstanceOfType
     //_____________________________________________
 	@Test
-	public void test_getName_IsInstanceOfType() {
+	public void test_Java_getName_IsInstanceOfType() {
 		//Arrange
-		AssertType assertType = new IsInstanceOfType();
+		AssertType assertType = new JavaIsInstanceOfType();
 		
 		//Act
 		String assertName = assertType.getName();
 		
 		//Assert
-		assertEquals("isInstanceOfType", assertName);
+		assertEquals("assertInstanceOfType", assertName);
 	}
 	
 	
 	//_____________________________________________
-    // test_getName_IsNotNull
+    // test_Java_getName_IsNotNull
     //
     // GIVEN: getName parent function is called
     // WHEN:  IsNotNull instance is executed
     // THEN:  assertName will be isNotNull
     //_____________________________________________
 	@Test
-	public void test_getName_IsNotNull() {
+	public void test_Java_getName_IsNotNull() {
 		//Arrange
-		AssertType assertType = new IsNotNull();
+		AssertType assertType = new JavaIsNotNull();
 		
 		//Act
 		String assertName = assertType.getName();
 		
 		//Assert
-		assertEquals("isNotNull", assertName);
+		assertEquals("assertNotNull", assertName);
 	}
 	
 	
 	//_____________________________________________
-    // test_getName_IsNull
+    // test_Java_getName_IsNull
     //
     // GIVEN: getName parent function is called
     // WHEN:  IsNull instance is executed
     // THEN:  assertName will be isNull
     //_____________________________________________
 	@Test
-	public void test_getName_IsNull() {
+	public void test_Java_getName_IsNull() {
 		//Arrange
-		AssertType assertType = new IsNull();
+		AssertType assertType = new JavaIsNull();
 		
 		//Act
 		String assertName = assertType.getName();
 		
 		//Assert
-		assertEquals("isNull", assertName);
+		assertEquals("assertNull", assertName);
 	}
 	
 	
 	//_____________________________________________
-    // test_getName_AssertTypePair_Size
+    // test_Java_getName_AssertTypePair_Size
     //
     // GIVEN: getAssertArguments function is called
     // WHEN:  AssertTypePair instance is executed
     // THEN:  arguments contain 2 elements
     //_____________________________________________
 	@Test
-	public void test_getName_AssertTypePair_Size() {
+	public void test_Java_getName_AssertTypePair_Size() {
 		//Arrange
-		AssertType assertType = new AreEqual();
+		AssertType assertType = new JavaAreEqual();
 		
 		//Act
 		ArrayList<FunctionArgument> arguments = assertType.getAssertArguments();
@@ -172,58 +176,58 @@ public class AssertsTests {
 	
 	
 	//_____________________________________________
-    // test_getName_AssertTypePair_Expected
+    // test_Java_getName_AssertTypePair_Expected
     //
     // GIVEN: getAssertArguments function is called
     // WHEN:  AssertTypePair instance is executed
     // THEN:  first argument will be expected
     //_____________________________________________
 	@Test
-	public void test_getName_AssertTypePair_Expected() {
+	public void test_Java_getName_AssertTypePair_Expected() {
 		//Arrange
-		AssertType assertType = new AreEqual();
+		AssertType assertType = new JavaAreEqual();
 		
 		//Act
 		ArrayList<FunctionArgument> arguments = assertType.getAssertArguments();
 		FunctionArgument firstArg = arguments.get(0);
 		
 		//Assert
-		assertEquals("expected", firstArg.getValue());
+		assertEquals("expected", firstArg.getValue().toString());
 	}
 	
 	
 	//_____________________________________________
-    // test_getName_AssertTypePair_Result
+    // test_Java_getName_AssertTypePair_Result
     //
     // GIVEN: getAssertArguments function is called
     // WHEN:  AssertTypePair instance is executed
     // THEN:  second argument will be result
     //_____________________________________________
 	@Test
-	public void test_getName_AssertTypePair_Result() {
+	public void test_Java_getName_AssertTypePair_Result() {
 		//Arrange
-		AssertType assertType = new AreEqual();
+		AssertType assertType = new JavaAreEqual();
 		
 		//Act
 		ArrayList<FunctionArgument> arguments = assertType.getAssertArguments();
 		FunctionArgument secondArg = arguments.get(1);
 		
 		//Assert
-		assertEquals("result", secondArg.getValue());
+		assertEquals("result", secondArg.getValue().toString());
 	}
 	
 	
 	//_____________________________________________
-    // test_getName_AssertTypeSingle_Size
+    // test_Java_getName_AssertTypeSingle_Size
     //
     // GIVEN: getAssertArguments function is called
     // WHEN:  AssertTypeSingle instance is executed
     // THEN:  arguments contain 1 element
     //_____________________________________________
 	@Test
-	public void test_getName_AssertTypeSingle_Size() {
+	public void test_Java_getName_AssertTypeSingle_Size() {
 		//Arrange
-		AssertType assertType = new IsTrue();
+		AssertType assertType = new JavaIsTrue();
 		
 		//Act
 		ArrayList<FunctionArgument> arguments = assertType.getAssertArguments();
@@ -234,23 +238,273 @@ public class AssertsTests {
 	
 	
 	//_____________________________________________
-    // test_getName_AssertTypeSingle_Result
+    // test_Java_getName_AssertTypeSingle_Result
     //
     // GIVEN: getAssertArguments function is called
     // WHEN:  AssertTypeSingle instance is executed
     // THEN:  only argument will be result
     //_____________________________________________
 	@Test
-	public void test_getName_AssertTypeSingle_Result() {
+	public void test_Java_getName_AssertTypeSingle_Result() {
 		//Arrange
-		AssertType assertType = new IsTrue();
+		AssertType assertType = new JavaIsTrue();
 		
 		//Act
 		ArrayList<FunctionArgument> arguments = assertType.getAssertArguments();
 		FunctionArgument argument = arguments.get(0);
 		
 		//Assert
-		assertEquals("result", argument.getValue());
+		assertEquals("result", argument.getValue().toString());
+	}
+	
+	
+	
+	
+	
+	
+	
+	// CSHARP LANGUAGE ASSERTS
+
+	//_____________________________________________
+    // test_CSharp_getName_AreEqual
+    //
+    // GIVEN: getName parent function is called
+    // WHEN:  AreEqual instance is executed
+    // THEN:  assertName will be 
+    //_____________________________________________
+	@Test
+	public void test_CSharp_getName_AreEqual() {
+		//Arrange
+		AssertType assertType = new CSharpAreEqual();
+		
+		//Act
+		String assertName = assertType.getName();
+		
+		//Assert
+		assertEquals("AreEqual", assertName);
+	}
+	
+	
+	//_____________________________________________
+    // test_CSharp_getName_AreNotEqual
+    //
+    // GIVEN: getName parent function is called
+    // WHEN:  AreNotEqual instance is executed
+    // THEN:  assertName will be areNotEqual
+    //_____________________________________________
+	@Test
+	public void test_CSharp_getName_AreNotEqual() {
+		//Arrange
+		AssertType assertType = new CSharpAreNotEqual();
+		
+		//Act
+		String assertName = assertType.getName();
+		
+		//Assert
+		assertEquals("AreNotEqual", assertName);
+	}
+	
+	
+	//_____________________________________________
+    // test_CSharp_getName_IsFalse
+    //
+    // GIVEN: getName parent function is called
+    // WHEN:  IsFalse instance is executed
+    // THEN:  assertName will be isFalse
+    //_____________________________________________
+	@Test
+	public void test_CSharp_getName_IsFalse() {
+		//Arrange
+		AssertType assertType = new CSharpIsFalse();
+		
+		//Act
+		String assertName = assertType.getName();
+		
+		//Assert
+		assertEquals("IsFalse", assertName);
+	}
+	
+	
+	//_____________________________________________
+    // test_CSharp_getName_IsTrue
+    //
+    // GIVEN: getName parent function is called
+    // WHEN:  IsTrue instance is executed
+    // THEN:  assertName will be isTrue
+    //_____________________________________________
+	@Test
+	public void test_CSharp_getName_IsTrue() {
+		//Arrange
+		AssertType assertType = new CSharpIsTrue();
+		
+		//Act
+		String assertName = assertType.getName();
+		
+		//Assert
+		assertEquals("IsTrue", assertName);
+	}
+	
+	
+	//_____________________________________________
+    // test_CSharp_getName_IsInstanceOfType
+    //
+    // GIVEN: getName parent function is called
+    // WHEN:  IsInstanceOfType instance is executed
+    // THEN:  assertName will be isInstanceOfType
+    //_____________________________________________
+	@Test
+	public void test_CSharp_getName_IsInstanceOfType() {
+		//Arrange
+		AssertType assertType = new CSharpIsInstanceOfType();
+		
+		//Act
+		String assertName = assertType.getName();
+		
+		//Assert
+		assertEquals("IsInstanceOfType", assertName);
+	}
+	
+	
+	//_____________________________________________
+    // test_CSharp_getName_IsNotNull
+    //
+    // GIVEN: getName parent function is called
+    // WHEN:  IsNotNull instance is executed
+    // THEN:  assertName will be isNotNull
+    //_____________________________________________
+	@Test
+	public void test_CSharp_getName_IsNotNull() {
+		//Arrange
+		AssertType assertType = new CSharpIsNotNull();
+		
+		//Act
+		String assertName = assertType.getName();
+		
+		//Assert
+		assertEquals("IsNotNull", assertName);
+	}
+	
+	
+	//_____________________________________________
+    // test_CSharp_getName_IsNull
+    //
+    // GIVEN: getName parent function is called
+    // WHEN:  IsNull instance is executed
+    // THEN:  assertName will be isNull
+    //_____________________________________________
+	@Test
+	public void test_CSharp_getName_IsNull() {
+		//Arrange
+		AssertType assertType = new CSharpIsNull();
+		
+		//Act
+		String assertName = assertType.getName();
+		
+		//Assert
+		assertEquals("IsNull", assertName);
+	}
+	
+	
+	//_____________________________________________
+    // test_CSharp_getName_AssertTypePair_Size
+    //
+    // GIVEN: getAssertArguments function is called
+    // WHEN:  AssertTypePair instance is executed
+    // THEN:  arguments contain 2 elements
+    //_____________________________________________
+	@Test
+	public void test_CSharp_getName_AssertTypePair_Size() {
+		//Arrange
+		AssertType assertType = new CSharpAreEqual();
+		
+		//Act
+		ArrayList<FunctionArgument> arguments = assertType.getAssertArguments();
+		
+		//Assert
+		assertEquals(2, arguments.size());
+	}
+	
+	
+	//_____________________________________________
+    // test_CSharp_getName_AssertTypePair_Expected
+    //
+    // GIVEN: getAssertArguments function is called
+    // WHEN:  AssertTypePair instance is executed
+    // THEN:  first argument will be expected
+    //_____________________________________________
+	@Test
+	public void test_CSharp_getName_AssertTypePair_Expected() {
+		//Arrange
+		AssertType assertType = new CSharpAreEqual();
+		
+		//Act
+		ArrayList<FunctionArgument> arguments = assertType.getAssertArguments();
+		FunctionArgument firstArg = arguments.get(0);
+		
+		//Assert
+		assertEquals("expected", firstArg.getValue().toString());
+	}
+	
+	
+	//_____________________________________________
+    // test_CSharp_getName_AssertTypePair_Result
+    //
+    // GIVEN: getAssertArguments function is called
+    // WHEN:  AssertTypePair instance is executed
+    // THEN:  second argument will be result
+    //_____________________________________________
+	@Test
+	public void test_CSharp_getName_AssertTypePair_Result() {
+		//Arrange
+		AssertType assertType = new CSharpAreEqual();
+		
+		//Act
+		ArrayList<FunctionArgument> arguments = assertType.getAssertArguments();
+		FunctionArgument secondArg = arguments.get(1);
+		
+		//Assert
+		assertEquals("result", secondArg.getValue().toString());
+	}
+	
+	
+	//_____________________________________________
+    // test_CSharp_getName_AssertTypeSingle_Size
+    //
+    // GIVEN: getAssertArguments function is called
+    // WHEN:  AssertTypeSingle instance is executed
+    // THEN:  arguments contain 1 element
+    //_____________________________________________
+	@Test
+	public void test_CSharp_getName_AssertTypeSingle_Size() {
+		//Arrange
+		AssertType assertType = new CSharpIsTrue();
+		
+		//Act
+		ArrayList<FunctionArgument> arguments = assertType.getAssertArguments();
+		
+		//Assert
+		assertEquals(1, arguments.size());
+	}
+	
+	
+	//_____________________________________________
+    // test_CSharp_getName_AssertTypeSingle_Result
+    //
+    // GIVEN: getAssertArguments function is called
+    // WHEN:  AssertTypeSingle instance is executed
+    // THEN:  only argument will be result
+    //_____________________________________________
+	@Test
+	public void test_CSharp_getName_AssertTypeSingle_Result() {
+		//Arrange
+		AssertType assertType = new CSharpIsTrue();
+		
+		//Act
+		ArrayList<FunctionArgument> arguments = assertType.getAssertArguments();
+		FunctionArgument argument = arguments.get(0);
+		
+		//Assert
+		assertEquals("result", argument.getValue().toString());
 	}
 	
 }

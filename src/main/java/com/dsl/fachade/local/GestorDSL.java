@@ -1,49 +1,60 @@
 package com.dsl.fachade.local;
 
 import ASTMCore.ASTMSource.CompilationUnit;
-import com.dsl.exceptions.AssertNotFoundException;
-import com.dsl.exceptions.ValueTypeNotFoundException;
-import com.dsl.fachade.models.GestorModel;
+import com.dsl.logic.unittests.action.IUnitTestActionHandler;
+import com.dsl.logic.unittests.action.UnitTestActionHandler;
+import com.dsl.logic.unittests.arrange.IUnitTestArrangeHandler;
+import com.dsl.logic.unittests.arrange.UnitTestArrangeHandler;
+import com.dsl.logic.unittests.asserts.IUnitTestAssertHandler;
 import gastmappers.exceptions.UnsupportedLanguageException;
+
+import com.dsl.exceptions.*;
+import com.dsl.fachade.models.DSLModel;
+import com.dsl.factories.UnitTestAssertsFactory;
+import com.dsl.models.aggregates.*;
 import com.dsl.models.aggregates.Class;
-import com.dsl.models.aggregates.Function;
-import com.dsl.models.unittests.TestScenario;
-import com.dsl.models.unittests.UnitTest;
-import com.dsl.logic.gast.CompilationUnitTestFileHandler;
-import com.dsl.logic.gast.ICompilationUnitTestFileHandler;
-import com.dsl.logic.visitors.VisitorBase;
-import com.dsl.logic.visitors.VisitorDSL;
-import com.dsl.logic.configfiles.ITestRunHandler;
-import com.dsl.logic.configfiles.TestRunHandler;
-import com.dsl.logic.gast.ICompilationUnitFileHandler;
-import com.dsl.logic.gast.CompilationUnitFileHandler;
+import com.dsl.models.unittests.*;
+import com.dsl.logic.gast.*;
+import com.dsl.logic.imports.IImportsHandler;
+import com.dsl.logic.imports.ImportsHandler;
+import com.dsl.logic.packages.IPackagesHandler;
+import com.dsl.logic.packages.PackagesHandler;
+import com.dsl.logic.parameterscenarios.*;
+import com.dsl.logic.printers.*;
+import com.dsl.logic.programscopes.FunctionActionHandler;
+import com.dsl.logic.programscopes.FunctionArrangeHandler;
+import com.dsl.logic.programscopes.FunctionAssertHandler;
+import com.dsl.logic.programscopes.FunctionModifiersHandler;
+import com.dsl.logic.programscopes.FunctionReturnHandler;
+import com.dsl.logic.programscopes.FunctionScopeHandler;
+import com.dsl.logic.programscopes.IFunctionActionHandler;
+import com.dsl.logic.programscopes.IFunctionArrangeHandler;
+import com.dsl.logic.programscopes.IFunctionAssertHandler;
+import com.dsl.logic.programscopes.IFunctionModifiersHandler;
+import com.dsl.logic.programscopes.IFunctionReturnHandler;
+import com.dsl.logic.programscopes.IFunctionScopeHandler;
+import com.dsl.logic.programscopes.IProgramScopeHandler;
+import com.dsl.logic.programscopes.ProgramScopeHandler;
+import com.dsl.logic.visitors.*;
+import com.dsl.logic.configfiles.*;
+import com.dsl.logic.expectedresults.*;
 import com.dsl.logic.testableunits.*;
 import com.dsl.logic.testscenarios.*;
 import com.dsl.logic.unittests.*;
-import com.dsl.testrun.config.TestScenarioRun;
-import testrun.config.ConfigurationTestRun;
-import com.dsl.utils.*;
+import com.dsl.testrun.config.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class GestorDSL implements IGestorDSL{
 
-    private IPrinter printer;
-    private GestorModel dslModel;
+    private DSLModel dslModel;
 
-    public GestorDSL(IPrinter printer){
-        this.printer = printer;
-        this.dslModel = new GestorModel();
+    public GestorDSL(){
+        this.dslModel = new DSLModel();
     }
 
 
-    /**
-     * Read the configuration file for initial specifications
-     * Set the configuration objects
-     *
-     * @throws UnsupportedLanguageException
-     */
     @Override
     public void readConfigurationFile() throws UnsupportedLanguageException {
         ITestRunHandler dslRunner = new TestRunHandler();
@@ -53,13 +64,6 @@ public class GestorDSL implements IGestorDSL{
         dslModel.setConfigurationsRunFiles(configFiles);
     }
 
-    /**
-     * This method create a dsl in memory to process
-     * GAST and return the root compilation units.
-     *
-     * @throws IOException
-     * @throws UnsupportedLanguageException
-     */
     @Override
     public void beginTransformation() throws IOException, UnsupportedLanguageException {
         for (ConfigurationTestRun testRun : dslModel.getConfigurationsRunFiles()) {
@@ -71,10 +75,6 @@ public class GestorDSL implements IGestorDSL{
         }
     }
 
-    /**
-     * Create a visitor DSL to visit the entire compilation unit
-     * This method set a list of the compilation unit functions
-     */
     @Override
     public void processGastFunctions(){
         for (CompilationUnit compilationUnit : dslModel.getCompilationUnits()) {
@@ -91,11 +91,6 @@ public class GestorDSL implements IGestorDSL{
         }
     }
 
-    /**
-     * Create a transformation dsl for testable units
-     * This method filter the functions in order to obtain
-     * the valid testable units.
-     */
     @Override
     public void processTestableUnits(){
         ITestableUnitHandler testableUnitHandler = new TestableUnitHandler();
@@ -106,13 +101,6 @@ public class GestorDSL implements IGestorDSL{
         dslModel.setTestableUnits(testableUnits);
     }
 
-    /**
-     * Use a processor dsl test scenario to define
-     * the test scenario object representations.
-     *
-     * @throws ValueTypeNotFoundException
-     * @throws AssertNotFoundException
-     */
     @Override
     public void readTestScenarios() throws ValueTypeNotFoundException, AssertNotFoundException {
     	IParameterScenarioHandler paramScenarioHandler = new ParameterScenarioHandler();
@@ -127,49 +115,87 @@ public class GestorDSL implements IGestorDSL{
         dslModel.setTestScenarios(testScenarios);
     }
 
-    /**
-     * Use the unit test dsl to convert from the
-     * test scenarios to the unit test object representations
-     *
-     * @throws AssertNotFoundException
-     */
     @Override
-    public void processUnitTests() throws AssertNotFoundException {
-        IUnitTestArrangeHandler arrangeHandler = new UnitTestArrangeHandler();
-        IUnitTestActionHandler actionHandler = new UnitTestActionHandler();
-        IUnitTestAssertHandler assertHandler = new UnitTestAssertHandler();
-        IUnitTestHandler unitTestHandler = new UnitTestHandler(arrangeHandler, actionHandler, assertHandler);
+    public void processUnitTests() throws AssertNotFoundException, ValueTypeNotFoundException, UnsupportedLanguageException {
+    	ArrayList<String> outputLanguages = dslModel.getConfigurationsRunFiles().get(0).getOutputLanguages();
+    	
+    	for(String language : outputLanguages) {
+    		IUnitTestArrangeHandler arrangeHandler = new UnitTestArrangeHandler();
+            IUnitTestActionHandler actionHandler = new UnitTestActionHandler();
+            IUnitTestAssertHandler assertHandler = UnitTestAssertsFactory.createAssertHandler(language);
+            IUnitTestHandler unitTestHandler = new UnitTestHandler(arrangeHandler, actionHandler, assertHandler);
 
-        ArrayList<TestScenario> testScenarios = dslModel.getTestScenarios();
-        ArrayList<UnitTest> unitTests = unitTestHandler.processUnitTests(testScenarios);
+            ArrayList<TestScenario> testScenarios = dslModel.getTestScenarios();
+            ArrayList<UnitTest> unitTests = unitTestHandler.processUnitTests(testScenarios, language);
 
-        dslModel.setUnitTests(unitTests);
-
-        printUnitTests();
+            dslModel.addUnitTests(unitTests);
+    	}
     }
 
-    /**
-     *  Create the compilation units of the unit tests
-     *  generated by the handler.
-     */
     @Override
-    public void processCompilationUnitsTests(){
-        ICompilationUnitTestFileHandler compilationUnitTestHandler = new CompilationUnitTestFileHandler();
-
-        ArrayList<CompilationUnit> compilationUnitTests = compilationUnitTestHandler.processCompilationUnitTests(dslModel);
-
-        dslModel.setCompilationUnitsTests(compilationUnitTests);
+    public void processCompilationUnitsTests() throws UnsupportedLanguageException{
+        ArrayList<String> outputLanguages = dslModel.getConfigurationsRunFiles().get(0).getOutputLanguages();
+    	
+        IFunctionModifiersHandler modifiersHandler = new FunctionModifiersHandler();
+    	IFunctionReturnHandler returnHandler = new FunctionReturnHandler();
+    	IFunctionArrangeHandler arrangeHandler = new FunctionArrangeHandler();
+    	IFunctionActionHandler actionHandler = new FunctionActionHandler();
+    	IFunctionAssertHandler assertHandler = new FunctionAssertHandler();
+        IFunctionScopeHandler functionHandler = new FunctionScopeHandler(modifiersHandler, returnHandler, arrangeHandler, actionHandler, assertHandler);
+        IPackagesHandler packagesHandler = new PackagesHandler();
+        IImportsHandler importsHandler = new ImportsHandler();
+        IProgramScopeHandler programHandler = new ProgramScopeHandler(functionHandler);
+        
+    	for(String language : outputLanguages) {
+            ICompilationUnitTestHandler handler = new CompilationUnitTestHandler(packagesHandler, importsHandler, programHandler);
+    		ArrayList<CompilationUnit> compilationUnitTests = handler.processCompilationUnitTests(dslModel, language);
+           
+    		dslModel.addCompilationUnitsTests(compilationUnitTests);
+    	}
     }
 
-
-    /**
-     * Use the console printer to print unit tests
-     * on the console screen.
-     */
-    private void printUnitTests(){
-        for (var ut : dslModel.getUnitTests()){
-            printer.printUnitTest(ut);
+    @Override
+    public void generateCode() throws UnsupportedLanguageException{
+    	ArrayList<String> outputLanguages = dslModel.getConfigurationsRunFiles().get(0).getOutputLanguages();
+    	String outputPath = dslModel.getConfigurationsRunFiles().get(0).getOutputCodeDirectory();
+        
+    	IPrinterHandler handler = new PrinterHandler();
+    	
+    	for(String language : outputLanguages) {
+    		CompilationUnit compilationUnit = dslModel.getCompilationUnitsTests(language).get(0);
+            handler.generateCode(compilationUnit, language, outputPath);
+    	}
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //TODO: REMOVE THIS METHOD, TEST PURPOSE
+    @Override
+    public void testgenerateCode() throws UnsupportedLanguageException, IOException{
+    	ITestRunHandler dslRunner = new TestRunHandler();
+        //IPrinterHandler handlerJ = new PrinterJavaHandler();
+        //IPrinterHandler handlerC = new PrinterCSharpHandler();
+        
+        ArrayList<ConfigurationTestRun> configFiles = dslRunner.processConfigFiles(dslModel.getConfigurationPath());        
+        dslModel.setConfigurationsRunFiles(configFiles);
+        
+        for (ConfigurationTestRun testRun : configFiles) {
+        	ICompilationUnitFileHandler compilationUnitHandler = new CompilationUnitFileHandler(testRun);
+        	
+            ArrayList<CompilationUnit> compilationUnits = compilationUnitHandler.processFilesInDir(true);
+            
+            for (CompilationUnit compilationUnit : compilationUnits) {
+            	String outputPath = dslModel.getConfigurationsRunFiles().get(0).getOutputCodeDirectory();
+            	
+                //handlerJ.generateCode(compilationUnit, outputPath);
+                //handlerC.generateCode(compilationUnit, outputPath);
+            }
         }
     }
-
 }

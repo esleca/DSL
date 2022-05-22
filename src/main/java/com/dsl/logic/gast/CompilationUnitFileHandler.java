@@ -1,13 +1,14 @@
 package com.dsl.logic.gast;
 
 import ASTMCore.ASTMSource.CompilationUnit;
+
+import com.dsl.testrun.config.ConfigurationTestRun;
 import com.google.gson.Gson;
 import gastmappers.Language;
 import gastmappers.Mapper;
 import gastmappers.MapperFactory;
 import gastmappers.exceptions.UnsupportedLanguageException;
 import org.apache.commons.io.FilenameUtils;
-import testrun.config.ConfigurationTestRun;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,12 +49,13 @@ public class CompilationUnitFileHandler implements ICompilationUnitFileHandler {
 
     public CompilationUnitFileHandler(ConfigurationTestRun testRun) throws UnsupportedLanguageException {
         MapperFactory factory = new MapperFactory();
-        Mapper mapper = factory.createMapper(testRun.getSourceLanguage());
+        Language sourceLanguage = Language.getLanguageFromString(testRun.getSourceLanguage());
+        Mapper mapper = factory.createMapper(sourceLanguage);
 
         this.inputPath = testRun.getInputDirectory();
         this.translationFilePath = testRun.getOutputDirectory() + "\\result.json";
         this.differencesFilePath = testRun.getOutputDirectory() + "\\summaryDifferences.txt";
-        this.language = testRun.getSourceLanguage();
+        this.language = sourceLanguage;
         this.mapper = mapper;
         this.validate = testRun.isValidateMap();
         this.parsedFileList = new ArrayList<>();

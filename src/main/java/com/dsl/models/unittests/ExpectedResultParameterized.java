@@ -15,5 +15,15 @@ public class ExpectedResultParameterized extends ExpectedResult {
     public ArrayList<ValueType> getArgumentTypes() {
         return argumentTypes;
     }
+    
+    @Override
+    public ValueType getValueType() {
+        return argumentTypes.get(0);
+    }
+
+	@Override
+	public String getExpectedType() {
+		return argumentTypes.get(0).getType();
+	}
 
 }

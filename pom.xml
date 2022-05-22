@@ -25,17 +25,28 @@
             <artifactId>avib.coderetriever.mapper</artifactId>
             <version>1.0</version>
         </dependency>
+        
         <!-- GAST -->
         <dependency>
             <groupId>avib.coderetriever</groupId>
             <artifactId>avib.coderetriever.gast</artifactId>
             <version>1.0</version>
         </dependency>
+        
+        <!-- Printers -->
+        <dependency>
+            <groupId>avib</groupId>
+            <artifactId>printers</artifactId>
+            <version>1.0</version>
+        </dependency>
+        
         <!-- SpringFramework -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
+		
+		<!-- SpringFramework tests -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

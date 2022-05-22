@@ -1,8 +1,183 @@
 [
 	{
-		"function": "returnInt",
-		"testName": "returnInt_test1",
+		"function": "getCountry",
+		"testName": "getCountry_test1",
 		"parameters": [],
+        "assert": "areEqual",
+		"expected": {
+			"type": "String",
+			"value": "Costa Rica"
+		}			
+	},
+	{
+		"function": "getDate",
+		"testName": "getDate_test1",
+		"parameters": [],
+        "assert": "isNotNull" 
+	},
+	{
+		"function": "getPreviousOrder",
+		"testName": "getPreviousOrder_test1",
+		"parameters": [
+			{
+                "name": "control",
+                "type": "String",
+                "value": "ASD-23G-SDG"
+            }
+		],
+        "assert": "isNotNull" 
+	},
+	{
+		"function": "isMayorEdad",
+		"testName": "isMayorEdad_test1",
+		"parameters": [
+			{
+                "name": "edad",
+                "type": "int",
+                "value": "20"
+            }
+		],
+        "assert": "isTrue"
+	},
+	{
+		"function": "getIntegers",
+		"testName": "getIntegers_test1",
+		"parameters": [
+			{
+                "name": "type",
+                "type": "int",
+                "value": "2"
+            }
+		],
+        "assert": "isNull"
+	},
+	{
+		"function": "getResult",
+		"testName": "getResult_test1",
+		"parameters": [
+			{
+                "name": "num1",
+                "type": "int",
+                "value": "9"
+            },
+			{
+                "name": "num2",
+                "type": "int",
+                "value": "2"
+            },
+			{
+                "name": "num3",
+                "type": "int",
+                "value": "3"
+            }
+		],
+		"expected": {
+			"type": "int",
+			"value": "14"
+		},
+        "assert": "areEqual"
+	},
+	{
+		"function": "getResult",
+		"testName": "getResult_test2",
+		"parameters": [
+			{
+                "name": "num1",
+                "type": "int",
+                "value": "4"
+            },
+			{
+                "name": "num2",
+                "type": "int",
+                "value": "5"
+            },
+			{
+                "name": "num3",
+                "type": "int",
+                "value": "6"
+            }
+		],
+        "assert": "isNotNull"
+	},
+	{
+		"function": "getStringResult",
+		"testName": "getStringResult_test1",
+		"parameters": [
+			{
+                "name": "p1",
+                "type": "String",
+                "value": "a"
+            },
+			{
+                "name": "p2",
+                "type": "String",
+                "value": "b"
+            },
+			{
+                "name": "p3",
+                "type": "String",
+                "value": "c"
+            }
+		],
+		"expected": {
+			"type": "String",
+			"value": "abc"
+		},
+        "assert": "areEqual"
+	},
+	{
+		"function": "getStringResult",
+		"testName": "getStringResult_test2",
+		"parameters": [
+			{
+                "name": "p1",
+                "type": "String",
+                "value": "t"
+            },
+			{
+                "name": "p2",
+                "type": "String",
+                "value": "r"
+            },
+			{
+                "name": "p3",
+                "type": "String",
+                "value": "l"
+            }
+		],
+        "assert": "isNotNull"
+	},
+	{
+		"function": "returnIsPar",
+		"testName": "returnIsPar_test1",
+		"parameters": [
+			{
+                "name": "edad",
+                "type": "int",
+                "value": "32"
+            }
+		],
+		"expected": {
+			"type": "boolean",
+			"value": "true"
+		},
+        "assert": "isTrue"
+	},
+	{
+		"function": "returnAlgo",
+		"testName": "returnAlgo_test1",
+		"parameters": [
+			{
+                "name": "param1",
+                "type": "float",
+                "value": "3.14F"
+            },
+			{
+                "name": "param2",
+                "type": "long",
+                "value": "5555555"
+            }
+		],
 		"expected": {
 			"type": "int",
 			"value": "-1"
@@ -12,16 +187,38 @@
 	{
 		"function": "returnBoolean",
 		"testName": "returnBoolean_test1",
-		"parameters": [],
+		"parameters": [
+			{
+                "name": "result",
+                "type": "boolean",
+                "value": "true"
+            }
+		],
 		"expected": {
 			"type": "boolean",
 			"value": "true"
 		},
-        "assert": "IsTrue"
+        "assert": "isTrue"
 	},
 	{
 		"function": "saludar",
 		"testName": "saludar_test1",
+		"parameters": [
+			{
+                "name": "nombre",
+                "type": "String",
+                "value": "Andrea"
+            }
+		],
+		"expected": {
+			"type": "String",
+			"value": "Hola Andrea"
+		},
+        "assert": "areEqual"
+	},
+	{
+		"function": "saludar",
+		"testName": "saludar_test2",
 		"parameters": [
 			{
                 "name": "nombre",

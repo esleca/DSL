@@ -58,6 +58,26 @@ public class ValueTypesTests {
 	
 	
 	//_____________________________________________
+    // test_getType_BooleanType
+    //
+    // GIVEN: getType is called
+    // WHEN:  BooleanType instance is executed
+    // THEN:  Type will be boolean
+    //_____________________________________________
+	@Test
+	public void test_getType_BooleanType() {
+		//Arrange
+		ValueType valueType = new BooleanType();
+		
+		//Act
+		String type = valueType.getType();
+		
+		//Assert
+		assertEquals("boolean", type);
+	}
+	
+	
+	//_____________________________________________
     // test_getValue_CharType
     //
     // GIVEN: getValue is called
@@ -75,6 +95,26 @@ public class ValueTypesTests {
 		
 		//Assert
 		assertEquals('a', value);
+	}
+	
+	
+	//_____________________________________________
+    // test_getType_CharType
+    //
+    // GIVEN: getType is called
+    // WHEN:  CharType instance is executed
+    // THEN:  Type will be boolean
+    //_____________________________________________
+	@Test
+	public void test_getType_CharType() {
+		//Arrange
+		ValueType valueType = new CharType();
+		
+		//Act
+		String type = valueType.getType();
+		
+		//Assert
+		assertEquals("char", type);
 	}
 	
 	
@@ -100,6 +140,26 @@ public class ValueTypesTests {
 	
 	
 	//_____________________________________________
+    // test_getType_DoubleType
+    //
+    // GIVEN: getType is called
+    // WHEN:  DoubleType instance is executed
+    // THEN:  Type will be Double
+    //_____________________________________________
+	@Test
+	public void test_getType_DoubleType() {
+		//Arrange
+		ValueType valueType = new DoubleType();
+		
+		//Act
+		String type = valueType.getType();
+		
+		//Assert
+		assertEquals("double", type);
+	}
+	
+	
+	//_____________________________________________
     // test_getValue_FloatType
     //
     // GIVEN: getValue is called
@@ -117,6 +177,26 @@ public class ValueTypesTests {
 		
 		//Assert
 		assertEquals(3.14F, value, 0);
+	}
+	
+	
+	//_____________________________________________
+    // test_getType_FloatType
+    //
+    // GIVEN: getType is called
+    // WHEN:  FloatType instance is executed
+    // THEN:  Type will be Float
+    //_____________________________________________
+	@Test
+	public void test_getType_FloatType() {
+		//Arrange
+		ValueType valueType = new FloatType();
+		
+		//Act
+		String type = valueType.getType();
+		
+		//Assert
+		assertEquals("float", type);
 	}
 	
 	
@@ -142,6 +222,26 @@ public class ValueTypesTests {
 	
 	
 	//_____________________________________________
+    // test_getType_IntegerType
+    //
+    // GIVEN: getType is called
+    // WHEN:  IntegerType instance is executed
+    // THEN:  Type will be int
+    //_____________________________________________
+	@Test
+	public void test_getType_IntegerType() {
+		//Arrange
+		ValueType valueType = new IntegerType();
+		
+		//Act
+		String type = valueType.getType();
+		
+		//Assert
+		assertEquals("int", type);
+	}
+	
+	
+	//_____________________________________________
     // test_getValue_LongType
     //
     // GIVEN: getValue is called
@@ -163,6 +263,26 @@ public class ValueTypesTests {
 	
 	
 	//_____________________________________________
+    // test_getType_LongType
+    //
+    // GIVEN: getType is called
+    // WHEN:  LongType instance is executed
+    // THEN:  Type will be Long
+    //_____________________________________________
+	@Test
+	public void test_getType_LongType() {
+		//Arrange
+		ValueType valueType = new LongType();
+		
+		//Act
+		String type = valueType.getType();
+		
+		//Assert
+		assertEquals("long", type);
+	}
+	
+	
+	//_____________________________________________
     // test_getValue_StringType
     //
     // GIVEN: getValue is called
@@ -180,6 +300,26 @@ public class ValueTypesTests {
 		
 		//Assert
 		assertEquals("text", value);
+	}
+	
+	
+	//_____________________________________________
+    // test_getType_StringType
+    //
+    // GIVEN: getType is called
+    // WHEN:  StringType instance is executed
+    // THEN:  Type will be String
+    //_____________________________________________
+	@Test
+	public void test_getType_StringType() {
+		//Arrange
+		ValueType valueType = new StringType();
+		
+		//Act
+		String type = valueType.getType();
+		
+		//Assert
+		assertEquals("String", type);
 	}
 	
 	
