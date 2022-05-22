@@ -73,9 +73,11 @@ public class TestScenarioHandlerTests {
         String language = "JAVA";
         String function = "saludar";
         String testName = "test_saludar_valid";
-        String expected = "Hola Esteban";
-        String assertion = "areEqual";
+
         JSONArray parameters = getParameters();
+        JSONObject expected = getExpected();
+        String assertion = "areEqual";
+        
         return new UnitTestRequest(classPath, outputPath, language, function, testName, parameters, expected, assertion);
     }
 
@@ -92,6 +94,12 @@ public class TestScenarioHandlerTests {
         parameter.put("value", "Esteban");
         return parameter;
     }
-
+    
+    private static JSONObject getExpected() {
+        JSONObject expected = new JSONObject();
+        expected.put("type", "String");
+        expected.put("value", "Esteban");
+        return expected;
+    }
 
 }

@@ -20,6 +20,8 @@ import com.dsl.repositories.IDSLRepo;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import org.springframework.stereotype.Component;
 
 
@@ -139,19 +141,25 @@ public class DSLCrudService implements IDSLCrudService {
     }
 
 
-    private void processCompilationUnitsTests(){
-    	//TODO: iterate on languages
+    private void processCompilationUnitsTests() throws UnsupportedLanguageException{
+    	ArrayList<String> languages = model.getOutputLanguages();
+    	for (Iterator<String> iterator = languages.iterator(); iterator.hasNext();) {
+			String language = (String) iterator.next();
+			ArrayList<CompilationUnit> compilationUnitTests = _compUnitTestHandler.processCompilationUnitTests(model, language);
+			int c = -1;
+		}
     	
-        //ArrayList<CompilationUnit> compilationUnitTests = _compUnitTestHandler.processCompilationUnitTests(model);
-
         //model.setCompilationUnitsTests(compilationUnitTests);
     }
     
     
-    private void generateCode(UnitTestRequest unitTestRequest) {
+    private void generateCode(UnitTestRequest unitTestRequest) throws UnsupportedLanguageException {
+    	ArrayList<String> outputLanguages = model.getConfigurationsRunFiles().get(0).getOutputLanguages();
     	CompilationUnit compilationUnit = model.getCompilationUnitsTests(unitTestRequest.getLanguage()).get(0);
     	
-    	_printerHandler.generateCode(compilationUnit, unitTestRequest.getOutputPath());
+    	for(String language : outputLanguages) {
+    		_printerHandler.generateCode(compilationUnit, language, unitTestRequest.getOutputPath());
+    	}
     }
 
 

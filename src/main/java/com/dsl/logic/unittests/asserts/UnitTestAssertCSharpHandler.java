@@ -3,7 +3,6 @@ package com.dsl.logic.unittests.asserts;
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.factories.AssertTypesFactory;
-import com.dsl.factories.UnitTestAssertsFactory;
 import com.dsl.factories.UnitTestFactory;
 import com.dsl.models.unittests.asserts.Assert;
 import com.dsl.models.unittests.TestScenario;
@@ -17,7 +16,7 @@ import static com.dsl.utils.Constants.LANGUAGE_CSHARP;
 import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class UnitTestAssertCSharpHandler implements IUnitTestAssertHandler {
 
     @Override

@@ -5,7 +5,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import ASTMCore.ASTMSource.CompilationUnit;
+
 public abstract class PrinterBaseHandler {
+	
+	
+	protected abstract void generateCode(CompilationUnit compilationUnit, String outPath);
+	
 	
 	protected void writeCode(String code, String outputPath) {
         File outputFile = new File(outputPath);

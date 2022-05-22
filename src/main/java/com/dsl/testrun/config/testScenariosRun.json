@@ -1,9 +1,13 @@
 [
 	{
-		"function": "getDateTime",
-		"testName": "getDateTime_test1",
+		"function": "getCountry",
+		"testName": "getCountry_test1",
 		"parameters": [],
-        "assert": "isNotNull" 
+        "assert": "areEqual",
+		"expected": {
+			"type": "String",
+			"value": "Costa Rica"
+		}			
 	},
 	{
 		"function": "getDate",

@@ -6,8 +6,10 @@ import ASTMCore.ASTMSyntax.DeclarationAndDefinition.NameSpaceDefinition;
 
 public class GastFactory {
 
-    public static CompilationUnit createCompilationUnit(){
-        return new CompilationUnit();
+    public static CompilationUnit createCompilationUnit(String language){
+    	CompilationUnit compilationUnit = new CompilationUnit();
+        compilationUnit.setLanguage(language);
+        return compilationUnit;
     }
 
     public static NameSpaceDefinition getNameSpaceDefinition(){

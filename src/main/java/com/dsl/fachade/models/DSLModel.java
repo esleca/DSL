@@ -14,6 +14,7 @@ public class DSLModel {
     private final boolean writeToDisk;
     private final String configurationPath;
     private final String testScenariosPath;
+    private final String testScenarioPath;
     
     private Class lClass;
     private ArrayList<CompilationUnit> compilationUnits;
@@ -25,6 +26,7 @@ public class DSLModel {
     private UnitTest unitTest;    
     private ArrayList<ArrayList<UnitTest>> unitTests;
     private ArrayList<ConfigurationTestRun> configurationsRunFiles;
+    private ArrayList<String> outLanguages;
     
     public DSLModel(){
     	writeToDisk = true;
@@ -39,6 +41,15 @@ public class DSLModel {
         
         configurationPath = "./src/main/java/com/dsl/testrun/config/configurationTestRun.json";
         testScenariosPath = "./src/main/java/com/dsl/testrun/config/testScenariosRun.json";
+        testScenarioPath = "./src/main/java/com/dsl/testrun/config/testScenarioRun.json";
+        
+        //TODO: read languages from configuration file
+        outLanguages = new ArrayList<String>(){
+        	{
+            	add("JAVA");
+            	add("CSHARP");
+        	}
+        };
     }
 
 
@@ -52,6 +63,10 @@ public class DSLModel {
 
     public String getTestScenariosPath() {
         return testScenariosPath;
+    }
+    
+    public String getTestScenarioPath() {
+        return testScenarioPath;
     }
     
     public Class getlClass() {
@@ -159,5 +174,9 @@ public class DSLModel {
     public void setConfigurationsRunFiles(ArrayList<ConfigurationTestRun> configurationsRunFiles){
         this.configurationsRunFiles = configurationsRunFiles;
     }
+
+	public ArrayList<String> getOutputLanguages() {
+		return outLanguages;
+	}
 
 }

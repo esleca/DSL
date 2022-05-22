@@ -8,7 +8,7 @@ import com.dsl.models.unittests.asserts.Assert;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class UnitTestAssertPythonHandler implements IUnitTestAssertHandler {
 
     @Override

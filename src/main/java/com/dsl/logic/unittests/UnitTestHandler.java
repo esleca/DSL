@@ -29,15 +29,6 @@ public class UnitTestHandler implements IUnitTestHandler {
     }
 
 
-    /**
-     * Receive a test scenario defined by the user
-     * and return a unit test instance
-     *
-     * @param testScenario
-     * @return
-     * @throws AssertNotFoundException
-     * @throws ValueTypeNotFoundException 
-     */
     @Override
     public UnitTest processUnitTest(TestScenario testScenario, String language) throws AssertNotFoundException, ValueTypeNotFoundException{
         Arrange arrange = arrangeHandler.processUnitTestArrange( testScenario );
@@ -47,16 +38,6 @@ public class UnitTestHandler implements IUnitTestHandler {
         return UnitTestFactory.createUnitTest( language, testScenario, arrange, act, lAssert );
     }
 
-
-    /**
-     * Receive a list of test scenarios defined by user and
-     * return a list of the corresponding unit tests
-     *
-     * @param testScenarios
-     * @return  a list of unit tests
-     * @throws AssertNotFoundException
-     * @throws ValueTypeNotFoundException 
-     */
     @Override
     public ArrayList<UnitTest> processUnitTests(ArrayList<TestScenario> testScenarios, String language) throws AssertNotFoundException, ValueTypeNotFoundException {
         ArrayList<UnitTest> unitTests = new ArrayList<>();

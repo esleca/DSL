@@ -8,7 +8,7 @@ import com.dsl.utils.IPrinter;
 public class Main {
 
     private static IPrinter printer = new ConsolePrinter();
-    private final static IGestorDSL dsl = new GestorDSL(printer);
+    private final static IGestorDSL dsl = new GestorDSL();
 
     public static void main(String[] args) throws Exception {
     	System.out.println("############################ Starting DSL ############################\n\n");

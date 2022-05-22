@@ -1,6 +1,7 @@
 package com.dsl.models.dtos;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class UnitTestRequest {
 
@@ -10,11 +11,11 @@ public class UnitTestRequest {
 	private String function;
     private String testName;
     private JSONArray parameters;
-    private String expected; //check
+    private JSONObject expected;
     private String assertion;
 
     public UnitTestRequest(String classPath, String outputPath, String language, String function, String testName,
-                           JSONArray parameters, String expected, String assertion) {
+                           JSONArray parameters, JSONObject expected, String assertion) {
         this.classPath = classPath;
         this.outputPath = outputPath;
         this.language = language;
@@ -49,7 +50,7 @@ public class UnitTestRequest {
         return parameters;
     }
 
-    public String getExpected() {
+    public JSONObject getExpected() {
         return expected;
     }
 

@@ -4,10 +4,7 @@ import ASTMCore.ASTMSource.CompilationUnit;
 import encoders.Encoder;
 //import encoders.PythonEncoder;
 
-import org.springframework.stereotype.Component;
-
-@Component
-public class PrinterPythonHandler extends PrinterBaseHandler implements IPrinterHandler {
+public class PrinterPythonHandler extends PrinterBaseHandler {
 	
 	@Override
 	public void generateCode(CompilationUnit compilationUnit, String outPath) {

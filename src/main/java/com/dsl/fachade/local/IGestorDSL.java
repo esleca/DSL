@@ -20,7 +20,7 @@ public interface IGestorDSL {
 
     void processUnitTests() throws AssertNotFoundException, ValueTypeNotFoundException, UnsupportedLanguageException;
 
-    void processCompilationUnitsTests();
+    void processCompilationUnitsTests() throws UnsupportedLanguageException;
     
     void generateCode() throws UnsupportedLanguageException;
     

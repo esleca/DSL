@@ -4,11 +4,8 @@ import ASTMCore.ASTMSource.CompilationUnit;
 import encoders.Encoder;
 import encoders.CSharpEncoder;
 
-import org.springframework.stereotype.Component;
+public class PrinterCSharpHandler extends PrinterBaseHandler {
 
-@Component
-public class PrinterCSharpHandler extends PrinterBaseHandler implements IPrinterHandler {
-	
 	@Override
 	public void generateCode(CompilationUnit compilationUnit, String outPath) {
 		writeCSharpCode(compilationUnit, outPath);
