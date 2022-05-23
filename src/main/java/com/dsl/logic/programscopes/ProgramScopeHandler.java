@@ -19,6 +19,7 @@ import ASTMCore.ASTMSyntax.DeclarationAndDefinition.PublicModifier;
 import ASTMCore.ASTMSyntax.Types.ClassType;
 import ASTMCore.ASTMSyntax.Types.ImplementsTo;
 import ASTMCore.ASTMSyntax.Types.TypeParameter;
+import gastmappers.exceptions.UnsupportedLanguageException;
 
 
 @Component
@@ -33,7 +34,7 @@ public class ProgramScopeHandler implements IProgramScopeHandler {
 	
 	
 	@Override
-	public void processCompilationUnitScope(CompilationUnit compilationUnit, DSLModel model) {
+	public void processCompilationUnitScope(CompilationUnit compilationUnit, DSLModel model) throws UnsupportedLanguageException {
 		language = compilationUnit.getLanguage();
 	
 		ProgramScope programScope = getProgramScope(model);
@@ -41,7 +42,7 @@ public class ProgramScopeHandler implements IProgramScopeHandler {
 	}
 	
 	
-	private ProgramScope getProgramScope(DSLModel model){
+	private ProgramScope getProgramScope(DSLModel model) throws UnsupportedLanguageException{
         ProgramScope programScope = new ProgramScope();
         ArrayList<DefintionObject> definitions = getProgramScopeDefinitionObjects(model);
         programScope.setDeclOrDefn(definitions);
@@ -49,7 +50,7 @@ public class ProgramScopeHandler implements IProgramScopeHandler {
         return programScope;
     }
 
-    private ArrayList<DefintionObject> getProgramScopeDefinitionObjects(DSLModel model){
+    private ArrayList<DefintionObject> getProgramScopeDefinitionObjects(DSLModel model) throws UnsupportedLanguageException{
         ArrayList<DefintionObject> definitions = new ArrayList<>();
         AggregateTypeDefinition aggregateTypeDefinition = new AggregateTypeDefinition();
 
@@ -60,7 +61,7 @@ public class ProgramScopeHandler implements IProgramScopeHandler {
         return definitions;
     }
 
-    private ClassType getClassType(DSLModel model){
+    private ClassType getClassType(DSLModel model) throws UnsupportedLanguageException{
         Name nameObj = GastFactory.getName(model.getlClass().getName() + "_Tests");
         String packageName = model.getlClass().getPackage().getName();
         ArrayList<Modifiers> modifiers = getModifiers();
@@ -83,7 +84,7 @@ public class ProgramScopeHandler implements IProgramScopeHandler {
         return modifiers;
     }
 
-    private AggregateScope getAggregateScope(DSLModel model){
+    private AggregateScope getAggregateScope(DSLModel model) throws UnsupportedLanguageException{
         AggregateScope openScope = new AggregateScope();
 
         ArrayList<DefintionObject> definitionObjects = getAggregateScopeDefinitionObjects(model);
@@ -92,7 +93,7 @@ public class ProgramScopeHandler implements IProgramScopeHandler {
         return openScope;
     }
 
-    private ArrayList<DefintionObject> getAggregateScopeDefinitionObjects(DSLModel model){
+    private ArrayList<DefintionObject> getAggregateScopeDefinitionObjects(DSLModel model) throws UnsupportedLanguageException{
         ArrayList<DefintionObject> definitions = new ArrayList<>();
         ArrayList<UnitTest> unitTests = model.getUnitTests(language);
 

@@ -36,6 +36,8 @@ import com.dsl.logic.programscopes.IFunctionScopeHandler;
 import com.dsl.logic.programscopes.IProgramScopeHandler;
 import com.dsl.logic.programscopes.ProgramScopeHandler;
 import com.dsl.logic.visitors.*;
+import com.dsl.logic.annotations.AnnotationsHandler;
+import com.dsl.logic.annotations.IAnnotationsHandler;
 import com.dsl.logic.configfiles.*;
 import com.dsl.logic.expectedresults.*;
 import com.dsl.logic.testableunits.*;
@@ -136,7 +138,8 @@ public class GestorDSL implements IGestorDSL{
     public void processCompilationUnitsTests() throws UnsupportedLanguageException{
         ArrayList<String> outputLanguages = dslModel.getConfigurationsRunFiles().get(0).getOutputLanguages();
     	
-        IFunctionModifiersHandler modifiersHandler = new FunctionModifiersHandler();
+        IAnnotationsHandler annotationsHandler = new AnnotationsHandler();
+        IFunctionModifiersHandler modifiersHandler = new FunctionModifiersHandler(annotationsHandler);
     	IFunctionReturnHandler returnHandler = new FunctionReturnHandler();
     	IFunctionArrangeHandler arrangeHandler = new FunctionArrangeHandler();
     	IFunctionActionHandler actionHandler = new FunctionActionHandler();
@@ -179,23 +182,19 @@ public class GestorDSL implements IGestorDSL{
     @Override
     public void testgenerateCode() throws UnsupportedLanguageException, IOException{
     	ITestRunHandler dslRunner = new TestRunHandler();
-        //IPrinterHandler handlerJ = new PrinterJavaHandler();
-        //IPrinterHandler handlerC = new PrinterCSharpHandler();
+        IPrinterHandler handler = new PrinterHandler();
         
-        ArrayList<ConfigurationTestRun> configFiles = dslRunner.processConfigFiles(dslModel.getConfigurationPath());        
-        dslModel.setConfigurationsRunFiles(configFiles);
+        ConfigurationTestRun configuration = dslRunner.processConfigFiles(dslModel.getConfigurationPath()).get(0);
+        ICompilationUnitFileHandler compilationUnitHandler = new CompilationUnitFileHandler(configuration);
+        ArrayList<CompilationUnit> compilationUnits = compilationUnitHandler.processFilesInDir(true);
         
-        for (ConfigurationTestRun testRun : configFiles) {
-        	ICompilationUnitFileHandler compilationUnitHandler = new CompilationUnitFileHandler(testRun);
-        	
-            ArrayList<CompilationUnit> compilationUnits = compilationUnitHandler.processFilesInDir(true);
-            
-            for (CompilationUnit compilationUnit : compilationUnits) {
-            	String outputPath = dslModel.getConfigurationsRunFiles().get(0).getOutputCodeDirectory();
-            	
-                //handlerJ.generateCode(compilationUnit, outputPath);
-                //handlerC.generateCode(compilationUnit, outputPath);
-            }
+        for (CompilationUnit compilationUnit : compilationUnits) {
+        	String outputPath = configuration.getOutputCodeDirectory();	
+        	ArrayList<String> outputLanguages = configuration.getOutputLanguages();
+        
+        	for(String language : outputLanguages) {
+        		handler.generateCode(compilationUnit, language, outputPath);
+        	}
         }
     }
 }

@@ -1,7 +1,27 @@
 [
 	{
-		"function": "getCountry",
-		"testName": "getCountry_test1",
+		"function": "getCountry1",
+		"testName": "getCountry1_test1",
+		"parameters": [],
+        "assert": "areEqual",
+		"expected": {
+			"type": "String",
+			"value": "Costa Rica"
+		}			
+	},
+	{
+		"function": "getCountry2",
+		"testName": "getCountry2_test1",
+		"parameters": [],
+        "assert": "areEqual",
+		"expected": {
+			"type": "String",
+			"value": "Costa Rica"
+		}			
+	},
+	{
+		"function": "getCountry3",
+		"testName": "getCountry3_test1",
 		"parameters": [],
         "assert": "areEqual",
 		"expected": {

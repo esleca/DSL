@@ -5,19 +5,24 @@ import java.util.ArrayList;
 import ASTMCore.ASTMSource.CompilationUnit;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.ImportDeclaration;
 
+import static com.dsl.utils.Constants.*;
 
 public class ImportsJavaHandler extends ImportsBaseHandler {
 
 	@Override
-	protected void processCompilationUnitImports(CompilationUnit compilationUnit) {
+	public void processCompilationUnitImports(CompilationUnit compilationUnit) {
 		ArrayList<ImportDeclaration> importDeclarations = new ArrayList<>();
 		
-		importDeclarations.add(importDeclaration("org.junit.jupiter.api.Test"));
-        
-		ImportDeclaration importDeclaration = importDeclaration("org.junit.Assert.*");
+		ImportDeclaration importDeclaration = importDeclaration(JAVA_JUNIT_JUPITER);
+		importDeclarations.add(importDeclaration);
+		
+		importDeclaration = importDeclaration(JAVA_JUNIT_ASSERT);
 		importDeclaration.setStatic(true);
 		importDeclarations.add(importDeclaration);
 
+		importDeclaration = importDeclarationSourceClass(compilationUnit);
+		importDeclarations.add(importDeclaration);
+		
 		compilationUnit.setImports(importDeclarations);
 	}
 }

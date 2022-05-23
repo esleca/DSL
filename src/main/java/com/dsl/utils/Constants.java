@@ -78,4 +78,19 @@ public class Constants {
 
     public final static String ARRAY_LIST = "ArrayList";
     public final static String LIST = "List";
+    
+    public final static String JAVA_TEST_ANNOTATION = "Test";
+    public final static String CSHARP_TEST_ANNOTATION = "TestMethod";
+    public final static String PYTHON_TEST_ANNOTATION = "-";
+    
+    public final static String JAVA_JUNIT_JUPITER = "org.junit.jupiter.api.Test";
+    public final static String JAVA_JUNIT_ASSERT = "org.junit.Assert.*";
+    
+    public final static String CSHARP_SYSTEM = "System";
+    public final static String CSHARP_SYSTEM_COLLECTIONS = "System.Collections.Generic";
+    public final static String CSHARP_SYSTEM_LINQ = "System.Linq";
+    public final static String CSHARP_SYSTEM_TEXT = "System.Text";
+    public final static String CSHARP_SYSTEM_THREADING = "System.Threading.Tasks";
+    public final static String CSHARP_UNITTEST = "Microsoft.VisualStudio.TestTools.UnitTesting";
+    
 }

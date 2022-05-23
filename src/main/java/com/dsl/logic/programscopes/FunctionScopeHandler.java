@@ -26,6 +26,7 @@ import ASTMCore.ASTMSyntax.Statement.DeclarationOrDefinitionStatement;
 import ASTMCore.ASTMSyntax.Statement.ExpressionStatement;
 import ASTMCore.ASTMSyntax.Statement.Statement;
 import ASTMCore.ASTMSyntax.Types.TypeReference;
+import gastmappers.exceptions.UnsupportedLanguageException;
 
 
 @Component
@@ -49,8 +50,8 @@ public class FunctionScopeHandler implements IFunctionScopeHandler {
 	
 	
 	@Override
-	public FunctionDefintion processFunctionDefinition(UnitTest unitTest) {
-		ArrayList<Modifiers> modifiers = modifiersHandler.getModifiers();
+	public FunctionDefintion processFunctionDefinition(UnitTest unitTest) throws UnsupportedLanguageException {
+		ArrayList<Modifiers> modifiers = modifiersHandler.getModifiers(unitTest.getLanguage());
         TypeReference returnType = returnHandler.getReturnType();
         Name name = GastFactory.getName(unitTest.getTestScenario().getTestName());
         ArrayList<FormalParameterDefinition> formalParameters = new ArrayList<>();
