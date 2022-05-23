@@ -1,6 +1,5 @@
 package com.dsl.tests.logic;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -230,36 +229,6 @@ public class ImportsHandlerTests {
 		// Assert
 		assertEquals("Package.name", result);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
