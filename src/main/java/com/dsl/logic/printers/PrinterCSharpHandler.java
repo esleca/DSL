@@ -7,17 +7,20 @@ import encoders.CSharpEncoder;
 public class PrinterCSharpHandler extends PrinterBaseHandler {
 
 	@Override
-	public void generateCode(CompilationUnit compilationUnit, String outPath) {
-		writeCSharpCode(compilationUnit, outPath);
+	public String generateCode(CompilationUnit compilationUnit, String outPath) {
+		return writeCSharpCode(compilationUnit, outPath);
 	}
 	
-	private void writeCSharpCode(CompilationUnit compilationUnit, String outPath) {
+	private String writeCSharpCode(CompilationUnit compilationUnit, String outPath) {
         Encoder encoder = new CSharpEncoder();
         
         compilationUnit.accept(encoder);
         
+        String outputCode = encoder.getGeneratedCode();
         String outputPath = outPath + "\\GeneratedTests.cs";
         
-        writeCode(encoder.getGeneratedCode(), outputPath);
+        writeCode(outputCode, outputPath);
+        
+        return outputCode;
 	}
 }

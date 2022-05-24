@@ -10,7 +10,7 @@ import ASTMCore.ASTMSource.CompilationUnit;
 public abstract class PrinterBaseHandler {
 	
 	
-	protected abstract void generateCode(CompilationUnit compilationUnit, String outPath);
+	protected abstract String generateCode(CompilationUnit compilationUnit, String outPath);
 	
 	
 	protected void writeCode(String code, String outputPath) {
