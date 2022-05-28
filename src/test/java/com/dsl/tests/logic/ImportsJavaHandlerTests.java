@@ -6,8 +6,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.jupiter.api.Test;
 
+import com.dsl.fachade.models.DSLModel;
 import com.dsl.logic.imports.ImportsBaseHandler;
 import com.dsl.logic.imports.ImportsJavaHandler;
+import com.dsl.models.aggregates.Class;
+import com.dsl.models.aggregates.Package;
 
 import ASTMCore.ASTMSource.CompilationUnit;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.ImportDeclaration;
@@ -34,11 +37,17 @@ public class ImportsJavaHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("package.name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("package.name");
+		Class localClass = new Class("java", "sourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		javaHandler.processCompilationUnitImports(compilationUnit);
+		javaHandler.processCompilationUnitImports(compilationUnit, model);
 		List<ImportDeclaration> imports = compilationUnit.getImports();
 		
 		// Assert
@@ -59,11 +68,17 @@ public class ImportsJavaHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("package.name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("package.name");
+		Class localClass = new Class("java", "sourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		javaHandler.processCompilationUnitImports(compilationUnit);
+		javaHandler.processCompilationUnitImports(compilationUnit, model);
 		List<ImportDeclaration> imports = compilationUnit.getImports();
 		
 		// Assert
@@ -86,11 +101,17 @@ public class ImportsJavaHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("package.name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("package.name");
+		Class localClass = new Class("java", "sourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		javaHandler.processCompilationUnitImports(compilationUnit);
+		javaHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(0);
 		
 		// Assert
@@ -111,11 +132,17 @@ public class ImportsJavaHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("package.name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("package.name");
+		Class localClass = new Class("java", "sourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		javaHandler.processCompilationUnitImports(compilationUnit);
+		javaHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(1);
 		
 		// Assert
@@ -136,11 +163,17 @@ public class ImportsJavaHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("package.name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("package.name");
+		Class localClass = new Class("java", "sourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		javaHandler.processCompilationUnitImports(compilationUnit);
+		javaHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(2);
 		
 		// Assert
@@ -163,11 +196,17 @@ public class ImportsJavaHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("package.name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("package.name");
+		Class localClass = new Class("java", "sourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		javaHandler.processCompilationUnitImports(compilationUnit);
+		javaHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(0);
 		String result = imp.getIdentifierName().getNameString();
 		
@@ -189,11 +228,17 @@ public class ImportsJavaHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("package.name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("package.name");
+		Class localClass = new Class("java", "sourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		javaHandler.processCompilationUnitImports(compilationUnit);
+		javaHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(1);
 		String result = imp.getIdentifierName().getNameString();
 		
@@ -215,16 +260,22 @@ public class ImportsJavaHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("package.name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("package.name");
+		Class localClass = new Class("java", "sourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		javaHandler.processCompilationUnitImports(compilationUnit);
+		javaHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(2);
 		String result = imp.getIdentifierName().getNameString();
 		
 		// Assert
-		assertEquals("Package.name", result);
+		assertEquals("package.name", result);
 	}
 	
 	

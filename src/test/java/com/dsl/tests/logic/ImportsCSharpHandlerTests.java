@@ -6,8 +6,11 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
+import com.dsl.fachade.models.DSLModel;
 import com.dsl.logic.imports.ImportsBaseHandler;
 import com.dsl.logic.imports.ImportsCSharpHandler;
+import com.dsl.models.aggregates.Class;
+import com.dsl.models.aggregates.Package;
 
 import ASTMCore.ASTMSource.CompilationUnit;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.ImportDeclaration;
@@ -35,11 +38,17 @@ public class ImportsCSharpHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("Package.Name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("Package.Name");
+		Class localClass = new Class("csharp", "SourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		csharpHandler.processCompilationUnitImports(compilationUnit);
+		csharpHandler.processCompilationUnitImports(compilationUnit, model);
 		List<ImportDeclaration> imports = compilationUnit.getImports();
 		
 		// Assert
@@ -60,11 +69,17 @@ public class ImportsCSharpHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("Package.Name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("Package.Name");
+		Class localClass = new Class("csharp", "SourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		csharpHandler.processCompilationUnitImports(compilationUnit);
+		csharpHandler.processCompilationUnitImports(compilationUnit, model);
 		List<ImportDeclaration> imports = compilationUnit.getImports();
 		
 		// Assert
@@ -87,11 +102,17 @@ public class ImportsCSharpHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("Package.Name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("Package.Name");
+		Class localClass = new Class("csharp", "SourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		csharpHandler.processCompilationUnitImports(compilationUnit);
+		csharpHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(0);
 		
 		// Assert
@@ -112,11 +133,17 @@ public class ImportsCSharpHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("Package.Name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("Package.Name");
+		Class localClass = new Class("csharp", "SourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		csharpHandler.processCompilationUnitImports(compilationUnit);
+		csharpHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(1);
 		
 		// Assert
@@ -137,11 +164,17 @@ public class ImportsCSharpHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("Package.Name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("Package.Name");
+		Class localClass = new Class("csharp", "SourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		csharpHandler.processCompilationUnitImports(compilationUnit);
+		csharpHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(2);
 		
 		// Assert
@@ -162,11 +195,17 @@ public class ImportsCSharpHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("Package.Name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("Package.Name");
+		Class localClass = new Class("csharp", "SourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		csharpHandler.processCompilationUnitImports(compilationUnit);
+		csharpHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(3);
 		
 		// Assert
@@ -187,11 +226,17 @@ public class ImportsCSharpHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("Package.Name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("Package.Name");
+		Class localClass = new Class("csharp", "SourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		csharpHandler.processCompilationUnitImports(compilationUnit);
+		csharpHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(4);
 		
 		// Assert
@@ -212,11 +257,17 @@ public class ImportsCSharpHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("Package.Name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("Package.Name");
+		Class localClass = new Class("csharp", "SourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		csharpHandler.processCompilationUnitImports(compilationUnit);
+		csharpHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(5);
 		
 		// Assert
@@ -237,11 +288,17 @@ public class ImportsCSharpHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("Package.Name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("Package.Name");
+		Class localClass = new Class("csharp", "SourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		csharpHandler.processCompilationUnitImports(compilationUnit);
+		csharpHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(6);
 		
 		// Assert
@@ -265,11 +322,17 @@ public class ImportsCSharpHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("Package.Name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("Package.Name");
+		Class localClass = new Class("csharp", "SourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		csharpHandler.processCompilationUnitImports(compilationUnit);
+		csharpHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(0);
 		String result = imp.getIdentifierName().getNameString();
 		
@@ -291,11 +354,17 @@ public class ImportsCSharpHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("Package.Name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("Package.Name");
+		Class localClass = new Class("csharp", "SourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		csharpHandler.processCompilationUnitImports(compilationUnit);
+		csharpHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(1);
 		String result = imp.getIdentifierName().getNameString();
 		
@@ -317,11 +386,17 @@ public class ImportsCSharpHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("Package.Name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("Package.Name");
+		Class localClass = new Class("csharp", "SourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		csharpHandler.processCompilationUnitImports(compilationUnit);
+		csharpHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(2);
 		String result = imp.getIdentifierName().getNameString();
 		
@@ -343,11 +418,17 @@ public class ImportsCSharpHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("Package.Name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("Package.Name");
+		Class localClass = new Class("csharp", "SourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		csharpHandler.processCompilationUnitImports(compilationUnit);
+		csharpHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(3);
 		String result = imp.getIdentifierName().getNameString();
 		
@@ -369,11 +450,17 @@ public class ImportsCSharpHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("Package.Name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("Package.Name");
+		Class localClass = new Class("csharp", "SourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		csharpHandler.processCompilationUnitImports(compilationUnit);
+		csharpHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(4);
 		String result = imp.getIdentifierName().getNameString();
 		
@@ -395,11 +482,17 @@ public class ImportsCSharpHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("Package.Name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("Package.Name");
+		Class localClass = new Class("csharp", "SourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		csharpHandler.processCompilationUnitImports(compilationUnit);
+		csharpHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(5);
 		String result = imp.getIdentifierName().getNameString();
 		
@@ -421,16 +514,22 @@ public class ImportsCSharpHandlerTests {
 		// Arrange 
 		CompilationUnit compilationUnit = new CompilationUnit();
 		NameSpaceDefinition namespace = new NameSpaceDefinition();
-		namespace.setNameSpace(new Name("Package.name"));
+		namespace.setNameSpace(new Name("Package.Name"));
 		compilationUnit.setgPackage(namespace);
 		
+		Package localPackage = new Package("Package.Name");
+		Class localClass = new Class("csharp", "SourceClassUnderTest", localPackage);
+		
+		DSLModel model = new DSLModel();
+		model.setClass(localClass);
+		
 		// Act
-		csharpHandler.processCompilationUnitImports(compilationUnit);
+		csharpHandler.processCompilationUnitImports(compilationUnit, model);
 		ImportDeclaration imp = compilationUnit.getImports().get(6);
 		String result = imp.getIdentifierName().getNameString();
 		
 		// Assert
-		assertEquals("Package.name", result);
+		assertEquals("Package.Name", result);
 	}
 	
 	

@@ -24,7 +24,7 @@ public class PackagesHandler implements IPackagesHandler {
         NameSpaceDefinition nameSpaceDefinition = GastFactory.getNameSpaceDefinition();
         
         Package pkg = model.getlClass().getPackage();
-        Name nameObj = GastFactory.getName(pkg.getName());
+        Name nameObj = GastFactory.getName(pkg.getName() + ".tests");
         nameSpaceDefinition.setNameSpace(nameObj);
 
         return nameSpaceDefinition;
