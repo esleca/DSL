@@ -34,7 +34,7 @@ public class FunctionAssertHandler implements IFunctionAssertHandler {
 	
     
     private IdentifierReference getCalledFunctionIdentifierReference(AssertExpression assertExpression){
-        if(assertExpression.getCalledFunction() == null) {
+        if(assertExpression.getCalledFunction() == null || assertExpression.getCalledFunction() == "") {
         	return null;
         }
     	
