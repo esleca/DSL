@@ -105,10 +105,13 @@ public class FunctionScopeHandler implements IFunctionScopeHandler {
 
             subStatements.add(decOrDefStatementNew);
             subStatements.add(decOrDefStatement);
+            
         } else if (act instanceof StaticAct){
             StaticAct action = (StaticAct) act;
             ActExecution actExecution = action.getActExecution();
+            
             DeclarationOrDefinitionStatement decOrDefStatement = actionHandler.getDeclOrDefStatementExec(actExecution);
+            
             subStatements.add(decOrDefStatement);
         }
     }
