@@ -11,10 +11,7 @@ public class ExpectedResultParameterized extends ExpectedResult {
     public ExpectedResultParameterized(ArrayList<ValueType> argumentTypes){
         this.argumentTypes = argumentTypes;
     }
-
-    public ArrayList<ValueType> getArgumentTypes() {
-        return argumentTypes;
-    }
+    
     
     @Override
     public ValueType getValueType() {
