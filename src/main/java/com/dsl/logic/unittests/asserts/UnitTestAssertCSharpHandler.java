@@ -16,7 +16,8 @@ import static com.dsl.utils.Constants.LANGUAGE_CSHARP;
 import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 
-//@Component
+
+@Component
 public class UnitTestAssertCSharpHandler implements IUnitTestAssertHandler {
 
     @Override

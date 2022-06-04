@@ -3,6 +3,8 @@ package com.dsl.models.dtos;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.dsl.models.valuetypes.ValueType;
+
 public class UnitTestRequest {
 
     private String classPath; // required by mapper
@@ -11,11 +13,11 @@ public class UnitTestRequest {
 	private String function;
     private String testName;
     private JSONArray parameters;
-    private JSONObject expected;
+    private ValueType expected;
     private String assertion;
 
     public UnitTestRequest(String classPath, String outputPath, String language, String function, String testName,
-                           JSONArray parameters, JSONObject expected, String assertion) {
+                           JSONArray parameters, ValueType expected, String assertion) {
         this.classPath = classPath;
         this.outputPath = outputPath;
         this.language = language;
@@ -50,7 +52,7 @@ public class UnitTestRequest {
         return parameters;
     }
 
-    public JSONObject getExpected() {
+    public ValueType getExpected() {
         return expected;
     }
 

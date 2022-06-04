@@ -78,7 +78,8 @@ public class TestScenarioHandlerTests {
         JSONObject expected = getExpected();
         String assertion = "areEqual";
         
-        return new UnitTestRequest(classPath, outputPath, language, function, testName, parameters, expected, assertion);
+        return null;
+        //return new UnitTestRequest(classPath, outputPath, language, function, testName, parameters, expected, assertion);
     }
 
     private static JSONArray getParameters() {

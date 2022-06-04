@@ -2,6 +2,8 @@ package com.dsl;
 
 import com.dsl.fachade.IDSLCrudFachade;
 import com.dsl.models.dtos.UnitTestRequest;
+import com.dsl.models.valuetypes.IntegerType;
+import com.dsl.models.valuetypes.ValueType;
 import com.dsl.testrun.config.ConfigurationTestRun;
 
 import gastmappers.exceptions.UnsupportedLanguageException;
@@ -50,7 +52,7 @@ public class FachadeMain implements CommandLineRunner{
             String testName = (String) configObj.get("testName");
             JSONArray parameters = (JSONArray) configObj.get("parameters");
             //JSONArray parameters = getParameters();
-            JSONObject expected = getExpected();
+            ValueType expected = getExpected();
             String assertion = (String) configObj.get("assert");
             
             return new UnitTestRequest(classPath, outputPath, language, function, testName, parameters, expected, assertion);    
@@ -76,10 +78,9 @@ public class FachadeMain implements CommandLineRunner{
         return parameter;
     }
     
-    private static JSONObject getExpected() {
-        JSONObject expected = new JSONObject();
-        expected.put("type", "int");
-        expected.put("value", "14");
+    private static ValueType getExpected() {
+    	ValueType expected = new IntegerType();
+    	expected.setValue("5");
         return expected;
     }
 }
