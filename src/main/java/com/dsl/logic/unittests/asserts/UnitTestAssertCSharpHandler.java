@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 
 
-@Component
+//@Component
 public class UnitTestAssertCSharpHandler implements IUnitTestAssertHandler {
 
     @Override
@@ -30,7 +30,7 @@ public class UnitTestAssertCSharpHandler implements IUnitTestAssertHandler {
     }
 
     private AssertExpression getAssertExpression(TestScenario testScenario) throws AssertNotFoundException, ValueTypeNotFoundException {
-    	String assertName = testScenario.getInitialAssert();
+    	String assertName = testScenario.getAssertion();
         AssertType assertType = AssertTypesFactory.createAssertType(assertName, LANGUAGE_CSHARP);
         ArrayList<FunctionArgument> assertParameters = assertType.getAssertArguments();
 

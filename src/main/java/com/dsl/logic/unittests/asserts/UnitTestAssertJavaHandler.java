@@ -29,7 +29,7 @@ public class UnitTestAssertJavaHandler implements IUnitTestAssertHandler {
     }
 
     protected AssertExpression getAssertExpression(TestScenario testScenario) throws AssertNotFoundException, ValueTypeNotFoundException {
-    	String assertName = testScenario.getInitialAssert();
+    	String assertName = testScenario.getAssertion();
         AssertType assertType = AssertTypesFactory.createAssertType(assertName, LANGUAGE_JAVA);
         ArrayList<FunctionArgument> assertParameters = assertType.getAssertArguments();
 

@@ -4,14 +4,9 @@ import com.dsl.fachade.IDSLCrudFachade;
 import com.dsl.models.dtos.UnitTestRequest;
 import com.dsl.models.valuetypes.IntegerType;
 import com.dsl.models.valuetypes.ValueType;
-import com.dsl.testrun.config.ConfigurationTestRun;
-
-import gastmappers.exceptions.UnsupportedLanguageException;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -19,6 +14,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 
 @SpringBootApplication
 public class FachadeMain implements CommandLineRunner{
@@ -51,7 +47,6 @@ public class FachadeMain implements CommandLineRunner{
             String function = (String) configObj.get("function");
             String testName = (String) configObj.get("testName");
             JSONArray parameters = (JSONArray) configObj.get("parameters");
-            //JSONArray parameters = getParameters();
             ValueType expected = getExpected();
             String assertion = (String) configObj.get("assert");
             
