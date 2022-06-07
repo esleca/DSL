@@ -47,8 +47,9 @@ public class FachadeMain implements CommandLineRunner{
             String function = (String) configObj.get("function");
             String testName = (String) configObj.get("testName");
             JSONArray parameters = (JSONArray) configObj.get("parameters");
-            ValueType expected = getExpected();
-            String assertion = (String) configObj.get("assert");
+            //ValueType expected = getExpected();
+            ValueType expected = (ValueType) configObj.get("expected");
+            String assertion = (String) configObj.get("assertion");
             
             return new UnitTestRequest(classPath, outputPath, language, function, testName, parameters, expected, assertion);    
         } catch (IOException | ParseException e) {

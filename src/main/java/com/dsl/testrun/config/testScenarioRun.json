@@ -2,9 +2,6 @@
 	"function": "getCountry1",
 	"testName": "getCountry1_test1",
 	"parameters": [],
-	"assert": "areEqual",
-	"expected": {
-		"type": "String",
-		"value": "Costa Rica"
-	}			
+	"assertion": "areEqual",
+	"expected": {}			
 }
