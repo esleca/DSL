@@ -49,7 +49,7 @@ public class UnitTestArrangeHandlerTests {
     //__________________________________________________
     @Test
 	public void test_processUnitTestArrange_notNull() throws ReturnNotFoundException, ModifierNotFoundException, ValueTypeNotFoundException {
-		//Arrange32
+		//Arrange
     	String testName = "testName";
     	
     	Function function = createFunction(new Class("Java", "ClassName", new Package("com.PackageName")));
