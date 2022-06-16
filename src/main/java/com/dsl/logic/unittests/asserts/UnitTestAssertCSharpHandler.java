@@ -14,11 +14,9 @@ import static com.dsl.utils.Constants.CSHARP_ASSERT_CLASS;
 import static com.dsl.utils.Constants.LANGUAGE_CSHARP;
 
 import java.util.ArrayList;
-import org.springframework.stereotype.Component;
 
 
-//@Component
-public class UnitTestAssertCSharpHandler implements IUnitTestAssertHandler {
+public class UnitTestAssertCSharpHandler extends UnitTestAssertBaseHandler {
 
     @Override
     public Assert processUnitTestAssert(TestScenario testScenario) throws AssertNotFoundException, ValueTypeNotFoundException {

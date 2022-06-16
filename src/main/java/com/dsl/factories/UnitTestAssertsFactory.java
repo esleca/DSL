@@ -1,6 +1,6 @@
 package com.dsl.factories;
 
-import com.dsl.logic.unittests.asserts.IUnitTestAssertHandler;
+import com.dsl.logic.unittests.asserts.UnitTestAssertBaseHandler;
 import com.dsl.logic.unittests.asserts.UnitTestAssertJavaHandler;
 import com.dsl.logic.unittests.asserts.UnitTestAssertPythonHandler;
 import gastmappers.exceptions.UnsupportedLanguageException;
@@ -10,8 +10,8 @@ import static com.dsl.utils.Constants.*;
 
 public class UnitTestAssertsFactory {
 
-    public static IUnitTestAssertHandler createAssertHandler(String language) throws UnsupportedLanguageException {
-        IUnitTestAssertHandler response;
+    public static UnitTestAssertBaseHandler createAssertHandler(String language) throws UnsupportedLanguageException {
+    	UnitTestAssertBaseHandler response;
 
         switch (language.toUpperCase()){
             case LANGUAGE_JAVA:

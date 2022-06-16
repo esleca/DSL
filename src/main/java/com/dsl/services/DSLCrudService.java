@@ -131,7 +131,7 @@ public class DSLCrudService implements IDSLCrudService {
     }
 
 
-    private void processUnitTest() throws AssertNotFoundException, ValueTypeNotFoundException {
+    private void processUnitTest() throws AssertNotFoundException, ValueTypeNotFoundException, UnsupportedLanguageException {
         TestScenario testScenario = model.getTestScenario();
         
         // TODO: LANG

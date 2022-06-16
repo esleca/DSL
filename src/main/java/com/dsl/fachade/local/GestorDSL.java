@@ -6,11 +6,12 @@ import com.dsl.logic.unittests.action.UnitTestActionHandler;
 import com.dsl.logic.unittests.arrange.IUnitTestArrangeHandler;
 import com.dsl.logic.unittests.arrange.UnitTestArrangeHandler;
 import com.dsl.logic.unittests.asserts.IUnitTestAssertHandler;
+import com.dsl.logic.unittests.asserts.UnitTestAssertHandler;
+
 import gastmappers.exceptions.UnsupportedLanguageException;
 
 import com.dsl.exceptions.*;
 import com.dsl.fachade.models.DSLModel;
-import com.dsl.factories.UnitTestAssertsFactory;
 import com.dsl.models.aggregates.*;
 import com.dsl.models.aggregates.Class;
 import com.dsl.models.unittests.*;
@@ -124,7 +125,7 @@ public class GestorDSL implements IGestorDSL{
     	for(String language : outputLanguages) {
     		IUnitTestArrangeHandler arrangeHandler = new UnitTestArrangeHandler();
             IUnitTestActionHandler actionHandler = new UnitTestActionHandler();
-            IUnitTestAssertHandler assertHandler = UnitTestAssertsFactory.createAssertHandler(language);
+            IUnitTestAssertHandler assertHandler = new UnitTestAssertHandler();
             IUnitTestHandler unitTestHandler = new UnitTestHandler(arrangeHandler, actionHandler, assertHandler);
 
             ArrayList<TestScenario> testScenarios = dslModel.getTestScenarios();
