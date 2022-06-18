@@ -143,7 +143,7 @@ public class GestorDSL implements IGestorDSL{
         IFunctionModifiersHandler modifiersHandler = new FunctionModifiersHandler(annotationsHandler);
     	IFunctionReturnHandler returnHandler = new FunctionReturnHandler();
     	IFunctionArrangeHandler arrangeHandler = new FunctionArrangeHandler();
-    	IFunctionActionHandler actionHandler = new FunctionActionHandler();
+    	IFunctionActionHandler actionHandler = new FunctionActionHandler(null, null);
     	IFunctionAssertHandler assertHandler = new FunctionAssertHandler();
         IFunctionScopeHandler functionHandler = new FunctionScopeHandler(modifiersHandler, returnHandler, arrangeHandler, actionHandler, assertHandler);
         IPackagesHandler packagesHandler = new PackagesHandler();

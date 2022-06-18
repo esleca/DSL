@@ -12,7 +12,7 @@ import com.dsl.logic.programscopes.IFunctionActionHandler;
 
 public class FunctionActionHandlerTests {
 
-	private IFunctionActionHandler sut = new FunctionActionHandler();
+	private IFunctionActionHandler sut = new FunctionActionHandler(null, null);
 	
 	
 	//_________________________________________________
