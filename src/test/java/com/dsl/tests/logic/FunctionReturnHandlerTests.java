@@ -5,8 +5,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import org.junit.jupiter.api.Test;
 
-import com.dsl.logic.programscopes.FunctionReturnHandler;
-import com.dsl.logic.programscopes.IFunctionReturnHandler;
+import com.dsl.logic.programscopes.returns.FunctionReturnHandler;
+import com.dsl.logic.programscopes.returns.IFunctionReturnHandler;
 
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.Name;
 import ASTMCore.ASTMSyntax.Types.NamedTypeReference;

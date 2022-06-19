@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.dsl.logic.programscopes.FunctionActionHandler;
-import com.dsl.logic.programscopes.IFunctionActionHandler;
+import com.dsl.logic.programscopes.action.FunctionActionHandler;
+import com.dsl.logic.programscopes.action.IFunctionActionHandler;
 
 
 public class FunctionActionHandlerTests {

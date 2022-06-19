@@ -1,4 +1,4 @@
-package com.dsl.logic.programscopes;
+package com.dsl.logic.programscopes.action;
 
 import com.dsl.models.unittests.acts.ActNewType;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.VariableDefinition;

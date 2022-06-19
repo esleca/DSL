@@ -9,23 +9,21 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.dsl.logic.programscopes.IFunctionActionExecuter;
+import com.dsl.logic.programscopes.action.IFunctionActionExecuter;
 import com.dsl.models.unittests.Declaration;
 import com.dsl.models.unittests.FunctionArgument;
 import com.dsl.models.unittests.acts.ActExecution;
-import com.dsl.models.unittests.asserts.types.AssertType;
-import com.dsl.models.unittests.asserts.types.java.JavaAreEqual;
 
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.Fragment;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.VariableDefinition;
 import ASTMCore.ASTMSyntax.Types.TypeReference;
 
-import com.dsl.logic.programscopes.FunctionActionExecuter;
+import com.dsl.logic.programscopes.action.FunctionActionExecuter;
 
 
 public class FunctionActionExecuterTests {
 
-	private IFunctionActionExecuter sut = new FunctionActionExecuter();
+	private IFunctionActionExecuter sut = new FunctionActionExecuter(null);
 	
 	
 	//____________________________________________________

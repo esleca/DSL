@@ -8,8 +8,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
-import com.dsl.logic.programscopes.IFunctionAssertHandler;
-import com.dsl.logic.programscopes.FunctionAssertHandler;
+import com.dsl.logic.programscopes.asserts.IFunctionAssertHandler;
+import com.dsl.logic.programscopes.asserts.FunctionAssertHandler;
 import com.dsl.models.unittests.FunctionArgument;
 import com.dsl.models.unittests.asserts.AssertExpression;
 import com.dsl.models.unittests.asserts.types.AssertType;

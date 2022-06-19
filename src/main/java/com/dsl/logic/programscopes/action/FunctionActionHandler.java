@@ -1,4 +1,4 @@
-package com.dsl.logic.programscopes;
+package com.dsl.logic.programscopes.action;
 
 import org.springframework.stereotype.Component;
 
@@ -12,14 +12,22 @@ import ASTMCore.ASTMSyntax.Statement.DeclarationOrDefinitionStatement;
 @Component
 public class FunctionActionHandler implements IFunctionActionHandler {
 
-	private IFunctionActionExecuter actionExecuter;
 	private IFunctionActionInstantiator actionInstantiator;
+	private IFunctionActionExecuter actionExecuter;
 	
-	public FunctionActionHandler(IFunctionActionExecuter inActionExecuter, IFunctionActionInstantiator inActionInstantiator) {
-		this.actionExecuter = inActionExecuter;
+	public FunctionActionHandler(IFunctionActionInstantiator inActionInstantiator, IFunctionActionExecuter inActionExecuter) {
 		this.actionInstantiator = inActionInstantiator;
+		this.actionExecuter = inActionExecuter;
 	}
 	
+
+	@Override
+	public DeclarationOrDefinitionStatement getDeclOrDefStatementNewType(ActNewType actNewType) {
+		DeclarationOrDefinitionStatement decOrDefStatement = new DeclarationOrDefinitionStatement();
+        VariableDefinition variableDefinitionExec = actionInstantiator.getActNewTypeVariableDefinition(actNewType);
+        decOrDefStatement.setDeclOrDefn(variableDefinitionExec);
+        return decOrDefStatement;
+	}
 	
 	@Override
 	public DeclarationOrDefinitionStatement getDeclOrDefStatementExec(ActExecution actExecution) {
@@ -29,11 +37,4 @@ public class FunctionActionHandler implements IFunctionActionHandler {
         return decOrDefStatement;
 	}
 
-	@Override
-	public DeclarationOrDefinitionStatement getDeclOrDefStatementNewType(ActNewType actNewType) {
-		DeclarationOrDefinitionStatement decOrDefStatement = new DeclarationOrDefinitionStatement();
-        VariableDefinition variableDefinitionExec = actionInstantiator.getActNewTypeVariableDefinition(actNewType);
-        decOrDefStatement.setDeclOrDefn(variableDefinitionExec);
-        return decOrDefStatement;
-	}
 }

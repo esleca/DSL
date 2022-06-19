@@ -7,8 +7,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import com.dsl.logic.programscopes.FunctionActionInstantiator;
-import com.dsl.logic.programscopes.IFunctionActionInstantiator;
+import com.dsl.logic.programscopes.action.FunctionActionInstantiator;
+import com.dsl.logic.programscopes.action.IFunctionActionInstantiator;
 import com.dsl.models.unittests.acts.ActNewType;
 
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.Fragment;

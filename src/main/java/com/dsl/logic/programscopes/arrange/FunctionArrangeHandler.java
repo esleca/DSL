@@ -1,4 +1,4 @@
-package com.dsl.logic.programscopes;
+package com.dsl.logic.programscopes.arrange;
 
 import java.util.ArrayList;
 import java.util.List;

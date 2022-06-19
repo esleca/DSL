@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import com.dsl.logic.annotations.AnnotationsHandler;
 import com.dsl.logic.annotations.IAnnotationsHandler;
-import com.dsl.logic.programscopes.FunctionModifiersHandler;
-import com.dsl.logic.programscopes.IFunctionModifiersHandler;
+import com.dsl.logic.programscopes.modifiers.FunctionModifiersHandler;
+import com.dsl.logic.programscopes.modifiers.IFunctionModifiersHandler;
 
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.AnnotationModifier;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.Modifiers;

@@ -1,4 +1,4 @@
-package com.dsl.logic.programscopes;
+package com.dsl.logic.programscopes.returns;
 
 import static com.dsl.utils.Constants.RETURN_VOID;
 

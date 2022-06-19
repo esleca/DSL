@@ -7,8 +7,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-import com.dsl.logic.programscopes.FunctionArrangeHandler;
-import com.dsl.logic.programscopes.IFunctionArrangeHandler;
+import com.dsl.logic.programscopes.arrange.FunctionArrangeHandler;
+import com.dsl.logic.programscopes.arrange.IFunctionArrangeHandler;
 import com.dsl.models.unittests.Declaration;
 import com.dsl.models.unittests.arranges.ArrangeDefinition;
 import com.dsl.models.unittests.arranges.ArrangeStatement;
