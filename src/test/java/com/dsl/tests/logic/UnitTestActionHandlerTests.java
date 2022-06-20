@@ -3,11 +3,12 @@ package com.dsl.tests.logic;
 import static com.dsl.factories.AggregatesFactory.createFunction;
 import static com.dsl.factories.ModifiersFactory.createModifier;
 import static com.dsl.factories.ReturnsFactory.createPrimitiveReturn;
+import static com.dsl.factories.ValueTypeFactory.createValueType;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-
 import org.junit.jupiter.api.Test;
 
 import com.dsl.exceptions.ModifierNotFoundException;
@@ -31,8 +32,8 @@ import com.dsl.models.unittests.asserts.types.AssertType;
 import com.dsl.models.unittests.asserts.types.java.JavaAreEqual;
 import com.dsl.models.valuetypes.ValueType;
 
-public class UnitTestActionHandlerTests {
 
+public class UnitTestActionHandlerTests {
 	
 	private IUnitTestActionHandler sut = new UnitTestActionHandler();
 	
@@ -56,7 +57,7 @@ public class UnitTestActionHandlerTests {
     	function.setReturn(createPrimitiveReturn("String"));
     	function.addModifier(createModifier("public"));
 
-    	ValueType expected = ValueTypeFactory.createValueType("String", "John");
+    	ValueType expected = createValueType("String", "John");
     	
     	ArrayList<ParameterScenario> parameterScenarios = new ArrayList<ParameterScenario>() {
 			{
