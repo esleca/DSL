@@ -1,16 +1,17 @@
 package com.dsl;
 
-import com.dsl.fachade.IDSLCrudFachade;
-import com.dsl.models.dtos.UnitTestRequest;
-import com.dsl.models.valuetypes.IntegerType;
-import com.dsl.models.valuetypes.ValueType;
-
 import java.io.FileReader;
 import java.io.IOException;
+
+import com.dsl.fachade.IDSLCrudFachade;
+import com.dsl.models.dtos.UnitTestRequest;
+import com.dsl.models.valuetypes.ValueType;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -58,25 +59,5 @@ public class FachadeMain implements CommandLineRunner{
         }
 
         return null;
-    }
-
-    private static JSONArray getParameters() {
-        JSONArray parameters = new JSONArray();
-        parameters.add(getParameter());
-        return parameters;
-    }
-
-    private static JSONObject getParameter() {
-        JSONObject parameter = new JSONObject();
-        parameter.put("name", "nombre");
-        parameter.put("type", "String");
-        parameter.put("value", "Esteban");
-        return parameter;
-    }
-    
-    private static ValueType getExpected() {
-    	ValueType expected = new IntegerType();
-    	expected.setValue("5");
-        return expected;
     }
 }

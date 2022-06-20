@@ -7,5 +7,5 @@ import gastmappers.exceptions.UnsupportedLanguageException;
 
 public interface IAggregateScopeHandler {
 	
-	AggregateScope getAggregateScope(CompilationUnit compilationUnit, DSLModel model) throws UnsupportedLanguageException;
+	AggregateScope processAggregateScope(CompilationUnit compilationUnit, DSLModel model) throws UnsupportedLanguageException;
 }

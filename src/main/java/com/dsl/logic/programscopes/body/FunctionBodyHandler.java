@@ -73,7 +73,7 @@ public class FunctionBodyHandler implements IFunctionBodyHandler {
             ActExecution actExecution = action.getActExecution();
 
             DeclarationOrDefinitionStatement decOrDefStatementNew = actionHandler.getDeclOrDefStatementNewType(actNewType);
-            DeclarationOrDefinitionStatement decOrDefStatement = actionHandler.getDeclOrDefStatementExec(actExecution);
+            DeclarationOrDefinitionStatement decOrDefStatement = actionHandler.getDeclOrDefStatementExecution(actExecution);
 
             subStatements.add(decOrDefStatementNew);
             subStatements.add(decOrDefStatement);
@@ -82,8 +82,7 @@ public class FunctionBodyHandler implements IFunctionBodyHandler {
             StaticAct action = (StaticAct) act;
             ActExecution actExecution = action.getActExecution();
             
-            DeclarationOrDefinitionStatement decOrDefStatement = actionHandler.getDeclOrDefStatementExec(actExecution);
-            
+            DeclarationOrDefinitionStatement decOrDefStatement = actionHandler.getDeclOrDefStatementExecution(actExecution);
             subStatements.add(decOrDefStatement);
         }
     }
@@ -98,4 +97,5 @@ public class FunctionBodyHandler implements IFunctionBodyHandler {
             subStatements.add(expressionStatement);
         }
     }
+    
 }

@@ -9,6 +9,6 @@ public interface IFunctionActionHandler {
 
 	DeclarationOrDefinitionStatement getDeclOrDefStatementNewType(ActNewType actNewType);
 	
-	DeclarationOrDefinitionStatement getDeclOrDefStatementExec(ActExecution actExecution);
+	DeclarationOrDefinitionStatement getDeclOrDefStatementExecution(ActExecution actExecution);
 	
 }

@@ -11,7 +11,7 @@ import ASTMCore.ASTMSyntax.DeclarationAndDefinition.PublicModifier;
 public class ClassModifiersHandler implements IClassModifiersHandler {
 
 	@Override
-	public ArrayList<Modifiers> getModifiers(){
+	public ArrayList<Modifiers> processClassModifiers(){
         ArrayList<Modifiers> modifiers = new ArrayList<>();
         modifiers.add(new PublicModifier());
         return modifiers;

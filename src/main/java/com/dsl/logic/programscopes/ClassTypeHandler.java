@@ -33,8 +33,8 @@ public class ClassTypeHandler implements IClassTypeHandler {
 	public ClassType getClassType(CompilationUnit compilationUnit, DSLModel model) throws UnsupportedLanguageException{
         Name nameObj = GastFactory.getName(model.getlClass().getName() + "_Tests");
         String packageName = model.getlClass().getPackage().getName();
-        ArrayList<Modifiers> modifiers = classModifiersHandler.getModifiers();
-        AggregateScope aggregateScope = aggregateScopeHandler.getAggregateScope(compilationUnit, model);
+        ArrayList<Modifiers> modifiers = classModifiersHandler.processClassModifiers();
+        AggregateScope aggregateScope = aggregateScopeHandler.processAggregateScope(compilationUnit, model);
 
         ClassType classType = new ClassType();
         classType.setNameString(nameObj);

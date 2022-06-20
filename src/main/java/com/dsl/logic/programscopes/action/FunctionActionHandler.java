@@ -30,7 +30,7 @@ public class FunctionActionHandler implements IFunctionActionHandler {
 	}
 	
 	@Override
-	public DeclarationOrDefinitionStatement getDeclOrDefStatementExec(ActExecution actExecution) {
+	public DeclarationOrDefinitionStatement getDeclOrDefStatementExecution(ActExecution actExecution) {
 		DeclarationOrDefinitionStatement decOrDefStatement = new DeclarationOrDefinitionStatement();
         VariableDefinition variableDefinitionExec = actionExecuter.getActExecutionVariableDefinition(actExecution);
         decOrDefStatement.setDeclOrDefn(variableDefinitionExec);

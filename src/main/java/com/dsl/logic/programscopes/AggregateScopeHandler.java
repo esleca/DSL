@@ -1,6 +1,7 @@
 package com.dsl.logic.programscopes;
 
 import java.util.ArrayList;
+import org.springframework.stereotype.Component;
 
 import com.dsl.fachade.models.DSLModel;
 import com.dsl.models.unittests.UnitTest;
@@ -11,6 +12,8 @@ import ASTMCore.ASTMSyntax.DeclarationAndDefinition.DefintionObject;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.FunctionDefintion;
 import gastmappers.exceptions.UnsupportedLanguageException;
 
+
+@Component
 public class AggregateScopeHandler implements IAggregateScopeHandler {
 
 	private String language;
@@ -22,14 +25,12 @@ public class AggregateScopeHandler implements IAggregateScopeHandler {
 	
 	
 	@Override
-	public AggregateScope getAggregateScope(CompilationUnit compilationUnit, DSLModel model) throws UnsupportedLanguageException{
+	public AggregateScope processAggregateScope(CompilationUnit compilationUnit, DSLModel model) throws UnsupportedLanguageException{
 		language = compilationUnit.getLanguage();
 		
 		AggregateScope openScope = new AggregateScope();
-
         ArrayList<DefintionObject> definitionObjects = getAggregateScopeDefinitionObjects(model);
         openScope.setDeclOrDefn(definitionObjects);
-
         return openScope;
     }
 

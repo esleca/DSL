@@ -6,5 +6,5 @@ import ASTMCore.ASTMSyntax.DeclarationAndDefinition.Modifiers;
 
 public interface IClassModifiersHandler {
 	
-	ArrayList<Modifiers> getModifiers();
+	ArrayList<Modifiers> processClassModifiers();
 }

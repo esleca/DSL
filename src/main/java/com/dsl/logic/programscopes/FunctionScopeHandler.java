@@ -9,7 +9,6 @@ import com.dsl.logic.programscopes.body.IFunctionBodyHandler;
 import com.dsl.logic.programscopes.modifiers.IFunctionModifiersHandler;
 import com.dsl.logic.programscopes.returns.IFunctionReturnHandler;
 
-import ASTMCore.ASTMSyntax.DeclarationAndDefinition.FormalParameterDefinition;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.FunctionDefintion;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.Modifiers;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.Name;
@@ -35,17 +34,16 @@ public class FunctionScopeHandler implements IFunctionScopeHandler {
 	
 	@Override
 	public FunctionDefintion processFunctionDefinition(UnitTest unitTest) throws UnsupportedLanguageException {
-		ArrayList<Modifiers> modifiers = modifiersHandler.getModifiers(unitTest.getLanguage());
+		Name name = GastFactory.getName(unitTest.getTestScenario().getTestName());
+        ArrayList<Modifiers> modifiers = modifiersHandler.getModifiers(unitTest.getLanguage());
         TypeReference returnType = returnHandler.getReturnType();
-        Name name = GastFactory.getName(unitTest.getTestScenario().getTestName());
-        ArrayList<FormalParameterDefinition> formalParameters = new ArrayList<>();
         Statement statement = bodyHandler.processFunctionBody(unitTest);
 
         FunctionDefintion functionDefinition = new FunctionDefintion();
+        functionDefinition.setIdentifierName(name);
         functionDefinition.setModifiers(modifiers);
         functionDefinition.setReturnType(returnType);
-        functionDefinition.setIdentifierName(name);
-        functionDefinition.setFormalParameters(formalParameters);
+        functionDefinition.setFormalParameters(new ArrayList<>());
         functionDefinition.setBody(statement);
 
         return functionDefinition;
