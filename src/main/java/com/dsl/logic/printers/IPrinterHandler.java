@@ -5,5 +5,5 @@ import gastmappers.exceptions.UnsupportedLanguageException;
 
 public interface IPrinterHandler {
 	
-	void generateCode(CompilationUnit compilationUnit, String outLanguage, String outPath) throws UnsupportedLanguageException;
+	String generateCode(CompilationUnit compilationUnit, String outLanguage, String outPath) throws UnsupportedLanguageException;
 }

@@ -1,4 +1,4 @@
-package com.dsl.logic.programscopes;
+package com.dsl.logic.programscopes.arrange;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ import com.dsl.models.valuetypes.ValueType;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.Fragment;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.Name;
 import ASTMCore.ASTMSyntax.DeclarationAndDefinition.VariableDefinition;
+import ASTMCore.ASTMSyntax.Expression.Expression;
 import ASTMCore.ASTMSyntax.Expression.Literal;
 import ASTMCore.ASTMSyntax.Types.NamedTypeReference;
 
@@ -35,7 +36,7 @@ public class FunctionArrangeHandler implements IFunctionArrangeHandler {
 	private List<Fragment> getVariableFragments(ArrangeStatement arrangeStatement){
     	List<Fragment> fragments = new ArrayList<>();
         
-        Literal expression = getFragmentExpression(arrangeStatement);
+    	Expression expression = getFragmentExpression(arrangeStatement);
         Name identifier = GastFactory.getName(arrangeStatement.getDeclaration().getName());
         
         Fragment fragment = new Fragment();
@@ -46,11 +47,11 @@ public class FunctionArrangeHandler implements IFunctionArrangeHandler {
         return fragments;
     }
     
-	private Literal getFragmentExpression(ArrangeStatement arrangeStatement){
+	private Expression getFragmentExpression(ArrangeStatement arrangeStatement){
     	ValueType value = arrangeStatement.getDefinition().getValueType();
     	String valueType = arrangeStatement.getDeclaration().getType();
 
-        Literal expression = LiteralsFactory.createLiteralExpression(valueType);
+    	Literal expression = LiteralsFactory.createLiteralExpression(valueType);
         expression.setValue(value.getValue().toString());
 
         return expression;

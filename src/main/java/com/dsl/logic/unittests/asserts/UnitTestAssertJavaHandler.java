@@ -14,10 +14,9 @@ import static com.dsl.utils.Constants.JAVA_ASSERT_CLASS;
 import static com.dsl.utils.Constants.LANGUAGE_JAVA;
 
 import java.util.ArrayList;
-import org.springframework.stereotype.Component;
 
-@Component
-public class UnitTestAssertJavaHandler implements IUnitTestAssertHandler {
+
+public class UnitTestAssertJavaHandler extends UnitTestAssertBaseHandler {
 
     @Override
     public Assert processUnitTestAssert(TestScenario testScenario) throws AssertNotFoundException, ValueTypeNotFoundException {
@@ -29,7 +28,7 @@ public class UnitTestAssertJavaHandler implements IUnitTestAssertHandler {
     }
 
     protected AssertExpression getAssertExpression(TestScenario testScenario) throws AssertNotFoundException, ValueTypeNotFoundException {
-    	String assertName = testScenario.getInitialAssert();
+    	String assertName = testScenario.getAssertion();
         AssertType assertType = AssertTypesFactory.createAssertType(assertName, LANGUAGE_JAVA);
         ArrayList<FunctionArgument> assertParameters = assertType.getAssertArguments();
 

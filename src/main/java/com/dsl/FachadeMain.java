@@ -1,22 +1,21 @@
 package com.dsl;
 
-import com.dsl.fachade.IDSLCrudFachade;
-import com.dsl.models.dtos.UnitTestRequest;
-import com.dsl.testrun.config.ConfigurationTestRun;
-
-import gastmappers.exceptions.UnsupportedLanguageException;
-
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+
+import com.dsl.fachade.IDSLCrudFachade;
+import com.dsl.models.dtos.UnitTestRequest;
+import com.dsl.models.valuetypes.ValueType;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 
 @SpringBootApplication
 public class FachadeMain implements CommandLineRunner{
@@ -49,9 +48,9 @@ public class FachadeMain implements CommandLineRunner{
             String function = (String) configObj.get("function");
             String testName = (String) configObj.get("testName");
             JSONArray parameters = (JSONArray) configObj.get("parameters");
-            //JSONArray parameters = getParameters();
-            JSONObject expected = getExpected();
-            String assertion = (String) configObj.get("assert");
+            //ValueType expected = getExpected();
+            ValueType expected = (ValueType) configObj.get("expected");
+            String assertion = (String) configObj.get("assertion");
             
             return new UnitTestRequest(classPath, outputPath, language, function, testName, parameters, expected, assertion);    
         } catch (IOException | ParseException e) {
@@ -60,26 +59,5 @@ public class FachadeMain implements CommandLineRunner{
         }
 
         return null;
-    }
-
-    private static JSONArray getParameters() {
-        JSONArray parameters = new JSONArray();
-        parameters.add(getParameter());
-        return parameters;
-    }
-
-    private static JSONObject getParameter() {
-        JSONObject parameter = new JSONObject();
-        parameter.put("name", "nombre");
-        parameter.put("type", "String");
-        parameter.put("value", "Esteban");
-        return parameter;
-    }
-    
-    private static JSONObject getExpected() {
-        JSONObject expected = new JSONObject();
-        expected.put("type", "int");
-        expected.put("value", "14");
-        return expected;
     }
 }

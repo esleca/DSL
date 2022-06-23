@@ -6,11 +6,12 @@ import com.dsl.logic.unittests.action.UnitTestActionHandler;
 import com.dsl.logic.unittests.arrange.IUnitTestArrangeHandler;
 import com.dsl.logic.unittests.arrange.UnitTestArrangeHandler;
 import com.dsl.logic.unittests.asserts.IUnitTestAssertHandler;
+import com.dsl.logic.unittests.asserts.UnitTestAssertHandler;
+
 import gastmappers.exceptions.UnsupportedLanguageException;
 
 import com.dsl.exceptions.*;
 import com.dsl.fachade.models.DSLModel;
-import com.dsl.factories.UnitTestAssertsFactory;
 import com.dsl.models.aggregates.*;
 import com.dsl.models.aggregates.Class;
 import com.dsl.models.unittests.*;
@@ -21,21 +22,23 @@ import com.dsl.logic.packages.IPackagesHandler;
 import com.dsl.logic.packages.PackagesHandler;
 import com.dsl.logic.parameterscenarios.*;
 import com.dsl.logic.printers.*;
-import com.dsl.logic.programscopes.FunctionActionHandler;
-import com.dsl.logic.programscopes.FunctionArrangeHandler;
-import com.dsl.logic.programscopes.FunctionAssertHandler;
-import com.dsl.logic.programscopes.FunctionModifiersHandler;
-import com.dsl.logic.programscopes.FunctionReturnHandler;
+import com.dsl.logic.programscopes.action.FunctionActionHandler;
+import com.dsl.logic.programscopes.arrange.FunctionArrangeHandler;
+import com.dsl.logic.programscopes.asserts.FunctionAssertHandler;
+import com.dsl.logic.programscopes.modifiers.FunctionModifiersHandler;
+import com.dsl.logic.programscopes.returns.FunctionReturnHandler;
 import com.dsl.logic.programscopes.FunctionScopeHandler;
-import com.dsl.logic.programscopes.IFunctionActionHandler;
-import com.dsl.logic.programscopes.IFunctionArrangeHandler;
-import com.dsl.logic.programscopes.IFunctionAssertHandler;
-import com.dsl.logic.programscopes.IFunctionModifiersHandler;
-import com.dsl.logic.programscopes.IFunctionReturnHandler;
+import com.dsl.logic.programscopes.action.IFunctionActionHandler;
+import com.dsl.logic.programscopes.arrange.IFunctionArrangeHandler;
+import com.dsl.logic.programscopes.asserts.IFunctionAssertHandler;
+import com.dsl.logic.programscopes.modifiers.IFunctionModifiersHandler;
+import com.dsl.logic.programscopes.returns.IFunctionReturnHandler;
 import com.dsl.logic.programscopes.IFunctionScopeHandler;
 import com.dsl.logic.programscopes.IProgramScopeHandler;
 import com.dsl.logic.programscopes.ProgramScopeHandler;
 import com.dsl.logic.visitors.*;
+import com.dsl.logic.annotations.AnnotationsHandler;
+import com.dsl.logic.annotations.IAnnotationsHandler;
 import com.dsl.logic.configfiles.*;
 import com.dsl.logic.expectedresults.*;
 import com.dsl.logic.testableunits.*;
@@ -122,7 +125,7 @@ public class GestorDSL implements IGestorDSL{
     	for(String language : outputLanguages) {
     		IUnitTestArrangeHandler arrangeHandler = new UnitTestArrangeHandler();
             IUnitTestActionHandler actionHandler = new UnitTestActionHandler();
-            IUnitTestAssertHandler assertHandler = UnitTestAssertsFactory.createAssertHandler(language);
+            IUnitTestAssertHandler assertHandler = new UnitTestAssertHandler();
             IUnitTestHandler unitTestHandler = new UnitTestHandler(arrangeHandler, actionHandler, assertHandler);
 
             ArrayList<TestScenario> testScenarios = dslModel.getTestScenarios();
@@ -136,15 +139,16 @@ public class GestorDSL implements IGestorDSL{
     public void processCompilationUnitsTests() throws UnsupportedLanguageException{
         ArrayList<String> outputLanguages = dslModel.getConfigurationsRunFiles().get(0).getOutputLanguages();
     	
-        IFunctionModifiersHandler modifiersHandler = new FunctionModifiersHandler();
+        IAnnotationsHandler annotationsHandler = new AnnotationsHandler();
+        IFunctionModifiersHandler modifiersHandler = new FunctionModifiersHandler(annotationsHandler);
     	IFunctionReturnHandler returnHandler = new FunctionReturnHandler();
     	IFunctionArrangeHandler arrangeHandler = new FunctionArrangeHandler();
-    	IFunctionActionHandler actionHandler = new FunctionActionHandler();
+    	IFunctionActionHandler actionHandler = new FunctionActionHandler(null, null);
     	IFunctionAssertHandler assertHandler = new FunctionAssertHandler();
-        IFunctionScopeHandler functionHandler = new FunctionScopeHandler(modifiersHandler, returnHandler, arrangeHandler, actionHandler, assertHandler);
+        IFunctionScopeHandler functionHandler = new FunctionScopeHandler(modifiersHandler, returnHandler, null);
         IPackagesHandler packagesHandler = new PackagesHandler();
         IImportsHandler importsHandler = new ImportsHandler();
-        IProgramScopeHandler programHandler = new ProgramScopeHandler(functionHandler);
+        IProgramScopeHandler programHandler = new ProgramScopeHandler(null);
         
     	for(String language : outputLanguages) {
             ICompilationUnitTestHandler handler = new CompilationUnitTestHandler(packagesHandler, importsHandler, programHandler);
@@ -179,23 +183,19 @@ public class GestorDSL implements IGestorDSL{
     @Override
     public void testgenerateCode() throws UnsupportedLanguageException, IOException{
     	ITestRunHandler dslRunner = new TestRunHandler();
-        //IPrinterHandler handlerJ = new PrinterJavaHandler();
-        //IPrinterHandler handlerC = new PrinterCSharpHandler();
+        IPrinterHandler handler = new PrinterHandler();
         
-        ArrayList<ConfigurationTestRun> configFiles = dslRunner.processConfigFiles(dslModel.getConfigurationPath());        
-        dslModel.setConfigurationsRunFiles(configFiles);
+        ConfigurationTestRun configuration = dslRunner.processConfigFiles(dslModel.getConfigurationPath()).get(0);
+        ICompilationUnitFileHandler compilationUnitHandler = new CompilationUnitFileHandler(configuration);
+        ArrayList<CompilationUnit> compilationUnits = compilationUnitHandler.processFilesInDir(true);
         
-        for (ConfigurationTestRun testRun : configFiles) {
-        	ICompilationUnitFileHandler compilationUnitHandler = new CompilationUnitFileHandler(testRun);
-        	
-            ArrayList<CompilationUnit> compilationUnits = compilationUnitHandler.processFilesInDir(true);
-            
-            for (CompilationUnit compilationUnit : compilationUnits) {
-            	String outputPath = dslModel.getConfigurationsRunFiles().get(0).getOutputCodeDirectory();
-            	
-                //handlerJ.generateCode(compilationUnit, outputPath);
-                //handlerC.generateCode(compilationUnit, outputPath);
-            }
+        for (CompilationUnit compilationUnit : compilationUnits) {
+        	String outputPath = configuration.getOutputCodeDirectory();	
+        	ArrayList<String> outputLanguages = configuration.getOutputLanguages();
+        
+        	for(String language : outputLanguages) {
+        		handler.generateCode(compilationUnit, language, outputPath);
+        	}
         }
     }
 }

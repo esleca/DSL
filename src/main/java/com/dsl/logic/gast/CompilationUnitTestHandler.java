@@ -33,7 +33,7 @@ public class CompilationUnitTestHandler implements ICompilationUnitTestHandler {
         CompilationUnit compilationUnit = GastFactory.createCompilationUnit(language);
 
         packagesHandler.processCompilationUnitPackage(compilationUnit, model);
-        importsHandler.processCompilationUnitImports(compilationUnit, language);
+        importsHandler.processCompilationUnitImports(compilationUnit, model, language);
         programScopeHandler.processCompilationUnitScope(compilationUnit, model);
 
         compilationUnitTests.add(compilationUnit);

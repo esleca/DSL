@@ -1,4 +1,4 @@
-package com.dsl.logic.programscopes;
+package com.dsl.logic.programscopes.modifiers;
 
 import java.util.ArrayList;
 import org.springframework.stereotype.Component;
@@ -8,14 +8,12 @@ import ASTMCore.ASTMSyntax.DeclarationAndDefinition.PublicModifier;
 
 
 @Component
-public class FunctionModifiersHandler implements IFunctionModifiersHandler {
+public class ClassModifiersHandler implements IClassModifiersHandler {
 
 	@Override
-	public ArrayList<Modifiers> getModifiers(){
+	public ArrayList<Modifiers> processClassModifiers(){
         ArrayList<Modifiers> modifiers = new ArrayList<>();
-        //modifiers.add(new AnnotationModifier("Override"));
         modifiers.add(new PublicModifier());
         return modifiers;
     }
-
 }

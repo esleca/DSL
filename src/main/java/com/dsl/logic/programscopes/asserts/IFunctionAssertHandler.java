@@ -1,4 +1,4 @@
-package com.dsl.logic.programscopes;
+package com.dsl.logic.programscopes.asserts;
 
 import com.dsl.models.unittests.asserts.AssertExpression;
 

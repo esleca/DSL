@@ -1,4 +1,4 @@
-package com.dsl.logic.programscopes;
+package com.dsl.logic.programscopes.asserts;
 
 import java.util.ArrayList;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class FunctionAssertHandler implements IFunctionAssertHandler {
 	
     
     private IdentifierReference getCalledFunctionIdentifierReference(AssertExpression assertExpression){
-        if(assertExpression.getCalledFunction() == null) {
+        if(assertExpression.getCalledFunction() == null || assertExpression.getCalledFunction() == "") {
         	return null;
         }
     	

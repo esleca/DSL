@@ -7,16 +7,17 @@ import encoders.Encoder;
 public class PrinterPythonHandler extends PrinterBaseHandler {
 	
 	@Override
-	public void generateCode(CompilationUnit compilationUnit, String outPath) {
-		writePythonCode(compilationUnit, outPath);
+	public String generateCode(CompilationUnit compilationUnit, String outPath) {
+		return writePythonCode(compilationUnit, outPath);
 	}
 	
-	private void writePythonCode(CompilationUnit compilationUnit, String outPath) {
+	private String writePythonCode(CompilationUnit compilationUnit, String outPath) {
         //Encoder encoder = new PythonEncoder();
         //compilationUnit.accept(encoder);
 
         //String outputPath = outPath + "\\GeneratedTests.py";
         
         //writeCode(encoder.getGeneratedCode(), outputPath);
+		return null;
 	}
 }

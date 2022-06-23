@@ -13,25 +13,32 @@ import static com.dsl.utils.Constants.ARGUMENT_EXPECTED;
 import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class UnitTestArrangeHandler implements IUnitTestArrangeHandler {
 
     @Override
     public Arrange processUnitTestArrange(TestScenario testScenario) {
         ArrayList<ArrangeStatement> arranges = new ArrayList<>();
-        ArrayList<ParameterScenario> parameterScenarios = testScenario.getParameters();
 
-        for (ParameterScenario parameterScenario : parameterScenarios){
+        for (ParameterScenario parameterScenario : testScenario.getParameters()){
             ArrangeStatement arrangeStatement = getArrangeStatement(parameterScenario);
             arranges.add(arrangeStatement);
         }
         
-        if(testScenario.getExpectedResult().getValueType() != null) {
+        if (HasExpected(testScenario)) {
         	ArrangeStatement expectedStatement = getExpectedArrange(testScenario.getExpectedResult());
         	arranges.add(expectedStatement);
         }
         
         return UnitTestFactory.createArrange(arranges);
+    }
+    
+    private boolean HasExpected(TestScenario testScenario) {
+    	if (testScenario.getExpectedResult() != null && testScenario.getExpectedResult().getValueType() != null )
+			return true;
+
+    	return false;
     }
     
     

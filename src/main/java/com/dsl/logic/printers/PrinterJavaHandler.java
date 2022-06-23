@@ -7,17 +7,20 @@ import encoders.JavaEncoder;
 public class PrinterJavaHandler extends PrinterBaseHandler {
 	
 	@Override
-	public void generateCode(CompilationUnit compilationUnit, String outPath) {
-		writeJavaCode(compilationUnit, outPath);
+	public String generateCode(CompilationUnit compilationUnit, String outPath) {
+		return writeJavaCode(compilationUnit, outPath);
 	}
 	
-	private void writeJavaCode(CompilationUnit compilationUnit, String outPath) {
+	private String writeJavaCode(CompilationUnit compilationUnit, String outPath) {
         Encoder encoder = new JavaEncoder();
         
         compilationUnit.accept(encoder);
         
+        String outputCode = encoder.getGeneratedCode();
         String outputPath = outPath + "\\GeneratedTests.java";
         
-        writeCode(encoder.getGeneratedCode(), outputPath);
+        writeCode(outputCode, outputPath);
+        
+        return outputCode;
 	}
 }
