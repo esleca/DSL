@@ -10,7 +10,6 @@ import com.dsl.models.unittests.*;
 import com.dsl.models.unittests.acts.Act;
 import com.dsl.models.unittests.arranges.Arrange;
 import com.dsl.models.unittests.asserts.Assert;
-
 import gastmappers.exceptions.UnsupportedLanguageException;
 
 import java.util.ArrayList;
@@ -20,9 +19,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class UnitTestHandler implements IUnitTestHandler {
 
-    private IUnitTestArrangeHandler arrangeHandler;
-    private IUnitTestActionHandler actionHandler;
-    private IUnitTestAssertHandler assertHandler;
+	private IUnitTestArrangeHandler arrangeHandler;
+	private IUnitTestActionHandler actionHandler;
+	private IUnitTestAssertHandler assertHandler;
 
     public UnitTestHandler(IUnitTestArrangeHandler arrangeHandler, IUnitTestActionHandler actionHandler,
                            IUnitTestAssertHandler assertHandler){

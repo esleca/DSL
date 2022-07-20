@@ -3,7 +3,7 @@
 		"function": "getCountry1",
 		"testName": "getCountry1_test1",
 		"parameters": [],
-        "assert": "areEqual",
+        "assertion": "areEqual",
 		"expected": {
 			"type": "String",
 			"value": "Costa Rica"
@@ -13,7 +13,7 @@
 		"function": "getCountry2",
 		"testName": "getCountry2_test1",
 		"parameters": [],
-        "assert": "areEqual",
+        "assertion": "areEqual",
 		"expected": {
 			"type": "String",
 			"value": "Costa Rica"
@@ -23,7 +23,7 @@
 		"function": "getCountry3",
 		"testName": "getCountry3_test1",
 		"parameters": [],
-        "assert": "areEqual",
+        "assertion": "areEqual",
 		"expected": {
 			"type": "String",
 			"value": "Costa Rica"
@@ -33,7 +33,7 @@
 		"function": "getDate",
 		"testName": "getDate_test1",
 		"parameters": [],
-        "assert": "isNotNull" 
+        "assertion": "isNotNull" 
 	},
 	{
 		"function": "getPreviousOrder",
@@ -45,7 +45,7 @@
                 "value": "ASD-23G-SDG"
             }
 		],
-        "assert": "isNotNull" 
+        "assertion": "isNotNull" 
 	},
 	{
 		"function": "isMayorEdad",
@@ -57,7 +57,7 @@
                 "value": "20"
             }
 		],
-        "assert": "isTrue"
+        "assertion": "isTrue"
 	},
 	{
 		"function": "getIntegers",
@@ -69,7 +69,7 @@
                 "value": "2"
             }
 		],
-        "assert": "isNull"
+        "assertion": "isNull"
 	},
 	{
 		"function": "getResult",
@@ -95,7 +95,7 @@
 			"type": "int",
 			"value": "14"
 		},
-        "assert": "areEqual"
+        "assertion": "areEqual"
 	},
 	{
 		"function": "getResult",
@@ -117,7 +117,7 @@
                 "value": "6"
             }
 		],
-        "assert": "isNotNull"
+        "assertion": "isNotNull"
 	},
 	{
 		"function": "getStringResult",
@@ -143,7 +143,7 @@
 			"type": "String",
 			"value": "abc"
 		},
-        "assert": "areEqual"
+        "assertion": "areEqual"
 	},
 	{
 		"function": "getStringResult",
@@ -165,7 +165,7 @@
                 "value": "l"
             }
 		],
-        "assert": "isNotNull"
+        "assertion": "isNotNull"
 	},
 	{
 		"function": "returnIsPar",
@@ -181,7 +181,7 @@
 			"type": "boolean",
 			"value": "true"
 		},
-        "assert": "isTrue"
+        "assertion": "isTrue"
 	},
 	{
 		"function": "returnAlgo",
@@ -202,7 +202,7 @@
 			"type": "int",
 			"value": "-1"
 		},
-        "assert": "areEqual"
+        "assertion": "areEqual"
 	},
 	{
 		"function": "returnBoolean",
@@ -218,7 +218,7 @@
 			"type": "boolean",
 			"value": "true"
 		},
-        "assert": "isTrue"
+        "assertion": "isTrue"
 	},
 	{
 		"function": "saludar",
@@ -234,7 +234,7 @@
 			"type": "String",
 			"value": "Hola Andrea"
 		},
-        "assert": "areEqual"
+        "assertion": "areEqual"
 	},
 	{
 		"function": "saludar",
@@ -250,7 +250,7 @@
 			"type": "String",
 			"value": "Hola Esteban"
 		},
-        "assert": "areEqual"
+        "assertion": "areEqual"
 	},
 	{
 		"function": "getEdades",
@@ -272,7 +272,7 @@
 				"value": "2"
 			}
 		],
-        "assert": "areEqual"
+        "assertion": "areEqual"
 	},
 	{
 		"function": "getEdad",
@@ -288,6 +288,6 @@
 			"type": "int",
 			"value": "31"
 		},
-        "assert": "areEqual"
+        "assertion": "areEqual"
 	}
 ]

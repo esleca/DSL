@@ -123,15 +123,15 @@ public class GestorDSL implements IGestorDSL{
     	ArrayList<String> outputLanguages = dslModel.getConfigurationsRunFiles().get(0).getOutputLanguages();
     	
     	for(String language : outputLanguages) {
-    		IUnitTestArrangeHandler arrangeHandler = new UnitTestArrangeHandler();
-            IUnitTestActionHandler actionHandler = new UnitTestActionHandler();
-            IUnitTestAssertHandler assertHandler = new UnitTestAssertHandler();
-            IUnitTestHandler unitTestHandler = new UnitTestHandler(arrangeHandler, actionHandler, assertHandler);
-
-            ArrayList<TestScenario> testScenarios = dslModel.getTestScenarios();
-            ArrayList<UnitTest> unitTests = unitTestHandler.processUnitTests(testScenarios, language);
-
-            dslModel.addUnitTests(unitTests);
+//    		IUnitTestArrangeHandler arrangeHandler = new UnitTestArrangeHandler();
+//            IUnitTestActionHandler actionHandler = new UnitTestActionHandler();
+//            IUnitTestAssertHandler assertHandler = new UnitTestAssertHandler();
+//            IUnitTestHandler unitTestHandler = new UnitTestHandler();
+//
+//            ArrayList<TestScenario> testScenarios = dslModel.getTestScenarios();
+//            ArrayList<UnitTest> unitTests = unitTestHandler.processUnitTests(testScenarios, language);
+//
+//            dslModel.addUnitTests(unitTests);
     	}
     }
 

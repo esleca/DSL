@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class DSLReportService implements IDSLReportService{
 
-    public DSLReportService(){
-    }
 
     @Override
     public List<UnitTest> getFunctionUnitTests(String inFunction) {

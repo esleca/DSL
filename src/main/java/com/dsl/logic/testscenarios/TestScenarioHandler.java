@@ -1,5 +1,8 @@
 package com.dsl.logic.testscenarios;
 
+import java.util.ArrayList;
+import java.util.Optional;
+
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.factories.AssertTypesFactory;
@@ -13,9 +16,6 @@ import com.dsl.models.unittests.ExpectedResult;
 import com.dsl.models.unittests.TestScenario;
 import com.dsl.models.unittests.asserts.types.AssertType;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
 import org.json.simple.JSONArray;
 import org.springframework.stereotype.Component;
 
@@ -23,8 +23,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestScenarioHandler implements ITestScenarioHandler {
 
-	protected final IParameterScenarioHandler _parameterScenarioHandler;
-	protected final IExpectedResultHandler _expectedResultHandler;
+	protected IParameterScenarioHandler _parameterScenarioHandler;
+	protected IExpectedResultHandler _expectedResultHandler;
 
     public TestScenarioHandler(IParameterScenarioHandler paramScenarioHandler, IExpectedResultHandler expectedResultHandler){
         _parameterScenarioHandler = paramScenarioHandler;
@@ -39,7 +39,7 @@ public class TestScenarioHandler implements ITestScenarioHandler {
         Optional<Function> stream = testableUnits.stream()
     			.filter(f -> f.getName().equals(request.getFunction()))
     			.findFirst();
-    	
+        
         if (stream.isPresent())
         	testScenario = getTestScenario(request, stream.get());
         

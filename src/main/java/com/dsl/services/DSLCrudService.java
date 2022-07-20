@@ -2,6 +2,7 @@ package com.dsl.services;
 
 import ASTMCore.ASTMSource.CompilationUnit;
 import gastmappers.exceptions.UnsupportedLanguageException;
+
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.fachade.models.DSLModel;
@@ -20,35 +21,31 @@ import com.dsl.repositories.IDSLRepo;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-
 import org.springframework.stereotype.Component;
-
 
 @Component
 public class DSLCrudService implements IDSLCrudService {
     
-    private ICompilationUnitHandler _compUnitHandler;
-    private ITestableUnitHandler _testableUnitHandler;
-    private IUnitTestHandler _unitTestHandler;
-    private ITestScenarioHandler _testScenarioHandler;
-    private ICompilationUnitTestHandler _compUnitTestHandler;
-    private IPrinterHandler _printerHandler;
+	private ICompilationUnitHandler _compUnitHandler;
+	private ITestableUnitHandler _testableUnitHandler;
+	private IUnitTestHandler _unitTestHandler;
+	private ITestScenarioHandler _testScenarioHandler;
+	private ICompilationUnitTestHandler _compUnitTestHandler;
+	private IPrinterHandler _printerHandler;
     private IDSLRepo _Repository;
-    
     private DSLModel model;
     
     public DSLCrudService(ICompilationUnitHandler inCompUnitHandler, ITestableUnitHandler intestableUnitHandler, 
     		IUnitTestHandler inUnitTestHandler, ICompilationUnitTestHandler inCompUnitTestHandler, 
     		ITestScenarioHandler inTestScenarioHandler, IPrinterHandler printerHandler, IDSLRepo repository){
-    	this._compUnitHandler = inCompUnitHandler;
-    	this._testableUnitHandler = intestableUnitHandler;
-    	this._unitTestHandler = inUnitTestHandler;
-    	this._testScenarioHandler = inTestScenarioHandler;
-    	this._compUnitTestHandler = inCompUnitTestHandler;
-        this._printerHandler = printerHandler;
-        this._Repository = repository;
-        this.model = new DSLModel();
+  		this._compUnitHandler = inCompUnitHandler;
+	    this._testableUnitHandler = intestableUnitHandler;
+      	this._unitTestHandler = inUnitTestHandler;
+      	this._testScenarioHandler = inTestScenarioHandler;
+      	this._compUnitTestHandler = inCompUnitTestHandler;
+      	this._printerHandler = printerHandler;
+      	this._Repository = repository;
+      	this.model = new DSLModel();
     }
 
     @Override
@@ -92,16 +89,12 @@ public class DSLCrudService implements IDSLCrudService {
 
     private void createCompilationUnits(UnitTestRequest unitTestRequest) throws IOException, UnsupportedLanguageException {
         _compUnitHandler.setLanguage(unitTestRequest.getLanguage());
-        
         ArrayList<CompilationUnit> compUnits = _compUnitHandler.createCompilationUnits(unitTestRequest.getClassPath());
-
         model.setCompilationUnits(compUnits);
     }
 
-
     private void visitCompilationUnits(){
         for (CompilationUnit compilationUnit : model.getCompilationUnits()) {
-
             VisitorBase dslVisitor = new VisitorDSL();
             dslVisitor.visitCompilationUnit(compilationUnit);
 
@@ -109,59 +102,52 @@ public class DSLCrudService implements IDSLCrudService {
             model.setClass(fileClass);
 
             ArrayList<Function> functions = fileClass.getFunctions();
-
             model.setCompilationUnitFunctions(functions);
         }
     }
 
-
     private void processTestableUnits(){
         ArrayList<Function> functions = model.getCompilationUnitFunctions();
-        
         ArrayList<Function> testableUnits = _testableUnitHandler.processTestableUnits(functions);
-
         model.setTestableUnits(testableUnits);
     }
 
-
     private void processTestScenario(UnitTestRequest unitTestRequest) throws ValueTypeNotFoundException, AssertNotFoundException {
         TestScenario testScenario = _testScenarioHandler.processTestScenario(unitTestRequest, model.getTestableUnits());
-
         model.setTestScenario(testScenario);
     }
 
-
     private void processUnitTest() throws AssertNotFoundException, ValueTypeNotFoundException, UnsupportedLanguageException {
         TestScenario testScenario = model.getTestScenario();
-        
-        // TODO: LANG
-        UnitTest unitTest = _unitTestHandler.processUnitTest(testScenario, "JAVA");
-
-        model.setUnitTest(unitTest);
-    }
-
-
-    private void processCompilationUnitsTests() throws UnsupportedLanguageException{
-    	ArrayList<String> languages = model.getOutputLanguages();
-    	for (Iterator<String> iterator = languages.iterator(); iterator.hasNext();) {
-			String language = (String) iterator.next();
-			ArrayList<CompilationUnit> compilationUnitTests = _compUnitTestHandler.processCompilationUnitTests(model, language);
-			int c = -1;
-		}
-    	
-        //model.setCompilationUnitsTests(compilationUnitTests);
-    }
-    
-    
-    private void generateCode(UnitTestRequest unitTestRequest) throws UnsupportedLanguageException {
-    	ArrayList<String> outputLanguages = model.getConfigurationsRunFiles().get(0).getOutputLanguages();
-    	CompilationUnit compilationUnit = model.getCompilationUnitsTests(unitTestRequest.getLanguage()).get(0);
+        ArrayList<String> outputLanguages = model.getOutputLanguages();
     	
     	for(String language : outputLanguages) {
-    		_printerHandler.generateCode(compilationUnit, language, unitTestRequest.getOutputPath());
+    		ArrayList<UnitTest> unitTests = new ArrayList<UnitTest>();
+    		UnitTest unitTest = _unitTestHandler.processUnitTest(testScenario, language);
+    		unitTests.add(unitTest);
+    		
+    		model.setUnitTest(unitTest);
+            model.addUnitTests(unitTests);
     	}
     }
 
+    private void processCompilationUnitsTests() throws UnsupportedLanguageException{
+    	ArrayList<String> outputLanguages = model.getOutputLanguages();
+    	
+    	for(String language : outputLanguages) {
+			ArrayList<CompilationUnit> compilationUnitTests = _compUnitTestHandler.processCompilationUnitTests(model, language);
+			model.addCompilationUnitsTests(compilationUnitTests);
+    	}
+    }
+    
+    private void generateCode(UnitTestRequest unitTestRequest) throws UnsupportedLanguageException {
+    	ArrayList<String> outputLanguages = model.getOutputLanguages();
+    	
+    	for(String language : outputLanguages) {
+        	CompilationUnit compilationUnit = model.getCompilationUnitsTests(language).get(0);
+    		_printerHandler.generateCode(compilationUnit, language, unitTestRequest.getOutputPath());
+    	}
+    }
 
     private void saveToDataStore(UnitTestRequest unitTestRequest) {
         _Repository.saveToDataStore(unitTestRequest);

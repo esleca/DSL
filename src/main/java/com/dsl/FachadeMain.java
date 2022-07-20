@@ -3,8 +3,10 @@ package com.dsl;
 import java.io.FileReader;
 import java.io.IOException;
 
-import com.dsl.fachade.IDSLCrudFachade;
+import com.dsl.fachade.IDSLFachade;
 import com.dsl.models.dtos.UnitTestRequest;
+import com.dsl.models.unittests.UnitTest;
+import com.dsl.models.valuetypes.StringType;
 import com.dsl.models.valuetypes.ValueType;
 
 import org.json.simple.JSONArray;
@@ -20,9 +22,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class FachadeMain implements CommandLineRunner{
 
-	private IDSLCrudFachade dsl;
+	private IDSLFachade dsl;
 
-    public FachadeMain(IDSLCrudFachade inDsl) {
+    public FachadeMain(IDSLFachade inDsl) {
     	this.dsl = inDsl;
     }
     
@@ -33,26 +35,35 @@ public class FachadeMain implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		UnitTestRequest request = createUnitTestRequest();
-		dsl.createUnitTest(request);
+		UnitTest ut = dsl.createUnitTest(request);
+		System.out.println(ut.toString());
 	}
 
     private static UnitTestRequest createUnitTestRequest() {
-        String classPath = "C:\\TestMapper\\JAVA\\Input\\Clase_Prueba.java";
-        String outputPath = "C:\\TestPrinter\\JAVA\\Output";
-        String testScenarioPath = "./src/main/java/com/dsl/testrun/config/testScenarioRun.json";
-        String language = "JAVA";
+    	//String classPath = "C:\\TestMapper\\JAVA\\Input\\Clase_Prueba.java";
+    	//String outputPath = "C:\\TestPrinter\\JAVA\\Output";
+    	String classPath = "C:\\TestMapper\\CSHARP\\Input\\Clase_Prueba.cs";
+    	String outputPath = "C:\\TestPrinter\\CSHARP\\Output";
+    	
+    	String testScenarioPath = "./src/main/java/com/dsl/testrun/config/testScenarioRun.json";
+        String language = "CSHARP"; // CHANGE
+        
         JSONParser jsonParser = new JSONParser();
         
         try (FileReader reader = new FileReader(testScenarioPath)) {
         	JSONObject configObj = (JSONObject) jsonParser.parse(reader);
-            String function = (String) configObj.get("function");
+        
+        	String function = (String) configObj.get("function");
             String testName = (String) configObj.get("testName");
             JSONArray parameters = (JSONArray) configObj.get("parameters");
             //ValueType expected = getExpected();
-            ValueType expected = (ValueType) configObj.get("expected");
+            //ValueType expected = (ValueType) configObj.get("expected");
+            ValueType expected = new StringType();
+            expected.setValue("Peru");
             String assertion = (String) configObj.get("assertion");
             
             return new UnitTestRequest(classPath, outputPath, language, function, testName, parameters, expected, assertion);    
+        
         } catch (IOException | ParseException e) {
             System.err.println("Error reading the test scenarios config file.");
             e.printStackTrace();
