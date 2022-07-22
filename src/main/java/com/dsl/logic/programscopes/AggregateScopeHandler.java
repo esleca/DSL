@@ -35,7 +35,7 @@ public class AggregateScopeHandler implements IAggregateScopeHandler {
     }
 
     private ArrayList<DefintionObject> getAggregateScopeDefinitionObjects(DSLModel model) throws UnsupportedLanguageException{
-        ArrayList<DefintionObject> definitions = new ArrayList<>();
+    	ArrayList<DefintionObject> definitions = new ArrayList<>();
         ArrayList<UnitTest> unitTests = model.getUnitTests(language);
 
         for (UnitTest ut : unitTests) {
