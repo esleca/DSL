@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 public class PrinterHandler implements IPrinterHandler {
 
 	@Override
-	public String generateCode(CompilationUnit compilationUnit, String outLanguage, String outPath) throws UnsupportedLanguageException {
+	public String generateCode(String className, CompilationUnit compilationUnit, String outLanguage, String outPath) throws UnsupportedLanguageException {
 		PrinterBaseHandler handler = PrintersFactory.createPrinterHandler(outLanguage);
-		return handler.generateCode(compilationUnit, outPath);
+		return handler.generateCode(className, compilationUnit, outPath);
 	}
 }

@@ -31,7 +31,7 @@ public class DSLFachade implements IDSLFachade {
 	
     @Override
     public UnitTest createUnitTest(UnitTestRequest unitTestRequest) throws IOException, UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException {
-    	ValidationResult validation = validator.validateInsertRequest(unitTestRequest);
+    	ValidationResult validation = validator.validateCreateRequest(unitTestRequest);
     	
     	if(validation.isValid()) {
     		return crudService.createUnitTest(unitTestRequest);

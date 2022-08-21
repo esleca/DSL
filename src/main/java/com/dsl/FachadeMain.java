@@ -2,9 +2,11 @@ package com.dsl;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Iterator;
 
 import com.dsl.fachade.IDSLFachade;
 import com.dsl.models.dtos.UnitTestRequest;
+import com.dsl.models.language.LanguageCode;
 import com.dsl.models.unittests.UnitTest;
 import com.dsl.models.valuetypes.StringType;
 import com.dsl.models.valuetypes.ValueType;
@@ -36,8 +38,16 @@ public class FachadeMain implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		UnitTestRequest request = createUnitTestRequest();
 		UnitTest ut = dsl.createUnitTest(request);
-		if(ut != null)
-			System.out.println(ut.toString());
+		System.out.println("\n-----------------GENERATED CODE-----------------");
+		
+		if(ut != null) {
+			for (Iterator<LanguageCode> iterator = ut.getGeneratedCodes().iterator(); iterator.hasNext();) {
+				LanguageCode lc = iterator.next();
+				System.out.println("Code Language: " + lc.getLanguage());
+				System.out.println(lc.getGeneratedCode());
+			}
+		}
+		
 	}
 
     private static UnitTestRequest createUnitTestRequest() {
@@ -49,18 +59,16 @@ public class FachadeMain implements CommandLineRunner{
     	String testScenarioPath = "./src/main/java/com/dsl/testrun/config/testScenarioRun.json";
         String language = "JAVA"; // CHANGE
         
-        JSONParser jsonParser = new JSONParser();
-        
         try (FileReader reader = new FileReader(testScenarioPath)) {
+            JSONParser jsonParser = new JSONParser();
         	JSONObject configObj = (JSONObject) jsonParser.parse(reader);
         
         	String function = (String) configObj.get("function");
             String testName = (String) configObj.get("testName");
             JSONArray parameters = (JSONArray) configObj.get("parameters");
-            //ValueType expected = getExpected();
             //ValueType expected = (ValueType) configObj.get("expected");
             ValueType expected = new StringType();
-            expected.setValue("Costa Rica");
+            expected.setValue("Nepal");
             String assertion = (String) configObj.get("assertion");
             
             return new UnitTestRequest(classPath, outputPath, language, function, testName, parameters, expected, assertion);    

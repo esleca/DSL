@@ -167,7 +167,7 @@ public class GestorDSL implements IGestorDSL{
     	
     	for(String language : outputLanguages) {
     		CompilationUnit compilationUnit = dslModel.getCompilationUnitsTests(language).get(0);
-            handler.generateCode(compilationUnit, language, outputPath);
+            handler.generateCode("", compilationUnit, language, outputPath);
     	}
     }
     
@@ -194,7 +194,7 @@ public class GestorDSL implements IGestorDSL{
         	ArrayList<String> outputLanguages = configuration.getOutputLanguages();
         
         	for(String language : outputLanguages) {
-        		handler.generateCode(compilationUnit, language, outputPath);
+        		handler.generateCode("", compilationUnit, language, outputPath);
         	}
         }
     }

@@ -1,79 +1,78 @@
 package com.dsl.services;
 
-import ASTMCore.ASTMSource.CompilationUnit;
-import gastmappers.exceptions.UnsupportedLanguageException;
+import java.io.IOException;
+import org.springframework.stereotype.Component;
 
+import gastmappers.exceptions.UnsupportedLanguageException;
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.fachade.models.DSLModel;
 import com.dsl.models.dtos.UnitTestRequest;
-import com.dsl.models.aggregates.Class;
-import com.dsl.models.aggregates.Function;
-import com.dsl.models.unittests.TestScenario;
 import com.dsl.models.unittests.UnitTest;
-import com.dsl.logic.gast.*;
-import com.dsl.logic.printers.*;
-import com.dsl.logic.visitors.*;
-import com.dsl.logic.testableunits.*;
-import com.dsl.logic.testscenarios.*;
-import com.dsl.logic.unittests.*;
 import com.dsl.repositories.IDSLRepo;
+import com.dsl.services.compunits.ICompUnitsService;
+import com.dsl.services.compunits.ICompUnitsTestService;
+import com.dsl.services.printers.IPrinterService;
+import com.dsl.services.testableunits.ITestableUnitsService;
+import com.dsl.services.testscenarios.ITestScenarioService;
+import com.dsl.services.unittests.IUnitTestService;
+import com.dsl.services.visitor.IVisitorService;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import org.springframework.stereotype.Component;
 
 @Component
 public class DSLCrudService implements IDSLCrudService {
     
-	private ICompilationUnitHandler _compUnitHandler;
-	private ITestableUnitHandler _testableUnitHandler;
-	private IUnitTestHandler _unitTestHandler;
-	private ITestScenarioHandler _testScenarioHandler;
-	private ICompilationUnitTestHandler _compUnitTestHandler;
-	private IPrinterHandler _printerHandler;
-    private IDSLRepo _Repository;
+	private ICompUnitsService _compUnitsService;
+	private IVisitorService _visitorService;
+	private ITestableUnitsService _testableUnitsService;
+	private ITestScenarioService _testScenarioService;
+	private IUnitTestService _unitTestService;
+	private ICompUnitsTestService _compUnitsTestService;
+	private IPrinterService _printerService;
+    private IDSLRepo _repository;
     private DSLModel model;
     
-    public DSLCrudService(ICompilationUnitHandler inCompUnitHandler, ITestableUnitHandler intestableUnitHandler, 
-    		IUnitTestHandler inUnitTestHandler, ICompilationUnitTestHandler inCompUnitTestHandler, 
-    		ITestScenarioHandler inTestScenarioHandler, IPrinterHandler printerHandler, IDSLRepo repository){
-  		this._compUnitHandler = inCompUnitHandler;
-	    this._testableUnitHandler = intestableUnitHandler;
-      	this._unitTestHandler = inUnitTestHandler;
-      	this._testScenarioHandler = inTestScenarioHandler;
-      	this._compUnitTestHandler = inCompUnitTestHandler;
-      	this._printerHandler = printerHandler;
-      	this._Repository = repository;
+    public DSLCrudService(ICompUnitsService compUnitsService, IVisitorService visitorService, ITestableUnitsService testableUnitsService, 
+    		ITestScenarioService testScenarioService, IUnitTestService utService, ICompUnitsTestService compUnitsTestService, 
+    		IPrinterService printerService, IDSLRepo repository){
+  		this._compUnitsService = compUnitsService;
+  		this._visitorService = visitorService;
+  		this._testableUnitsService = testableUnitsService;
+  		this._testScenarioService = testScenarioService;
+  		this._unitTestService = utService;
+      	this._compUnitsTestService = compUnitsTestService;
+      	this._printerService = printerService;
+      	this._repository = repository;
       	this.model = new DSLModel();
     }
 
+    
     @Override
     public UnitTest createUnitTest(UnitTestRequest unitTestRequest) throws IOException, UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException {
     	// transform file to GAST
-    	createCompilationUnits(unitTestRequest);
+    	_compUnitsService.createCompilationUnits(unitTestRequest, model);
         
         // Visit GAST functions
-        visitCompilationUnits();
+    	_visitorService.visitCompilationUnits(model);
      
         // Create testable units
-        processTestableUnits();
+    	_testableUnitsService.processTestableUnits(model);
         
         // Process user test scenarios
-        processTestScenario(unitTestRequest);
+    	_testScenarioService.processTestScenario(unitTestRequest, model);
      
         // Create functions unit tests
-        processUnitTest();
+    	_unitTestService.processUnitTest(model);
      
         // Write unit tests to GAST
-        processCompilationUnitsTests();
+    	_compUnitsTestService.processCompilationUnitsTests(model);
         
         // Write code to files
-        generateCode(unitTestRequest);
+        _printerService.generateCode(unitTestRequest, model);
         
         // Write unit test into database
-        saveToDataStore(unitTestRequest);
-
+        _repository.saveToDataStore(unitTestRequest);
+        
         return model.getUnitTest();
     }
 
@@ -85,72 +84,4 @@ public class DSLCrudService implements IDSLCrudService {
     @Override
     public void removeUnitTest(UnitTestRequest unitTestRequest) {
     }
-
-
-    private void createCompilationUnits(UnitTestRequest unitTestRequest) throws IOException, UnsupportedLanguageException {
-        _compUnitHandler.setLanguage(unitTestRequest.getLanguage());
-        ArrayList<CompilationUnit> compUnits = _compUnitHandler.createCompilationUnits(unitTestRequest.getClassPath());
-        model.setCompilationUnits(compUnits);
-    }
-
-    private void visitCompilationUnits(){
-        for (CompilationUnit compilationUnit : model.getCompilationUnits()) {
-            VisitorBase dslVisitor = new VisitorDSL();
-            dslVisitor.visitCompilationUnit(compilationUnit);
-
-            Class fileClass = dslVisitor.getFrameDSL().getCompilationUnit();
-            model.setClass(fileClass);
-
-            ArrayList<Function> functions = fileClass.getFunctions();
-            model.setCompilationUnitFunctions(functions);
-        }
-    }
-
-    private void processTestableUnits(){
-        ArrayList<Function> functions = model.getCompilationUnitFunctions();
-        ArrayList<Function> testableUnits = _testableUnitHandler.processTestableUnits(functions);
-        model.setTestableUnits(testableUnits);
-    }
-
-    private void processTestScenario(UnitTestRequest unitTestRequest) throws ValueTypeNotFoundException, AssertNotFoundException {
-        TestScenario testScenario = _testScenarioHandler.processTestScenario(unitTestRequest, model.getTestableUnits());
-        model.setTestScenario(testScenario);
-    }
-
-    private void processUnitTest() throws AssertNotFoundException, ValueTypeNotFoundException, UnsupportedLanguageException {
-        TestScenario testScenario = model.getTestScenario();
-        ArrayList<String> outputLanguages = model.getOutputLanguages();
-    	
-    	for(String language : outputLanguages) {
-    		ArrayList<UnitTest> unitTests = new ArrayList<UnitTest>();
-    		UnitTest unitTest = _unitTestHandler.processUnitTest(testScenario, language);
-    		unitTests.add(unitTest);
-    		
-    		model.setUnitTest(unitTest);
-            model.addUnitTests(unitTests);
-    	}
-    }
-
-    private void processCompilationUnitsTests() throws UnsupportedLanguageException{
-    	ArrayList<String> outputLanguages = model.getOutputLanguages();
-    	
-    	for(String language : outputLanguages) {
-			ArrayList<CompilationUnit> compilationUnitTests = _compUnitTestHandler.processCompilationUnitTests(model, language);
-			model.addCompilationUnitsTests(compilationUnitTests);
-    	}
-    }
-    
-    private void generateCode(UnitTestRequest unitTestRequest) throws UnsupportedLanguageException {
-    	ArrayList<String> outputLanguages = model.getOutputLanguages();
-    	
-    	for(String language : outputLanguages) {
-        	CompilationUnit compilationUnit = model.getCompilationUnitsTests(language).get(0);
-    		_printerHandler.generateCode(compilationUnit, language, unitTestRequest.getOutputPath());
-    	}
-    }
-
-    private void saveToDataStore(UnitTestRequest unitTestRequest) {
-        _Repository.saveToDataStore(unitTestRequest);
-    }
-
 }

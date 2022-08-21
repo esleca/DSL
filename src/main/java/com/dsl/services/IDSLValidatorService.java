@@ -5,7 +5,7 @@ import br.com.fluentvalidator.context.ValidationResult;
 
 public interface IDSLValidatorService {
 	
-	ValidationResult validateInsertRequest(UnitTestRequest unitTestRequest); 
+	ValidationResult validateCreateRequest(UnitTestRequest unitTestRequest); 
 	
 	void printErrors(ValidationResult validation);
 }

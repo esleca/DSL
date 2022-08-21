@@ -7,11 +7,11 @@ import encoders.Encoder;
 public class PrinterPythonHandler extends PrinterBaseHandler {
 	
 	@Override
-	public String generateCode(CompilationUnit compilationUnit, String outPath) {
-		return writePythonCode(compilationUnit, outPath);
+	public String generateCode(String className, CompilationUnit compilationUnit, String outPath) {
+		return writePythonCode(className, compilationUnit, outPath);
 	}
 	
-	private String writePythonCode(CompilationUnit compilationUnit, String outPath) {
+	private String writePythonCode(String className, CompilationUnit compilationUnit, String outPath) {
         //Encoder encoder = new PythonEncoder();
         //compilationUnit.accept(encoder);
 
