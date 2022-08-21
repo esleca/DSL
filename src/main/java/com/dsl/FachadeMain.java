@@ -36,17 +36,18 @@ public class FachadeMain implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		UnitTestRequest request = createUnitTestRequest();
 		UnitTest ut = dsl.createUnitTest(request);
-		System.out.println(ut.toString());
+		if(ut != null)
+			System.out.println(ut.toString());
 	}
 
     private static UnitTestRequest createUnitTestRequest() {
-    	//String classPath = "C:\\TestMapper\\JAVA\\Input\\Clase_Prueba.java";
-    	//String outputPath = "C:\\TestPrinter\\JAVA\\Output";
-    	String classPath = "C:\\TestMapper\\CSHARP\\Input\\Clase_Prueba.cs";
-    	String outputPath = "C:\\TestPrinter\\CSHARP\\Output";
+    	String classPath = "C:\\TestMapper\\JAVA\\Input\\Clase_Prueba.java";
+    	String outputPath = "C:\\TestPrinter\\JAVA\\Output";
+    	//String classPath = "C:\\TestMapper\\CSHARP\\Input\\Clase_Prueba.cs";
+    	//String outputPath = "C:\\TestPrinter\\CSHARP\\Output";
     	
     	String testScenarioPath = "./src/main/java/com/dsl/testrun/config/testScenarioRun.json";
-        String language = "CSHARP"; // CHANGE
+        String language = "JAVA"; // CHANGE
         
         JSONParser jsonParser = new JSONParser();
         
@@ -59,7 +60,7 @@ public class FachadeMain implements CommandLineRunner{
             //ValueType expected = getExpected();
             //ValueType expected = (ValueType) configObj.get("expected");
             ValueType expected = new StringType();
-            expected.setValue("Peru");
+            expected.setValue("Costa Rica");
             String assertion = (String) configObj.get("assertion");
             
             return new UnitTestRequest(classPath, outputPath, language, function, testName, parameters, expected, assertion);    

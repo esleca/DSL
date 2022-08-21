@@ -1,10 +1,10 @@
 {
-	"function": "getPais",
-	"testName": "test_getPais_valid",
+	"function": "getCountry",
+	"testName": "test_getCountry_isValid",
 	"parameters": [],
 	"assertion": "areEqual",
 	"expected": {
 		"type": "String",
-		"value": "Peru"
+		"value": "Costa Rica"
 	}			
 }

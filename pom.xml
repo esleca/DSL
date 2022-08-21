@@ -19,6 +19,13 @@
         <maven.compiler.target>16</maven.compiler.target>
     </properties>
     <dependencies>
+    	<!-- Fluent -->
+	    <dependency>
+    		<groupId>com.github.mvallim</groupId>
+		    <artifactId>java-fluent-validator</artifactId>
+		    <version>1.10.0</version>
+		</dependency>
+
         <!-- Mapper -->
         <dependency>
             <groupId>avib.coderetriever</groupId>
