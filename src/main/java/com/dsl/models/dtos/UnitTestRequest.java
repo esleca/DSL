@@ -1,7 +1,6 @@
 package com.dsl.models.dtos;
 
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import com.dsl.models.valuetypes.ValueType;
 
