@@ -7,13 +7,13 @@ import com.dsl.models.dtos.UnitTestRequest;
 import com.dsl.models.unittests.UnitTest;
 import java.io.IOException;
 
-public interface IDSLCrudService {
+public interface IDSLProcessor {
 
-    UnitTest createUnitTest(UnitTestRequest unitTestRequest) throws IOException,
+    UnitTest generateUnitTest(UnitTestRequest unitTestRequest) throws IOException,
             UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException;
-
-    UnitTest editUnitTest(UnitTestRequest unitTestRequest);
 
     void removeUnitTest(UnitTestRequest unitTestRequest);
 
+	UnitTest createUnitTest(UnitTestRequest unitTestRequest) throws IOException,
+			UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException;
 }

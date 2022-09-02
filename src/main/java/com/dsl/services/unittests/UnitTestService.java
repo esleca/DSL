@@ -23,8 +23,7 @@ public class UnitTestService implements IUnitTestService {
 	
 	
 	@Override
-	public void processUnitTest(DSLModel model)
-			throws AssertNotFoundException, ValueTypeNotFoundException, UnsupportedLanguageException {
+	public void processUnitTest(DSLModel model) throws AssertNotFoundException, ValueTypeNotFoundException, UnsupportedLanguageException {
 		TestScenario testScenario = model.getTestScenario();
         ArrayList<String> outputLanguages = model.getOutputLanguages();
     	

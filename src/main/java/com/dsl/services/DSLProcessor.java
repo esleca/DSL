@@ -9,7 +9,7 @@ import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.fachade.models.DSLModel;
 import com.dsl.models.dtos.UnitTestRequest;
 import com.dsl.models.unittests.UnitTest;
-import com.dsl.repositories.IDSLRepo;
+import com.dsl.repositories.IDSLRepository;
 import com.dsl.services.compunits.ICompUnitsService;
 import com.dsl.services.compunits.ICompUnitsTestService;
 import com.dsl.services.printers.IPrinterService;
@@ -20,7 +20,7 @@ import com.dsl.services.visitor.IVisitorService;
 
 
 @Component
-public class DSLCrudService implements IDSLCrudService {
+public class DSLProcessor implements IDSLProcessor {
     
 	private ICompUnitsService _compUnitsService;
 	private IVisitorService _visitorService;
@@ -29,12 +29,12 @@ public class DSLCrudService implements IDSLCrudService {
 	private IUnitTestService _unitTestService;
 	private ICompUnitsTestService _compUnitsTestService;
 	private IPrinterService _printerService;
-    private IDSLRepo _repository;
+    private IDSLRepository _repository;
     private DSLModel model;
     
-    public DSLCrudService(ICompUnitsService compUnitsService, IVisitorService visitorService, ITestableUnitsService testableUnitsService, 
+    public DSLProcessor(ICompUnitsService compUnitsService, IVisitorService visitorService, ITestableUnitsService testableUnitsService, 
     		ITestScenarioService testScenarioService, IUnitTestService utService, ICompUnitsTestService compUnitsTestService, 
-    		IPrinterService printerService, IDSLRepo repository){
+    		IPrinterService printerService, IDSLRepository repository){
   		this._compUnitsService = compUnitsService;
   		this._visitorService = visitorService;
   		this._testableUnitsService = testableUnitsService;
@@ -46,6 +46,35 @@ public class DSLCrudService implements IDSLCrudService {
       	this.model = new DSLModel();
     }
 
+    
+    @Override
+    public UnitTest generateUnitTest(UnitTestRequest unitTestRequest) throws IOException, UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException {
+    	// transform file to GAST
+    	_compUnitsService.createCompilationUnits(unitTestRequest, model);
+        
+        // Visit GAST functions
+    	_visitorService.visitCompilationUnits(model);
+     
+        // Create testable units
+    	_testableUnitsService.processTestableUnits(model);
+        
+        // Process user test scenarios
+    	_testScenarioService.processTestScenario(unitTestRequest, model);
+     
+        // Create functions unit tests
+    	_unitTestService.processUnitTest(model);
+     
+        // Write unit tests to GAST
+    	_compUnitsTestService.processCompilationUnitsTests(model);
+        
+        // Write unit test into database
+        _repository.saveToDataStore(unitTestRequest);
+        
+        // Write code to files
+        _printerService.generateCode(unitTestRequest, model);
+        
+        return model.getUnitTest();
+    }
     
     @Override
     public UnitTest createUnitTest(UnitTestRequest unitTestRequest) throws IOException, UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException {
@@ -67,19 +96,9 @@ public class DSLCrudService implements IDSLCrudService {
         // Write unit tests to GAST
     	_compUnitsTestService.processCompilationUnitsTests(model);
         
-        // Write code to files
-        _printerService.generateCode(unitTestRequest, model);
-        
-        // Write unit test into database
-        _repository.saveToDataStore(unitTestRequest);
-        
         return model.getUnitTest();
     }
-
-    @Override
-    public UnitTest editUnitTest(UnitTestRequest unitTestRequest) {
-        return null;
-    }
+    
 
     @Override
     public void removeUnitTest(UnitTestRequest unitTestRequest) {

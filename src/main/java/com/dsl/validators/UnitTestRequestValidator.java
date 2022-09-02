@@ -2,14 +2,12 @@ package com.dsl.validators;
 
 import com.dsl.models.dtos.UnitTestRequest;
 import br.com.fluentvalidator.AbstractValidator;
-
 import static org.hamcrest.Matchers.not;
 import static br.com.fluentvalidator.predicate.LogicalPredicate.not;
 import static br.com.fluentvalidator.predicate.ObjectPredicate.nullValue;
 import static br.com.fluentvalidator.predicate.StringPredicate.stringEmptyOrNull;
 
-
-public class DSLFluentValidator extends AbstractValidator<UnitTestRequest> {
+public class UnitTestRequestValidator extends AbstractValidator<UnitTestRequest> {
 
 	@Override
 	public void rules() {

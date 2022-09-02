@@ -1,10 +1,26 @@
 {
 	"function": "getCountry",
-	"testName": "test_getCountry_isValid",
-	"parameters": [],
-	"assertion": "areEqual",
+	"testName": "getCountry_test_success",
+	"parameters": [
+		{
+			"name": "num1",
+			"type": "int",
+			"value": "2"
+		},
+		{
+			"name": "num2",
+			"type": "int",
+			"value": "4"
+		},
+		{
+			"name": "num3",
+			"type": "int",
+			"value": "6"
+		}
+	],
 	"expected": {
 		"type": "String",
 		"value": "Costa Rica"
-	}			
+	},
+	"assertion": "areEqual"
 }

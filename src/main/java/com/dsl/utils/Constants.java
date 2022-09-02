@@ -93,4 +93,6 @@ public class Constants {
     public final static String CSHARP_SYSTEM_THREADING = "System.Threading.Tasks";
     public final static String CSHARP_UNITTEST = "Microsoft.VisualStudio.TestTools.UnitTesting";
     
+    public final static String TESTS_JSONS_PATH = "C:\\TestDSL";
+    
 }
