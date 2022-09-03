@@ -1,5 +1,10 @@
 package com.dsl.fachade;
 
+import java.util.List;
+import java.io.IOException;
+import br.com.fluentvalidator.context.ValidationResult;
+import org.springframework.stereotype.Component;
+
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.models.dtos.ClassTestsRequest;
@@ -7,37 +12,27 @@ import com.dsl.models.dtos.FunctionTestsRequest;
 import com.dsl.models.dtos.PackageTestsRequest;
 import com.dsl.models.dtos.UnitTestRequest;
 import com.dsl.models.unittests.UnitTest;
-import com.dsl.services.IDSLValidatorService;
-import com.dsl.services.IDSLReportService;
+import com.dsl.services.validations.IValidatorService;
 import com.dsl.services.IDSLProcessor;
 import gastmappers.exceptions.UnsupportedLanguageException;
-
-import java.util.List;
-import java.io.IOException;
-import br.com.fluentvalidator.context.ValidationResult;
-import org.springframework.stereotype.Component;
-
 
 @Component
 public class DSLFachade implements IDSLFachade {
 
-	private IDSLValidatorService validator;
-	private IDSLProcessor dslProcessor;
-	private IDSLReportService reportService;
+	private IValidatorService validator;
+	private IDSLProcessor processor;
 
-	public DSLFachade(IDSLValidatorService validatorService, IDSLProcessor dslProcessor, IDSLReportService reportService) {
+	public DSLFachade(IValidatorService validatorService, IDSLProcessor processor) {
 		this.validator = validatorService;
-		this.dslProcessor = dslProcessor;
-		this.reportService = reportService;
+		this.processor = processor;
 	}
-
 	
     @Override
     public UnitTest generateUnitTest(UnitTestRequest unitTestRequest) throws IOException, UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException {
     	ValidationResult validation = validator.validateTestRequest(unitTestRequest);
     	
     	if(validation.isValid()) {
-    		return dslProcessor.generateUnitTest(unitTestRequest);
+    		return processor.generateUnitTest(unitTestRequest);
     	} else {
     		validator.printErrors(validation);
     		return null;
@@ -46,7 +41,7 @@ public class DSLFachade implements IDSLFachade {
 
     @Override
     public void removeUnitTest(UnitTestRequest unitTestRequest) {
-    	dslProcessor.removeUnitTest(unitTestRequest);
+    	processor.removeUnitTest(unitTestRequest);
     }
 
     @Override
@@ -54,7 +49,7 @@ public class DSLFachade implements IDSLFachade {
         ValidationResult validation = validator.validateFunctionTestsRequest(functionRequest);
     	
     	if(validation.isValid()) {
-    		return reportService.getFunctionUnitTests(functionRequest);
+    		return processor.getFunctionUnitTests(functionRequest);
     	} else {
     		validator.printErrors(validation);
     		return null;
@@ -66,7 +61,7 @@ public class DSLFachade implements IDSLFachade {
         ValidationResult validation = validator.validateClassTestsRequest(classRequest);
     	
     	if(validation.isValid()) {
-    		return reportService.getClassUnitTests(classRequest);
+    		return processor.getClassUnitTests(classRequest);
     	} else {
     		validator.printErrors(validation);
     		return null;
@@ -78,7 +73,7 @@ public class DSLFachade implements IDSLFachade {
         ValidationResult validation = validator.validatePackageTestsRequest(packageRequest);
     	
     	if(validation.isValid()) {
-    		return reportService.getPackageUnitTests(packageRequest);
+    		return  processor.getPackageUnitTests(packageRequest);
     	} else {
     		validator.printErrors(validation);
     		return null;

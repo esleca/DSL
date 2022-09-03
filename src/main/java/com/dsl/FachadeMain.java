@@ -61,8 +61,8 @@ public class FachadeMain implements CommandLineRunner{
 		//List<UnitTest> unitTests = dsl.getFunctionUnitTests(functionRequest);
 		
 		
-	//	ClassTestsRequest request = createClassTestsRequest();
-//		List<UnitTest> unitTests = dsl.getClassUnitTests(request);
+		ClassTestsRequest cRequest = createClassTestsRequest();
+		List<UnitTest> unitTests = dsl.getClassUnitTests(cRequest);
 		
 		//int a = unitTests.size();
 	}
@@ -78,8 +78,8 @@ public class FachadeMain implements CommandLineRunner{
 	}
 	
 	private static ClassTestsRequest createClassTestsRequest() {
-		String packageName = "com.dsl.tests";
-		String className = "ClassForTests";
+		String packageName = "com.dsl.logic";
+		String className = "ClasePrueba";
 		
 		ClassTestsRequest classRequest = new ClassTestsRequest(packageName, className);
 		
@@ -96,7 +96,7 @@ public class FachadeMain implements CommandLineRunner{
 	
     private static UnitTestRequest createUnitTestRequest() throws ValueTypeNotFoundException {
     	String classPath = "C:\\TestMapper\\JAVA\\Input\\Clase_Prueba.java";
-    	String outputPath = "C:\\TestPrinter\\JAVA\\Output";
+    	String outputPath = "C:\\TestPrinter\\Output";
     	//String classPath = "C:\\TestMapper\\CSHARP\\Input\\Clase_Prueba.cs";
     	//String outputPath = "C:\\TestPrinter\\CSHARP\\Output";
     	

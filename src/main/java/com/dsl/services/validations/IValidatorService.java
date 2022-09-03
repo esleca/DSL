@@ -1,4 +1,4 @@
-package com.dsl.services;
+package com.dsl.services.validations;
 
 import com.dsl.models.dtos.ClassTestsRequest;
 import com.dsl.models.dtos.FunctionTestsRequest;
@@ -6,7 +6,7 @@ import com.dsl.models.dtos.PackageTestsRequest;
 import com.dsl.models.dtos.UnitTestRequest;
 import br.com.fluentvalidator.context.ValidationResult;
 
-public interface IDSLValidatorService {
+public interface IValidatorService {
 	
 	ValidationResult validateTestRequest(UnitTestRequest unitTestRequest);
 	

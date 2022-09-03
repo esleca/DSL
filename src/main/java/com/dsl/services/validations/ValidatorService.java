@@ -1,4 +1,4 @@
-package com.dsl.services;
+package com.dsl.services.validations;
 
 import java.util.Iterator;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import com.dsl.validators.UnitTestRequestValidator;
 
 
 @Component
-public class DSLValidatorService implements IDSLValidatorService {
+public class ValidatorService implements IValidatorService {
 
 	private Validator<UnitTestRequest> unitTestValidator = new UnitTestRequestValidator();
 	private Validator<ClassTestsRequest> classTestsValidator = new ClassTestsRequestValidator();

@@ -1,26 +1,21 @@
 {
-	"function": "getCountry",
-	"testName": "getCountry_test_success",
+	"function": "getPais",
+	"testName": "getPais_test_example",
 	"parameters": [
 		{
 			"name": "num1",
 			"type": "int",
-			"value": "2"
+			"value": "1111"
 		},
 		{
 			"name": "num2",
 			"type": "int",
-			"value": "4"
-		},
-		{
-			"name": "num3",
-			"type": "int",
-			"value": "6"
+			"value": "2222"
 		}
 	],
 	"expected": {
 		"type": "String",
-		"value": "Costa Rica"
+		"value": "Nepal"
 	},
 	"assertion": "areEqual"
 }
