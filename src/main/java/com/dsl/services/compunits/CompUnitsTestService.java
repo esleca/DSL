@@ -16,19 +16,9 @@ public class CompUnitsTestService implements ICompUnitsTestService {
 	public CompUnitsTestService(ICompilationUnitTestHandler handler) {
 		this._compUnitTestHandler = handler;
 	}
-
-	@Override
-	public void processCompilationUnitsTests(DSLModel model) throws UnsupportedLanguageException {
-		ArrayList<String> outputLanguages = model.getOutputLanguages();
-    	
-    	for(String language : outputLanguages) {
-			ArrayList<CompilationUnit> compilationUnitTests = _compUnitTestHandler.processCompilationUnitTests(model, language);
-			model.addCompilationUnitsTests(compilationUnitTests);
-    	}
-	}
 	
 	@Override
-	public void processCompilationUnitsTestsLoaded(DSLModel model, String language) throws UnsupportedLanguageException {
+	public void processCompilationUnitsTests(DSLModel model, String language) throws UnsupportedLanguageException {
 		ArrayList<CompilationUnit> compilationUnitTests = _compUnitTestHandler.processCompilationUnitTests(model, language);
 		model.addCompilationUnitsTests(compilationUnitTests);
 	}

@@ -26,6 +26,7 @@ import com.dsl.services.testableunits.ITestableUnitsService;
 import com.dsl.services.testscenarios.ITestScenarioService;
 import com.dsl.services.unittests.IUnitTestService;
 import com.dsl.services.visitor.IVisitorService;
+import com.dsl.utils.DtoUtil;
 
 
 @Component
@@ -60,62 +61,18 @@ public class DSLProcessor implements IDSLProcessor {
     
     @Override
     public UnitTest generateUnitTest(UnitTestRequest unitTestRequest) throws IOException, UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException {
-    	// transform file to GAST
     	_compUnitsService.createCompilationUnits(unitTestRequest, model);
-        
-        // Visit GAST functions
+    	
     	_visitorService.visitCompilationUnits(model);
-
-        // Write unit test into data store
+    	
     	_repoService.saveToDataStore(unitTestRequest, model);
         
-        // Write code to files
-    	ArrayList<String> outputLanguages = model.getOutputLanguages();
-    	for(String language : outputLanguages) {
+    	for(String language : model.getOutputLanguages()) {
     		updateLanguageCode(language);
     	}
         
         return createUnitTest(unitTestRequest);
     }
-    
-    private void updateLanguageCode(String language) throws IOException, UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException {
-    	ArrayList<UnitTest> unitTests = new ArrayList<UnitTest>();
-    	
-    	ClassTestsRequest request = RequestsFactory.createClassTestsRequest(model);
-    	
-    	List<UnitTestRequest> unitTestRequests = _reportService.getClassUnitTestsRequests(request);
-    	
-    	if(validRequests(unitTestRequests)) {
-    		for (UnitTestRequest unitTestRequest : unitTestRequests) {    			
-        		
-    			_compUnitsService.createCompilationUnits(unitTestRequest, model);    	
-            	
-        		_visitorService.visitCompilationUnits(model);
-            	
-            	_testableUnitsService.processTestableUnits(model);
-            	
-            	_testScenarioService.processTestScenario(unitTestRequest, model);
-            	
-            	UnitTest unitTest = _unitTestService.processUnitTest(model, language);
-        		unitTests.add(unitTest);
-    		}
-        	
-        	model.addUnitTests(unitTests);
-        	
-        	_compUnitsTestService.processCompilationUnitsTestsLoaded(model, language);
-        	
-            _printerService.generateCode(model, language, unitTestRequests.get(0).getOutputPath());
-    	}
-    }
-    
-    private boolean validRequests(List<UnitTestRequest> unitTestRequests) {
-    	if(unitTestRequests != null && unitTestRequests.size() > 0) {
-    		return true;
-    	} else {
-    		return false;
-    	}
-    }
-    
 
     @Override
     public void removeUnitTest(UnitTestRequest unitTestRequest) {
@@ -139,6 +96,34 @@ public class DSLProcessor implements IDSLProcessor {
 		return createUnitTests(metaData);
     }
 
+    
+    private void updateLanguageCode(String language) throws IOException, UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException {
+    	ArrayList<UnitTest> unitTests = new ArrayList<UnitTest>();
+    	ClassTestsRequest request = RequestsFactory.createClassTestsRequest(model);
+    	List<UnitTestRequest> unitTestRequests = _reportService.getClassUnitTestsRequests(request);
+    	
+    	if(DtoUtil.validRequests(unitTestRequests)) {
+    		for (UnitTestRequest unitTestRequest : unitTestRequests) {
+    			
+    			_compUnitsService.createCompilationUnits(unitTestRequest, model);
+    			
+        		_visitorService.visitCompilationUnits(model);
+        		
+            	_testableUnitsService.processTestableUnits(model);
+            	
+            	_testScenarioService.processTestScenario(unitTestRequest, model);
+            	
+            	unitTests.add(_unitTestService.processUnitTest(model, language));
+    		}
+        	
+        	model.addUnitTests(unitTests);
+        	
+        	_compUnitsTestService.processCompilationUnitsTests(model, language);
+        	
+            _printerService.generateCode(model, language, unitTestRequests.get(0).getOutputPath());
+    	}
+    }
+    
     private List<UnitTest> createUnitTests(List<UnitTestMetaData> metaData) throws IOException, UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException{
 		List<UnitTest> unitTests = new ArrayList<UnitTest>();
 	
@@ -152,21 +137,14 @@ public class DSLProcessor implements IDSLProcessor {
 	}
     
     private UnitTest createUnitTest(UnitTestRequest unitTestRequest) throws IOException, UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException {
-    	// transform file to GAST
     	_compUnitsService.createCompilationUnits(unitTestRequest, model);
-        
-        // Visit GAST functions
+    	
     	_visitorService.visitCompilationUnits(model);
-     
-        // Create testable units
+    	
     	_testableUnitsService.processTestableUnits(model);
-        
-        // Process user test scenarios
+    	
     	_testScenarioService.processTestScenario(unitTestRequest, model);
-     
-        // Create functions unit tests
-    	_unitTestService.processUnitTest(model, unitTestRequest.getLanguage());
-        
-        return model.getUnitTest();
+    	
+    	return _unitTestService.processUnitTest(model, unitTestRequest.getLanguage());
     }
 }

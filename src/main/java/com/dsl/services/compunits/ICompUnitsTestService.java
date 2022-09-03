@@ -5,7 +5,5 @@ import gastmappers.exceptions.UnsupportedLanguageException;
 
 public interface ICompUnitsTestService {
 
-	void processCompilationUnitsTests(DSLModel model) throws UnsupportedLanguageException;
-	
-	void processCompilationUnitsTestsLoaded(DSLModel model, String language) throws UnsupportedLanguageException;
+	void processCompilationUnitsTests(DSLModel model, String language) throws UnsupportedLanguageException;
 }
