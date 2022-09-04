@@ -24,7 +24,6 @@ public class UnitTest {
         this.generatedCodes = new ArrayList<LanguageCode>();
     }
 
-
     public String getLanguage() {
     	return language;
     }
@@ -69,4 +68,12 @@ public class UnitTest {
 		this.generatedCodes.add(languageCode);
 	}
 	
+	@Override
+	public String toString() {
+		return "\nINFO -- UnitTest ToString()" + 
+			   "\nLanguage: " + this.getLanguage() + "\n" +
+			   "Test Name: " + this.getTestScenario().getTestName() + "\n" +
+			   "Function: " + this.getTestScenario().getFunction().getName() + "\n" +
+			   "Assertion: " + this.getAssert().getAssertExpressions().get(0).getAssertType().getName();
+	}
 }

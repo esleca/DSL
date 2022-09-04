@@ -27,16 +27,20 @@ import com.dsl.models.valuetypes.ValueType;
 @Component
 public class DSLReportRepository implements IDSLReportRepository {
 
+	private ArrayList<String> _folderFiles = new ArrayList<String>();
+	
+	
 	@Override
 	public List<UnitTestMetaData> getFunctionUnitTests(FunctionTestsRequest request) throws ValueTypeNotFoundException {
-		List<UnitTestMetaData> results = null;
+		List<UnitTestMetaData> results = new ArrayList<UnitTestMetaData>();;
 		
 		try {
 			String jsonsPath = TESTS_JSONS_PATH + File.separator + request.getPackageName() + 
-								File.separator + request.getClassName(); // + reqFunction.getSuffix() 
-			
+								File.separator + request.getClassName();
+
 			results = getUnitTestsMetaData(jsonsPath);
-	    } catch (ValueTypeNotFoundException e) {
+			results = filterFunctionMetaData(results, request.getFunctionName());
+	    } catch (IOException | ValueTypeNotFoundException e) {
 	    	e.printStackTrace();
 	    }
 		return results;
@@ -51,7 +55,7 @@ public class DSLReportRepository implements IDSLReportRepository {
 								File.separator + request.getClassName();
 			
 			results = getUnitTestsMetaData(jsonsPath);	
-		} catch (ValueTypeNotFoundException e) {
+		} catch (IOException | ValueTypeNotFoundException e) {
 	    	e.printStackTrace();
 	    }
 		return results;
@@ -65,22 +69,22 @@ public class DSLReportRepository implements IDSLReportRepository {
 			String jsonsPath = TESTS_JSONS_PATH + File.separator + request.getPackageName();
 			
 			results = getUnitTestsMetaData(jsonsPath);
-		} catch (ValueTypeNotFoundException e) {
+		} catch (IOException e) {
 	    	e.printStackTrace();
 	    }
 		return results;
 	}
 	
 	
-	private List<UnitTestMetaData> getUnitTestsMetaData(String jsonsPath) throws ValueTypeNotFoundException {
+	private List<UnitTestMetaData> getUnitTestsMetaData(String jsonsPath) throws ValueTypeNotFoundException, IOException {
 		List<UnitTestMetaData> results = new ArrayList<UnitTestMetaData>();
 
+		_folderFiles = new ArrayList<String>();
 		final File folder = new File(jsonsPath);
 		ArrayList<String> folderFiles = listFolderFiles(folder);
 		
 		for (String utPath : folderFiles) {
-			try (FileReader reader = new FileReader(jsonsPath + File.separator + utPath)) 
-			{
+			try (FileReader reader = new FileReader(utPath)) {
 	            UnitTestMetaData metaData = getTestMetaData(reader);
 	            results.add(metaData);
 			} catch (IOException | ParseException e) {
@@ -92,18 +96,16 @@ public class DSLReportRepository implements IDSLReportRepository {
 		return results;
 	}
 	
-	private ArrayList<String> listFolderFiles(final File folder) {
-		ArrayList<String> folderFiles = new ArrayList<String>();
-		
+	private ArrayList<String> listFolderFiles(final File folder) throws IOException{
 		for (final File fileEntry : folder.listFiles()) {
 	        if (fileEntry.isDirectory()) {
 	        	listFolderFiles(fileEntry);
 	        } else {
-	        	folderFiles.add(fileEntry.getName());
-	            System.out.println("JSON File Name: " + fileEntry.getName());
+	        	_folderFiles.add(fileEntry.getPath());
+	            System.out.println("Json File found: " + fileEntry.getPath());
 	        }
 	    }
-	    return folderFiles;
+	    return _folderFiles;
 	}
 	
 	private UnitTestMetaData getTestMetaData(FileReader reader) throws IOException, ParseException, ValueTypeNotFoundException {
@@ -117,11 +119,26 @@ public class DSLReportRepository implements IDSLReportRepository {
         String testName = (String) configObj.get("testName");
         String assertion = (String) configObj.get("assertion");
         JSONArray parameters = (JSONArray) configObj.get("parameters");
-//        JSONObject expectedObj = (JSONObject) configObj.get("expected");
-//        String value = (String) expectedObj.get("value");
-//    	String type = (String) expectedObj.get("type");
-//        ValueType expected = ValueTypeFactory.createValueType(type, value);
         
-        return UnitTestMetaDataFactory.createUnitTestMetaData(classPath, outputPath, language, function, testName, parameters, null, assertion);
+        ValueType expected = null;
+        JSONObject expectedObj = (JSONObject) configObj.get("expected");
+        if(expectedObj != null) {
+        	String value = (String) expectedObj.get("value");
+        	String type = (String) expectedObj.get("type");
+            expected = ValueTypeFactory.createValueType(type, value);
+        }
+
+        return UnitTestMetaDataFactory.createUnitTestMetaData(classPath, outputPath, language, function, testName, parameters, expected, assertion);
+	}
+	
+	private List<UnitTestMetaData> filterFunctionMetaData(List<UnitTestMetaData> result, String function){
+		List<UnitTestMetaData> results = new ArrayList<UnitTestMetaData>();;
+		
+		for (UnitTestMetaData metaData : result) {
+			if (metaData.getFunction().startsWith(function)) {
+				results.add(metaData);
+			}
+		}
+		return results;
 	}
 }

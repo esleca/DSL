@@ -2,8 +2,14 @@ package com.dsl;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.fachade.IDSLFachade;
@@ -12,19 +18,8 @@ import com.dsl.models.dtos.ClassTestsRequest;
 import com.dsl.models.dtos.FunctionTestsRequest;
 import com.dsl.models.dtos.PackageTestsRequest;
 import com.dsl.models.dtos.UnitTestRequest;
-import com.dsl.models.language.LanguageCode;
 import com.dsl.models.unittests.UnitTest;
-import com.dsl.models.valuetypes.StringType;
 import com.dsl.models.valuetypes.ValueType;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
@@ -42,35 +37,37 @@ public class FachadeMain implements CommandLineRunner{
     
 	@Override
 	public void run(String... args) throws Exception {
+
+//		PackageTestsRequest req = createPackageTestsRequest();
+//		List<UnitTest> unitTests = dsl.getPackageUnitTests(req);
+//
+//		for (UnitTest unitTest : unitTests) {
+//			System.out.println(unitTest.toString());
+//		}
+			
+//		ClassTestsRequest cRequest = createClassTestsRequest();
+//		List<UnitTest> unitTests = dsl.getClassUnitTests(cRequest);
+//		
+//		for (UnitTest unitTest : unitTests) {
+//			System.out.println(unitTest.toString());
+//		}
+		
 		UnitTestRequest request = createUnitTestRequest();
 		UnitTest ut = dsl.generateUnitTest(request);
-		
-//		System.out.println("\n-----------------GENERATED CODE-----------------");
-		
-//		if(ut != null) {
-//			for (Iterator<LanguageCode> iterator = ut.getGeneratedCodes().iterator(); iterator.hasNext();) {
-//				LanguageCode lc = iterator.next();
-//				
-//				System.out.println("Code Language: " + lc.getLanguage());
-//				System.out.println(lc.getGeneratedCode());
-//			}
+		System.out.println(ut);
+
+
+//		FunctionTestsRequest functionRequest = createFunctionTestsRequest();
+//		List<UnitTest> unitTests = dsl.getFunctionUnitTests(functionRequest);
+//		for (UnitTest unitTest : unitTests) {
+//			System.out.println(unitTest.toString());
 //		}
-
-
-		//FunctionTestsRequest functionRequest = createFunctionTestsRequest();
-		//List<UnitTest> unitTests = dsl.getFunctionUnitTests(functionRequest);
-		
-		
-		ClassTestsRequest cRequest = createClassTestsRequest();
-		List<UnitTest> unitTests = dsl.getClassUnitTests(cRequest);
-		
-		//int a = unitTests.size();
 	}
 	
 	private static FunctionTestsRequest createFunctionTestsRequest() {
-		String packageName = "com.dsl.tests";
-		String className = "ClassForTests";
-		String functionName = "getMessage";
+		String packageName = "com.dsl.logic";
+		String className = "ClasePrueba";
+		String functionName = "getPais";
 		
 		FunctionTestsRequest functionRequest = new FunctionTestsRequest(packageName, className, functionName);
 		
@@ -87,7 +84,7 @@ public class FachadeMain implements CommandLineRunner{
 	}
 
 	private static PackageTestsRequest createPackageTestsRequest() {
-		String packageName = "com.dsl.tests";
+		String packageName = "com.dsl.logic";
 		
 		PackageTestsRequest pkgRequest = new PackageTestsRequest(packageName);
 		

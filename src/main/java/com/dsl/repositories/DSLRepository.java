@@ -5,19 +5,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Component;
-
-import com.dsl.fachade.models.DSLModel;
 import com.dsl.models.dtos.UnitTestRequest;
-
 
 @Component
 public class DSLRepository implements IDSLRepository {
 
     @Override
-    public void saveToDataStore(UnitTestRequest request, DSLModel model) throws IOException {
+    public void saveToDataStore(UnitTestRequest request, String jsonPath) throws IOException {
     	try {
         	JSONObject jsonObject = createJsonObject(request);
-        	writeJson(request, jsonObject, model);
+        	writeJson(request, jsonObject, jsonPath);
 	    } catch (IOException e) {
 	    	e.printStackTrace();
 	    }
@@ -28,21 +25,27 @@ public class DSLRepository implements IDSLRepository {
     	JSONObject jsonObject = new JSONObject();
     	
         jsonObject.put("classPath", request.getClassPath());
-        jsonObject.put("language", request.getLanguage());
         jsonObject.put("outputPath", request.getOutputPath());
+        jsonObject.put("language", request.getLanguage());
         jsonObject.put("function", request.getFunction());
         jsonObject.put("testName", request.getTestName());
-        jsonObject.put("parameters", request.getParameters());
-        //jsonObject.put("expected", request.getExpected());
         jsonObject.put("assertion", request.getAssert());
+        jsonObject.put("parameters", request.getParameters());
+        
+        var expected = request.getExpected();
+        if (expected != null) {
+        	JSONObject expectedJsonObj = new JSONObject();
+        	expectedJsonObj.put("value", (String) expected.getValue());
+        	expectedJsonObj.put("type", expected.getType());
+        	
+        	jsonObject.put("expected", expectedJsonObj);
+        }
         
         return jsonObject;
     }
     
-    private void writeJson(UnitTestRequest request, JSONObject jsonObject, DSLModel model) throws IOException {
-    	String pathName = createJsonPath(request, model);
-    	
-    	File file = new File(pathName);
+    private void writeJson(UnitTestRequest request, JSONObject jsonObject, String jsonPath) throws IOException {
+    	File file = new File(jsonPath);
     	file.getParentFile().mkdirs(); 
 		file.createNewFile();
 		
@@ -50,15 +53,6 @@ public class DSLRepository implements IDSLRepository {
 		fw.write(jsonObject.toJSONString());
 		fw.close();
 		
-        System.out.println("JSON file created: " + jsonObject);
-    }
-    
-    private String createJsonPath(UnitTestRequest request, DSLModel model) {
-    	var dslClass = model.getlClass();
-    	String pkgName = dslClass.getPackage().getName();
-    	String className = dslClass.getName();
-    	
-    	return "C:" + File.separator + "TestDSL" + File.separator + pkgName + File.separator + 
-    			className + File.separator + request.getTestName() + ".json";
+        System.out.println("\nJSON file created: " + jsonObject);
     }
 }

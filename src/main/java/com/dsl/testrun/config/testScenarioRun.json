@@ -1,21 +1,21 @@
 {
 	"function": "getPais",
-	"testName": "getPais_test_example",
+	"testName": "getPais_test_example_Load",
 	"parameters": [
 		{
 			"name": "num1",
 			"type": "int",
-			"value": "1111"
+			"value": "888"
 		},
 		{
 			"name": "num2",
 			"type": "int",
-			"value": "2222"
+			"value": "888"
 		}
 	],
 	"expected": {
 		"type": "String",
-		"value": "Nepal"
+		"value": "Ecuador"
 	},
 	"assertion": "areEqual"
 }

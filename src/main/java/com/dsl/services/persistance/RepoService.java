@@ -1,5 +1,6 @@
 package com.dsl.services.persistance;
 
+import java.io.File;
 import java.io.IOException;
 import org.springframework.stereotype.Component;
 import com.dsl.fachade.models.DSLModel;
@@ -17,6 +18,16 @@ public class RepoService implements IRepoService {
 	
 	@Override
 	public void saveToDataStore(UnitTestRequest request, DSLModel model) throws IOException {
-		repository.saveToDataStore(request, model);
+		String jsonPath = createJsonPath(request, model);
+		repository.saveToDataStore(request, jsonPath);
 	}
+    
+    private String createJsonPath(UnitTestRequest request, DSLModel model) {
+    	var dslClass = model.getlClass();
+    	String pkgName = dslClass.getPackage().getName();
+    	String className = dslClass.getName();
+    	
+    	return "C:" + File.separator + "TestDSL" + File.separator + pkgName + File.separator + 
+    			className + File.separator + request.getTestName() + ".json";
+    }
 }
