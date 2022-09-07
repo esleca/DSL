@@ -19,6 +19,13 @@
         <maven.compiler.target>16</maven.compiler.target>
     </properties>
     <dependencies>
+    	<!-- Fluent -->
+	    <dependency>
+    		<groupId>com.github.mvallim</groupId>
+		    <artifactId>java-fluent-validator</artifactId>
+		    <version>1.10.0</version>
+		</dependency>
+
         <!-- Mapper -->
         <dependency>
             <groupId>avib.coderetriever</groupId>
@@ -51,12 +58,5 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 		</dependency>
-		
-		<!-- PostgreSQL -->
-		<dependency>
-		    <groupId>org.postgresql</groupId>
-		    <artifactId>postgresql</artifactId>
-		    <version>42.2.0</version>
-		</dependency> 
     </dependencies>
 </project>

@@ -1,10 +1,21 @@
 {
 	"function": "getPais",
-	"testName": "test_getPais_valid",
-	"parameters": [],
-	"assertion": "areEqual",
+	"testName": "getPais_test_example_Load",
+	"parameters": [
+		{
+			"name": "num1",
+			"type": "int",
+			"value": "888"
+		},
+		{
+			"name": "num2",
+			"type": "int",
+			"value": "888"
+		}
+	],
 	"expected": {
 		"type": "String",
-		"value": "Peru"
-	}			
+		"value": "Ecuador"
+	},
+	"assertion": "areEqual"
 }

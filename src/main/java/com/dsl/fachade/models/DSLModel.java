@@ -23,7 +23,6 @@ public class DSLModel {
     private ArrayList<Function> testableUnits;
     private TestScenario testScenario;
     private ArrayList<TestScenario> testScenarios;
-    private UnitTest unitTest;    
     private ArrayList<ArrayList<UnitTest>> unitTests;
     private ArrayList<ConfigurationTestRun> configurationsRunFiles;
     private ArrayList<String> outLanguages;
@@ -136,14 +135,6 @@ public class DSLModel {
 
     public void setTestScenarios(ArrayList<TestScenario> testScenarios) {
         this.testScenarios = testScenarios;
-    }
-
-    public UnitTest getUnitTest() {
-        return unitTest;
-    }
-
-    public void setUnitTest(UnitTest unitTest) {
-        this.unitTest = unitTest;
     }
 
     public ArrayList<UnitTest> getUnitTests(String language) {

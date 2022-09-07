@@ -41,7 +41,7 @@ public class PrinterCSharpHandlerTests {
 		compilationUnit.setOpensScope(new ProgramScope());
 		
 		// Act
-		String result = handler.generateCode(compilationUnit, "path");
+		String result = handler.generateCode("className", compilationUnit, "path");
 		
 		// Assert
 		assertNotNull(result);
@@ -68,7 +68,7 @@ public class PrinterCSharpHandlerTests {
 		compilationUnit.setOpensScope(new ProgramScope());
 		
 		// Act
-		String result = handler.generateCode(compilationUnit, "path");
+		String result = handler.generateCode("className", compilationUnit, "path");
 		
 		// Assert
 		assertTrue(result.contains("namespace"));
@@ -95,7 +95,7 @@ public class PrinterCSharpHandlerTests {
 		compilationUnit.setOpensScope(new ProgramScope());
 		
 		// Act
-		String result = handler.generateCode(compilationUnit, "path");
+		String result = handler.generateCode("className", compilationUnit, "path");
 		
 		// Assert
 		assertTrue(result.contains("Output language: C#"));
