@@ -3,19 +3,18 @@ package com.dsl.services;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Component;
 
+import com.dsl.mappers.ClassFunctionsMapper;
+import com.dsl.models.dtos.*;
+import org.springframework.stereotype.Component;
 import gastmappers.exceptions.UnsupportedLanguageException;
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.fachade.models.DSLModel;
 import com.dsl.factories.RequestsFactory;
 import com.dsl.mappers.UnitTestMapper;
+import com.dsl.models.aggregates.Function;
 import com.dsl.models.database.UnitTestMetaData;
-import com.dsl.models.dtos.ClassTestsRequest;
-import com.dsl.models.dtos.FunctionTestsRequest;
-import com.dsl.models.dtos.PackageTestsRequest;
-import com.dsl.models.dtos.UnitTestRequest;
 import com.dsl.models.unittests.UnitTest;
 import com.dsl.services.compunits.ICompUnitsService;
 import com.dsl.services.compunits.ICompUnitsTestService;
@@ -96,6 +95,23 @@ public class DSLProcessor implements IDSLProcessor {
 		return createUnitTests(metaData);
     }
 
+	@Override
+	public List<ClassFunctionsResponse> getClassFunctions(ClassFunctionsRequest classRequest) throws IOException, UnsupportedLanguageException {
+		List<ClassFunctionsResponse> response = new ArrayList<>();
+
+    	_compUnitsService.createCompilationUnits(classRequest, model);
+
+    	_visitorService.visitCompilationUnits(model);
+    	
+    	_testableUnitsService.processTestableUnits(model);
+
+		for(Function function : model.getTestableUnits()){
+			ClassFunctionsResponse classFunction = ClassFunctionsMapper.convertClassFunction(function);
+			response.add(classFunction);
+		}
+
+		return response;
+	}
     
     private void updateLanguageCode(String language) throws IOException, UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException {
     	ArrayList<UnitTest> unitTests = new ArrayList<UnitTest>();

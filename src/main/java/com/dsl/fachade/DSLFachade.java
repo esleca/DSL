@@ -3,14 +3,11 @@ package com.dsl.fachade;
 import java.util.List;
 import java.io.IOException;
 import br.com.fluentvalidator.context.ValidationResult;
+import com.dsl.models.dtos.*;
 import org.springframework.stereotype.Component;
 
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;
-import com.dsl.models.dtos.ClassTestsRequest;
-import com.dsl.models.dtos.FunctionTestsRequest;
-import com.dsl.models.dtos.PackageTestsRequest;
-import com.dsl.models.dtos.UnitTestRequest;
 import com.dsl.models.unittests.UnitTest;
 import com.dsl.services.validations.IValidatorService;
 import com.dsl.services.IDSLProcessor;
@@ -73,10 +70,23 @@ public class DSLFachade implements IDSLFachade {
         ValidationResult validation = validator.validatePackageTestsRequest(packageRequest);
     	
     	if(validation.isValid()) {
-    		return  processor.getPackageUnitTests(packageRequest);
+    		return processor.getPackageUnitTests(packageRequest);
     	} else {
     		validator.printErrors(validation);
     		return null;
     	}
     }
+
+	@Override
+	public List<ClassFunctionsResponse> getClassFunctions(ClassFunctionsRequest request) throws IOException, UnsupportedLanguageException {
+		ValidationResult validation = validator.validateClassFunctionsRequest(request);
+
+		if(validation.isValid()) {
+    		return processor.getClassFunctions(request);
+    	} else {
+    		validator.printErrors(validation);
+    		return null;
+    	}
+	}
+	
 }

@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.fachade.IDSLFachade;
 import com.dsl.factories.ValueTypeFactory;
+import com.dsl.models.dtos.ClassFunctionsRequest;
 import com.dsl.models.dtos.ClassTestsRequest;
 import com.dsl.models.dtos.FunctionTestsRequest;
 import com.dsl.models.dtos.PackageTestsRequest;
@@ -38,6 +39,10 @@ public class FachadeMain implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 
+		ClassFunctionsRequest classFunctionsRequest = createClassFunctionsRequest();
+		var result = dsl.getClassFunctions(classFunctionsRequest);
+		int a = 5;
+		
 //		PackageTestsRequest req = createPackageTestsRequest();
 //		List<UnitTest> unitTests = dsl.getPackageUnitTests(req);
 //
@@ -52,9 +57,9 @@ public class FachadeMain implements CommandLineRunner{
 //			System.out.println(unitTest.toString());
 //		}
 		
-		UnitTestRequest request = createUnitTestRequest();
-		UnitTest ut = dsl.generateUnitTest(request);
-		System.out.println(ut);
+//		UnitTestRequest request = createUnitTestRequest();
+//		UnitTest ut = dsl.generateUnitTest(request);
+//		System.out.println(ut);
 
 
 //		FunctionTestsRequest functionRequest = createFunctionTestsRequest();
@@ -121,5 +126,14 @@ public class FachadeMain implements CommandLineRunner{
         }
 
         return null;
+    }
+    
+    private static ClassFunctionsRequest createClassFunctionsRequest() {
+    	String classPath = "C:\\TestMapper\\JAVA\\Input\\Clase_Prueba.java";
+    	String language = "JAVA"; // send JAVA or CSHARP
+        
+		ClassFunctionsRequest classRequest = new ClassFunctionsRequest(classPath, language);
+		
+		return classRequest;
     }
 }

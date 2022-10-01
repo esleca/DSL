@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.stereotype.Component;
 import com.dsl.fachade.models.DSLModel;
 import com.dsl.logic.gast.ICompilationUnitHandler;
+import com.dsl.models.dtos.ClassFunctionsRequest;
 import com.dsl.models.dtos.UnitTestRequest;
 import ASTMCore.ASTMSource.CompilationUnit;
 import gastmappers.exceptions.UnsupportedLanguageException;
@@ -23,7 +24,18 @@ public class CompUnitsService implements ICompUnitsService {
 	@Override
 	public void createCompilationUnits(UnitTestRequest unitTestRequest, DSLModel model) throws IOException, UnsupportedLanguageException {	
 		_compUnitHandler.setLanguage(unitTestRequest.getLanguage());
-        ArrayList<CompilationUnit> compUnits = _compUnitHandler.createCompilationUnits(unitTestRequest.getClassPath());
+        
+		ArrayList<CompilationUnit> compUnits = _compUnitHandler.createCompilationUnits(unitTestRequest.getClassPath());
+        
+        model.setCompilationUnits(compUnits);
+	}
+	
+	@Override
+	public void createCompilationUnits(ClassFunctionsRequest classRequest, DSLModel model) throws IOException, UnsupportedLanguageException {	
+		_compUnitHandler.setLanguage(classRequest.getLanguage());
+        
+		ArrayList<CompilationUnit> compUnits = _compUnitHandler.createCompilationUnits(classRequest.getClassPath());
+        
         model.setCompilationUnits(compUnits);
 	}
 }

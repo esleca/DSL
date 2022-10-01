@@ -1,5 +1,6 @@
 package com.dsl.services.validations;
 
+import com.dsl.models.dtos.ClassFunctionsRequest;
 import com.dsl.models.dtos.ClassTestsRequest;
 import com.dsl.models.dtos.FunctionTestsRequest;
 import com.dsl.models.dtos.PackageTestsRequest;
@@ -15,6 +16,8 @@ public interface IValidatorService {
 	ValidationResult validateClassTestsRequest(ClassTestsRequest classTestsRequest);
 	
 	ValidationResult validatePackageTestsRequest(PackageTestsRequest packageTestsRequest);
+	
+	ValidationResult validateClassFunctionsRequest(ClassFunctionsRequest classFunctionsRequest);
 	
 	void printErrors(ValidationResult validation);
 }
