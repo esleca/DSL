@@ -99,11 +99,11 @@ public class DSLProcessor implements IDSLProcessor {
 	public List<ClassFunctionsResponse> getClassFunctions(ClassFunctionsRequest classRequest) throws IOException, UnsupportedLanguageException {
 		List<ClassFunctionsResponse> response = new ArrayList<>();
 
-    	_compUnitsService.createCompilationUnits(classRequest, model);
+		_compUnitsService.createCompilationUnits(classRequest, model);
 
-    	_visitorService.visitCompilationUnits(model);
-    	
-    	_testableUnitsService.processTestableUnits(model);
+		_visitorService.visitCompilationUnits(model);
+
+		_testableUnitsService.processTestableUnits(model);
 
 		for(Function function : model.getTestableUnits()){
 			ClassFunctionsResponse classFunction = ClassFunctionsMapper.convertClassFunction(function);

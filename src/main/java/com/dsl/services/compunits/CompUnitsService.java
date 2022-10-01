@@ -24,18 +24,18 @@ public class CompUnitsService implements ICompUnitsService {
 	@Override
 	public void createCompilationUnits(UnitTestRequest unitTestRequest, DSLModel model) throws IOException, UnsupportedLanguageException {	
 		_compUnitHandler.setLanguage(unitTestRequest.getLanguage());
-        
+
 		ArrayList<CompilationUnit> compUnits = _compUnitHandler.createCompilationUnits(unitTestRequest.getClassPath());
-        
-        model.setCompilationUnits(compUnits);
+
+		model.setCompilationUnits(compUnits);
 	}
 	
 	@Override
 	public void createCompilationUnits(ClassFunctionsRequest classRequest, DSLModel model) throws IOException, UnsupportedLanguageException {	
 		_compUnitHandler.setLanguage(classRequest.getLanguage());
-        
+
 		ArrayList<CompilationUnit> compUnits = _compUnitHandler.createCompilationUnits(classRequest.getClassPath());
-        
-        model.setCompilationUnits(compUnits);
+
+		model.setCompilationUnits(compUnits);
 	}
 }

@@ -82,11 +82,11 @@ public class DSLFachade implements IDSLFachade {
 		ValidationResult validation = validator.validateClassFunctionsRequest(request);
 
 		if(validation.isValid()) {
-    		return processor.getClassFunctions(request);
-    	} else {
-    		validator.printErrors(validation);
-    		return null;
-    	}
+			return processor.getClassFunctions(request);
+		} else {
+			validator.printErrors(validation);
+			return null;
+		}
 	}
 	
 }
