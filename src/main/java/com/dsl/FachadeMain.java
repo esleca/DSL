@@ -36,8 +36,8 @@ public class FachadeMain implements CommandLineRunner{
 //		UnitTestResponse response = dsl.generateUnitTest(request);
 //		printUnitTest(response);
 
-		ClassFunctionsRequest classFunctionsRequest = createClassFunctionsRequest();
-		List<ClassFunctionsResponse> classFunctions = dsl.getClassFunctions(classFunctionsRequest);
+//		ClassFunctionsRequest classFunctionsRequest = createClassFunctionsRequest();
+//		List<ClassFunctionsResponse> classFunctions = dsl.getClassFunctions(classFunctionsRequest);
 
 //		PackageTestsRequest req = createPackageTestsRequest();
 //		List<UnitTestResponse> unitTestsResponse = dsl.getPackageUnitTests(req);
@@ -45,11 +45,11 @@ public class FachadeMain implements CommandLineRunner{
 //			printUnitTest(unitTest);
 //		}
 
-//		ClassTestsRequest cRequest = createClassTestsRequest();
-//		List<UnitTestResponse> unitTestsResponse = dsl.getClassUnitTests(cRequest);
-//		for (UnitTestResponse unitTest : unitTestsResponse) {
-//			printUnitTest(unitTest);
-//		}
+		ClassTestsRequest cRequest = createClassTestsRequest();
+		List<UnitTestResponse> unitTestsResponse = dsl.getClassUnitTests(cRequest);
+		for (UnitTestResponse unitTest : unitTestsResponse) {
+			printUnitTest(unitTest);
+		}
 
 //		FunctionTestsRequest functionRequest = createFunctionTestsRequest();
 //		List<UnitTestResponse> unitTestsResponse = dsl.getFunctionUnitTests(functionRequest);

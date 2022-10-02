@@ -1,5 +1,7 @@
 package com.dsl.models.dtos;
 
+import com.dsl.models.unittests.arranges.Arrange;
+
 public class UnitTestResponse {
 
     private String language;
@@ -7,14 +9,16 @@ public class UnitTestResponse {
     private String className;
     private String functionName;
     private String testName;
+    private Arrange arrange;
     private String assertion;
 
-    public UnitTestResponse(String language, String packageName, String className, String functionName, String testName, String assertion){
+    public UnitTestResponse(String language, String packageName, String className, String functionName, String testName, Arrange arrange, String assertion){
         this.language = language;
         this.packageName = packageName;
         this.className = className;
         this.functionName = functionName;
         this.testName = testName;
+        this.arrange = arrange;
         this.assertion = assertion;
     }
 
@@ -36,6 +40,10 @@ public class UnitTestResponse {
 
     public String getTestName() {
         return testName;
+    }
+
+    public Arrange getArrange() {
+        return arrange;
     }
 
     public String getAssertion() {
