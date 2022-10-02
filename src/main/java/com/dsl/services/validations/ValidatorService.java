@@ -5,10 +5,12 @@ import org.springframework.stereotype.Component;
 import br.com.fluentvalidator.Validator;
 import br.com.fluentvalidator.context.ValidationResult;
 
+import com.dsl.models.dtos.ClassFunctionsRequest;
 import com.dsl.models.dtos.ClassTestsRequest;
 import com.dsl.models.dtos.FunctionTestsRequest;
 import com.dsl.models.dtos.PackageTestsRequest;
 import com.dsl.models.dtos.UnitTestRequest;
+import com.dsl.validators.ClassFunctionsRequestValidator;
 import com.dsl.validators.ClassTestsRequestValidator;
 import com.dsl.validators.FunctionTestsRequestValidator;
 import com.dsl.validators.PackageTestsRequestValidator;
@@ -22,6 +24,7 @@ public class ValidatorService implements IValidatorService {
 	private Validator<ClassTestsRequest> classTestsValidator = new ClassTestsRequestValidator();
 	private Validator<PackageTestsRequest> packageTestsValidator = new PackageTestsRequestValidator();
 	private Validator<FunctionTestsRequest> functionTestsValidator = new FunctionTestsRequestValidator();
+	private Validator<ClassFunctionsRequest> classFunctionsValidator = new ClassFunctionsRequestValidator();
 	
 	
 	@Override
@@ -56,6 +59,15 @@ public class ValidatorService implements IValidatorService {
 		ValidationResult validationResult = packageTestsValidator.validate(packageTestsRequest);
 		
 		System.out.println("\nPackageTestsRequest ValidationResult.isValid(): " + validationResult.isValid());
+		
+		return validationResult;
+	}
+
+	@Override
+	public ValidationResult validateClassFunctionsRequest(ClassFunctionsRequest classFunctionsRequest) {
+		ValidationResult validationResult = classFunctionsValidator.validate(classFunctionsRequest);
+		
+		System.out.println("\nClassFunctionsRequest ValidationResult.isValid(): " + validationResult.isValid());
 		
 		return validationResult;
 	}

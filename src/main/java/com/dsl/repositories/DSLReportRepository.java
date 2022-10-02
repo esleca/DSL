@@ -123,8 +123,8 @@ public class DSLReportRepository implements IDSLReportRepository {
         ValueType expected = null;
         JSONObject expectedObj = (JSONObject) configObj.get("expected");
         if(expectedObj != null) {
-        	String value = (String) expectedObj.get("value");
-        	String type = (String) expectedObj.get("type");
+			String type = (String) expectedObj.get("type");
+        	Object value = expectedObj.get("value");
             expected = ValueTypeFactory.createValueType(type, value);
         }
 
@@ -132,7 +132,7 @@ public class DSLReportRepository implements IDSLReportRepository {
 	}
 	
 	private List<UnitTestMetaData> filterFunctionMetaData(List<UnitTestMetaData> result, String function){
-		List<UnitTestMetaData> results = new ArrayList<UnitTestMetaData>();;
+		List<UnitTestMetaData> results = new ArrayList<UnitTestMetaData>();
 		
 		for (UnitTestMetaData metaData : result) {
 			if (metaData.getFunction().startsWith(function)) {

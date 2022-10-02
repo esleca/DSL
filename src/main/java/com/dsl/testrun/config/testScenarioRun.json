@@ -1,21 +1,21 @@
 {
-	"function": "getPais",
-	"testName": "getPais_test_example_Load",
+	"function": "calcularSalario",
+	"testName": "calcularSalario_test_failures",
 	"parameters": [
 		{
-			"name": "num1",
+			"name": "val1",
 			"type": "int",
-			"value": "888"
+			"value": "44"
 		},
 		{
-			"name": "num2",
+			"name": "val2",
 			"type": "int",
-			"value": "888"
+			"value": "33"
 		}
 	],
 	"expected": {
-		"type": "String",
-		"value": "Ecuador"
+		"type": "boolean",
+		"value": "false"
 	},
 	"assertion": "areEqual"
 }

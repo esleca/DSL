@@ -55,7 +55,7 @@ public class ReportService implements IReportService{
     	List<UnitTestRequest> unitTestRequests = new ArrayList<UnitTestRequest>();
 
     	for (UnitTestMetaData utMetaData : metaData) {
-        	UnitTestRequest unitTestRequest = UnitTestMapper.convertUnitTest(utMetaData);
+        	UnitTestRequest unitTestRequest = UnitTestMapper.convertUnitTestRequest(utMetaData);
         	unitTestRequests.add(unitTestRequest);
 		}
     	
