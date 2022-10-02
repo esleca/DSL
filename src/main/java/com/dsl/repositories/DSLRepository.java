@@ -14,7 +14,7 @@ public class DSLRepository implements IDSLRepository {
     public void saveToDataStore(UnitTestRequest request, String jsonPath) throws IOException {
     	try {
         	JSONObject jsonObject = createJsonObject(request);
-        	writeJson(request, jsonObject, jsonPath);
+        	writeJson(jsonObject, jsonPath);
 	    } catch (IOException e) {
 	    	e.printStackTrace();
 	    }
@@ -33,9 +33,11 @@ public class DSLRepository implements IDSLRepository {
         jsonObject.put("parameters", request.getParameters());
         
         var expected = request.getExpected();
+
         if (expected != null) {
         	JSONObject expectedJsonObj = new JSONObject();
-        	expectedJsonObj.put("value", (String) expected.getValue());
+
+        	expectedJsonObj.put("value", expected.getValue());
         	expectedJsonObj.put("type", expected.getType());
         	
         	jsonObject.put("expected", expectedJsonObj);
@@ -44,7 +46,7 @@ public class DSLRepository implements IDSLRepository {
         return jsonObject;
     }
     
-    private void writeJson(UnitTestRequest request, JSONObject jsonObject, String jsonPath) throws IOException {
+    private void writeJson(JSONObject jsonObject, String jsonPath) throws IOException {
     	File file = new File(jsonPath);
     	file.getParentFile().mkdirs(); 
 		file.createNewFile();

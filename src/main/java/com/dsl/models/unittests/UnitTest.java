@@ -59,7 +59,7 @@ public class UnitTest {
     public void setAssert(Assert assertion) {
         this.assertion = assertion;
     }
-    
+
     public ArrayList<LanguageCode> getGeneratedCodes() {
 		return generatedCodes;
 	}

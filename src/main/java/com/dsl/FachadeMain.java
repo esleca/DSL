@@ -3,6 +3,7 @@ package com.dsl;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
+import com.dsl.models.dtos.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,16 +11,9 @@ import org.json.simple.parser.ParseException;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
 import com.dsl.exceptions.ValueTypeNotFoundException;
 import com.dsl.fachade.IDSLFachade;
 import com.dsl.factories.ValueTypeFactory;
-import com.dsl.models.dtos.ClassFunctionsRequest;
-import com.dsl.models.dtos.ClassTestsRequest;
-import com.dsl.models.dtos.FunctionTestsRequest;
-import com.dsl.models.dtos.PackageTestsRequest;
-import com.dsl.models.dtos.UnitTestRequest;
-import com.dsl.models.unittests.UnitTest;
 import com.dsl.models.valuetypes.ValueType;
 
 
@@ -38,35 +32,31 @@ public class FachadeMain implements CommandLineRunner{
     
 	@Override
 	public void run(String... args) throws Exception {
+//		UnitTestRequest request = createUnitTestRequest();
+//		UnitTestResponse response = dsl.generateUnitTest(request);
+//		printUnitTest(response);
 
 		ClassFunctionsRequest classFunctionsRequest = createClassFunctionsRequest();
-		var result = dsl.getClassFunctions(classFunctionsRequest);
-		int a = 5;
-		
-//		PackageTestsRequest req = createPackageTestsRequest();
-//		List<UnitTest> unitTests = dsl.getPackageUnitTests(req);
-//
-//		for (UnitTest unitTest : unitTests) {
-//			System.out.println(unitTest.toString());
-//		}
-			
-//		ClassTestsRequest cRequest = createClassTestsRequest();
-//		List<UnitTest> unitTests = dsl.getClassUnitTests(cRequest);
-//		
-//		for (UnitTest unitTest : unitTests) {
-//			System.out.println(unitTest.toString());
-//		}
-		
-//		UnitTestRequest request = createUnitTestRequest();
-//		UnitTest ut = dsl.generateUnitTest(request);
-//		System.out.println(ut);
+		List<ClassFunctionsResponse> classFunctions = dsl.getClassFunctions(classFunctionsRequest);
 
+//		PackageTestsRequest req = createPackageTestsRequest();
+//		List<UnitTestResponse> unitTestsResponse = dsl.getPackageUnitTests(req);
+//		for (UnitTestResponse unitTest : unitTestsResponse) {
+//			printUnitTest(unitTest);
+//		}
+
+//		ClassTestsRequest cRequest = createClassTestsRequest();
+//		List<UnitTestResponse> unitTestsResponse = dsl.getClassUnitTests(cRequest);
+//		for (UnitTestResponse unitTest : unitTestsResponse) {
+//			printUnitTest(unitTest);
+//		}
 
 //		FunctionTestsRequest functionRequest = createFunctionTestsRequest();
-//		List<UnitTest> unitTests = dsl.getFunctionUnitTests(functionRequest);
-//		for (UnitTest unitTest : unitTests) {
-//			System.out.println(unitTest.toString());
+//		List<UnitTestResponse> unitTestsResponse = dsl.getFunctionUnitTests(functionRequest);
+//		for (UnitTestResponse unitTest : unitTestsResponse) {
+//			printUnitTest(unitTest);
 //		}
+
 	}
 	
 	private static FunctionTestsRequest createFunctionTestsRequest() {
@@ -136,4 +126,13 @@ public class FachadeMain implements CommandLineRunner{
 
 		return classRequest;
     }
+
+	private static void printUnitTest(UnitTestResponse unitTest){
+		System.out.println("\nLanguage: " + unitTest.getLanguage() + "\n" +
+				"Package: " + unitTest.getPackageName() + "\n" +
+				"Class: " + unitTest.getClassName() + "\n" +
+				"Function: " + unitTest.getFunctionName() + "\n" +
+				"Test Name: " + unitTest.getTestName() + "\n" +
+				"Assertion: " + unitTest.getAssertion());
+	}
 }
