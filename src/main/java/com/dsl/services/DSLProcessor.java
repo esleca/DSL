@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Component;
-
 import gastmappers.exceptions.UnsupportedLanguageException;
 import com.dsl.exceptions.AssertNotFoundException;
 import com.dsl.exceptions.ValueTypeNotFoundException;
@@ -26,7 +25,6 @@ import com.dsl.services.testscenarios.ITestScenarioService;
 import com.dsl.services.unittests.IUnitTestService;
 import com.dsl.services.visitor.IVisitorService;
 import com.dsl.utils.DtoUtil;
-
 
 @Component
 public class DSLProcessor implements IDSLProcessor {
@@ -123,18 +121,9 @@ public class DSLProcessor implements IDSLProcessor {
     	List<UnitTestRequest> unitTestRequests = reportService.getClassUnitTestsRequests(request);
     	
     	if(DtoUtil.validRequests(unitTestRequests)) {
-    		for (UnitTestRequest unitTestRequest : unitTestRequests) {
-    			
-    			compUnitsService.createCompilationUnits(unitTestRequest, model);
-    			
-        		visitorService.visitCompilationUnits(model);
-        		
-            	testableUnitsService.processTestableUnits(model);
-            	
-            	testScenarioService.processTestScenario(unitTestRequest, model);
 
-            	UnitTest unitTest = unitTestService.processUnitTest(model, language);
-            	unitTests.add(unitTest);
+    		for (UnitTestRequest unitTestRequest : unitTestRequests) {
+            	unitTests.add(createUnitTest(unitTestRequest, language));
     		}
         	
         	model.addUnitTests(unitTests);
@@ -149,7 +138,6 @@ public class DSLProcessor implements IDSLProcessor {
 		List<UnitTestResponse> unitTestsResponse = new ArrayList<>();
 	
 		for (UnitTestMetaData utMetaData : metaData) {
-
 	    	UnitTestRequest request = UnitTestMapper.convertUnitTestRequest(utMetaData);
 
 	    	UnitTest unitTest = createUnitTest(request);
@@ -161,7 +149,13 @@ public class DSLProcessor implements IDSLProcessor {
 		
 		return unitTestsResponse;
 	}
-    
+
+	private UnitTest createUnitTest(UnitTestRequest unitTestRequest, String language) throws IOException, UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException{
+		unitTestRequest.setLanguage(language);
+
+		return createUnitTest(unitTestRequest);
+	}
+
     private UnitTest createUnitTest(UnitTestRequest unitTestRequest) throws IOException, UnsupportedLanguageException, ValueTypeNotFoundException, AssertNotFoundException {
     	compUnitsService.createCompilationUnits(unitTestRequest, model);
     	

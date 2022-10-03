@@ -32,9 +32,9 @@ public class FachadeMain implements CommandLineRunner{
     
 	@Override
 	public void run(String... args) throws Exception {
-//		UnitTestRequest request = createUnitTestRequest();
-//		UnitTestResponse response = dsl.generateUnitTest(request);
-//		printUnitTest(response);
+		UnitTestRequest request = createUnitTestRequest();
+		UnitTestResponse response = dsl.generateUnitTest(request);
+		printUnitTest(response);
 
 //		ClassFunctionsRequest classFunctionsRequest = createClassFunctionsRequest();
 //		List<ClassFunctionsResponse> classFunctions = dsl.getClassFunctions(classFunctionsRequest);
