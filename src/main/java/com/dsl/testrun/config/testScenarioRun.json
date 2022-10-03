@@ -1,16 +1,16 @@
 {
 	"function": "calcularSalario",
-	"testName": "calcularSalario_test_failures",
+	"testName": "calcularSalario_test_exception",
 	"parameters": [
 		{
 			"name": "val1",
 			"type": "int",
-			"value": "44"
+			"value": "12"
 		},
 		{
 			"name": "val2",
 			"type": "int",
-			"value": "33"
+			"value": "13"
 		}
 	],
 	"expected": {
