@@ -34,5 +34,61 @@ public interface IDSLFachade {
 }
 ```
 
+## Requests 
+
+### UnitTestRequest
+```
+{
+    
+}
+```
+
+### FunctionTestsRequest
+```
+{
+    
+}
+```
+
+### ClassTestsRequest
+```
+{
+    
+}
+```
+
+### PackageTestsRequest
+```
+{
+    
+}
+```
+
+### ClassFunctionsRequest
+```
+{
+    
+}
+```
+
+
+
+## Responses
+
+### UnitTestResponse
+```
+{
+    
+}
+```
+
+### ClassFunctionsResponse
+```
+{
+    
+}
+```
+
+
 ## Other
 ...
