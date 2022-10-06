@@ -1,6 +1,5 @@
 package com.dsl.mappers;
 
-import com.dsl.models.unittests.arranges.Arrange;
 import org.json.simple.JSONArray;
 import com.dsl.models.unittests.UnitTest;
 import com.dsl.models.dtos.UnitTestResponse;
@@ -29,9 +28,8 @@ public class UnitTestMapper {
 		String className = unitTest.getTestScenario().getFunction().getFileClass().getName();
 		String functionName = unitTest.getTestScenario().getFunction().getName();
 		String testName = unitTest.getTestScenario().getTestName();
-		Arrange arrange = unitTest.getArrange();
 		String assertion = unitTest.getTestScenario().getAssertion();
 
-		return new UnitTestResponse(language, packageName, className, functionName, testName, arrange, assertion);
+		return new UnitTestResponse(language, packageName, className, functionName, testName, assertion);
 	}
 }
