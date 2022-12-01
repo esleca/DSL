@@ -8,7 +8,7 @@ public class IntegerType extends ValueType {
 
     @Override
     public void setValue(Object value) {
-    	this.value = Integer.parseInt((String) value);
+    	this.value = Integer.parseInt(String.valueOf(value));
     }
 
     @Override
