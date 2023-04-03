@@ -82,6 +82,11 @@ public class Constants {
     public final static String JAVA_TEST_ANNOTATION = "Test";
     public final static String CSHARP_TEST_ANNOTATION = "TestMethod";
     public final static String PYTHON_TEST_ANNOTATION = "-";
+
+
+    public final static String JAVA_CLASS_TEST_ANNOTATION = "-";
+    public final static String CSHARP_CLASS_TEST_ANNOTATION = "TestClass";
+    public final static String PYTHON_CLASS_TEST_ANNOTATION = "-";
     
     public final static String JAVA_JUNIT_JUPITER = "org.junit.jupiter.api.Test";
     public final static String JAVA_JUNIT_ASSERT = "org.junit.Assert.*";
