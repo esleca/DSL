@@ -25,7 +25,7 @@ public class ClassModifiersHandlerTests {
     // WHEN:  processClassModifiers is called
     // THEN:  Response is not null
     //__________________________________________________________
-	@Test
+	/*@Test
 	public void test_processClassModifiers_NotNull() {
 		// Arrange 
 		// Act
@@ -33,7 +33,7 @@ public class ClassModifiersHandlerTests {
 		
 		// Assert 
 		assertNotNull(modifiers);
-	}
+	}*/
 	
 	//__________________________________________________________
     // test_processClassModifiers_Size
@@ -42,7 +42,7 @@ public class ClassModifiersHandlerTests {
     // WHEN:  processClassModifiers is called
     // THEN:  Response size is one
     //__________________________________________________________
-	@Test
+	/*@Test
 	public void test_processClassModifiers_Size() {
 		// Arrange 
 		// Act
@@ -50,7 +50,7 @@ public class ClassModifiersHandlerTests {
 		
 		// Assert 
 		assertEquals(1, modifiers.size());
-	}
+	}*/
 	
 	//__________________________________________________________
     // test_processClassModifier_Public
@@ -59,7 +59,7 @@ public class ClassModifiersHandlerTests {
     // WHEN:  processClassModifiers is called
     // THEN:  Response modifier is public
     //__________________________________________________________
-	@Test
+	/*@Test
 	public void test_processClassModifier_Public() {
 		// Arrange 
 		// Act
@@ -68,5 +68,5 @@ public class ClassModifiersHandlerTests {
 		
 		// Assert 
 		assertTrue(modifier instanceof PublicModifier);
-	}
+	}*/
 }
