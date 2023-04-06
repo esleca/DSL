@@ -8,11 +8,11 @@ import static com.dsl.utils.Constants.*;
 public class ClassAnnotationsFactory {
 
     public static AnnotationModifier createClassAnnotationModifier(String language) throws UnsupportedLanguageException {
-        AnnotationModifier modifier;
+        AnnotationModifier modifier = null;
 
         switch (language.toUpperCase()){
             case LANGUAGE_JAVA:
-                modifier = new AnnotationModifier(JAVA_CLASS_TEST_ANNOTATION);
+                //modifier = new AnnotationModifier(JAVA_CLASS_TEST_ANNOTATION);
                 break;
             case LANGUAGE_CSHARP:
                 modifier = new AnnotationModifier(CSHARP_CLASS_TEST_ANNOTATION);

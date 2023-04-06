@@ -15,7 +15,7 @@ import ASTMCore.ASTMSyntax.DeclarationAndDefinition.PublicModifier;
 
 public class ClassModifiersHandlerTests {
 	
-	private IClassModifiersHandler sut = new ClassModifiersHandler();
+	//private IClassModifiersHandler sut = new ClassModifiersHandler();
 	
 	
 	//__________________________________________________________
