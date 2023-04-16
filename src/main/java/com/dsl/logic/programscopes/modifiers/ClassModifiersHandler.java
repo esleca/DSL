@@ -23,9 +23,9 @@ public class ClassModifiersHandler implements IClassModifiersHandler {
     }
 
 	@Override
-	public ArrayList<Modifiers> processClassModifiers(DSLModel model) throws UnsupportedLanguageException {
+	public ArrayList<Modifiers> processClassModifiers(String language) throws UnsupportedLanguageException {
         ArrayList<Modifiers> modifiers = new ArrayList<>();
-        AnnotationModifier testAnnotation = annotationsHandler.createTestAnnotation(model.getlClass().getLanguage());
+        AnnotationModifier testAnnotation = annotationsHandler.createTestAnnotation(language);
         if(testAnnotation != null)
             modifiers.add(testAnnotation);
         modifiers.add(new PublicModifier());

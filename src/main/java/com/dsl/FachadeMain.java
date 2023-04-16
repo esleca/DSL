@@ -87,10 +87,10 @@ public class FachadeMain implements CommandLineRunner{
 	}
 	
     private static UnitTestRequest createUnitTestRequest() throws ValueTypeNotFoundException {
-    	String classPath = "C:\\TestMapper\\JAVA\\Input\\ClientRepository_Tests.java";
+    	String classPath = "C:\\TestMapper\\JAVA\\Input\\com\\test\\Class_test.java";
     	String outputPath = "C:\\TestPrinter\\JAVA";
-    	//String classPath = "C:\\TestMapper\\CSHARP\\Input\\Clase_Prueba.cs";
-    	//String outputPath = "C:\\TestPrinter\\CSHARP\\Output";
+    	//String classPath = "C:\\TestMapper\\CSHARP\\Input\\Class_test.cs";
+    	//String outputPath = "C:\\TestPrinter\\CSHARP";
     	
     	String testScenarioPath = "./src/main/java/com/dsl/testrun/config/testScenarioRun.json";
         String language = "JAVA"; // send JAVA or CSHARP

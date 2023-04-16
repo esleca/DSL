@@ -8,5 +8,5 @@ import gastmappers.exceptions.UnsupportedLanguageException;
 
 public interface IClassModifiersHandler {
 
-	ArrayList<Modifiers> processClassModifiers(DSLModel model) throws UnsupportedLanguageException;
+	ArrayList<Modifiers> processClassModifiers(String language) throws UnsupportedLanguageException;
 }
