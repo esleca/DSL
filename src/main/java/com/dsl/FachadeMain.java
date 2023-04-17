@@ -32,9 +32,9 @@ public class FachadeMain implements CommandLineRunner{
     
 	@Override
 	public void run(String... args) throws Exception {
-//		UnitTestRequest request = createUnitTestRequest();
-//		UnitTestResponse response = dsl.generateUnitTest(request);
-//		printUnitTest(response);
+		UnitTestRequest request = createUnitTestRequest();
+		UnitTestResponse response = dsl.generateUnitTest(request);
+		printUnitTest(response);
 
 //		ClassFunctionsRequest classFunctionsRequest = createClassFunctionsRequest();
 //		List<ClassFunctionsResponse> classFunctions = dsl.getClassFunctions(classFunctionsRequest);
@@ -45,11 +45,11 @@ public class FachadeMain implements CommandLineRunner{
 //			printUnitTest(unitTest);
 //		}
 
-		ClassTestsRequest cRequest = createClassTestsRequest();
+		/*ClassTestsRequest cRequest = createClassTestsRequest();
 		List<UnitTestResponse> unitTestsResponse = dsl.getClassUnitTests(cRequest);
 		for (UnitTestResponse unitTest : unitTestsResponse) {
 			printUnitTest(unitTest);
-		}
+		}*/
 
 //		FunctionTestsRequest functionRequest = createFunctionTestsRequest();
 //		List<UnitTestResponse> unitTestsResponse = dsl.getFunctionUnitTests(functionRequest);
@@ -87,10 +87,10 @@ public class FachadeMain implements CommandLineRunner{
 	}
 	
     private static UnitTestRequest createUnitTestRequest() throws ValueTypeNotFoundException {
-    	String classPath = "C:\\TestMapper\\JAVA\\Input\\Clase_Prueba.java";
-    	String outputPath = "C:\\TestPrinter\\Output";
-    	//String classPath = "C:\\TestMapper\\CSHARP\\Input\\Clase_Prueba.cs";
-    	//String outputPath = "C:\\TestPrinter\\CSHARP\\Output";
+    	String classPath = "C:\\TestMapper\\JAVA\\Input\\com\\test\\Class_test.java";
+    	String outputPath = "C:\\TestPrinter\\JAVA";
+    	//String classPath = "C:\\TestMapper\\CSHARP\\Input\\Class_test.cs";
+    	//String outputPath = "C:\\TestPrinter\\CSHARP";
     	
     	String testScenarioPath = "./src/main/java/com/dsl/testrun/config/testScenarioRun.json";
         String language = "JAVA"; // send JAVA or CSHARP
